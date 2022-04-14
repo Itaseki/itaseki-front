@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import preURL from "../preURL/preURL";
+import preURL from "../../preURL/preURL";
 import styled from "styled-components";
-import Header from "../Components/Header";
+import Header from "../../Components/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 
 // style
-import StyledBtn from "../Style/StyledBtn";
+import StyledBtn from "../../Style/StyledBtn";
 // assets
-import Best_GIF from "../Assets/Best_GIF.png";
-import Temp_gif from "../Assets/Temp_gif.png";
+import Best_GIF from "../../Assets/Best_GIF.png";
+import Temp_gif from "../../Assets/Temp_gif.png";
 
 const GIFBoard = () => {
   // 베스트 짤 리스트
