@@ -83,6 +83,7 @@ const Wrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  // Header 아래 여백은 23px
   padding: 2%;
   padding-left: 2%;
   padding-right: 2%;
