@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import preURL from "../preURL/preURL";
 import axios from "axios";
 import {
@@ -13,13 +13,14 @@ import {
 } from "../Style/Community";
 import Header from "../Components/Header";
 import BestCommu from "../Assets/BEST_Commu.png";
+import AddPost from "../Assets/Add_Post.png";
 import StyledBtn from "../Style/StyledBtn";
 import {faCaretRight, faHeart} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Modal from "../Components/Modal";
 
 const Community = () => {
 
-  // 베스트 잡담 게시물
   const [bestPosts, setBestPosts] = useState([
     {rank: 1, title: "best1", heart: 10},
     {rank: 2, title: "best2", heart: 9},
@@ -27,8 +28,6 @@ const Community = () => {
     {rank: 4, title: "best4", heart: 7},
     {rank: 5, title: "best5", heart: 6},
   ]);
-
-  // 잡담 게시물
   const [posts, setPosts] = useState([
     {title: "post1", time: "1:05", views: 2, heart: 1},
     {title: "post2", time: "1:04", views: 2, heart: 1},
@@ -41,10 +40,8 @@ const Community = () => {
     {title: "post9", time: "12:49", views: 2, heart: 1},
     {title: "post10", time: "12:30", views: 2, heart: 1},
   ]);
-
-  // 페이지
   const [pages, setPages] = useState([1,2,3,4,5]);
-
+  const [showAddNewPostModal, setShowAddNewPostModal] = useState(false);
 
   useEffect(() => {
     axios.get(preURL.preURL + '/boards/community/best')
@@ -58,6 +55,15 @@ const Community = () => {
         . then(res => {
           setPosts(res.data);
         });
+  }, []);
+
+  const onClickAddNewPost = useCallback(() => {
+    setShowAddNewPostModal(true);
+    console.log("add new post btn click");
+  }, []);
+
+  const onCloseModal = useCallback(() => {
+    setShowAddNewPostModal(false);
   }, []);
 
 
@@ -121,6 +127,14 @@ const Community = () => {
       <div>
         <Header />
         <Wrapper>
+          <StyledBtn
+              id="add-new-post"
+              style={{display: "flex", marginLeft: "60%"}}
+              onClick={onClickAddNewPost}
+          >
+            <img src={AddPost} />
+          </StyledBtn>
+          <Modal show={showAddNewPostModal} onCloseModal={onCloseModal}>Modal</Modal>
           <BestPostsWrapper>
             <img src={BestCommu}/>
             <PostLists style={{paddingLeft: "25px"}}>
