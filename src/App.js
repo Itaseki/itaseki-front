@@ -1,10 +1,10 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Main from "./Pages/Main";
-import Login from "./Pages/Login";
-import SignUp from "./Pages/SignUp";
-import GIFBoard from "./Pages/GIFBoard";
-import Community from "./Pages/Community";
+import Login from "./Pages/Start/Login";
+import SignUp from "./Pages/Start/SignUp";
+import GIFBoard from "./Pages/Board/GIFBoard";
+import Community from "./Pages/Board/Community";
 
 const App = () => {
   return (

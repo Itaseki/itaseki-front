@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import preURL from "../preURL/preURL";
+import preURL from "../../preURL/preURL";
 import axios from "axios";
 import {
   BestPostsWrapper,
@@ -10,14 +10,14 @@ import {
   SortBox,
   Title,
   Wrapper
-} from "../Style/Community";
-import Header from "../Components/Header";
-import BestCommu from "../Assets/BEST_Commu.png";
-import AddPost from "../Assets/Add_Post.png";
-import StyledBtn from "../Style/StyledBtn";
+} from "../../Style/Community";
+import Header from "../../Components/Header";
+import BestCommu from "../../Assets/BEST_Commu.png";
+import AddPost from "../../Assets/Add_Post.png";
+import StyledBtn from "../../Style/StyledBtn";
 import {faCaretRight, faHeart} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import Modal from "../Components/Modal";
+import Modal from "../../Components/Modal";
 
 const Community = () => {
 
