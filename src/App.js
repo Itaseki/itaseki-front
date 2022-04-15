@@ -18,6 +18,7 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       {/* Board */}
       <Route path="/boards" element={<GIFBoard />} />
+      <Route path="/community" element={<Community />} />
       {/* Member */}
       <Route path="/mypage" element={<MyPage />} />
     </Routes>
