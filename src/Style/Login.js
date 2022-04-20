@@ -9,10 +9,9 @@ export const Header = styled.header`
   margin-bottom: 50px;
 `
 
-export const KakaoLoginBtn = styled.button`
-  border: 0;
-  background-color: white;
+export const KakaoLoginBtn = styled.a`
   display: block;
+  width: 600px;
   margin: 100px auto;
   &:hover{
     cursor: pointer;
