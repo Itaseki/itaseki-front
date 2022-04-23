@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import {
   faBars,
@@ -11,7 +11,12 @@ import {
 import Main_logo from "../Assets/Main_logo.png";
 import Basic_profile from "../Assets/Basic_profile.png";
 
+import StyledBtn from "../Style/StyledBtn";
+import { Link } from "react-router-dom";
+
 const Header = () => {
+  const [caretOpen, setCaretOpen] = useState(false);
+
   return (
     <Wrapper>
       <LeftWrapper>
@@ -46,11 +51,26 @@ const Header = () => {
         />
         <Profile>
           <ProfileImg src={Basic_profile} />
-          <FontAwesomeIcon
-            icon={faCaretDown}
-            style={{ fontSize: "150%", color: "9C9C9C" }}
-          />
+          <StyledBtn on>
+            <FontAwesomeIcon
+              icon={faCaretDown}
+              style={{ fontSize: "150%", color: "9C9C9C" }}
+              onClick={() => setCaretOpen(!caretOpen)}
+            />
+          </StyledBtn>
         </Profile>
+        {caretOpen ? (
+          <ProfileUl>
+            <Link to="/mypage">
+              <ProfileList>마이페이지</ProfileList>
+            </Link>
+            <ProfileList>플레이리스트</ProfileList>
+            <ProfileList>프로필 설정</ProfileList>
+            <ProfileList>로그아웃</ProfileList>
+          </ProfileUl>
+        ) : (
+          <></>
+        )}
       </RightWrapper>
     </Wrapper>
   );
@@ -104,4 +124,28 @@ const ProfileImg = styled.img`
   width: 41px;
   height: 41px;
   margin-right: 6px;
+`;
+
+const ProfileUl = styled.ul`
+  background-color: #fafafa;
+  z-index: 10;
+  position: fixed;
+  top: 90px;
+  right: 40px;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+`;
+
+const ProfileList = styled.button`
+  background-color: #fafafa;
+  border: none;
+  cursor: pointer;
+  color: #532a6b;
+  font-size: 16px;
+  font-weight: bold;
+  align-self: flex-start;
+  padding-right: 40px;
+  margin: 12px 25px 12px 25px;
 `;
