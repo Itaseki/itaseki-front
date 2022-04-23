@@ -3,11 +3,11 @@ import preURL from "../../preURL/preURL";
 import axios from "axios";
 import {
   BestPostsWrapper,
-  BestRankNum, Contents, Info,
+  BestRankNum, Contents, ImgInput, Info, Input,
   Line, Pages, Pagination,
   PostLists,
   PostsWrapper,
-  SortBox,
+  SortBox, SubmitBtn, TextArea,
   Title,
   Wrapper
 } from "../../Style/Community";
@@ -18,6 +18,8 @@ import StyledBtn from "../../Style/StyledBtn";
 import {faCaretRight, faHeart} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Modal from "../../Components/Modal";
+import {Link} from "react-router-dom";
+import CommunityDetail from "./CommunityDetail";
 
 const Community = () => {
 
@@ -40,41 +42,69 @@ const Community = () => {
     {title: "post9", time: "12:49", views: 2, heart: 1},
     {title: "post10", time: "12:30", views: 2, heart: 1},
   ]);
-  const [pages, setPages] = useState([1,2,3,4,5]);
+  const [pages, setPages] = useState([0, 1, 2, 3, 4]);
+  const [sort, setSort] = useState("id,DESC");
+  const [search, setSearch] = useState("");
   const [showAddNewPostModal, setShowAddNewPostModal] = useState(false);
 
+  // 베스트 게시글 조회
   useEffect(() => {
     axios.get(preURL.preURL + '/boards/community/best')
-        .then(res => {
+        .then((res) => {
+          console.log("베스트 게시글 조회");
           setBestPosts(res.data);
-        });
+        })
+        .catch((err) => {
+          console.log(err)
+        })
   }, []);
 
+  // 전체 게시글 조회
   useEffect(() => {
-    axios.get(preURL.preURL + `/boards/community?page=${0}&size=${10}&sort=${'id'},DESC&q=${'검색어'}`)
+    axios.get(preURL.preURL + `/boards/community?page=${pages}&size=10&sort=${sort}&q=${search}`)
         . then(res => {
+          console.log("전체 게시글 조회");
           setPosts(res.data);
-        });
+        })
+        .catch((err) => {
+          console.log(err);
+        })
   }, []);
 
+  // 상세 게시물 조회
+  const onClickDetail = useCallback(() => {
+    console.log("상세 게시물 조회");
+  }, []);
+
+  // 새 게시물 작성 버튼 클릭
   const onClickAddNewPost = useCallback(() => {
     setShowAddNewPostModal(true);
-    console.log("add new post btn click");
+    console.log("add new post btn click")
   }, []);
 
+  // 모달 창 close
   const onCloseModal = useCallback(() => {
     setShowAddNewPostModal(false);
+    console.log("close modal");
   }, []);
 
+  // 새 게시물 작성 submit
+  const onAddNewPost = useCallback(() => {
+    console.log("새 게시물 작성 완료");
+  }, [])
 
+
+  // 베스트 게시물 목록
   const bestPostList = bestPosts.map((bestPost) => {
     return (
         <div style={{width: "524px"}}>
           <Contents>
             <BestRankNum>{bestPost.rank}</BestRankNum>
-            <Title style={{color: "#532A6B"}}>
-              {bestPost.title}
-            </Title>
+            <Link to="/community/상세게시글" style={{textDecorationLine: "none"}}>
+              <Title style={{color: "#532A6B"}}>
+                {bestPost.title}
+              </Title>
+            </Link>
             <Info>
               <StyledBtn>
                 <FontAwesomeIcon
@@ -92,11 +122,14 @@ const Community = () => {
     )
   });
 
+  // 전체 게시물 목록
   const postList = posts.map((post) => {
     return (
         <div style={{width: "805px"}}>
           <Contents>
-            <Title>{post.title}</Title>
+            <Link to="/community/상세게시물" style={{textDecorationLine: "none"}}>
+              <Title>{post.title}</Title>
+            </Link>
             <Info>
               <p style={{marginRight: 10}}>{post.time}</p>
               <p style={{marginRight: 0}}>조회</p>
@@ -115,10 +148,11 @@ const Community = () => {
     )
   });
 
+  // 페이지 번호
   const showPages = pages.map((page) => {
     return (
         <StyledBtn style={{fontSize: "20px", padding: "10.5px"}}>
-          {page}
+          {page + 1}
         </StyledBtn>
     )
   })
@@ -134,7 +168,14 @@ const Community = () => {
           >
             <img src={AddPost} />
           </StyledBtn>
-          <Modal show={showAddNewPostModal} onCloseModal={onCloseModal}>Modal</Modal>
+          <Modal show={showAddNewPostModal} onCloseModal={onCloseModal}>
+            <form onSubmit={onAddNewPost}>
+              <Input placeholder="제목을 입력하세요."/>
+              <ImgInput type="file" accept="image/*"/>
+              <TextArea placeholder="내용"/>
+              <SubmitBtn type="submit">확인</SubmitBtn>
+            </form>
+          </Modal>
           <BestPostsWrapper>
             <img src={BestCommu}/>
             <PostLists style={{paddingLeft: "25px"}}>

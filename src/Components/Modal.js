@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 
-const Modal = ({show, onCloseModal}) => {
+const Modal = ({show, children, onCloseModal}) => {
 
   if(!show) {
     return null;
@@ -11,6 +11,7 @@ const Modal = ({show, onCloseModal}) => {
       <CreateModal>
         <div>
           <CloseModalButton onClick={onCloseModal}>&times;</CloseModalButton>
+          {children}
         </div>
       </CreateModal>
   )
