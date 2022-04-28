@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import styledBtn from "./StyledBtn";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -34,13 +35,12 @@ export const Contents = styled.div`
   align-items: center;
 `
 
-export const Title = styled.button`
-  background-color: white;
+export const Title = styled.div`
   padding: 5px 10px;
   margin: 0;
   border: none;
   font-size: 13px;
-  cursor: pointer;
+  color: black;
 `
 
 export const Info = styled.div`
@@ -86,4 +86,112 @@ export const Pagination = styled.div`
 export const Pages = styled.div`
   display: flex;
   flex-direction: row;
+`
+
+export const PageNum = styled(styledBtn)`
+  font-size: 20px;
+  padding: 10.5px;
+`
+
+////////////////////////////////////////////////////////
+// 새 게시물 작성 모달
+
+export const Input = styled.input`
+  width: 792px;
+  height: 58px;
+  margin: 10px 0;
+  background: #FFFFFF;
+  border-radius: 14px;
+  font-size: 16px;
+  ::placeholder {
+    font-weight: 600;
+    line-height: 19px;
+    align-items: center;
+    text-align: center;
+    color: #532A6B;
+  }
+`
+
+export const ImgInput = styled.input`
+  text-align: initial;
+`
+
+export const TextArea = styled.textarea`
+  width: 792px;
+  height: 270px;
+  margin: 10px 0;
+  background: #FFFFFF;
+  border-radius: 14px;
+  resize: none;
+  ::placeholder {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    align-items: center;
+    text-align: center;
+    color: #532A6B;
+  }
+`
+
+export const SubmitBtn = styled(styledBtn)`
+  width: 792px;
+  height: 58px;
+  margin: 10px 0;
+  background: #6B5F73;
+  border-radius: 14px;
+  color: white;
+`
+
+///////////////////////////////////////////////////////////////
+// CommunityDetail
+
+export const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 80px;
+  margin-bottom: 15px;
+  width: 800px;
+`
+
+export const DetailTitle = styled.div`
+  margin: 0;
+  font-weight: 600;
+  font-size: 40px;
+  display: flex;
+  letter-spacing: -0.02em;
+`
+
+export const DetailInfo = styled.div`
+  display: flex;
+  margin-top: 10px;
+  align-items: center;
+  & p{
+    font-size: 16px;
+    margin: 4px;
+  }
+`
+
+export const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  margin: 15px 0;
+`
+
+export const CommentsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const AdditionalBtns = styled.div`
+  display: flex;
+  margin: 20px;
+`
+
+export const AButton = styled(styledBtn)`
+  width: 146px;
+  height: 58px;
+  color: white;
+  border-radius: 29px;
+  margin: 0 30px;
 `

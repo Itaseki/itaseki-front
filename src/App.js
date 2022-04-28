@@ -6,6 +6,8 @@ import Login from "./Pages/Start/Login";
 import SignUp from "./Pages/Start/SignUp";
 // Board
 import GIFBoard from "./Pages/Board/GIFBoard";
+import Community from "./Pages/Board/Community";
+import CommunityDetail from "./Pages/Board/CommunityDetail";
 // Member
 import MyPage from "./Pages/Member/MyPage";
 
@@ -19,6 +21,7 @@ const App = () => {
       {/* Board */}
       <Route path="/boards" element={<GIFBoard />} />
       <Route path="/community" element={<Community />} />
+      <Route path="/community/:id" element={<CommunityDetail />} />
       {/* Member */}
       <Route path="/mypage" element={<MyPage />} />
     </Routes>
