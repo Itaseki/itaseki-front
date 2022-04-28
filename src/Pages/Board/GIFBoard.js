@@ -147,7 +147,7 @@ const GIFBoard = () => {
   return (
     <div>
       <Header />
-      <WriteBtn onClick={}>
+      <WriteBtn onClick={onClickNewPost}>
         <WriteWord>새 짤글 쓰기</WriteWord>
       </WriteBtn>
       <Wrapper>
