@@ -8,6 +8,8 @@ import { faHeart, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 
 // style
 import StyledBtn from "../Style/StyledBtn";
+import WriteBtn from "../Style/WriteBtn";
+import WriteWord from "../Style/WriteWord";
 // assets
 import Best_GIF from "../Assets/Best_GIF.png";
 import Temp_gif from "../Assets/Temp_gif.png";
@@ -133,6 +135,9 @@ const GIFBoard = () => {
       });
   };
 
+  // 새 짤글 쓰기
+  const onClickNewPost = () => {};
+
   const pageNum = pages.map((page) => (
     <StyledBtn style={{ fontSize: "20px", padding: "10.5px" }}>
       {page}
@@ -142,6 +147,9 @@ const GIFBoard = () => {
   return (
     <div>
       <Header />
+      <WriteBtn onClick={}>
+        <WriteWord>새 짤글 쓰기</WriteWord>
+      </WriteBtn>
       <Wrapper>
         <BestGIFWrapper>
           <BestGIF src={Best_GIF} />
