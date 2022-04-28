@@ -4,7 +4,7 @@ import axios from "axios";
 import {
   BestPostsWrapper,
   BestRankNum, Contents, ImgInput, Info, Input,
-  Line, Pages, Pagination,
+  Line, PageNum, Pages, Pagination,
   PostLists,
   PostsWrapper,
   SortBox, SubmitBtn, TextArea,
@@ -19,29 +19,29 @@ import {faCaretRight, faHeart} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Modal from "../../Components/Modal";
 import {Link} from "react-router-dom";
-import CommunityDetail from "./CommunityDetail";
 
 const Community = () => {
 
   const [bestPosts, setBestPosts] = useState([
-    {rank: 1, title: "best1", heart: 10},
-    {rank: 2, title: "best2", heart: 9},
-    {rank: 3, title: "best3", heart: 8},
-    {rank: 4, title: "best4", heart: 7},
-    {rank: 5, title: "best5", heart: 6},
+    {id: 1, title: "best1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    {id: 2, title: "best1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    {id: 3, title: "best1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    {id: 4, title: "best1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    {id: 5, title: "best1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
   ]);
   const [posts, setPosts] = useState([
-    {title: "post1", time: "1:05", views: 2, heart: 1},
-    {title: "post2", time: "1:04", views: 2, heart: 1},
-    {title: "post3", time: "1:03", views: 2, heart: 1},
-    {title: "post4", time: "1:02", views: 2, heart: 1},
-    {title: "post5", time: "1:01", views: 2, heart: 1},
-    {title: "post6", time: "1:00", views: 2, heart: 1},
-    {title: "post7", time: "12:59", views: 2, heart: 1},
-    {title: "post8", time: "12:58", views: 2, heart: 1},
-    {title: "post9", time: "12:49", views: 2, heart: 1},
-    {title: "post10", time: "12:30", views: 2, heart: 1},
+    {id: 1, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    {id: 2, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    {id: 3, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    {id: 4, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    {id: 5, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    {id: 6, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    {id: 7, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    {id: 8, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    {id: 9, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    {id: 10, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
   ]);
+  const [page, setPage] = useState(0);
   const [pages, setPages] = useState([0, 1, 2, 3, 4]);
   const [sort, setSort] = useState("id,DESC");
   const [search, setSearch] = useState("");
@@ -61,19 +61,14 @@ const Community = () => {
 
   // 전체 게시글 조회
   useEffect(() => {
-    axios.get(preURL.preURL + `/boards/community?page=${pages}&size=10&sort=${sort}&q=${search}`)
-        . then(res => {
+    axios.get(preURL.preURL + `/boards/community?page=${page}&size=10&sort=${sort}&q=${search}`)
+        . then((res) => {
           console.log("전체 게시글 조회");
           setPosts(res.data);
         })
         .catch((err) => {
           console.log(err);
         })
-  }, []);
-
-  // 상세 게시물 조회
-  const onClickDetail = useCallback(() => {
-    console.log("상세 게시물 조회");
   }, []);
 
   // 새 게시물 작성 버튼 클릭
@@ -90,17 +85,24 @@ const Community = () => {
 
   // 새 게시물 작성 submit
   const onAddNewPost = useCallback(() => {
-    console.log("새 게시물 작성 완료");
+    axios.post(preURL.preURL + '/boards/community', {
+
+    })
+        .then((res) => {
+          console.log("잡담글 등록", res.data);
+        })
   }, [])
 
 
   // 베스트 게시물 목록
+  let rank = 1;
   const bestPostList = bestPosts.map((bestPost) => {
+    const url = `/community/${bestPost.id}`;
     return (
         <div style={{width: "524px"}}>
           <Contents>
-            <BestRankNum>{bestPost.rank}</BestRankNum>
-            <Link to="/community/상세게시글" style={{textDecorationLine: "none"}}>
+            <BestRankNum>{rank++}</BestRankNum>
+            <Link to={url} style={{textDecorationLine: "none"}}>
               <Title style={{color: "#532A6B"}}>
                 {bestPost.title}
               </Title>
@@ -113,7 +115,7 @@ const Community = () => {
                 />
               </StyledBtn>
               <p style={{color: "#D9767C", width: "20px"}}>
-                {bestPost.heart}
+                {bestPost.likeCount}
               </p>
             </Info>
           </Contents>
@@ -124,23 +126,24 @@ const Community = () => {
 
   // 전체 게시물 목록
   const postList = posts.map((post) => {
+    const url = `/community/${post.id}`
     return (
         <div style={{width: "805px"}}>
           <Contents>
-            <Link to="/community/상세게시물" style={{textDecorationLine: "none"}}>
+            <Link to={url} style={{textDecorationLine: "none"}}>
               <Title>{post.title}</Title>
             </Link>
             <Info>
-              <p style={{marginRight: 10}}>{post.time}</p>
+              <p style={{marginRight: 10}}>{post.createdTime}</p>
               <p style={{marginRight: 0}}>조회</p>
-              <p style={{marginRight: 10}}>{post.views}</p>
+              <p style={{marginRight: 10}}>{post.viewCount}</p>
               <StyledBtn>
                 <FontAwesomeIcon
                     icon={faHeart}
                     style={{ fontSize: "80%", color: "#D9767C", marginLeft: "auto" }}
                 />
               </StyledBtn>
-              <p style={{color: "#D9767C"}}>{post.heart}</p>
+              <p style={{color: "#D9767C"}}>{post.likeCount}</p>
             </Info>
           </Contents>
           <Line />
@@ -151,9 +154,9 @@ const Community = () => {
   // 페이지 번호
   const showPages = pages.map((page) => {
     return (
-        <StyledBtn style={{fontSize: "20px", padding: "10.5px"}}>
+        <PageNum style={{fontSize: "20px", padding: "10.5px"}}>
           {page + 1}
-        </StyledBtn>
+        </PageNum>
     )
   })
 

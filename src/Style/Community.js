@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import styledBtn from "./StyledBtn";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -87,6 +88,11 @@ export const Pages = styled.div`
   flex-direction: row;
 `
 
+export const PageNum = styled(styledBtn)`
+  font-size: 20px;
+  padding: 10.5px;
+`
+
 ////////////////////////////////////////////////////////
 // 새 게시물 작성 모달
 
@@ -127,14 +133,13 @@ export const TextArea = styled.textarea`
   }
 `
 
-export const SubmitBtn = styled.button`
+export const SubmitBtn = styled(styledBtn)`
   width: 792px;
   height: 58px;
   margin: 10px 0;
   background: #6B5F73;
   border-radius: 14px;
   color: white;
-  cursor: pointer;
 `
 
 ///////////////////////////////////////////////////////////////
@@ -159,6 +164,7 @@ export const DetailTitle = styled.div`
 export const DetailInfo = styled.div`
   display: flex;
   margin-top: 10px;
+  align-items: center;
   & p{
     font-size: 16px;
     margin: 4px;
@@ -166,9 +172,26 @@ export const DetailInfo = styled.div`
 `
 
 export const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 800px;
   margin: 15px 0;
 `
 
 export const CommentsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 
+export const AdditionalBtns = styled.div`
+  display: flex;
+  margin: 20px;
+`
+
+export const AButton = styled(styledBtn)`
+  width: 146px;
+  height: 58px;
+  color: white;
+  border-radius: 29px;
+  margin: 0 30px;
 `
