@@ -19,6 +19,7 @@ import {faCaretRight, faHeart} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Modal from "../../Components/Modal";
 import {Link} from "react-router-dom";
+import useInput from "../../Hooks/useInput";
 
 const Community = () => {
 
@@ -46,6 +47,9 @@ const Community = () => {
   const [sort, setSort] = useState("id,DESC");
   const [search, setSearch] = useState("");
   const [showAddNewPostModal, setShowAddNewPostModal] = useState(false);
+  const [newTitle, onChangeNewTitle, setNewTitle] = useInput("");
+  const [newContent, onChangeNewContent, setNewContent] = useInput("");
+  const [newImages, onChangeNewImages, setNewImages] = useInput([]);
 
   // 베스트 게시글 조회
   useEffect(() => {
@@ -61,8 +65,9 @@ const Community = () => {
 
   // 전체 게시글 조회
   useEffect(() => {
-    axios.get(preURL.preURL + `/boards/community?page=${page}&size=10&sort=${sort}&q=${search}`)
-        . then((res) => {
+    axios
+        .get(preURL.preURL + `/boards/community?page=${page}&size=10&sort=${sort}&q=${search}`)
+        .then((res) => {
           console.log("전체 게시글 조회");
           setPosts(res.data);
         })
@@ -84,14 +89,49 @@ const Community = () => {
   }, []);
 
   // 새 게시물 작성 submit
-  const onAddNewPost = useCallback(() => {
-    axios.post(preURL.preURL + '/boards/community', {
-
-    })
+  const onAddNewPost = useCallback((e) => {
+    axios
+        .post(preURL.preURL + '/boards/community', {
+          title: newTitle,
+          content: newContent,
+          images: newImages,
+        })
         .then((res) => {
           console.log("잡담글 등록", res.data);
         })
-  }, [])
+        .catch((err) => {
+          console.log(err);
+        })
+  }, []);
+
+  // 최신순
+  const onClickSortNewest = useCallback(() => {
+    setSort("id,DESC");
+    console.log("최신순 정렬");
+  }, []);
+
+  // 좋아요순
+  const onClickSortLike = useCallback(() => {
+    setSort("likeCount,DESC");
+    console.log("좋아요순 정렬");
+  }, []);
+
+  // 조회순
+  const onClickSortView = useCallback(() => {
+    setSort("viewCount,DESC");
+    console.log("조회순 정렬");
+  }, []);
+
+  // 페이지 클릭
+  const onClickPage = useCallback((e) => {
+    setPage(e.target.innerHTML);
+    console.log("페이지 클릭", e.target.innerHTML);
+  }, []);
+
+  // 페이지 넘기기
+  const onClickNextPages = useCallback((e) => {
+    console.log("페이지 넘기기");
+  }, [pages]);
 
 
   // 베스트 게시물 목록
@@ -154,7 +194,7 @@ const Community = () => {
   // 페이지 번호
   const showPages = pages.map((page) => {
     return (
-        <PageNum style={{fontSize: "20px", padding: "10.5px"}}>
+        <PageNum style={{fontSize: "20px", padding: "10.5px"}} onClick={onClickPage}>
           {page + 1}
         </PageNum>
     )
@@ -173,9 +213,9 @@ const Community = () => {
           </StyledBtn>
           <Modal show={showAddNewPostModal} onCloseModal={onCloseModal}>
             <form onSubmit={onAddNewPost}>
-              <Input placeholder="제목을 입력하세요."/>
-              <ImgInput type="file" accept="image/*"/>
-              <TextArea placeholder="내용"/>
+              <Input placeholder="제목을 입력하세요." value={newTitle} onChange={onChangeNewTitle}/>
+              <ImgInput type="file" accept="image/*" multiple value={newImages} onChange={onChangeNewImages}/> {/*이미지 여러개 배열로 해야됨*/}
+              <TextArea placeholder="내용" value={newContent} onChange={onChangeNewContent}/>
               <SubmitBtn type="submit">확인</SubmitBtn>
             </form>
           </Modal>
@@ -192,6 +232,7 @@ const Community = () => {
             <StyledBtn
                 id="sort-btn"
                 style={{ fontSize: "10px", color: "#9E8FA8", marginRight: 4, left: "876px"}}
+                onClick={onClickSortNewest}
             >
               최신순
             </StyledBtn>
@@ -199,6 +240,7 @@ const Community = () => {
             <StyledBtn
                 id="sort-btn"
                 style={{ fontSize: "10px", color: "#9E8FA8", marginRight: 4, left: "941px"}}
+                onClick={onClickSortLike}
             >
               좋아요순
             </StyledBtn>
@@ -206,13 +248,14 @@ const Community = () => {
             <StyledBtn
                 id="sort-btn"
                 style={{ fontSize: "10px", color: "#9E8FA8", marginRight: 4, left: "1010px"}}
+                onClick={onClickSortView}
             >
               조회순
             </StyledBtn>
           </SortBox>
           <Pagination>
             <Pages>{showPages}</Pages>
-            <StyledBtn id="next-page">
+            <StyledBtn id="next-page" onClick={onClickNextPages}>
               <FontAwesomeIcon
                   icon={faCaretRight}
                   style={{

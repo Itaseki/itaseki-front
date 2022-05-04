@@ -178,9 +178,57 @@ export const ContentWrapper = styled.div`
   margin: 15px 0;
 `
 
-export const CommentsWrapper = styled.div`
+export const CommentsWrapper = styled(Wrapper)`
+
+`
+
+export const CommentsListWrapper = styled.div`
   display: flex;
   flex-direction: column;
+`
+
+export const Comment = styled.div`
+  display: flex;
+  flex-direction: column;
+  & > #comment-content {
+    margin: 10px 4px;
+  }
+  & > #comment-btn {
+    width: 47px;
+    height: 19px;
+    margin: 6px 4px;
+    background: #C4C4C4;
+    border-radius: 29px;
+    color: white;
+  }
+`
+
+export const NewCommentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 70px 0;
+`
+
+export const NewCommentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  & > textarea {
+    padding: 10px;
+    width: 807px;
+    height: 101px;
+    background: #ECECEC;
+    border-radius: 17px;
+    resize: none;
+  }
+  & > #submit-btn {
+    width: 56px;
+    height: 29px;
+    margin: 5px;
+    background: #9E8FA8;
+    border-radius: 29px;
+    color: white;
+    align-self: flex-end;
+  }
 `
 
 export const AdditionalBtns = styled.div`
