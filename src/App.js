@@ -10,6 +10,7 @@ import Community from "./Pages/Board/Community";
 import CommunityDetail from "./Pages/Board/CommunityDetail";
 // Member
 import MyPage from "./Pages/Member/MyPage";
+import AddNewVideo from "./Pages/Video/AddNewVideo";
 
 const App = () => {
   return (
@@ -24,6 +25,8 @@ const App = () => {
       <Route path="/community/:id" element={<CommunityDetail />} />
       {/* Member */}
       <Route path="/mypage" element={<MyPage />} />
+      {/* Video */}
+      <Route path="/addvideo" element={<AddNewVideo />} />
     </Routes>
   );
 };
