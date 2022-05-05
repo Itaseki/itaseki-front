@@ -159,6 +159,11 @@ export const DetailTitle = styled.div`
   font-size: 40px;
   display: flex;
   letter-spacing: -0.02em;
+  justify-content: space-between;
+  & > #del{
+    padding: 2%;
+    color: #505050;
+  }
 `
 
 export const DetailInfo = styled.div`

@@ -51,6 +51,7 @@ const CommunityDetail = ({match}) => {
         })
   });
 
+  // 좋아요 버튼 클릭
   const onClickLike = useCallback(() => {
     axios.post(preURL.preURL + `/boards/community/${communityBoardId}/likes`)
         .then((res) => {
@@ -74,6 +75,17 @@ const CommunityDetail = ({match}) => {
         })
         .catch((err) => {
           console.log("게시글 신고 에러", err);
+        })
+  }, []);
+
+  // 게시글 삭제
+  const onClickDelete = useCallback(() => {
+    axios.delete(preURL.preURL + `/boards/community/${communityBoardId}`)
+        .then((res) => {
+          console.log("게시글 삭제", res);
+        })
+        .catch((err) => {
+          console.log("게시글 삭제 에러", err);
         })
   }, []);
 
@@ -135,10 +147,9 @@ const CommunityDetail = ({match}) => {
               <p>|</p>
               <p>{comment.createdTime}</p>
               <p>|</p>
-              {comment.isThisUserWriter?
-                  <StyledBtn onClick={onClickDeleteComment}>삭제</StyledBtn>
-                  :
-                  <StyledBtn onClick={onClickCommentReport}>신고</StyledBtn>}
+              {comment.isThisUserWriter
+                  ? <StyledBtn onClick={onClickDeleteComment}>삭제</StyledBtn>
+                  : <StyledBtn onClick={onClickCommentReport}>신고</StyledBtn>}
             </DetailInfo>
             <div id="comment-content">{comment.content}</div>
             <StyledBtn id="comment-btn">답글</StyledBtn>
@@ -168,7 +179,12 @@ const CommunityDetail = ({match}) => {
         <Header />
         <Wrapper>
           <TitleWrapper>
-            <DetailTitle>{contentInfo.title}</DetailTitle>
+            <DetailTitle>
+              {contentInfo.title}
+              {contentInfo.isThisUserWriter
+                  ? <StyledBtn id="del" onClick={onClickDelete}>삭제</StyledBtn>
+                  : null}
+            </DetailTitle>
             <DetailInfo>
               <p>{writerInfo.writerId}</p>
               <p>|</p>
