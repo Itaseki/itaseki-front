@@ -40,6 +40,7 @@ const CommunityDetail = ({match}) => {
       nestedComments: null},
   ]);
   const [newComment, onChangeNewComment, setNewComment] = useInput("");
+  const [likeCount, setLikeCount] = useState(contentInfo.likeCount);
 
   const communityBoardId = useParams().id;
   // console.log("communityBoardId: ", communityBoardId);  // communityBoardId 받아오기
@@ -60,6 +61,7 @@ const CommunityDetail = ({match}) => {
     axios.post(preURL.preURL + `/boards/community/${communityBoardId}/likes`)
         .then((res) => {
           console.log("게시글 좋아요", res.data);
+          setLikeCount(res.data);
         })
         .catch((err) => {
           console.log("게시글 좋아요 에러", err);
@@ -139,7 +141,7 @@ const CommunityDetail = ({match}) => {
                   icon={faHeart}
                   style={{color: "#D9767C"}}
               />
-              <p style={{color: "#D9767C"}}>{contentInfo.likeCount}</p>
+              <p style={{color: "#D9767C"}}>{likeCount}</p>
             </DetailInfo>
           </TitleWrapper>
           <ContentWrapper>
