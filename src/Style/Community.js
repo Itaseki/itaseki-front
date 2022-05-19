@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import styledBtn from "./StyledBtn";
+import StyledBtn from "./StyledBtn";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -198,14 +199,15 @@ export const Comment = styled.div`
   & > #comment-content {
     margin: 10px 4px;
   }
-  & > #comment-btn {
-    width: 47px;
-    height: 19px;
-    margin: 6px 4px;
-    background: #C4C4C4;
-    border-radius: 29px;
-    color: white;
-  }
+`
+
+export const ReplyBtn = styled(StyledBtn)`
+  width: 47px;
+  height: 19px;
+  margin: 6px 4px;
+  background: #C4C4C4;
+  border-radius: 29px;
+  color: white;
 `
 
 export const NewCommentWrapper = styled.div`
@@ -214,7 +216,7 @@ export const NewCommentWrapper = styled.div`
   margin: 70px 0;
 `
 
-export const NewCommentBox = styled.div`
+export const NewCommentBox = styled.form`
   display: flex;
   flex-direction: column;
   & > textarea {
@@ -225,11 +227,10 @@ export const NewCommentBox = styled.div`
     border-radius: 17px;
     resize: none;
   }
-  & > #submit-btn {
+  & > #submit-btn , div > #submit-btn{
     width: 56px;
     height: 29px;
     margin: 5px;
-    background: #9E8FA8;
     border-radius: 29px;
     color: white;
     align-self: flex-end;

@@ -5,7 +5,7 @@ import {
   CommentsWrapper,
   ContentWrapper,
   DetailInfo,
-  DetailTitle, Line, NewCommentBox, NewCommentWrapper,
+  DetailTitle, Line, NewCommentBox, NewCommentWrapper, ReplyBtn,
   TitleWrapper,
   Wrapper
 } from "../../Style/Community";
@@ -15,9 +15,9 @@ import {faHeart} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
-import Comment_Reply from "../../Assets/Comment_reply.png";
 import {useParams} from "react-router-dom";
 import useInput from "../../Hooks/useInput";
+import SingleComment from "../../Components/SingleComment";
 
 const CommunityDetail = ({match}) => {
 
@@ -29,16 +29,20 @@ const CommunityDetail = ({match}) => {
   });
   const [writerInfo, setWriterInfo] = useState({writerId: contentInfo.writerId, writerNickname: contentInfo.writerNickname});
   const [commentsList, setCommentsList] = useState([
-    {id: 1, content: "댓글이당", createdTime: "4:16", writerId: 10, writerNickName: "배고파22", isThisUserWriter: true, isThisBoardWriterCommentWriter: false,
+    {id: 12345, content: "댓글이당", createdTime: "4:16", writerId: 10, writerNickName: "배고파22", isThisUserWriter: true, isThisBoardWriterCommentWriter: false,
+      nestedComments: [
+          {writerNickName: "배고파23", createdTime: "10:26", content: "대댓글이당"},
+          {writerNickName: "배고파24", createdTime: "10:30", content: "대댓글2이당"}
+      ]},
+    {id: 23456, content: "댓글2당", createdTime: "4:20", writerId: 11, writerNickName: "배고파23", isThisUserWriter: false, isThisBoardWriterCommentWriter: true,
       nestedComments: null},
-    {id: 2, content: "댓글2당", createdTime: "4:20", writerId: 11, writerNickName: "배고파23", isThisUserWriter: false, isThisBoardWriterCommentWriter: true,
+    {id: 98765, content: "댓글3임", createdTime: "4:20", writerId: 11, writerNickName: "배고파23", isThisUserWriter: false, isThisBoardWriterCommentWriter: true,
       nestedComments: null},
   ]);
   const [newComment, onChangeNewComment, setNewComment] = useInput("");
-  const [parentCommentId, setParentCommentId] = useState(0);
 
   const communityBoardId = useParams().id;
-  console.log("communityBoardId: ", communityBoardId);  // communityBoardId 받아오기
+  // console.log("communityBoardId: ", communityBoardId);  // communityBoardId 받아오기
 
   useEffect(() => {
     axios.get(preURL.preURL + `/boards/community/${communityBoardId}`)
@@ -94,40 +98,16 @@ const CommunityDetail = ({match}) => {
     axios
         .post(preURL.preURL + `/boards/community/${communityBoardId}/comments`, {
           content: newComment,
-          parentCommentId: parentCommentId,
+          parentCommentId: 0,
         })
         .then((res) => {
           console.log("댓글 등록", res.data);
+          setNewComment("");  // 댓글 내용 초기화
         })
         .catch((err) => {
           console.log("댓글 등록 오류", err);
         })
   }, []);
-
-  // 댓글 삭제
-  const onClickDeleteComment = useCallback(() => {
-    // axios
-    //     .delete(preURL.preURL + `/boards/community/${communityBoardId}/comments/${communityCommentId}`)  // communityCommentId
-    //     .then((res) => {
-    //       console.log("댓글 삭제", res);
-    //     })
-    //     .catch((err) => {
-    //       console.log("댓글 삭제 오류", err);
-    //     })
-  },[]);
-
-  // 댓글 신고
-  const onClickCommentReport = useCallback(() => {
-    // axios
-    //     .post(preURL.preURL + `/boards/community/${communityBoardId}/comments/${communityCommentId}`)
-    //     .then((res) => {
-    //       console.log("댓글 신고", res.data);
-    //     })
-    //     .catch((err) => {
-    //       console.log("댓글 신고 에러", err);
-    //     })
-  },[]);
-
 
   // 게시글 이미지
   const imgs = contentInfo.imageUrls.map((imgUrl) => {
@@ -136,43 +116,6 @@ const CommunityDetail = ({match}) => {
     )
   });
 
-  // 댓글
-  const comments = commentsList.map((comment) => {
-    return (
-        <div>
-          <Comment>
-            <Line/>
-            <DetailInfo>
-              <p style={{fontWeight: 600, color: "#6A3E85"}}>{comment.writerNickName}</p>
-              <p>|</p>
-              <p>{comment.createdTime}</p>
-              <p>|</p>
-              {comment.isThisUserWriter
-                  ? <StyledBtn onClick={onClickDeleteComment}>삭제</StyledBtn>
-                  : <StyledBtn onClick={onClickCommentReport}>신고</StyledBtn>}
-            </DetailInfo>
-            <div id="comment-content">{comment.content}</div>
-            <StyledBtn id="comment-btn">답글</StyledBtn>
-          </Comment>
-          {/*{comment.nestedComments?.map((nestedComment) => {
-            return(
-                <Comment>
-                  <Line/>
-                  {Comment_Reply}
-                  <DetailInfo>
-                    <p style={{fontWeight: 600, color: "#6A3E85"}}>{nestedComment.writerNickName}</p>
-                    <p>|</p>
-                    <p>{nestedComment.createdTime}</p>
-                    <p>|</p>
-                    <StyledBtn>신고</StyledBtn>
-                  </DetailInfo>
-                  <div id="comment-content">{nestedComment.content}</div>
-                </Comment>
-            )
-          })}*/}
-        </div>
-    )
-  })
 
   return (
       <div>
@@ -211,14 +154,16 @@ const CommunityDetail = ({match}) => {
           <CommentsWrapper>
             <CommentsListWrapper>
               <p>댓글 {contentInfo.commentCount}</p>
-              {comments}
+              {commentsList.map((comment) => {
+                return <SingleComment comment={comment} communityBoardId={communityBoardId}/>
+              })}
               <Line style={{width: "805px"}}/>
             </CommentsListWrapper>
             <NewCommentWrapper>
               {"로그인한 사용자"}
-              <NewCommentBox>
+              <NewCommentBox onSubmit={onSubmitComment}>
                 <textarea placeholder="댓글 입력" value={newComment} onChange={onChangeNewComment}/>
-                <StyledBtn id="submit-btn" onClick={onSubmitComment}>확인</StyledBtn>
+                <StyledBtn type="submit" id="submit-btn" style={{background: "#9E8FA8"}}>확인</StyledBtn>
               </NewCommentBox>
             </NewCommentWrapper>
           </CommentsWrapper>

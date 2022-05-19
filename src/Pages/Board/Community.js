@@ -31,6 +31,7 @@ const Community = () => {
     {id: 5, title: "best1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
   ]);
   const [posts, setPosts] = useState([
+      [3],[
     {id: 1, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
     {id: 2, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
     {id: 3, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
@@ -41,10 +42,10 @@ const Community = () => {
     {id: 8, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
     {id: 9, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
     {id: 10, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
-  ]);
+  ]]);
   const [page, setPage] = useState(0);
   const [pages, setPages] = useState([0, 1, 2, 3, 4]);
-  const [sort, setSort] = useState("id,DESC");
+  const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
   const [showAddNewPostModal, setShowAddNewPostModal] = useState(false);
   const [newTitle, onChangeNewTitle, setNewTitle] = useInput("");
@@ -76,10 +77,10 @@ const Community = () => {
         })
   }, []);
 
-  // 새 게시물 작성 버튼 클릭
+  // 새 게시물 작성 버튼 클릭 -> 모달 창 open
   const onClickAddNewPost = useCallback(() => {
     setShowAddNewPostModal(true);
-    console.log("add new post btn click")
+    console.log("add new post btn click: " + showAddNewPostModal);
   }, []);
 
   // 모달 창 close
@@ -106,7 +107,7 @@ const Community = () => {
 
   // 최신순
   const onClickSortNewest = useCallback(() => {
-    setSort("id,DESC");
+    setSort("");
     console.log("최신순 정렬");
   }, []);
 
