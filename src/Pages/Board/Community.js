@@ -15,7 +15,7 @@ import Header from "../../Components/Header";
 import BestCommu from "../../Assets/BEST_Commu.png";
 import AddPost from "../../Assets/Add_Post.png";
 import StyledBtn from "../../Style/StyledBtn";
-import {faCaretRight, faHeart} from "@fortawesome/free-solid-svg-icons";
+import {faCaretLeft, faCaretRight, faHeart} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Modal from "../../Components/Modal";
 import {Link} from "react-router-dom";
@@ -31,7 +31,6 @@ const Community = () => {
     {id: 5, title: "best1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
   ]);
   const [posts, setPosts] = useState([
-      [3],[
     {id: 1, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
     {id: 2, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
     {id: 3, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
@@ -42,15 +41,18 @@ const Community = () => {
     {id: 8, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
     {id: 9, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
     {id: 10, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
-  ]]);
+  ]);
+  const [totalPage, setTotalPage] = useState(6);
   const [page, setPage] = useState(0);
-  const [pages, setPages] = useState([0, 1, 2, 3, 4]);
+  const [pages, setPages] = useState([1,2,3,4,5]);
   const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
   const [showAddNewPostModal, setShowAddNewPostModal] = useState(false);
   const [newTitle, onChangeNewTitle, setNewTitle] = useInput("");
   const [newContent, onChangeNewContent, setNewContent] = useInput("");
   const [newImages, onChangeNewImages, setNewImages] = useInput([]);
+  const [showGoLeftPages, setShowGoLeftPages] = useState(false);
+  const [showGoRightPages, setShowGoRightPages] = useState(true);
 
   // 베스트 게시글 조회
   useEffect(() => {
@@ -67,10 +69,17 @@ const Community = () => {
   // 전체 게시글 조회
   useEffect(() => {
     axios
-        .get(preURL.preURL + `/boards/community?page=${page}&size=10&sort=${sort}&q=${search}`)
+        .get(preURL.preURL + `/boards/community?page=${page}&size=10&sort=${sort}&sort=id,DESC&q=${search}`)
         .then((res) => {
           console.log("전체 게시글 조회");
-          setPosts(res.data);
+          setPosts(res.data[1]);
+          setTotalPage(res.data[0]);
+          let list = [];
+          if(res.data[0] >= 5) list = [1,2,3,4,5];
+          else {
+            for(let i=1; i<=res.data[0]; i++) list.push(i);
+          }
+          setPages(list);
         })
         .catch((err) => {
           console.log(err);
@@ -124,16 +133,46 @@ const Community = () => {
   }, []);
 
   // 페이지 클릭
-  const onClickPage = useCallback((e) => {
-    setPage(e.target.innerHTML);
+  const onClickPage = (e) => {
+    setPage(e.target.innerHTML-1);
     console.log("페이지 클릭", e.target.innerHTML);
-  }, []);
+  };
 
   // 페이지 넘기기
   const onClickNextPages = useCallback((e) => {
     console.log("페이지 넘기기");
+    console.log("페이지:" + pages);
+    if(pages.length < 5) return;
+    let list = [];
+    for(let i=0; i<5; i++){
+      list[i] = pages[i]+5;
+      if(list[i] >= totalPage) {
+        setShowGoRightPages(false);
+        break;
+      }
+    }
+    setPages(list);
+    setShowGoLeftPages(true);
   }, [pages]);
 
+  // 페이지 돌아가기
+  const onClickPreviousPages = useCallback((e) => {
+    console.log("페이지 돌아가기");
+    console.log("페이지: " + pages);
+    if(pages.length < 5){
+      for(let i=0; i<5; i++) pages[i] = pages[0]+i;
+    }
+    let list = [];
+    for(let i=4; i>=0; i--){
+      list[i] = pages[i]-5;
+      if(list[i] <= 1) {
+        setShowGoLeftPages(false);
+        break;
+      }
+    }
+    setPages(list);
+    setShowGoRightPages(true);
+  },[]);
 
   // 베스트 게시물 목록
   let rank = 1;
@@ -196,10 +235,10 @@ const Community = () => {
   const showPages = pages.map((page) => {
     return (
         <PageNum style={{fontSize: "20px", padding: "10.5px"}} onClick={onClickPage}>
-          {page + 1}
+          {page}
         </PageNum>
     )
-  })
+  });
 
   return (
       <div>
@@ -255,17 +294,31 @@ const Community = () => {
             </StyledBtn>
           </SortBox>
           <Pagination>
+            {showGoLeftPages &&
+                <StyledBtn id="next-page" onClick={onClickPreviousPages}>
+                  <FontAwesomeIcon
+                      icon={faCaretLeft}
+                      style={{
+                        fontSize: "20px",
+                        color: "#9C9C9C",
+                        marginLeft: "10.5px",
+                      }}
+                  />
+                </StyledBtn>
+            }
             <Pages>{showPages}</Pages>
-            <StyledBtn id="next-page" onClick={onClickNextPages}>
-              <FontAwesomeIcon
-                  icon={faCaretRight}
-                  style={{
-                    fontSize: "20px",
-                    color: "#9C9C9C",
-                    marginLeft: "10.5px",
-                  }}
-              />
-            </StyledBtn>
+            {showGoRightPages &&
+                <StyledBtn id="next-page" onClick={onClickNextPages}>
+                  <FontAwesomeIcon
+                      icon={faCaretRight}
+                      style={{
+                        fontSize: "20px",
+                        color: "#9C9C9C",
+                        marginLeft: "10.5px",
+                      }}
+                  />
+                </StyledBtn>
+            }
           </Pagination>
         </Wrapper>
       </div>
