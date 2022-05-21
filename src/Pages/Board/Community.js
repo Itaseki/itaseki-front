@@ -73,7 +73,6 @@ const Community = () => {
         .then((res) => {
           console.log("👍전체 게시글 조회 성공");
           const data = res.data;
-          console.log(data);
           const totalPage = data["totalPageCount"];
           const posts = data["boardsResponses"];
           setPosts(posts);
@@ -93,13 +92,13 @@ const Community = () => {
   // 새 게시물 작성 버튼 클릭 -> 모달 창 open
   const onClickAddNewPost = useCallback(() => {
     setShowAddNewPostModal(true);
-    console.log("add new post btn click: " + showAddNewPostModal);
+    console.log("새 게시물 쓰기: " + showAddNewPostModal);
   }, []);
 
   // 모달 창 close
   const onCloseModal = useCallback(() => {
     setShowAddNewPostModal(false);
-    console.log("close modal");
+    console.log("새 게시물 쓰기 모달창 닫기");
   }, []);
 
   // 새 게시물 작성 submit

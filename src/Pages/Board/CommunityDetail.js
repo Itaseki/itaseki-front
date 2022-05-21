@@ -40,19 +40,21 @@ const CommunityDetail = ({match}) => {
       nestedComments: null},
   ]);
   const [newComment, onChangeNewComment, setNewComment] = useInput("");
-  const [likeCount, setLikeCount] = useState(contentInfo.likeCount);
+  const [likeCount, setLikeCount] = useState();
 
   const communityBoardId = useParams().id;
   // console.log("communityBoardId: ", communityBoardId);  // communityBoardId 받아오기
 
+  // 상세 게시글 조회
   useEffect(() => {
     axios.get(preURL.preURL + `/boards/community/${communityBoardId}`)
         .then((res) => {
-          console.log("👍상세 게시물 조회 성공", res);
+          console.log("👍상세 게시글 조회 성공", res);
           setContentInfo(res.data);
+          setLikeCount(res.data["likeCount"]);
         })
         .catch((err) => {
-          console.log("🧨상세 게시물 조회 실패", err);
+          console.log("🧨상세 게시글 조회 실패", err);
         })
   },[]);
 
