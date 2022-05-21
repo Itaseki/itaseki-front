@@ -72,12 +72,15 @@ const Community = () => {
         .get(preURL.preURL + `/boards/community?page=${page}&size=10&sort=${sort}&sort=id,DESC&q=${search}`)
         .then((res) => {
           console.log("전체 게시글 조회");
-          setPosts(res.data[1]);
-          setTotalPage(res.data[0]);
+          const data = res.data;
+          const totalPage = data["totalPageCount"];
+          const posts = data["boardsResponses"];
+          setPosts(posts);
+          setTotalPage(totalPage);
           let list = [];
-          if(res.data[0] >= 5) list = [1,2,3,4,5];
+          if(totalPage >= 5) list = [1,2,3,4,5];
           else {
-            for(let i=1; i<=res.data[0]; i++) list.push(i);
+            for(let i=1; i<=totalPage; i++) list.push(i);
           }
           setPages(list);
         })
