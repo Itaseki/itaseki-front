@@ -114,7 +114,7 @@ const CommunityDetail = ({match}) => {
   // 게시글 이미지
   const imgs = contentInfo.imageUrls.map((imgUrl) => {
     return (
-        <img src={imgUrl} />
+        <img src={imgUrl} alt="사진"/>
     )
   });
 

@@ -93,7 +93,7 @@ const SingleComment = ({comment, communityBoardId}) => {
         {showReplyModal &&
             <div>
               <Line/>
-              <img src={Comment_reply} style={{padding: "10px", verticalAlign: "middle"}}/>
+              <img src={Comment_reply} style={{padding: "10px", verticalAlign: "middle"}} alt="대댓글"/>
               <span>로그인한 사용자</span>
               <NewCommentBox onSubmit={onSubmitReply}>
                 <textarea placeholder="댓글 입력" style={{width: "761px", marginLeft: "20px"}} value={newReply} onChange={onChangeNewReply}/>
@@ -108,7 +108,7 @@ const SingleComment = ({comment, communityBoardId}) => {
             return(
                 <Comment>
                   <Line/>
-                  <img src={Comment_reply} />
+                  <img src={Comment_reply} alt="대댓글"/>
                   <DetailInfo>
                     <p style={{fontWeight: 600, color: "#6A3E85"}}>{nestedComment.writerNickName}</p>
                     <p>|</p>

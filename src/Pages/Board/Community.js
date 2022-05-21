@@ -249,7 +249,7 @@ const Community = () => {
               style={{display: "flex", marginLeft: "60%"}}
               onClick={onClickAddNewPost}
           >
-            <img src={AddPost} />
+            <img src={AddPost} alt="새 게시글 쓰기"/>
           </StyledBtn>
           <Modal show={showAddNewPostModal} onCloseModal={onCloseModal}>
             <form onSubmit={onAddNewPost}>
@@ -260,7 +260,7 @@ const Community = () => {
             </form>
           </Modal>
           <BestPostsWrapper>
-            <img src={BestCommu}/>
+            <img src={BestCommu} alt="Best 잡담 게시글"/>
             <PostLists style={{paddingLeft: "25px"}}>
               {bestPostList}
             </PostLists>
