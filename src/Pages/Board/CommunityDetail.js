@@ -48,13 +48,13 @@ const CommunityDetail = ({match}) => {
   useEffect(() => {
     axios.get(preURL.preURL + `/boards/community/${communityBoardId}`)
         .then((res) => {
-          console.log("👍상세 게시물 조회 성공");
+          console.log("👍상세 게시물 조회 성공", res);
           setContentInfo(res.data);
         })
         .catch((err) => {
           console.log("🧨상세 게시물 조회 실패", err);
         })
-  });
+  },[]);
 
   // 좋아요 버튼 클릭
   const onClickLike = useCallback(() => {
