@@ -152,8 +152,7 @@ const CommunityDetail = ({match}) => {
           </ContentWrapper>
           <AdditionalBtns>
             <AButton style={{background: "#9E8FA8"}} onClick={onClickLike}>좋아요</AButton>
-            <AButton style={{background: "#C4C4C4"}} onClick={onClickShare}>공유</AButton>
-            <AButton style={{background: "#9E8FA8"}} onClick={onClickReport}>신고하기</AButton>
+            <AButton style={{background: "#C4C4C4"}} onClick={onClickReport}>신고하기</AButton>
           </AdditionalBtns>
           <CommentsWrapper>
             <CommentsListWrapper>

@@ -15,7 +15,7 @@ import Header from "../../Components/Header";
 import BestCommu from "../../Assets/BEST_Commu.png";
 import AddPost from "../../Assets/Add_Post.png";
 import StyledBtn from "../../Style/StyledBtn";
-import {faCaretLeft, faCaretRight, faHeart} from "@fortawesome/free-solid-svg-icons";
+import {faCaretLeft, faCaretRight, faHeart, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Modal from "../../Components/Modal";
 import {Link} from "react-router-dom";
@@ -103,6 +103,7 @@ const Community = () => {
 
   // 새 게시물 작성 submit
   const onAddNewPost = useCallback((e) => {
+    e.preventDefault();
     axios
         .post(preURL.preURL + '/boards/community', {
           title: newTitle,
@@ -111,11 +112,17 @@ const Community = () => {
         })
         .then((res) => {
           console.log("👍잡담글 등록 성공 ", res.data);
+          setNewTitle("");
+          setNewContent("");
+          setNewImages([]);
         })
         .catch((err) => {
           console.log("🧨잡담글 등록 에러 ", err);
+          console.log(newTitle);
+          console.log(newContent);
+          console.log(newImages);
         })
-  }, []);
+  }, [newTitle, newContent, newImages]);
 
   // 최신순
   const onClickSortNewest = useCallback(() => {
@@ -254,10 +261,17 @@ const Community = () => {
           >
             <img src={AddPost} alt="새 게시글 쓰기"/>
           </StyledBtn>
+          {/*새 게시글 쓰기 모달창*/}
           <Modal show={showAddNewPostModal} onCloseModal={onCloseModal}>
             <form onSubmit={onAddNewPost}>
               <Input placeholder="제목을 입력하세요." value={newTitle} onChange={onChangeNewTitle}/>
-              <ImgInput type="file" accept="image/*" multiple value={newImages} onChange={onChangeNewImages}/> {/*이미지 여러개 배열로 해야됨*/}
+              <ImgInput>
+                <label for="img-input">
+                  <FontAwesomeIcon for="img-input" icon={faPlus} style={{ fontSize: "150%", color: "white" }} />
+                </label>
+                <input id="img-input" type="file" accept="image/*" multiple value={newImages} onChange={onChangeNewImages} style={{display: "none"}}/> {/*이미지 여러개 배열로 해야됨*/}
+                {/*<input value="선택된 파일 없음" disabled="disabled" />*/}
+              </ImgInput>
               <TextArea placeholder="내용" value={newContent} onChange={onChangeNewContent}/>
               <SubmitBtn type="submit">확인</SubmitBtn>
             </form>

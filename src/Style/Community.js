@@ -113,14 +113,29 @@ export const Input = styled.input`
   }
 `
 
-export const ImgInput = styled.input`
-  text-align: initial;
+export const ImgInput = styled.div`
+  display: flex;
+  & > label {
+    width: 146px;
+    height: 58px;
+    margin-left: 3%;
+    background: #9E8FA8;
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  & > input {
+    margin: 0 10px;
+  }
 `
 
 export const TextArea = styled.textarea`
   width: 792px;
   height: 270px;
   margin: 10px 0;
+  padding: 10px;
   background: #FFFFFF;
   border-radius: 14px;
   resize: none;
@@ -247,5 +262,5 @@ export const AButton = styled(styledBtn)`
   height: 58px;
   color: white;
   border-radius: 29px;
-  margin: 0 30px;
+  margin: 0 60px;
 `
