@@ -18,10 +18,10 @@ const SingleComment = ({comment, communityBoardId}) => {
     axios
         .delete(preURL.preURL + `/boards/community/${communityBoardId}/comments/${communityCommentId}`)  // communityCommentId
         .then((res) => {
-          console.log("댓글 삭제", res);
+          console.log("👍댓글 삭제 성공");
         })
         .catch((err) => {
-          console.log("댓글 삭제 오류", err);
+          console.log("🧨댓글 삭제 에러", err);
         })
   },[]);
 
@@ -32,10 +32,10 @@ const SingleComment = ({comment, communityBoardId}) => {
     axios
         .post(preURL.preURL + `/boards/community/${communityBoardId}/comments/${communityCommentId}`)
         .then((res) => {
-          console.log("댓글 신고", res.data);
+          console.log("👍댓글 신고 성공");
         })
         .catch((err) => {
-          console.log("댓글 신고 에러", err);
+          console.log("🧨댓글 신고 에러", err);
         })
   },[]);
 
@@ -60,11 +60,11 @@ const SingleComment = ({comment, communityBoardId}) => {
           parentCommentId: comment.id,
         })
         .then((res) => {
-          console.log("댓글 등록", res.data);
+          console.log("👍댓글 등록 성공");
           setNewReply("");  // 댓글 내용 초기화
         })
         .catch((err) => {
-          console.log("댓글 등록 오류", err);
+          console.log("🧨댓글 등록 에러", err);
         })
   }, []);
 

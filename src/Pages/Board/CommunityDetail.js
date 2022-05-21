@@ -48,11 +48,11 @@ const CommunityDetail = ({match}) => {
   useEffect(() => {
     axios.get(preURL.preURL + `/boards/community/${communityBoardId}`)
         .then((res) => {
-          console.log("상세 게시물 조회");
+          console.log("👍상세 게시물 조회 성공");
           setContentInfo(res.data);
         })
         .catch((err) => {
-          console.log(err);
+          console.log("🧨상세 게시물 조회 실패", err);
         })
   });
 
@@ -60,11 +60,11 @@ const CommunityDetail = ({match}) => {
   const onClickLike = useCallback(() => {
     axios.post(preURL.preURL + `/boards/community/${communityBoardId}/likes`)
         .then((res) => {
-          console.log("게시글 좋아요", res.data);
+          console.log("👍게시글 좋아요 성공");
           setLikeCount(res.data);
         })
         .catch((err) => {
-          console.log("게시글 좋아요 에러", err);
+          console.log("🧨게시글 좋아요 에러", err);
         })
   }, []);
 
@@ -77,10 +77,10 @@ const CommunityDetail = ({match}) => {
     axios
         .post(preURL.preURL + `/boards/community/${communityBoardId}/reports`)
         .then((res) => {
-          console.log("게시글 신고", res.data);
+          console.log("👍게시글 신고 성공");
         })
         .catch((err) => {
-          console.log("게시글 신고 에러", err);
+          console.log("🧨게시글 신고 에러", err);
         })
   }, []);
 
@@ -88,10 +88,10 @@ const CommunityDetail = ({match}) => {
   const onClickDelete = useCallback(() => {
     axios.delete(preURL.preURL + `/boards/community/${communityBoardId}`)
         .then((res) => {
-          console.log("게시글 삭제", res);
+          console.log("👍게시글 삭제 성공");
         })
         .catch((err) => {
-          console.log("게시글 삭제 에러", err);
+          console.log("🧨게시글 삭제 에러", err);
         })
   }, []);
 
@@ -103,11 +103,11 @@ const CommunityDetail = ({match}) => {
           parentCommentId: 0,
         })
         .then((res) => {
-          console.log("댓글 등록", res.data);
+          console.log("👍댓글 등록 성공");
           setNewComment("");  // 댓글 내용 초기화
         })
         .catch((err) => {
-          console.log("댓글 등록 오류", err);
+          console.log("🧨댓글 등록 에러", err);
         })
   }, []);
 

@@ -58,11 +58,11 @@ const Community = () => {
   useEffect(() => {
     axios.get(preURL.preURL + '/boards/community/best')
         .then((res) => {
-          console.log("베스트 게시글 조회");
+          console.log("👍베스트 게시글 조회 성공");
           setBestPosts(res.data);
         })
         .catch((err) => {
-          console.log(err)
+          console.log("🧨베스트 게시글 조회 실패", err)
         })
   }, []);
 
@@ -71,7 +71,7 @@ const Community = () => {
     axios
         .get(preURL.preURL + `/boards/community?page=${page}&size=10&sort=${sort}&sort=id,DESC&q=${search}`)
         .then((res) => {
-          console.log("전체 게시글 조회");
+          console.log("👍전체 게시글 조회 성공");
           const data = res.data;
           const totalPage = data["totalPageCount"];
           const posts = data["boardsResponses"];
@@ -85,7 +85,7 @@ const Community = () => {
           setPages(list);
         })
         .catch((err) => {
-          console.log(err);
+          console.log("🧨전체 게시글 조회 실패", err);
         })
   }, []);
 
@@ -110,10 +110,10 @@ const Community = () => {
           images: newImages,
         })
         .then((res) => {
-          console.log("잡담글 등록", res.data);
+          console.log("👍잡담글 등록 성공 ", res.data);
         })
         .catch((err) => {
-          console.log(err);
+          console.log("🧨잡담글 등록 에러 ", err);
         })
   }, []);
 
