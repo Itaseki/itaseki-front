@@ -12,7 +12,6 @@ const SingleComment = ({comment, communityBoardId}) => {
 
   // 댓글 삭제
   const onClickDeleteComment = useCallback((e) => {
-    console.log(e);
     const communityCommentId = e.target.getAttribute("id");
     console.log("삭제할 댓글 id:" + communityCommentId);
     axios
@@ -73,7 +72,7 @@ const SingleComment = ({comment, communityBoardId}) => {
         <Comment>
           <Line/>
           <DetailInfo>
-            <p style={{fontWeight: 600, color: "#6A3E85"}}>{comment.writerNickName}</p>
+            <p style={{fontWeight: 600, color: "#6A3E85"}}>{comment.writerNickname}</p>
             <p>|</p>
             <p>{comment.createdTime}</p>
             <p>|</p>
