@@ -33,6 +33,7 @@ const SingleComment = ({comment, communityBoardId}) => {
         .post(preURL.preURL + `/boards/community/${communityBoardId}/comments/${communityCommentId}/reports`)
         .then((res) => {
           console.log("👍댓글 신고 성공");
+          alert("댓글을 신고하였습니다.");
         })
         .catch((err) => {
           console.log("🧨댓글 신고 에러", err);
