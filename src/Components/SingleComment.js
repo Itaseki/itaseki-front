@@ -1,14 +1,15 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Comment, DetailInfo, Line, NewCommentBox, ReplyBtn} from "../Style/Community";
 import StyledBtn from "../Style/StyledBtn";
 import axios from "axios";
 import preURL from "../preURL/preURL";
-import Comment_reply from "../Assets/Comment_reply.jpg";
+import Comment_reply from "../Assets/Comment_reply.png";
 import useInput from "../Hooks/useInput";
 
 const SingleComment = ({comment, communityBoardId}) => {
   const [showReplyModal, setShowReplyModal] = useState(false);
   const [newReply, onChangeNewReply, setNewReply] = useInput("");
+  const nestedComments = comment.nestedComments;
 
   // 댓글 삭제
   const onClickDeleteComment = (e) => {
@@ -94,7 +95,7 @@ const SingleComment = ({comment, communityBoardId}) => {
         {showReplyModal &&
             <div>
               <Line/>
-              <img src={Comment_reply} style={{padding: "10px", verticalAlign: "middle"}} alt="대댓글"/>
+              <img src={Comment_reply} style={{width: "15px", height: "19px", padding: "10px", verticalAlign: "middle"}} alt="대댓글"/>
               <span>로그인한 사용자</span>
               <NewCommentBox onSubmit={onSubmitReply}>
                 <textarea placeholder="댓글 입력" style={{width: "761px", marginLeft: "20px"}} value={newReply} onChange={onChangeNewReply}/>
@@ -105,22 +106,27 @@ const SingleComment = ({comment, communityBoardId}) => {
               </NewCommentBox>
             </div>
         }
-        {/*{comment.nestedComments?.map((nestedComment) => {
+        {/*대댓글*/}
+        {nestedComments.map((nestedComment) => {
             return(
                 <Comment>
                   <Line/>
-                  <img src={Comment_reply} alt="대댓글"/>
-                  <DetailInfo>
-                    <p style={{fontWeight: 600, color: "#6A3E85"}}>{nestedComment.writerNickName}</p>
+                  <div style={{display: "flex", flexDirection: "row"}}>
+                  <img src={Comment_reply} style={{width: "15px", height: "19px", padding: "10px", verticalAlign: "middle"}} alt="대댓글"/>
+                  <DetailInfo style={{marginTop: 0}}>
+                    <p style={{fontWeight: 600, color: "#6A3E85"}}>{nestedComment.writerNickname}</p>
                     <p>|</p>
                     <p>{nestedComment.createdTime}</p>
                     <p>|</p>
-                    <StyledBtn>신고</StyledBtn>
+                    {nestedComment.isThisBoardWriterCommentWriter
+                        ? <StyledBtn id={nestedComment.id} onClick={onClickDeleteComment}>삭제</StyledBtn>
+                        : <StyledBtn id={nestedComment.id} onClick={onClickCommentReport}>신고</StyledBtn>}
                   </DetailInfo>
-                  <div id="comment-content">{nestedComment.content}</div>
+                  </div>
+                  <div id="comment-content" style={{marginLeft: "40px"}}>{nestedComment.content}</div>
                 </Comment>
             )
-          })}*/}
+          })}
       </div>
   )
 }

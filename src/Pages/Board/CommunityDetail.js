@@ -25,19 +25,17 @@ const CommunityDetail = ({match}) => {
       id: 1, title: "제목이당", content: "내용이당", imageUrls: ["/1", "/2"], createdTime: "2:48", viewCount: 15, likeCount: 30,
     writerId: 10, writerNickname: "배고파",
     isThisUserWriter: true,
-    commentCount: 3, comments: []
+    commentCount: 3, comments: [
+      /*{id: 12345, content: "댓글이당", createdTime: "4:16", writerId: 10, writerNickName: "배고파22", isThisUserWriter: true, isThisBoardWriterCommentWriter: false,
+        nestedComments: [
+          {id: 23456, content: "대댓글이얌", createdTime: "4:20", writerId: 11, writerNickName: "배고파23", isThisUserWriter: false, isThisBoardWriterCommentWriter: true}
+        ]},
+      {id: 23456, content: "댓글2당", createdTime: "4:20", writerId: 11, writerNickName: "배고파23", isThisUserWriter: false, isThisBoardWriterCommentWriter: true,
+        nestedComments: null},
+      {id: 98765, content: "댓글3임", createdTime: "4:20", writerId: 11, writerNickName: "배고파23", isThisUserWriter: false, isThisBoardWriterCommentWriter: true,
+        nestedComments: null},*/
+    ]
   });
-  /*const [commentsList, setCommentsList] = useState([
-    {id: 12345, content: "댓글이당", createdTime: "4:16", writerId: 10, writerNickName: "배고파22", isThisUserWriter: true, isThisBoardWriterCommentWriter: false,
-      nestedComments: [
-          {writerNickName: "배고파23", createdTime: "10:26", content: "대댓글이당"},
-          {writerNickName: "배고파24", createdTime: "10:30", content: "대댓글2이당"}
-      ]},
-    {id: 23456, content: "댓글2당", createdTime: "4:20", writerId: 11, writerNickName: "배고파23", isThisUserWriter: false, isThisBoardWriterCommentWriter: true,
-      nestedComments: null},
-    {id: 98765, content: "댓글3임", createdTime: "4:20", writerId: 11, writerNickName: "배고파23", isThisUserWriter: false, isThisBoardWriterCommentWriter: true,
-      nestedComments: null},
-  ]);*/
   const [newComment, onChangeNewComment, setNewComment] = useInput("");
   const [likeCount, setLikeCount] = useState();
   const commentsList = contentInfo.comments;
