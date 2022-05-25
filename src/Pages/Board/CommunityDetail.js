@@ -15,7 +15,7 @@ import {faHeart} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
-import {useParams} from "react-router-dom";
+import {Route, useParams} from "react-router-dom";
 import useInput from "../../Hooks/useInput";
 import SingleComment from "../../Components/SingleComment";
 
@@ -85,9 +85,12 @@ const CommunityDetail = ({match}) => {
 
   // 게시글 삭제
   const onClickDelete = useCallback(() => {
-    axios.delete(preURL.preURL + `/boards/community/${communityBoardId}`)
+    axios
+        .delete(preURL.preURL + `/boards/community/${communityBoardId}`)
         .then((res) => {
           console.log("👍게시글 삭제 성공");
+          alert("게시글을 삭제하였습니다.");
+          return window.location.href = "/community"
         })
         .catch((err) => {
           console.log("🧨게시글 삭제 에러", err);
