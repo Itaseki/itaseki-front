@@ -11,24 +11,24 @@ const SingleComment = ({comment, communityBoardId}) => {
   const [newReply, onChangeNewReply, setNewReply] = useInput("");
 
   // 댓글 삭제
-  const onClickDeleteComment = useCallback((e) => {
-    e.preventDefault();
+  const onClickDeleteComment = (e) => {
     const communityCommentId = e.target.getAttribute("id");
     console.log("삭제할 댓글 id:" + communityCommentId);
     axios
         .delete(preURL.preURL + `/boards/community/${communityBoardId}/comments/${communityCommentId}`)
         .then((res) => {
           console.log("👍댓글 삭제 성공");
+          window.location.reload();
         })
         .catch((err) => {
           console.log("🧨댓글 삭제 에러", err);
         })
-  },[]);
+  };
 
   // 댓글 신고
-  const onClickCommentReport = useCallback((e) => {
+  const onClickCommentReport = (e) => {
     const communityCommentId = e.target.getAttribute("id");
-    console.log(communityCommentId);
+    console.log("신고할 댓글 id: " + communityCommentId);
     axios
         .post(preURL.preURL + `/boards/community/${communityBoardId}/comments/${communityCommentId}/reports`)
         .then((res) => {
@@ -38,7 +38,7 @@ const SingleComment = ({comment, communityBoardId}) => {
         .catch((err) => {
           console.log("🧨댓글 신고 에러", err);
         })
-  },[]);
+  };
 
   // 대댓글 등록 모달 창 띄우기
   const onCreateReplyModal = () => {
@@ -46,7 +46,7 @@ const SingleComment = ({comment, communityBoardId}) => {
     console.log("대댓글 모달 창 띄우기: " + showReplyModal);
   };
 
-  // 대댓글 등록 모달 창 clsoe
+  // 대댓글 등록 모달 창 close
   const onCloseReplyModal = () => {
     setShowReplyModal(false);
     console.log("대댓글 모달 창 닫기: " + showReplyModal);
@@ -55,7 +55,6 @@ const SingleComment = ({comment, communityBoardId}) => {
   // 코드 중복 => 어떻게 해결?
   // 대댓글 등록
   const onSubmitReply = useCallback((e) => {
-    e.preventDefault();
     axios
         .post(preURL.preURL + `/boards/community/${communityBoardId}/comments`, {
           content: newReply,
@@ -68,7 +67,7 @@ const SingleComment = ({comment, communityBoardId}) => {
         .catch((err) => {
           console.log("🧨대댓글 등록 에러", err);
         })
-  }, []);
+  }, [newReply]);
 
   return (
       <div>
