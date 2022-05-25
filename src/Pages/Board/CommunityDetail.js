@@ -157,9 +157,9 @@ const CommunityDetail = ({match}) => {
           <CommentsWrapper>
             <CommentsListWrapper>
               <p>댓글 {contentInfo.commentCount}</p>
-              {commentsList.map((comment) => {
-                return <SingleComment comment={comment} communityBoardId={communityBoardId}/>
-              })}
+              {commentsList.map((comment) => (
+                <SingleComment comment={comment} communityBoardId={communityBoardId}/>
+              ))}
               <Line style={{width: "805px"}}/>
             </CommentsListWrapper>
             <NewCommentWrapper>

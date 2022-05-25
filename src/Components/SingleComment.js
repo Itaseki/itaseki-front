@@ -2,7 +2,7 @@ import React, {useCallback, useState} from "react";
 import {Comment, DetailInfo, Line, NewCommentBox, ReplyBtn} from "../Style/Community";
 import StyledBtn from "../Style/StyledBtn";
 import axios from "axios";
-import {preURL} from "../preURL/preURL";
+import preURL from "../preURL/preURL";
 import Comment_reply from "../Assets/Comment_reply.jpg";
 import useInput from "../Hooks/useInput";
 
@@ -12,10 +12,11 @@ const SingleComment = ({comment, communityBoardId}) => {
 
   // 댓글 삭제
   const onClickDeleteComment = useCallback((e) => {
+    e.preventDefault();
     const communityCommentId = e.target.getAttribute("id");
     console.log("삭제할 댓글 id:" + communityCommentId);
     axios
-        .delete(preURL.preURL + `/boards/community/${communityBoardId}/comments/${communityCommentId}`)  // communityCommentId
+        .delete(preURL.preURL + `/boards/community/${communityBoardId}/comments/${communityCommentId}`)
         .then((res) => {
           console.log("👍댓글 삭제 성공");
         })
@@ -29,7 +30,7 @@ const SingleComment = ({comment, communityBoardId}) => {
     const communityCommentId = e.target.getAttribute("id");
     console.log(communityCommentId);
     axios
-        .post(preURL.preURL + `/boards/community/${communityBoardId}/comments/${communityCommentId}`)
+        .post(preURL.preURL + `/boards/community/${communityBoardId}/comments/${communityCommentId}/reports`)
         .then((res) => {
           console.log("👍댓글 신고 성공");
         })
@@ -52,18 +53,19 @@ const SingleComment = ({comment, communityBoardId}) => {
 
   // 코드 중복 => 어떻게 해결?
   // 대댓글 등록
-  const onSubmitReply = useCallback(() => {
+  const onSubmitReply = useCallback((e) => {
+    e.preventDefault();
     axios
         .post(preURL.preURL + `/boards/community/${communityBoardId}/comments`, {
           content: newReply,
           parentCommentId: comment.id,
         })
         .then((res) => {
-          console.log("👍댓글 등록 성공");
+          console.log("👍대댓글 등록 성공");
           setNewReply("");  // 댓글 내용 초기화
         })
         .catch((err) => {
-          console.log("🧨댓글 등록 에러", err);
+          console.log("🧨대댓글 등록 에러", err);
         })
   }, []);
 
