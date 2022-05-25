@@ -131,7 +131,7 @@ const CommunityDetail = ({match}) => {
                   : null}
             </DetailTitle>
             <DetailInfo>
-              <p>{contentInfo.writerId}</p>
+              <p>{contentInfo.writerNickname}</p>
               <p>|</p>
               <p>{contentInfo.createdTime}</p>
               <p>|</p>
