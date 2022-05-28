@@ -56,7 +56,8 @@ const Community = () => {
 
   // 베스트 게시글 조회
   useEffect(() => {
-    axios.get(preURL.preURL + '/boards/community/best')
+    axios
+        .get(preURL.preURL + '/boards/community/best')
         .then((res) => {
           console.log("👍베스트 게시글 조회 성공");
           setBestPosts(res.data);
@@ -103,7 +104,17 @@ const Community = () => {
 
   // 새 게시물 작성 submit
   const onAddNewPost = useCallback((e) => {
-    e.preventDefault();
+    if(!newTitle) {
+      alert("제목을 입력하세요");
+      e.preventDefault();
+      return;
+    }
+    if(!newContent) {
+      alert("내용을 입력하세요");
+      e.preventDefault();
+      return;
+    }
+    e.preventDefault(); /* 등록 테스트 완료 후 삭제*/
     axios
         .post(preURL.preURL + '/boards/community', {
           title: newTitle,
@@ -263,7 +274,7 @@ const Community = () => {
           </StyledBtn>
           {/*새 게시글 쓰기 모달창*/}
           <Modal show={showAddNewPostModal} onCloseModal={onCloseModal}>
-            <form onSubmit={onAddNewPost}>
+            <form enctype="multipart/form-data" onSubmit={onAddNewPost}>
               <Input placeholder="제목을 입력하세요." value={newTitle} onChange={onChangeNewTitle}/>
               <ImgInput>
                 <label for="img-input">
