@@ -108,7 +108,7 @@ const Community = () => {
         .post(preURL.preURL + '/boards/community', {
           title: newTitle,
           content: newContent,
-          images: newImages,
+          files: newImages,
         })
         .then((res) => {
           console.log("👍잡담글 등록 성공 ", res.data);

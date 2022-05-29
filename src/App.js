@@ -10,7 +10,10 @@ import Community from "./Pages/Board/Community";
 import CommunityDetail from "./Pages/Board/CommunityDetail";
 // Member
 import MyPage from "./Pages/Member/MyPage";
+import GIFBoardDetail from "./Pages/Board/GIFBoardDetail";
+// Video
 import AddNewVideo from "./Pages/Video/AddNewVideo";
+import VideoList from "./Pages/Video/VideoList";
 
 const App = () => {
   return (
@@ -21,12 +24,14 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       {/* Board */}
       <Route path="/boards" element={<GIFBoard />} />
+      <Route path="/boards/:Id" element={<GIFBoardDetail />} />
       <Route path="/community" element={<Community />} />
       <Route path="/community/:id" element={<CommunityDetail />} />
       {/* Member */}
       <Route path="/mypage" element={<MyPage />} />
       {/* Video */}
       <Route path="/addvideo" element={<AddNewVideo />} />
+      <Route path="/videolist" element={<VideoList />} />
     </Routes>
   );
 };

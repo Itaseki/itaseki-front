@@ -11,11 +11,13 @@ import {
   Series
 } from "../../Style/AddNewVideo";
 import StyledBtn from "../../Style/StyledBtn";
+import {useNavigate} from "react-router-dom";
 
 const AddNewVideo = () => {
-
-  const onSubmitVideo = () => {
-
+  const navigate = useNavigate();
+  const onSubmitNewVideo = () => {
+    console.log("영상 등록하기");
+    navigate('/videolist');
   }
 
   return (
@@ -34,14 +36,14 @@ const AddNewVideo = () => {
             </span>
           </PreInformContent>
         </PreInform>
-        <AddVideoForm>
+        <AddVideoForm onSubmit={onSubmitNewVideo}>
           <NewUrlForm>
             <p>URL 입력</p>
             <input type="text"/>
             <StyledBtn type="submit" id="verify-btn">검증</StyledBtn>
           </NewUrlForm>
           <div style={{display: "flex"}}>
-            <Series onSubmit={onSubmitVideo}>
+            <Series>
               <p>시리즈</p>
               <input type="text" />
               {/*시리즈 선택*/}
