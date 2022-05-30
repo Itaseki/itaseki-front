@@ -312,7 +312,7 @@ const Community = () => {
           </SortBox>
           <Pagination>
             {showGoLeftPages &&
-                <StyledBtn id="next-page" onClick={onClickPreviousPages}>
+                <StyledBtn id="previous-page" onClick={onClickPreviousPages}>
                   <FontAwesomeIcon
                       icon={faCaretLeft}
                       style={{
