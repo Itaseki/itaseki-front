@@ -7,7 +7,7 @@ import {
   VideoContainer,
   VideoInfo, VideoListWrapper,
   Wrapper, Pagination, Pages, PageNum
-} from "../../Style/VideoList";
+} from "../../Style/Video";
 import Best_Video from '../../Assets/Best_Video.png';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretLeft, faCaretRight} from "@fortawesome/free-solid-svg-icons";
