@@ -50,7 +50,8 @@ const Community = () => {
   const [showAddNewPostModal, setShowAddNewPostModal] = useState(false);
   const [newTitle, onChangeNewTitle, setNewTitle] = useInput("");
   const [newContent, onChangeNewContent, setNewContent] = useInput("");
-  const [newImages, onChangeNewImages, setNewImages] = useInput([]);
+  // const [newImages, onChangeNewImages, setNewImages] = useInput([]);
+  const [newImages, setNewImages] = useState([]);
   const [showGoLeftPages, setShowGoLeftPages] = useState(false);
   const [showGoRightPages, setShowGoRightPages] = useState(true);
 
@@ -102,6 +103,13 @@ const Community = () => {
     console.log("새 게시물 쓰기 모달창 닫기");
   }, []);
 
+  // 이미지 인풋
+  const onChangeNewImages = (e) => {
+    const file = e.target.files;
+    console.log(file);
+    setNewImages(file);
+  };
+
   // 새 게시물 작성 submit
   const onAddNewPost = useCallback((e) => {
     if(!newTitle) {
@@ -114,13 +122,30 @@ const Community = () => {
       e.preventDefault();
       return;
     }
-    e.preventDefault(); /* 등록 테스트 완료 후 삭제*/
+    const formData = new FormData();
+    let variables = {
+      title: newTitle,
+      content: newContent
+    };
+    formData.append("communityBoardDto", new Blob([JSON.stringify(variables)], {type: "application/json"}));
+    // formData.append('title', JSON.stringify(newTitle));
+    // formData.append('content', JSON.stringify(newContent));
+    // formData.append('files', newImages[0]);
+    for(let i=0; i<newImages.length; i++) {
+      formData.append('files', newImages[i]);
+    };
     axios
-        .post(preURL.preURL + '/boards/community', {
-          title: newTitle,
-          content: newContent,
-          files: newImages,
-        })
+        .post(preURL.preURL + '/boards/community',
+          // title: newTitle,
+          // content: newContent,
+          // files: newImages,
+          formData,
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            }
+        )
         .then((res) => {
           console.log("👍잡담글 등록 성공 ", res.data);
           setNewTitle("");
@@ -132,6 +157,11 @@ const Community = () => {
           console.log(newTitle);
           console.log(newContent);
           console.log(newImages);
+          // formData 내용 확인
+          console.log("formData: ");
+          for (let value of formData.values()) {
+            console.log(value);
+          }
         })
   }, [newTitle, newContent, newImages]);
 
@@ -280,7 +310,7 @@ const Community = () => {
                 <label for="img-input">
                   <FontAwesomeIcon for="img-input" icon={faPlus} style={{ fontSize: "150%", color: "white" }} />
                 </label>
-                <input id="img-input" type="file" accept="image/*" multiple value={newImages} onChange={onChangeNewImages} style={{display: "none"}}/> {/*이미지 여러개 배열로 해야됨*/}
+                <input id="img-input" type="file" accept="image/*" multiple onChange={onChangeNewImages} style={{display: "none"}}/>
                 {/*<input value="선택된 파일 없음" disabled="disabled" />*/}
               </ImgInput>
               <TextArea placeholder="내용" value={newContent} onChange={onChangeNewContent}/>
