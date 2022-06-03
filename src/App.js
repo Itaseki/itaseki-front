@@ -6,11 +6,14 @@ import Login from "./Pages/Start/Login";
 import SignUp from "./Pages/Start/SignUp";
 // Board
 import GIFBoard from "./Pages/Board/GIFBoard";
+import GIFBoardDetail from "./Pages/Board/GIFBoardDetail";
+
 import Community from "./Pages/Board/Community";
 import CommunityDetail from "./Pages/Board/CommunityDetail";
+// Run
+import Reservation from "./Pages/Run/Reservation";
 // Member
 import MyPage from "./Pages/Member/MyPage";
-import GIFBoardDetail from "./Pages/Board/GIFBoardDetail";
 
 const App = () => {
   return (
@@ -24,6 +27,8 @@ const App = () => {
       <Route path="/boards/:Id" element={<GIFBoardDetail />} />
       <Route path="/community" element={<Community />} />
       <Route path="/community/:id" element={<CommunityDetail />} />
+      {/* Run */}
+      <Route path="/reservation" element={<Reservation />} />
       {/* Member */}
       <Route path="/mypage" element={<MyPage />} />
     </Routes>
