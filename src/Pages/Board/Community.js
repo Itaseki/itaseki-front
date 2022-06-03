@@ -73,7 +73,7 @@ const Community = () => {
     axios
         .get(preURL.preURL + `/boards/community?page=${page}&size=10&sort=${sort}&sort=id,DESC&q=${search}`)
         .then((res) => {
-          console.log("👍전체 게시글 조회 성공");
+          console.log("👍전체 게시글 조회 성공", res.data);
           const data = res.data;
           const totalPage = data["totalPageCount"];
           const posts = data["boardsResponses"];
@@ -89,7 +89,7 @@ const Community = () => {
         .catch((err) => {
           console.log("🧨전체 게시글 조회 실패", err);
         })
-  }, [sort]);
+  }, [sort, page]);
 
   // 새 게시물 작성 버튼 클릭 -> 모달 창 open
   const onClickAddNewPost = useCallback(() => {
@@ -128,12 +128,9 @@ const Community = () => {
       content: newContent
     };
     formData.append("communityBoardDto", new Blob([JSON.stringify(variables)], {type: "application/json"}));
-    // formData.append('title', JSON.stringify(newTitle));
-    // formData.append('content', JSON.stringify(newContent));
-    // formData.append('files', newImages[0]);
     for(let i=0; i<newImages.length; i++) {
       formData.append('files', newImages[i]);
-    };
+    }
     axios
         .post(preURL.preURL + '/boards/community',
           // title: newTitle,
