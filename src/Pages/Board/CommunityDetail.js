@@ -44,7 +44,8 @@ const CommunityDetail = ({match}) => {
 
   // 상세 게시글 조회
   useEffect(() => {
-    axios.get(preURL.preURL + `/boards/community/${communityBoardId}`)
+    axios
+        .get(preURL.preURL + `/boards/community/${communityBoardId}`)
         .then((res) => {
           console.log("👍상세 게시글 조회 성공", res);
           setContentInfo(res.data);
@@ -57,7 +58,8 @@ const CommunityDetail = ({match}) => {
 
   // 좋아요 버튼 클릭
   const onClickLike = useCallback(() => {
-    axios.post(preURL.preURL + `/boards/community/${communityBoardId}/likes`)
+    axios
+        .post(preURL.preURL + `/boards/community/${communityBoardId}/likes`)
         .then((res) => {
           console.log("👍게시글 좋아요 성공");
           setLikeCount(res.data);
