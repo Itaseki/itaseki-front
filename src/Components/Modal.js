@@ -22,7 +22,7 @@ export default Modal;
 // styled components
 
 const CreateModal = styled.div`
-  position: fixed;
+  position: absolute;
   text-align: center;
   left: 0;
   bottom: 0;
