@@ -1,8 +1,10 @@
 import React, {useEffect} from "react";
-import {Navigate} from "react-router-dom";
+import {useNavigate} from 'react-router-dom';
 import axios from "axios";
 
 const LoginRedirect = () => {
+
+  const navigate = useNavigate();
 
   //인가코드
   let code = new URL(window.location.href).searchParams.get("code");
@@ -15,12 +17,12 @@ const LoginRedirect = () => {
           const ACCESS_TOKEN = res.data.searchParams.get("access_token");
           localStorage.setItem("access_token", ACCESS_TOKEN);
           window.alert("환영합니다!");
-          return <Navigate replace to="/" />
+          navigate('/');
         })
         .catch((err) => {
           console.log("소셜 로그인 에러", err);
           window.alert("로그인에 실패하였습니다.");
-          return <Navigate to="/login"/>
+          navigate('/login');
         })
   }, );
 
