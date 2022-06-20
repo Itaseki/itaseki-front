@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import Header from "../../Components/Header";
 import {
   AddToPlayList, AddVideoBtn,
@@ -12,13 +12,40 @@ import {
 } from "../../Style/AddNewVideo";
 import StyledBtn from "../../Style/StyledBtn";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
+import preURL from "../../preURL/preURL";
+import useInput from "../../Hooks/useInput";
 
 const AddNewVideo = () => {
   const navigate = useNavigate();
+
+  const [newUrl, onChangeNewUrl, setNewUrl] = useInput("");
+  const [verified, setVerified] = useState(false);
+
+  const onClickUrlCheck = useCallback((e) => {
+    e.preventDefault();
+    console.log("newUrl: " + newUrl);
+    axios
+        .get(preURL.preURL + `/boards/video/verify?url=${newUrl}`)
+        .then((res) => {
+          console.log("👍url 검증 성공: ", res.data);
+          if(res.data === "등록 가능") {
+            alert("등록 가능한 영상입니다.");
+            setVerified(true);
+          }
+          else if(res.data === "등록 불가능") {
+            alert("등록 불가능한 영상입니다.");
+          }
+        })
+        .catch((err) => {
+          console.log("🧨url 검증 실패", err);
+        })
+  }, [newUrl]);
+
   const onSubmitNewVideo = () => {
     console.log("영상 등록하기");
     navigate('/videolist');
-  }
+  };
 
   return (
       <div>
@@ -39,8 +66,8 @@ const AddNewVideo = () => {
         <AddVideoForm onSubmit={onSubmitNewVideo}>
           <NewUrlForm>
             <p>URL 입력</p>
-            <input type="text"/>
-            <StyledBtn type="submit" id="verify-btn">검증</StyledBtn>
+            <input type="text" value={newUrl} onChange={onChangeNewUrl}/>
+            <StyledBtn id="verify-btn" onClick={onClickUrlCheck}>검증</StyledBtn>
           </NewUrlForm>
           <div style={{display: "flex"}}>
             <Series>

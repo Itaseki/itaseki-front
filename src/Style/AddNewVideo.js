@@ -33,7 +33,7 @@ export const AddVideoForm = styled.form`
   flex-direction: column;
 `
 
-export const NewUrlForm = styled.form`
+export const NewUrlForm = styled.div`
   & > input {
     background: var(--tag-select);
     border-radius: 17px;
