@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import "./color.css";
 import StyledBtn from "./StyledBtn";
+import {hover} from "@testing-library/user-event/dist/hover";
 
 export const PreInform = styled.div`
   width: 65%;
@@ -76,6 +77,9 @@ export const AutoFrame = styled.div`
   overflow-y: scroll;
   position: absolute;
   z-index: 2;
+  :hover{
+    display: flex
+  }
 `
 
 export const OneSeries = styled(StyledBtn)`

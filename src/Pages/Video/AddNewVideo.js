@@ -62,6 +62,13 @@ const AddNewVideo = () => {
         })
   }, [newUrl]);
 
+  const onClickOneSeries = (e) => {
+    e.preventDefault();
+    let selected = e.target.innerHTML;
+    console.log(selected);
+    setSearchSeries(selected);
+  }
+
   const onSubmitNewVideo = () => {
     console.log("영상 등록하기");
     navigate('/videolist');
@@ -69,7 +76,7 @@ const AddNewVideo = () => {
 
   const SeriesList = seriesList.map((oneSeries) => {
     return (
-        <OneSeries>
+        <OneSeries onClick={onClickOneSeries}>
           {oneSeries.name}
         </OneSeries>
     )
