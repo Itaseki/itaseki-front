@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Header from "../../Components/Header";
 import {
   AddToPlayList, AddVideoBtn,
@@ -22,6 +22,23 @@ const AddNewVideo = () => {
   const [newUrl, onChangeNewUrl, setNewUrl] = useInput("");
   const [verified, setVerified] = useState(false);
   const [introduction, onChangeIntroduction,setIntroduction] = useInput("");
+  const [series, setSeries] = useState([]);
+  const [hashTags, setHashTags] = useState([]);
+  const [playList, setPlayList] = useState([]);
+
+  useEffect(() => {
+    axios
+        .get(preURL.preURL + `/boards/video/info/${1}`)
+        .then((res) => {
+          console.log("👍시리즈, 해시태그, 플레이리스트 조회 성공", res.data);
+          setSeries(res.data['series']);
+          setHashTags(res.data['hashtags']);
+          setPlayList(res.data['playlists']);
+        })
+        .catch((err) => {
+          console.log("🧨시리즈, 해시태그, 플레이리스트 조회 실패", err);
+        })
+  }, []);
 
   const onClickUrlCheck = useCallback((e) => {
     e.preventDefault();
