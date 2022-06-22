@@ -136,6 +136,5 @@ export const AddToPlayList = styled.div`
 
 export const AddVideoBtn = styled(StyledBtn)`
   font-size: 20px;
-  display: flex;
-  flex-direction: row-reverse;
+  margin-left: auto;
 `
