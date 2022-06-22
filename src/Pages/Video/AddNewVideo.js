@@ -5,7 +5,7 @@ import {
   AddVideoForm,
   AutoFrame, HashTag,
   Introduce,
-  NewUrlForm,
+  NewUrlForm, OneSeries,
   PreInform,
   PreInformContent, Round,
   Series
@@ -22,17 +22,19 @@ const AddNewVideo = () => {
   const [newUrl, onChangeNewUrl, setNewUrl] = useInput("");
   const [verified, setVerified] = useState(false);
   const [introduction, onChangeIntroduction,setIntroduction] = useInput("");
-  const [series, setSeries] = useState([]);
-  const [hashTags, setHashTags] = useState([]);
+  const [seriesList, setSeriesList] = useState([]);
+  const [hashTagsList, setHashTagsList] = useState([]);
   const [playList, setPlayList] = useState([]);
+  const [searchSeries, onChangeSearchSeries, setSearchSeries] = useInput("");
+  const [seriesToggleDisplay, setSeriesToggleDisplay] = useState(false);
 
   useEffect(() => {
     axios
         .get(preURL.preURL + `/boards/video/info/${1}`)
         .then((res) => {
           console.log("👍시리즈, 해시태그, 플레이리스트 조회 성공", res.data);
-          setSeries(res.data['series']);
-          setHashTags(res.data['hashtags']);
+          setSeriesList(res.data['series']);
+          setHashTagsList(res.data['hashtags']);
           setPlayList(res.data['playlists']);
         })
         .catch((err) => {
@@ -65,6 +67,14 @@ const AddNewVideo = () => {
     navigate('/videolist');
   };
 
+  const SeriesList = seriesList.map((oneSeries) => {
+    return (
+        <OneSeries>
+          {oneSeries.name}
+        </OneSeries>
+    )
+  })
+
   return (
       <div>
         <Header />
@@ -90,9 +100,16 @@ const AddNewVideo = () => {
           <div style={{display: "flex"}}>
             <Series>
               <p>시리즈</p>
-              <input type="text" />
-              {/*시리즈 선택*/}
-              <AutoFrame>시리즈 리스트</AutoFrame>
+              <input
+                  type="text"
+                  value={searchSeries}
+                  onChange={onChangeSearchSeries}
+                  onFocus={()=>setSeriesToggleDisplay(true)}
+                  onBlur={()=>setSeriesToggleDisplay(false)}
+              />
+              <AutoFrame display={seriesToggleDisplay}>
+                {SeriesList}
+              </AutoFrame>
             </Series>
             <Introduce>
               <p>영상을 간단하게 소개한다면? (20자 이내)</p>

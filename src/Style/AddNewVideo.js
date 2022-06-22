@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import "./color.css";
-import styledBtn from "./StyledBtn";
+import StyledBtn from "./StyledBtn";
 
 export const PreInform = styled.div`
   width: 65%;
@@ -64,13 +64,25 @@ export const Series = styled.div`
 `
 
 export const AutoFrame = styled.div`
-  display: block;
+  display: ${props => props.display? "flex" : "none"};
+  flex-direction: column;
+  align-items: flex-start;
   box-sizing: border-box;
-  width: 80%;
+  width: 170px;
   height: 182px;
   background: var(--main-color);
-  border: 5px solid var(--main-color);
   border-radius: 12px;
+  padding: 5px;
+  overflow-y: scroll;
+  position: absolute;
+  z-index: 2;
+`
+
+export const OneSeries = styled(StyledBtn)`
+  background-color: transparent;
+  margin: 2px;
+  color: white;
+  text-align: left;
 `
 
 export const Introduce = styled.div`
@@ -118,7 +130,7 @@ export const AddToPlayList = styled.div`
   }
 `
 
-export const AddVideoBtn = styled(styledBtn)`
+export const AddVideoBtn = styled(StyledBtn)`
   font-size: 20px;
   display: flex;
   flex-direction: row-reverse;
