@@ -26,7 +26,9 @@ const AddNewVideo = () => {
   const [hashTagsList, setHashTagsList] = useState([]);
   const [playList, setPlayList] = useState([]);
   const [searchSeries, onChangeSearchSeries, setSearchSeries] = useInput("");
+  const [hashTag1, setHashTag1] = useState("");
   const [seriesToggleDisplay, setSeriesToggleDisplay] = useState(false);
+  const [hashTagToggleDisplay, setHashTagToggleDisplay] = useState(false);
 
   useEffect(() => {
     axios
@@ -67,6 +69,22 @@ const AddNewVideo = () => {
     let selected = e.target.innerHTML;
     console.log(selected);
     setSearchSeries(selected);
+  };
+
+  const selectHashTag1 = (prop) => {
+    const selected = prop.target.value;
+    const boolChecked = prop.target.checked;
+    console.log(selected, boolChecked);
+
+    let newHashTag1;
+    if(boolChecked) {
+      newHashTag1 = [...hashTag1, selected];
+      setHashTag1(newHashTag1);
+    }
+    else {
+      newHashTag1 = hashTag1.filter(hashTag1 => hashTag1 !== selected);
+      setHashTag1(newHashTag1);
+    }
   }
 
   const onSubmitNewVideo = () => {
@@ -80,7 +98,23 @@ const AddNewVideo = () => {
           {oneSeries.name}
         </OneSeries>
     )
-  })
+  });
+
+  const HashTagList = hashTagsList.map((oneHashTag) => {
+    return (
+        <div>
+          <input
+              type="checkbox"
+              id={oneHashTag.id}
+              value={oneHashTag.name}
+              onChange={selectHashTag1}
+          />
+          <label for={oneHashTag.id} style={{color: "white"}}>
+            {oneHashTag.name}
+          </label>
+        </div>
+    )
+  });
 
   return (
       <div>
@@ -130,8 +164,15 @@ const AddNewVideo = () => {
             </Round>
             <HashTag>
               <p>해시태그1 (장르, 상황)</p>
-              <input type="text" />
-              <AutoFrame>해시태그1 리스트</AutoFrame>
+              <input
+                  type="text"
+                  value={hashTag1}
+                  onFocus={()=>setHashTagToggleDisplay(true)}
+                  onBlur={()=>setHashTagToggleDisplay(false)}
+              />
+              <AutoFrame display={hashTagToggleDisplay}>
+                {HashTagList}
+              </AutoFrame>
             </HashTag>
             <HashTag>
               <p>해시태그2 (키워드)</p>
