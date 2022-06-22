@@ -27,8 +27,10 @@ const AddNewVideo = () => {
   const [playList, setPlayList] = useState([]);
   const [searchSeries, onChangeSearchSeries, setSearchSeries] = useInput("");
   const [hashTag1, setHashTag1] = useState("");
+  const [selectedPlayList, setSelectedPlayList] = useState("");
   const [seriesToggleDisplay, setSeriesToggleDisplay] = useState(false);
   const [hashTagToggleDisplay, setHashTagToggleDisplay] = useState(false);
+  const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
 
   useEffect(() => {
     axios
@@ -85,6 +87,10 @@ const AddNewVideo = () => {
       newHashTag1 = hashTag1.filter(hashTag1 => hashTag1 !== selected);
       setHashTag1(newHashTag1);
     }
+  };
+
+  const selectPlayList = () => {
+    // 플레이리스트 값 넘어오면 수정
   }
 
   const onSubmitNewVideo = () => {
@@ -111,6 +117,23 @@ const AddNewVideo = () => {
           />
           <label for={oneHashTag.id} style={{color: "white"}}>
             {oneHashTag.name}
+          </label>
+        </div>
+    )
+  });
+
+  const PlayList = playList.map((onePlayList) => {
+    // 지금은 null 값으로 넘어와서 아무것도 안 뜸 -> 플레이리스트 구현 후 수정
+    return(
+        <div>
+          <input
+              type="checkbox"
+              id={onePlayList.id}
+              value={onePlayList.name}
+              onChange={selectPlayList}
+          />
+          <label htmlFor={onePlayList.id} style={{color: "white"}}>
+            {onePlayList.name}
           </label>
         </div>
     )
@@ -181,8 +204,15 @@ const AddNewVideo = () => {
           </div>
           <AddToPlayList>
             <p>내 플레이리스트에 추가</p>
-            <input type="text" />
-            <AutoFrame>내 플레이리스트</AutoFrame>
+            <input
+                type="text"
+                value={selectedPlayList}
+                onFocus={()=>setPlayListToggleDisplay(true)}
+                onBlur={()=>setPlayListToggleDisplay(false)}
+            />
+            <AutoFrame display={playListToggleDisplay}>
+              {PlayList}
+            </AutoFrame>
           </AddToPlayList>
           <AddVideoBtn type="submit">등록하기</AddVideoBtn>
         </AddVideoForm>
