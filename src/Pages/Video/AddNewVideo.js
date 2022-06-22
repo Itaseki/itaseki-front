@@ -21,6 +21,7 @@ const AddNewVideo = () => {
 
   const [newUrl, onChangeNewUrl, setNewUrl] = useInput("");
   const [verified, setVerified] = useState(false);
+  const [introduction, onChangeIntroduction,setIntroduction] = useInput("");
 
   const onClickUrlCheck = useCallback((e) => {
     e.preventDefault();
@@ -78,7 +79,7 @@ const AddNewVideo = () => {
             </Series>
             <Introduce>
               <p>영상을 간단하게 소개한다면? (20자 이내)</p>
-              <input type="text" />
+              <input type="text" value={introduction} onChange={onChangeIntroduction} maxLength="20"/>
             </Introduce>
           </div>
           <div style={{display: "flex"}}>
