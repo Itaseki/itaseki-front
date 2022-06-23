@@ -120,6 +120,7 @@ export const HashTag = styled.div`
     border-radius: 17px;
     border: 0;
     padding: 5px 5px 5px 10px;
+    margin-bottom: 2px;
   }
 `
 

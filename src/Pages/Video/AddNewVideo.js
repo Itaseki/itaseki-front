@@ -200,6 +200,8 @@ const AddNewVideo = () => {
             <HashTag>
               <p>해시태그2 (키워드)</p>
               <input type="text" />
+              <input type="text" />
+              <input type="text" />
             </HashTag>
           </div>
           <AddToPlayList>

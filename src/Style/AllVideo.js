@@ -25,9 +25,9 @@ export const OneVideoWrapper = styled.div`
 
 // 영상 썸네일
 export const VideoContainer = styled.div`
-  width: 222px;
-  height: 135px;
-  background: #C4C4C4;
+  width: 224px;
+  height: 126px;
+  background: var(--sub-color);
 `
 
 // 영상 썸네일 하단 정보

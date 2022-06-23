@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from "../../Components/Header";
 import {
   VideoList,
@@ -7,27 +7,46 @@ import {
   VideoContainer,
   VideoInfo, VideoListWrapper,
   Wrapper, Pagination, Pages, PageNum
-} from "../../Style/Video";
+} from "../../Style/AllVideo";
 import Best_Video from '../../Assets/Best_Video.png';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretLeft, faCaretRight} from "@fortawesome/free-solid-svg-icons";
 import StyledBtn from "../../Style/StyledBtn";
+import preURL from "../../preURL/preURL";
+import axios from "axios";
 
 const AllVideo = () => {
   const [bestVideos, setBestVideos] = useState([
-      "베스트 영상 1", "베스트 영상 2", "베스트 영상 3", "베스트 영상 4"
+    {id: 1, title: "베스트 영상 1", writerNickname: "닉네임1", likeCount: 5},
+    {id: 2, title: "베스트 영상 2", writerNickname: "닉네임2", likeCount: 5},
+    {id: 3, title: "베스트 영상 3", writerNickname: "닉네임3", likeCount: 5},
+    {id: 4, title: "베스트 영상 4", writerNickname: "닉네임4", likeCount: 5}
   ]);
   const [videos, setVideos] = useState([
       "영상 1", "영상 2", "영상 3", "영상 4"
   ]);
   const [pages, setPages] = useState([1,2,3,4,5]);
 
+  useEffect(() => {
+    axios
+        .get(preURL.preURL + '/boards/video/best')
+        .then((res) => {
+          console.log("👍베스트 영상 조회 성공", res.data);
+          setBestVideos(res.data);
+        })
+        .catch((err) => {
+          console.log("🧨베스트 영상 조회 실패", err);
+        })
+  }, []);
+
   const OneVideo = (video) => {
     return (
         <OneVideoWrapper>
           <VideoContainer />  {/*영상 썸네일*/}
-          <VideoInfo>
-            {video}
+          <VideoInfo> {/*비디오 디테일*/}
+            {video.title}
+            {video.writerNickname}
+            {video.likeCount}
           </VideoInfo>
         </OneVideoWrapper>
     )
