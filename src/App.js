@@ -11,6 +11,9 @@ import CommunityDetail from "./Pages/Board/CommunityDetail";
 // Member
 import MyPage from "./Pages/Member/MyPage";
 import GIFBoardDetail from "./Pages/Board/GIFBoardDetail";
+// Video
+import AddNewVideo from "./Pages/Video/AddNewVideo";
+import AllVideo from "./Pages/Video/AllVideo";
 
 const App = () => {
   return (
@@ -26,6 +29,9 @@ const App = () => {
       <Route path="/community/:id" element={<CommunityDetail />} />
       {/* Member */}
       <Route path="/mypage" element={<MyPage />} />
+      {/* Video */}
+      <Route path="/addvideo" element={<AddNewVideo />} />
+      <Route path="/videolist" element={<AllVideo />} />
     </Routes>
   );
 };

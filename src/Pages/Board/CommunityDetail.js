@@ -15,7 +15,7 @@ import {faHeart} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
-import {Route, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import useInput from "../../Hooks/useInput";
 import SingleComment from "../../Components/SingleComment";
 
