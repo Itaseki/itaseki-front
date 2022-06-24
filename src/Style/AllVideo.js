@@ -40,6 +40,18 @@ export const Line = styled.div`
   border-bottom: 1px solid #9C9C9C;
 `
 
+/*정렬 버튼*/
+export const SortBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  & p{
+    margin-right: 4px;
+    color: #9E8FA8;
+    font-size: 11px;
+  }
+`
+
 /*페이지네이션*/
 export const Pagination = styled.div`
   display: flex;

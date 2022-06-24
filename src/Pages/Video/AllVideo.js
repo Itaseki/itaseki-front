@@ -6,7 +6,7 @@ import {
   OneVideoWrapper,
   VideoContainer,
   VideoInfo, VideoListWrapper,
-  Wrapper, Pagination, Pages, PageNum
+  Wrapper, Pagination, Pages, PageNum, SortBox
 } from "../../Style/AllVideo";
 import Best_Video from '../../Assets/Best_Video.png';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -74,7 +74,19 @@ const AllVideo = () => {
         .catch((err) => {
           console.log("🧨전체 영상 조회 실패", err);
         })
-  }, []);
+  }, [sort]);
+
+  // 최신순 정렬
+  const onClickSortNewest = () => {
+    console.log("최신순 정렬");
+    setSort("");
+  };
+
+  // 좋아요순 정렬
+  const onClickSortLike = () => {
+    console.log("좋아요순 정렬");
+    setSort("likeCount,DESC");
+  };
 
   const OneVideo = (video) => {
     return (
@@ -120,6 +132,23 @@ const AllVideo = () => {
               })}
             </VideoList>
           </VideoListWrapper>
+          <SortBox>
+            <StyledBtn
+                id="sort-btn"
+                style={{ fontSize: "10px", color: "#9E8FA8", marginRight: 4, left: "876px"}}
+                onClick={onClickSortNewest}
+            >
+              최신순
+            </StyledBtn>
+            <p>|</p>
+            <StyledBtn
+                id="sort-btn"
+                style={{ fontSize: "10px", color: "#9E8FA8", marginRight: 4, left: "941px"}}
+                onClick={onClickSortLike}
+            >
+              좋아요순
+            </StyledBtn>
+          </SortBox>
           <Pagination>
             <StyledBtn id="previous-page">
               <FontAwesomeIcon
