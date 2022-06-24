@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { withStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 
 import { StyledDiv, StyledDivRow } from "../../Style/StyledDiv";
 
@@ -22,6 +25,19 @@ const Reservation = () => {
     { title: "런닝맨 송지효", length: "13:22", reservation: 2 },
     { title: "런닝맨 김종국", length: "13:22", reservation: 1 },
   ]);
+  const [reservations, setReservations] = useState([
+    { title: "런닝맨", start: "12:30", finish: "13:30" },
+  ]);
+
+  // 예약된 영상 리스트
+  const RList = reservations.map((reservation) => (
+    <div>
+      <p>{reservation.title}</p>
+      <p>{reservation.start}</p>
+      <p>{reservation.finish}</p>
+    </div>
+  ));
+
   return (
     <div>
       <Header />
@@ -133,6 +149,50 @@ const Reservation = () => {
           </RunWrapper>
         </StyledDiv>
       </StyledDiv>
+      <TimeTable>
+        <Paper>
+          <Grid container spacing={0}>
+            <Grid item xs={2}>
+              <Block>
+                <p>예약시간</p>
+              </Block>
+            </Grid>
+            <Grid item xs={10}>
+              <Block>
+                <p>예약 현황</p>
+              </Block>
+            </Grid>
+            <Grid item xs={2}>
+              <Block>
+                <p></p>
+              </Block>
+            </Grid>
+            <Grid item xs={10}>
+              <Block style={{ justifyContent: "spaceBtween" }}>
+                <p>확정목록</p>
+                <StyledBtn>
+                  <p>추가하기</p>
+                </StyledBtn>
+              </Block>
+            </Grid>
+            <Grid item xs={2}>
+              <Block>
+                <p>예약 확정 시간</p>
+              </Block>
+            </Grid>
+            <Grid item xs={2}>
+              <Block>
+                <p>예약 확정 리스트</p>
+              </Block>
+            </Grid>
+            <Grid item xs={8}>
+              <Block>
+                <div>{RList}</div>
+              </Block>
+            </Grid>
+          </Grid>
+        </Paper>
+      </TimeTable>
     </div>
   );
 };
@@ -140,7 +200,6 @@ const Reservation = () => {
 export default Reservation;
 
 const RunWrapper = styled(StyledDiv)`
-  align-self: center;
   justify-content: space-between;
 `;
 
@@ -160,4 +219,13 @@ const ReservBtn = styled(StyledBtn)`
   display: flex;
   flex-direction: row;
   align-items: center;
+`;
+
+const TimeTable = styled(StyledDiv)`
+  width: 80%;
+  margin-top: 10%;
+`;
+
+const Block = styled(StyledDiv)`
+  border: 1px solid purple;
 `;
