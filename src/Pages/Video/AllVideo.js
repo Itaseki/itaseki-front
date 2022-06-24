@@ -10,10 +10,12 @@ import {
 } from "../../Style/AllVideo";
 import Best_Video from '../../Assets/Best_Video.png';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCaretLeft, faCaretRight} from "@fortawesome/free-solid-svg-icons";
+import {faCaretLeft, faCaretRight, faHeart} from "@fortawesome/free-solid-svg-icons";
 import StyledBtn from "../../Style/StyledBtn";
 import preURL from "../../preURL/preURL";
 import axios from "axios";
+import PlayListIcon from "../../Assets/Playlist_mini.png";
+import {AutoFrame} from "../../Style/AddNewVideo";
 
 const AllVideo = () => {
   const [bestVideos, setBestVideos] = useState([
@@ -32,6 +34,8 @@ const AllVideo = () => {
   const [pages, setPages] = useState([1,2,3,4,5]);
   const [page, setPage] = useState(0);  // 현재 페이지
   const [sort, setSort] = useState(""); // 좋아요 순이면 -> likeCount,DESC
+  const [playlistToggleDisplay, setPlaylistToggleDisplay] = useState(false);  // 플레이리스트 모달창 보이기
+  const [clickedPlyId, setClickedPlyId] = useState(-1); // 클릭한 플레이리스트 아이콘 id
   // 검색
   const [searchHashtag1, setSearchHashtag1] = useState("");
   const [searchHashtag2, setSearchHashtag2] = useState("");
@@ -76,6 +80,14 @@ const AllVideo = () => {
         })
   }, [sort]);
 
+  // 플레이리스트에 추가하기 아이콘 클릭
+  const onClickAddToPlaylist = (e) => {
+    console.log("플레이리스트에 추가", e);
+    const clicked = parseInt(e.target.id);
+    setClickedPlyId(clicked);
+    setPlaylistToggleDisplay(prev => !prev);
+  }
+
   // 최신순 정렬
   const onClickSortNewest = () => {
     console.log("최신순 정렬");
@@ -92,11 +104,32 @@ const AllVideo = () => {
     return (
         <OneVideoWrapper>
           <VideoContainer />  {/*영상 썸네일*/}
-          <VideoInfo> {/*비디오 디테일*/}
-            {video.title}
-            {video.writerNickname}
-            {video.likeCount}
-          </VideoInfo>
+          <div>
+            <VideoInfo>
+              <span id="title">{video.title}</span>
+              <div id="info-right">
+                <StyledBtn>
+                  <FontAwesomeIcon
+                      icon={faHeart}
+                      style={{ fontSize: "80%", color: "#D9767C", marginLeft: "auto" }}
+                  />
+                </StyledBtn>
+                <span style={{color: "#D9767C"}}>{video.likeCount}</span>
+                <img
+                    src={PlayListIcon}
+                    alt="플레이리스트에 추가"
+                    id={video.id}
+                    onClick={onClickAddToPlaylist}
+                    style={{marginLeft: "4px", cursor: "pointer"}}/>
+                {clickedPlyId === video.id &&   /*클릭한 아이콘과 id가 동일한 모달창에만 적용되도록*/
+                    <AutoFrame display={playlistToggleDisplay} style={{marginTop: "200px"}}>
+                      플레이리스트에 추가
+                    </AutoFrame>
+                }
+              </div>
+            </VideoInfo>
+            <span style={{fontSize: "small", color: "var(--main-color)"}}>{video.writerNickname}</span>
+          </div>
         </OneVideoWrapper>
     )
   };

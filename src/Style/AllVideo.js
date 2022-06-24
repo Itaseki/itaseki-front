@@ -32,7 +32,13 @@ export const VideoContainer = styled.div`
 
 // 영상 썸네일 하단 정보
 export const VideoInfo = styled.div`
-  width: 222px;
+  width: 224px;
+  display: flex;
+  justify-content: space-between;
+  & > #info-right {
+    display: flex;
+    align-items: center;
+  }
 `
 
 export const Line = styled.div`
