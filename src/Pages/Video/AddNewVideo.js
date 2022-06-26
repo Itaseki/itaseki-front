@@ -27,11 +27,13 @@ const AddNewVideo = () => {
   const [playList, setPlayList] = useState([]);
   const [searchSeries, onChangeSearchSeries, setSearchSeries] = useInput("");
   const [hashTag1, setHashTag1] = useState("");
+  const [hashTag2, onChangeHashTag2, setHashTag2] = useInput("");
   const [selectedPlayList, setSelectedPlayList] = useState("");
   const [seriesToggleDisplay, setSeriesToggleDisplay] = useState(false);
   const [hashTagToggleDisplay, setHashTagToggleDisplay] = useState(false);
   const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
 
+  // 토글 정보 불러오기
   useEffect(() => {
     axios
         .get(preURL.preURL + `/boards/video/info/${1}`) /*{userId}*/
@@ -46,6 +48,7 @@ const AddNewVideo = () => {
         })
   }, []);
 
+  // url 검증
   const onClickUrlCheck = useCallback((e) => {
     e.preventDefault();
     console.log("newUrl: " + newUrl);
@@ -66,6 +69,7 @@ const AddNewVideo = () => {
         })
   }, [newUrl]);
 
+  // 시리즈 토글에서 선택
   const onClickOneSeries = (e) => {
     e.preventDefault();
     let selected = e.target.innerHTML;
@@ -73,6 +77,7 @@ const AddNewVideo = () => {
     setSearchSeries(selected);
   };
 
+  // 해시태그1 토글에서 선택
   const selectHashTag1 = (prop) => {
     const selected = prop.target.value;
     const boolChecked = prop.target.checked;
@@ -89,15 +94,18 @@ const AddNewVideo = () => {
     }
   };
 
+  // 플레이리스트에 추가
   const selectPlayList = () => {
     // 플레이리스트 값 넘어오면 수정
   }
 
+  // 영상 등록
   const onSubmitNewVideo = () => {
     console.log("영상 등록하기");
     navigate('/videolist');
   };
 
+  // 시리즈 토글 리스트
   const SeriesList = seriesList.map((oneSeries) => {
     return (
         <OneSeries onClick={onClickOneSeries}>
@@ -106,6 +114,7 @@ const AddNewVideo = () => {
     )
   });
 
+  // 해시태그1 토글 리스트
   const HashTagList = hashTagsList.map((oneHashTag) => {
     return (
         <div>
@@ -122,6 +131,7 @@ const AddNewVideo = () => {
     )
   });
 
+  // 플레이리스트 토글 리스트
   const PlayList = playList.map((onePlayList) => {
     // 지금은 null 값으로 넘어와서 아무것도 안 뜸 -> 플레이리스트 구현 후 수정
     return(
@@ -199,9 +209,7 @@ const AddNewVideo = () => {
             </HashTag>
             <HashTag>
               <p>해시태그2 (키워드)</p>
-              <input type="text" />
-              <input type="text" />
-              <input type="text" />
+              <input type="text" value={hashTag2} onChange={onChangeHashTag2}/>
             </HashTag>
           </div>
           <AddToPlayList>
