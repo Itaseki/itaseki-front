@@ -28,6 +28,7 @@ export const VideoContainer = styled.div`
   width: 224px;
   height: 126px;
   background: var(--sub-color);
+  cursor: pointer;
 `
 
 // 영상 썸네일 하단 정보
@@ -35,6 +36,9 @@ export const VideoInfo = styled.div`
   width: 224px;
   display: flex;
   justify-content: space-between;
+  & > #title {
+    cursor: pointer;
+  }
   & > #info-right {
     display: flex;
     align-items: center;

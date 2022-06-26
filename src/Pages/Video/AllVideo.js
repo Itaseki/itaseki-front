@@ -16,8 +16,11 @@ import preURL from "../../preURL/preURL";
 import axios from "axios";
 import PlayListIcon from "../../Assets/Playlist_mini.png";
 import {AutoFrame} from "../../Style/AddNewVideo";
+import {useNavigate} from "react-router-dom";
 
 const AllVideo = () => {
+  const navigate = useNavigate();
+
   const [bestVideos, setBestVideos] = useState([
     {id: 1, title: "베스트 영상 1", writerNickname: "닉네임1", likeCount: 5},
     {id: 2, title: "베스트 영상 2", writerNickname: "닉네임2", likeCount: 5},
@@ -59,8 +62,7 @@ const AllVideo = () => {
   useEffect(() => {
     axios
         .get(preURL.preURL +
-            `/boards/video?page=${page}&sort=${sort}&sort=id,DESC
-            &tag=${searchHashtag1},${searchHashtag2}&nickname=${searchNickname}&q=${searchKeyword}`)
+            `/boards/video?page=${page}&sort=${sort}&sort=id,DESC`) /*검색 - &tag=${searchHashtag1}%2C${searchHashtag2}&nickname=${searchNickname}&q=${searchKeyword}*/
         .then((res) => {
           console.log("👍전체 영상 조회 성공", res.data);
           const data = res.data;
@@ -86,7 +88,7 @@ const AllVideo = () => {
     const clicked = parseInt(e.target.id);
     setClickedPlyId(clicked);
     setPlaylistToggleDisplay(prev => !prev);
-  }
+  };
 
   // 최신순 정렬
   const onClickSortNewest = () => {
@@ -100,13 +102,17 @@ const AllVideo = () => {
     setSort("likeCount,DESC");
   };
 
+  // 각 비디오
   const OneVideo = (video) => {
+    const videoId = video.id;
     return (
         <OneVideoWrapper>
-          <VideoContainer />  {/*영상 썸네일*/}
+          <VideoContainer onClick={()=>navigate(`/videolist/${videoId}`)}/>  {/*영상 썸네일*/}
           <div>
             <VideoInfo>
-              <span id="title">{video.title}</span>
+              <span id="title" onClick={()=>navigate(`/videolist/${videoId}`)}>
+                {video.title}
+              </span>
               <div id="info-right">
                 <StyledBtn>
                   <FontAwesomeIcon
