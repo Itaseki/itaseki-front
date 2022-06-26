@@ -69,6 +69,21 @@ const AddNewVideo = () => {
         })
   }, [newUrl]);
 
+  // 시리즈 검색
+  useEffect(() => {
+    if(searchSeries.length % 2 !== 0) return; // 2글자씩 검색 가능
+    console.log("검색어: ", searchSeries);
+    axios
+        .get(preURL.preURL + `/boards/video/series/search?q=${searchSeries}`)
+        .then((res) => {
+          console.log("👍시리즈 검색 요청 성공", res);
+          setSeriesList(res.data);
+        })
+        .catch((err) => {
+          console.log("🧨시리즈 검색 요청 실패", err);
+        })
+  },[searchSeries]);
+
   // 시리즈 토글에서 선택
   const onClickOneSeries = (e) => {
     e.preventDefault();
