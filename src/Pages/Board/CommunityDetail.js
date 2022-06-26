@@ -17,7 +17,8 @@ import axios from "axios";
 import preURL from "../../preURL/preURL";
 import {useParams} from "react-router-dom";
 import useInput from "../../Hooks/useInput";
-import SingleComment from "../../Components/SingleComment";
+import SingleComment from "../../Components/Comment/SingleComment";
+import CommentList from "../../Components/Comment/CommentList";
 
 const CommunityDetail = ({match}) => {
 
@@ -36,7 +37,6 @@ const CommunityDetail = ({match}) => {
         nestedComments: null},*/
     ]
   });
-  const [newComment, onChangeNewComment, setNewComment] = useInput("");
   const [likeCount, setLikeCount] = useState();
   const commentsList = contentInfo.comments;
   const communityBoardId = useParams().id;
@@ -97,23 +97,6 @@ const CommunityDetail = ({match}) => {
         })
   }, []);
 
-  // 댓글 등록
-  const onSubmitComment = useCallback((e) => {
-    console.log("새로운 댓글: " + newComment);
-    axios
-        .post(preURL.preURL + `/boards/community/${communityBoardId}/comments`, {
-          content: newComment,
-          parentCommentId: 0,
-        })
-        .then((res) => {
-          console.log("👍댓글 등록 성공");
-          setNewComment("");  // 댓글 내용 초기화
-        })
-        .catch((err) => {
-          console.log("🧨댓글 등록 에러", err);
-        })
-  }, [newComment]);
-
   // 게시글 이미지
   const imgs = contentInfo.imageUrls.map((imgUrl) => {
     return (
@@ -155,22 +138,7 @@ const CommunityDetail = ({match}) => {
             <AButton style={{background: "#9E8FA8"}} onClick={onClickLike}>좋아요</AButton>
             <AButton style={{background: "#C4C4C4"}} onClick={onClickReport}>신고하기</AButton>
           </AdditionalBtns>
-          <CommentsWrapper>
-            <CommentsListWrapper>
-              <p>댓글 {contentInfo.commentCount}</p>
-              {commentsList.map((comment) => (
-                <SingleComment comment={comment} communityBoardId={communityBoardId}/>
-              ))}
-              <Line style={{width: "805px"}}/>
-            </CommentsListWrapper>
-            <NewCommentWrapper>
-              {"로그인한 사용자"}
-              <NewCommentBox onSubmit={onSubmitComment}>
-                <textarea placeholder="댓글 입력" value={newComment} onChange={onChangeNewComment}/>
-                <StyledBtn type="submit" id="submit-btn" style={{background: "#9E8FA8"}}>확인</StyledBtn>
-              </NewCommentBox>
-            </NewCommentWrapper>
-          </CommentsWrapper>
+          <CommentList contentInfo={contentInfo} commentList={commentsList} communityBoardId={communityBoardId} />
         </Wrapper>
       </div>
   )

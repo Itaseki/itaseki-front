@@ -1,10 +1,10 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {Comment, DetailInfo, Line, NewCommentBox, ReplyBtn} from "../Style/Community";
-import StyledBtn from "../Style/StyledBtn";
+import {Comment, DetailInfo, Line, NewCommentBox, ReplyBtn} from "../../Style/Community";
+import StyledBtn from "../../Style/StyledBtn";
 import axios from "axios";
-import preURL from "../preURL/preURL";
-import Comment_reply from "../Assets/Comment_reply.png";
-import useInput from "../Hooks/useInput";
+import preURL from "../../preURL/preURL";
+import Comment_reply from "../../Assets/Comment_reply.png";
+import useInput from "../../Hooks/useInput";
 
 const SingleComment = ({comment, communityBoardId}) => {
   const [showReplyModal, setShowReplyModal] = useState(false);
