@@ -20,7 +20,7 @@ import useInput from "../../Hooks/useInput";
 import SingleComment from "../../Components/Comment/SingleComment";
 import CommentList from "../../Components/Comment/CommentList";
 
-const CommunityDetail = ({match}) => {
+const CommunityDetail = () => {
 
   const [contentInfo, setContentInfo] = useState({
       id: 1, title: "제목이당", content: "내용이당", imageUrls: ["/1", "/2"], createdTime: "2:48", viewCount: 15, likeCount: 30,

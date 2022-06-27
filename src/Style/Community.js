@@ -172,7 +172,7 @@ export const TitleWrapper = styled.div`
 export const DetailTitle = styled.div`
   margin: 0;
   font-weight: 600;
-  font-size: 40px;
+  font-size: 32px;
   display: flex;
   letter-spacing: -0.02em;
   justify-content: space-between;
