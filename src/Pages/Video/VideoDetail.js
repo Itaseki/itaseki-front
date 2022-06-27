@@ -16,6 +16,7 @@ import {faHeart} from "@fortawesome/free-solid-svg-icons";
 import CommentList from "../../Components/Comment/CommentList";
 import preURL from "../../preURL/preURL";
 import {AInfo, IFrame, Infos, TitleUploader, VideoInfo, VideoWrapper} from "../../Style/Video";
+import {hover} from "@testing-library/user-event/dist/hover";
 
 const VideoDetail = () => {
   const videoId = useParams().id;
@@ -40,7 +41,15 @@ const VideoDetail = () => {
 
   // 상세 영상글 조회
   useEffect(() => {
-
+    axios
+        .get(preURL.preURL + `/boards/video/${videoId}`)
+        .then((res) => {
+          console.log("👍상세 영상글 조회 성공", res.data);
+          setVideo(res.data);
+        })
+        .catch((err) => {
+          console.log("🧨상세 영상글 조회 실패", err);
+        })
   },[]);
 
   // 좋아요 버튼 클릭
@@ -57,7 +66,6 @@ const VideoDetail = () => {
   const onClickDelete = useCallback(() => {
 
   }, []);
-
 
   return (
       <div>
