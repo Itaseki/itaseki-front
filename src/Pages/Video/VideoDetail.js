@@ -94,7 +94,9 @@ const VideoDetail = () => {
           </TitleWrapper>
           <VideoWrapper>
             <TitleUploader>
-              <div id="title">{video.videoTitle}</div>
+              <div id="title" title={video.videoTitle}>
+                {(video.videoTitle.length < 15) ? video.videoTitle : video.videoTitle.substring(0, 15)+" .."}
+              </div>
               <div id="uploader">{video.videoUploader}</div>
             </TitleUploader>
             <IFrame>{"영상 iframe"}</IFrame>

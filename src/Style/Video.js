@@ -15,6 +15,9 @@ export const TitleUploader = styled.div`
   & > #title{
     font-weight: 600;
     font-size: 20px;
+    :hover{
+      cursor: default;
+    }
   }
   & > #uploader{
     font-size: 16px;
