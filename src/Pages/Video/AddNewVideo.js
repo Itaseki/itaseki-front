@@ -9,7 +9,7 @@ import {
   PreInform,
   PreInformContent, Round,
   Series
-} from "../../Style/AddNewVideo";
+} from "../../Style/Video";
 import StyledBtn from "../../Style/StyledBtn";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";

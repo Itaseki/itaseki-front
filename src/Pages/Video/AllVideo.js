@@ -6,8 +6,9 @@ import {
   OneVideoWrapper,
   VideoContainer,
   VideoInfo, VideoListWrapper,
-  Wrapper, Pagination, Pages, PageNum, SortBox
-} from "../../Style/AllVideo";
+  Wrapper, Pagination, Pages, PageNum, SortBox,
+  AutoFrame
+} from "../../Style/Video";
 import Best_Video from '../../Assets/Best_Video.png';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretLeft, faCaretRight, faHeart} from "@fortawesome/free-solid-svg-icons";
@@ -15,7 +16,6 @@ import StyledBtn from "../../Style/StyledBtn";
 import preURL from "../../preURL/preURL";
 import axios from "axios";
 import PlayListIcon from "../../Assets/Playlist_mini.png";
-import {AutoFrame} from "../../Style/AddNewVideo";
 import {useNavigate} from "react-router-dom";
 
 const AllVideo = () => {
