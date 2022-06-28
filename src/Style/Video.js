@@ -212,19 +212,22 @@ export const VideoWrapper = styled.div`
 `
 
 export const TitleUploader = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
+  align-items: center;
+  margin: 2px 0;
   & > #title{
     font-weight: 600;
-    font-size: 20px;
+    font-size: 18px;
     :hover{
       cursor: default;
     }
   }
   & > #uploader{
-    font-size: 16px;
+    font-size: 12px;
+    color: #505050;
   }
 `
 
