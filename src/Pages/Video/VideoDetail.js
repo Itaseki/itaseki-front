@@ -15,6 +15,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart} from "@fortawesome/free-solid-svg-icons";
 import preURL from "../../preURL/preURL";
 import {AInfo, IFrame, Infos, TitleUploader, VideoDetailInfo, VideoWrapper} from "../../Style/Video";
+import CommentList from "../../Components/Comment/CommentList";
 
 const VideoDetail = () => {
   const videoId = useParams().id;
@@ -131,7 +132,7 @@ const VideoDetail = () => {
             <AButton style={{background: "var(--main-color)"}} onClick={onClickLike}>좋아요</AButton>
             <AButton style={{background: "var(--sub-color)"}} onClick={onClickReport}>신고하기</AButton>
           </AdditionalBtns>
-          {"댓글"}
+          <CommentList contentInfo={video} commentList={comments} board={"video"} boardId={videoId} />
         </Wrapper>
       </div>
   )

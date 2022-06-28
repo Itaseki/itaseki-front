@@ -6,17 +6,17 @@ import preURL from "../../preURL/preURL";
 import Comment_reply from "../../Assets/Comment_reply.png";
 import useInput from "../../Hooks/useInput";
 
-const SingleComment = ({comment, communityBoardId}) => {
+const SingleComment = ({comment, board, boardId}) => {
   const [showReplyModal, setShowReplyModal] = useState(false);
   const [newReply, onChangeNewReply, setNewReply] = useInput("");
   const nestedComments = comment.nestedComments;
 
   // 댓글 삭제
   const onClickDeleteComment = (e) => {
-    const communityCommentId = e.target.getAttribute("id");
-    console.log("삭제할 댓글 id:" + communityCommentId);
+    const commentId = e.target.getAttribute("id");
+    console.log("삭제할 댓글 id:" + commentId);
     axios
-        .delete(preURL.preURL + `/boards/community/${communityBoardId}/comments/${communityCommentId}`)
+        .delete(preURL.preURL + `/boards/${board}/${boardId}/comments/${commentId}`)
         .then((res) => {
           console.log("👍댓글 삭제 성공");
           window.location.reload();
@@ -28,10 +28,10 @@ const SingleComment = ({comment, communityBoardId}) => {
 
   // 댓글 신고
   const onClickCommentReport = (e) => {
-    const communityCommentId = e.target.getAttribute("id");
-    console.log("신고할 댓글 id: " + communityCommentId);
+    const commentId = e.target.getAttribute("id");
+    console.log("신고할 댓글 id: " + commentId);
     axios
-        .post(preURL.preURL + `/boards/community/${communityBoardId}/comments/${communityCommentId}/reports`)
+        .post(preURL.preURL + `/boards/${board}/${boardId}/comments/${commentId}/reports`)
         .then((res) => {
           console.log("👍댓글 신고 성공");
           alert("댓글을 신고하였습니다.");
@@ -57,7 +57,7 @@ const SingleComment = ({comment, communityBoardId}) => {
   // 대댓글 등록
   const onSubmitReply = useCallback((e) => {
     axios
-        .post(preURL.preURL + `/boards/community/${communityBoardId}/comments`, {
+        .post(preURL.preURL + `/boards/${board}/${boardId}/comments`, {
           content: newReply,
           parentCommentId: comment.id,
         })

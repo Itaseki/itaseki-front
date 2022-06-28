@@ -7,14 +7,14 @@ import preURL from "../../preURL/preURL";
 import useInput from "../../Hooks/useInput";
 
 
-const CommentList = ({contentInfo, commentList, communityBoardId}) => {
+const CommentList = ({contentInfo, commentList, board, boardId}) => {
   const [newComment, onChangeNewComment, setNewComment] = useInput("");
 
   // 댓글 등록
   const onSubmitComment = useCallback(() => {
     console.log("새로운 댓글: " + newComment);
     axios
-        .post(preURL.preURL + `/boards/community/${communityBoardId}/comments`, {
+        .post(preURL.preURL + `/boards/${board}/${boardId}/comments`, {
           content: newComment,
           parentCommentId: 0,
         })
@@ -24,7 +24,6 @@ const CommentList = ({contentInfo, commentList, communityBoardId}) => {
         })
         .catch((err) => {
           console.log("🧨댓글 등록 에러", err);
-          console.log(`/boards/community/${communityBoardId}/comments`);
         })
   }, [newComment]);
 
@@ -33,7 +32,7 @@ const CommentList = ({contentInfo, commentList, communityBoardId}) => {
         <CommentsListWrapper>
           <p>댓글 {contentInfo.commentCount}</p>
           {commentList.map((comment) => (
-              <SingleComment comment={comment} communityBoardId={communityBoardId}/>
+              <SingleComment comment={comment} board={board} boardId={boardId}/>
           ))}
           <Line style={{width: "805px"}}/>
         </CommentsListWrapper>
