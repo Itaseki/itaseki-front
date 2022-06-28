@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import axios from "axios";
 import Header from "../../Components/Header";
 import {
@@ -13,10 +13,8 @@ import {
 import StyledBtn from "../../Style/StyledBtn";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart} from "@fortawesome/free-solid-svg-icons";
-import CommentList from "../../Components/Comment/CommentList";
 import preURL from "../../preURL/preURL";
-import {AInfo, IFrame, Infos, TitleUploader, VideoInfo, VideoWrapper} from "../../Style/Video";
-import {hover} from "@testing-library/user-event/dist/hover";
+import {AInfo, IFrame, Infos, TitleUploader, VideoDetailInfo, VideoWrapper} from "../../Style/Video";
 
 const VideoDetail = () => {
   const videoId = useParams().id;
@@ -102,7 +100,7 @@ const VideoDetail = () => {
             <IFrame>{"영상 iframe"}</IFrame>
             <a href={video.url} target="_blank" style={{color: "gray"}}>{video.url}</a>
           </VideoWrapper>
-          <VideoInfo>
+          <VideoDetailInfo>
             <p id="head">영상 정보</p>
             <div style={{display: "flex", flexDirection: "row"}}>
               <div id="line1"/>
@@ -127,7 +125,7 @@ const VideoDetail = () => {
                 </AInfo>
               </Infos>
             </div>
-          </VideoInfo>
+          </VideoDetailInfo>
           <AdditionalBtns>
             <AButton style={{background: "var(--sub-color)"}}>달리기 예약</AButton>
             <AButton style={{background: "var(--main-color)"}} onClick={onClickLike}>좋아요</AButton>

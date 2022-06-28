@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import styledBtn from "./StyledBtn";
 import StyledBtn from "./StyledBtn";
 
 export const Wrapper = styled.div`
@@ -89,7 +88,7 @@ export const Pages = styled.div`
   flex-direction: row;
 `
 
-export const PageNum = styled(styledBtn)`
+export const PageNum = styled(StyledBtn)`
   font-size: 20px;
   padding: 10.5px;
 `
@@ -149,7 +148,7 @@ export const TextArea = styled.textarea`
   }
 `
 
-export const SubmitBtn = styled(styledBtn)`
+export const SubmitBtn = styled(StyledBtn)`
   width: 792px;
   height: 58px;
   margin: 10px 0;
@@ -257,7 +256,7 @@ export const AdditionalBtns = styled.div`
   margin: 20px;
 `
 
-export const AButton = styled(styledBtn)`
+export const AButton = styled(StyledBtn)`
   width: 146px;
   height: 58px;
   color: white;

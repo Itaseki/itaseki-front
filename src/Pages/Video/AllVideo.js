@@ -1,13 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import Header from "../../Components/Header";
 import {
-  VideoList,
-  Line,
-  OneVideoWrapper,
-  VideoContainer,
-  VideoInfo, VideoListWrapper,
-  Wrapper, Pagination, Pages, PageNum, SortBox,
-  AutoFrame
+  AutoFrame, Line,
+  OneVideoWrapper, SortBox, VideoContainer, VideoInfo, VideoList, VideoListWrapper, Wrapper
 } from "../../Style/Video";
 import Best_Video from '../../Assets/Best_Video.png';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -17,6 +12,7 @@ import preURL from "../../preURL/preURL";
 import axios from "axios";
 import PlayListIcon from "../../Assets/Playlist_mini.png";
 import {useNavigate} from "react-router-dom";
+import {PageNum, Pages, Pagination} from "../../Style/Community";
 
 const AllVideo = () => {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import StyledBtn from "./StyledBtn";
-import styledBtn from "./StyledBtn";
+import "./color.css";
 
 //================================AddNewVideo====================================
 export const PreInform = styled.div`
@@ -202,22 +202,6 @@ export const SortBox = styled.div`
   }
 `
 
-/*페이지네이션*/
-export const Pagination = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`
-
-export const Pages = styled.div`
-  display: flex;
-  flex-direction: row;
-`
-
-export const PageNum = styled(styledBtn)`
-  font-size: 20px;
-  padding: 10.5px;
-`
 
 //================================VideoDetail====================================
 export const VideoWrapper = styled.div`
@@ -250,7 +234,7 @@ export const IFrame = styled.div`
   background-color: var(--sub-color);
 `
 
-export const VideoInfo = styled.div`
+export const VideoDetailInfo = styled.div`
   width: 45%;
   margin: 2% 0;
   & #head{
