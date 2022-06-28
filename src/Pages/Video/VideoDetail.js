@@ -37,6 +37,7 @@ const VideoDetail = () => {
     comments: [],
   });
   const comments = video.comments;
+  const [likeCount, setLikeCount] = useState(0);
 
   // 상세 영상글 조회
   useEffect(() => {
@@ -45,6 +46,7 @@ const VideoDetail = () => {
         .then((res) => {
           console.log("👍상세 영상글 조회 성공", res.data);
           setVideo(res.data);
+          setLikeCount(res.data['likeCount']);
         })
         .catch((err) => {
           console.log("🧨상세 영상글 조회 실패", err);
@@ -52,9 +54,17 @@ const VideoDetail = () => {
   },[]);
 
   // 좋아요 버튼 클릭
-  const onClickLike = useCallback(() => {
-
-  }, []);
+  const onClickLike = () => {
+    axios
+        .post(preURL.preURL + `/boards/video/${videoId}/likes`)
+        .then((res) => {
+          console.log("좋아요 성공");
+          setLikeCount(res.data);
+        })
+        .catch((err) => {
+          console.log("좋아요 실패", err);
+        })
+  };
 
   // 게시글 신고
   const onClickReport = useCallback(() => {
@@ -88,7 +98,7 @@ const VideoDetail = () => {
                   icon={faHeart}
                   style={{color: "#D9767C"}}
               />
-              <p style={{color: "#D9767C"}}>{video.likeCount}</p>
+              <p style={{color: "#D9767C"}}>{likeCount}</p>
             </DetailInfo>
           </TitleWrapper>
           <VideoWrapper>
