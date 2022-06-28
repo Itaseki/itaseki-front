@@ -59,11 +59,11 @@ const VideoDetail = () => {
     axios
         .post(preURL.preURL + `/boards/video/${videoId}/likes`)
         .then((res) => {
-          console.log("좋아요 성공");
+          console.log("👍영상글 좋아요 성공");
           setLikeCount(res.data);
         })
         .catch((err) => {
-          console.log("좋아요 실패", err);
+          console.log("🧨영상글 좋아요 실패", err);
         })
   };
 
@@ -73,7 +73,7 @@ const VideoDetail = () => {
         .post(preURL.preURL + `/boards/video/${videoId}/reports`)
         .then((res) => {
           const result = res.data
-          console.log("신고 성공", result);
+          console.log("👍영상글 신고 성공", result);
           if(result === "영상 신고 성공"){
             alert("영상을 신고하였습니다.");
           }
@@ -86,14 +86,27 @@ const VideoDetail = () => {
           }
         })
         .catch((err) => {
-          console.log("신고 실패", err);
+          console.log("🧨영상글 신고 실패", err);
         })
   };
 
   // 게시글 삭제
-  const onClickDelete = useCallback(() => {
-
-  }, []);
+  const onClickDelete = () => {
+    let del = window.confirm("영상을 삭제하시겠습니까?");
+    if(del){
+      axios
+          .delete(preURL.preURL + `/boards/video/${videoId}`)
+          .then(() => {
+            console.log("👍영상글 삭제 성공");
+            alert("영상을 삭제하였습니다.");
+            navigate("/videolist");
+          })
+          .catch((err) => {
+            console.log("🧨영상글 삭제 실패", err);
+            alert("영상 삭제를 실패하였습니다.");
+          })
+    }
+  };
 
   return (
       <div>
