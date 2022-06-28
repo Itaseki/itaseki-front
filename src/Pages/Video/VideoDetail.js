@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import Header from "../../Components/Header";
 import {
@@ -19,6 +19,7 @@ import CommentList from "../../Components/Comment/CommentList";
 
 const VideoDetail = () => {
   const videoId = useParams().id;
+  const navigate = useNavigate();
   const [video, setVideo] = useState({
     id: 0,
     description: "라스 꿀잼편",
@@ -66,10 +67,28 @@ const VideoDetail = () => {
         })
   };
 
-  // 게시글 신고
-  const onClickReport = useCallback(() => {
-
-  }, []);
+  // 영상글 신고
+  const onClickReport = () => {
+    axios
+        .post(preURL.preURL + `/boards/video/${videoId}/reports`)
+        .then((res) => {
+          const result = res.data
+          console.log("신고 성공", result);
+          if(result === "영상 신고 성공"){
+            alert("영상을 신고하였습니다.");
+          }
+          else if(result === "해당 사용자가 이미 신고한 영상"){
+            alert("이미 이 영상을 신고하였습니다.");
+          }
+          else if(result === "신고 5번 누적으로 삭제"){
+            alert("해당 영상은 신고 누적으로 삭제되었습니다.");
+            navigate("/videolist");
+          }
+        })
+        .catch((err) => {
+          console.log("신고 실패", err);
+        })
+  };
 
   // 게시글 삭제
   const onClickDelete = useCallback(() => {
