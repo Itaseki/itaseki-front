@@ -14,6 +14,7 @@ import GIFBoardDetail from "./Pages/Board/GIFBoardDetail";
 // Video
 import AddNewVideo from "./Pages/Video/AddNewVideo";
 import AllVideo from "./Pages/Video/AllVideo";
+import VideoDetail from "./Pages/Video/VideoDetail";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
       {/* Video */}
       <Route path="/addvideo" element={<AddNewVideo />} />
       <Route path="/videolist" element={<AllVideo />} />
+      <Route path="/videolist/:id" element={<VideoDetail />} />
     </Routes>
   );
 };
