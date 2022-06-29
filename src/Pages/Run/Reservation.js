@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { withStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
 
 import { StyledDiv, StyledDivRow } from "../../Style/StyledDiv";
 
@@ -17,6 +14,7 @@ import Run3 from "../../Assets/Run_3.png";
 import Temp from "../../Assets/Temp_gif.png";
 import StyledBtn from "../../Style/StyledBtn";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import AddReserv from "./AddReserv";
 
 const Reservation = () => {
   const [next, setNext] = useState(false);
@@ -28,6 +26,9 @@ const Reservation = () => {
   const [reservations, setReservations] = useState([
     { title: "런닝맨", start: "12:30", finish: "13:30" },
   ]);
+
+  // 예약 추가 팝업
+  const [pop, setPop] = useState(true);
 
   // 예약된 영상 리스트
   const RList = reservations.map((reservation) => (
@@ -149,50 +150,8 @@ const Reservation = () => {
           </RunWrapper>
         </StyledDiv>
       </StyledDiv>
-      <TimeTable>
-        <Paper>
-          <Grid container spacing={0}>
-            <Grid item xs={2}>
-              <Block>
-                <p>예약시간</p>
-              </Block>
-            </Grid>
-            <Grid item xs={10}>
-              <Block>
-                <p>예약 현황</p>
-              </Block>
-            </Grid>
-            <Grid item xs={2}>
-              <Block>
-                <p></p>
-              </Block>
-            </Grid>
-            <Grid item xs={10}>
-              <Block style={{ justifyContent: "spaceBtween" }}>
-                <p>확정목록</p>
-                <StyledBtn>
-                  <p>추가하기</p>
-                </StyledBtn>
-              </Block>
-            </Grid>
-            <Grid item xs={2}>
-              <Block>
-                <p>예약 확정 시간</p>
-              </Block>
-            </Grid>
-            <Grid item xs={2}>
-              <Block>
-                <p>예약 확정 리스트</p>
-              </Block>
-            </Grid>
-            <Grid item xs={8}>
-              <Block>
-                <div>{RList}</div>
-              </Block>
-            </Grid>
-          </Grid>
-        </Paper>
-      </TimeTable>
+
+      {pop ? <AddReserv /> : <></>}
     </div>
   );
 };
@@ -219,13 +178,4 @@ const ReservBtn = styled(StyledBtn)`
   display: flex;
   flex-direction: row;
   align-items: center;
-`;
-
-const TimeTable = styled(StyledDiv)`
-  width: 80%;
-  margin-top: 10%;
-`;
-
-const Block = styled(StyledDiv)`
-  border: 1px solid purple;
 `;
