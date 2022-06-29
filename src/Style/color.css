@@ -1,4 +1,7 @@
-:root {
+const color = {
+    colors : {
     --main-color: #9E8FA8;  /* purple */
     --sub-color: #C4C4C4; /* gray */
+    --reserv-color : #E37958; /* orange */
+    }
 }
