@@ -232,8 +232,8 @@ export const TitleUploader = styled.div`
 `
 
 export const IFrame = styled.div`
-  width: 672px;
-  height: 392px;
+  width: 720px;
+  height: 405px;
   background-color: var(--sub-color);
 `
 
