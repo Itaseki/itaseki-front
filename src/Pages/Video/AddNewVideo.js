@@ -15,7 +15,7 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
 import useInput from "../../Hooks/useInput";
-import YoutubeAPI from "../../Components/YoutubeAPI";
+import YoutubeAPI from "../../Components/Video/YoutubeAPI";
 
 const AddNewVideo = () => {
   const navigate = useNavigate();
