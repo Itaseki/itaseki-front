@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Header from "../../Components/Header";
 import {
   AutoFrame, Line,
@@ -32,6 +32,8 @@ const AllVideo = () => {
   const [totalPageCount, setTotalPageCount] = useState(0);  // 총 페이지 수
   const [pages, setPages] = useState([1,2,3,4,5]);
   const [page, setPage] = useState(0);  // 현재 페이지
+  const [showGoLeftPages, setShowGoLeftPages] = useState(false);
+  const [showGoRightPages, setShowGoRightPages] = useState(true);
   const [sort, setSort] = useState(""); // 좋아요 순이면 -> likeCount,DESC
   const [playlistToggleDisplay, setPlaylistToggleDisplay] = useState(false);  // 플레이리스트 모달창 보이기
   const [clickedPlyId, setClickedPlyId] = useState(-1); // 클릭한 플레이리스트 아이콘 id
@@ -70,13 +72,13 @@ const AllVideo = () => {
           if(totalPage < 5) {
             for(let i=1; i<=totalPage; i++)
               list.push(i);
+            setPages(list);
           }
-          setPages(list);
         })
         .catch((err) => {
           console.log("🧨전체 영상 조회 실패", err);
         })
-  }, [sort]);
+  }, [sort, page]);
 
   // 플레이리스트에 추가하기 아이콘 클릭
   const onClickAddToPlaylist = (e) => {
@@ -97,6 +99,48 @@ const AllVideo = () => {
     console.log("좋아요순 정렬");
     setSort("likeCount,DESC");
   };
+
+  // 페이지 클릭
+  const onClickPage = (e) => {
+    setPage(e.target.innerHTML-1);
+    console.log("페이지 클릭", e.target.innerHTML);
+  };
+
+  // 페이지 넘기기
+  const onClickNextPages = () => {
+    console.log("페이지 넘기기");
+    console.log("페이지:" + pages);
+    if(pages.length < 5) return;
+    let list = [];
+    for(let i=0; i<5; i++){
+      list[i] = pages[i]+5;
+      if(list[i] >= totalPageCount) {
+        setShowGoRightPages(false);
+        break;
+      }
+    }
+    setPages(list);
+    setShowGoLeftPages(true);
+  };
+
+  //페이지 돌아가기
+  const onClickPreviousPages = () => {
+    console.log("페이지 돌아가기");
+    console.log("페이지: " + pages);
+    if(pages.length < 5){
+      for(let i=0; i<5; i++) pages[i] = pages[0]+i;
+    }
+    let list = [];
+    for(let i=4; i>=0; i--){
+      list[i] = pages[i]-5;
+      if(list[i] <= 1) {
+        setShowGoLeftPages(false);
+        break;
+      }
+    }
+    setPages(list);
+    setShowGoRightPages(true);
+  }
 
   // 각 비디오
   const OneVideo = (video) => {
@@ -139,7 +183,7 @@ const AllVideo = () => {
   // 페이지 번호
   const showPages = pages.map((page) => {
     return (
-        <PageNum style={{fontSize: "20px", padding: "10.5px"}}>
+        <PageNum style={{fontSize: "20px", padding: "10.5px"}} onClick={onClickPage}>
           {page}
         </PageNum>
     )
@@ -185,27 +229,31 @@ const AllVideo = () => {
             </StyledBtn>
           </SortBox>
           <Pagination>
-            <StyledBtn id="previous-page">
-              <FontAwesomeIcon
-                  icon={faCaretLeft}
-                  style={{
-                    fontSize: "20px",
-                    color: "#9C9C9C",
-                    marginLeft: "10.5px",
-                  }}
-              />
-            </StyledBtn>
+            {showGoLeftPages &&
+                <StyledBtn id="previous-page" onClick={onClickPreviousPages}>
+                  <FontAwesomeIcon
+                      icon={faCaretLeft}
+                      style={{
+                        fontSize: "20px",
+                        color: "#9C9C9C",
+                        marginLeft: "10.5px",
+                      }}
+                  />
+                </StyledBtn>
+            }
             <Pages>{showPages}</Pages>
-            <StyledBtn id="next-page">
-              <FontAwesomeIcon
-                  icon={faCaretRight}
-                  style={{
-                    fontSize: "20px",
-                    color: "#9C9C9C",
-                    marginLeft: "10.5px",
-                  }}
-              />
-            </StyledBtn>
+            {showGoRightPages &&
+                <StyledBtn id="next-page" onClick={onClickNextPages}>
+                  <FontAwesomeIcon
+                      icon={faCaretRight}
+                      style={{
+                        fontSize: "20px",
+                        color: "#9C9C9C",
+                        marginLeft: "10.5px",
+                      }}
+                  />
+                </StyledBtn>
+            }
           </Pagination>
         </Wrapper>
       </div>
