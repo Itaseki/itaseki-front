@@ -15,23 +15,31 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
 import useInput from "../../Hooks/useInput";
+import YoutubeAPI from "../../Components/YoutubeAPI";
 
 const AddNewVideo = () => {
   const navigate = useNavigate();
 
-  const [newUrl, onChangeNewUrl, setNewUrl] = useInput("");
+  const [agree, setAgree] = useState(false);
   const [verified, setVerified] = useState(false);
-  const [introduction, onChangeIntroduction,setIntroduction] = useInput("");
   const [seriesList, setSeriesList] = useState([]);
   const [hashTagsList, setHashTagsList] = useState([]);
   const [playList, setPlayList] = useState([]);
-  const [searchSeries, onChangeSearchSeries, setSearchSeries] = useInput("");
-  const [hashTag1, setHashTag1] = useState("");
-  const [hashTag2, onChangeHashTag2, setHashTag2] = useInput("");
-  const [selectedPlayList, setSelectedPlayList] = useState("");
   const [seriesToggleDisplay, setSeriesToggleDisplay] = useState(false);
   const [hashTagToggleDisplay, setHashTagToggleDisplay] = useState(false);
   const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
+  // 영상 등록시 전송 데이터
+  const [newUrl, onChangeNewUrl, setNewUrl] = useInput("");
+  const [videoTitle, setVideoTitle] = useState("");
+  const [runtime, setRuntime] = useState("");
+  const [introduction, onChangeIntroduction,setIntroduction] = useInput("");
+  const [searchSeries, onChangeSearchSeries, setSearchSeries] = useInput(""); // Long
+  const [episode, onChangeEpisode, setEpisode] = useInput("");  // Int
+  const [hashTag1, setHashTag1] = useState(""); // 배열로 수정
+  const [hashTag2, onChangeHashTag2, setHashTag2] = useInput(""); // 배열로 수정
+  const [selectedPlayList, setSelectedPlayList] = useState("");
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
+  const [videoUploader, setVideoUploader] = useState("");
 
   // 토글 정보 불러오기
   useEffect(() => {
@@ -114,10 +122,52 @@ const AddNewVideo = () => {
     // 플레이리스트 값 넘어오면 수정
   }
 
+  // 유튜브 데이터 불러오기
+  async function callYoutube() {
+    const youtubeData = await YoutubeAPI("https://www.youtube.com/watch?v=BhBHZq8AWMI");
+    console.log("youtubeData: ", youtubeData);
+    return youtubeData;
+  }
+
   // 영상 등록
-  const onSubmitNewVideo = () => {
+  const onSubmitNewVideo = (e) => {
+    // 영상 등록 불가능 조건 처리
+    // if(!agree){
+    //   alert("유의사항에 동의해주세요.");
+    //   e.preventDefault();
+    //   return;
+    // }
+    // else if(!verified){
+    //   alert("영상 검증을 완료해주세요.");
+    //   e.preventDefault();
+    //   return;
+    // }
+    // else if(!introduction){
+    //   alert("영상 소개를 작성해주세요.");
+    //   e.preventDefault();
+    //   return;
+    // }
+    // else if(!hashTag1 || !hashTag2){
+    //   alert("해시태그를 입력해주세요.");
+    //   e.preventDefault();
+    //   return;
+    // }
+    // 영상 데이터 불러오기
+    callYoutube()
+        .then((res) => {
+          setVideoTitle(res[0]);
+          setVideoUploader(res[1]);
+          setThumbnailUrl(res[2]);
+          setRuntime(res[3]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+    e.preventDefault();
+
     console.log("영상 등록하기");
-    navigate('/videolist');
+    // navigate('/videolist');
   };
 
   // 시리즈 토글 리스트
@@ -175,8 +225,8 @@ const AddNewVideo = () => {
               <p>2. 공지사항입니다</p>
             </span>
             <span id="agree">
-              <input type="checkbox" />
-              <span>동의합니다</span>
+              <input id="agree-check" type="checkbox" onChange={(e) => e.target.checked ? setAgree(true) : setAgree(false)}/>
+              <label for="agree-check">동의합니다</label>
             </span>
           </PreInformContent>
         </PreInform>
@@ -208,7 +258,7 @@ const AddNewVideo = () => {
           <div style={{display: "flex"}}>
             <Round>
               <p>회차</p>
-              <input type="text" />
+              <input type="number" value={episode} onChange={onChangeEpisode}/>
             </Round>
             <HashTag>
               <p>해시태그1 (장르, 상황)</p>
