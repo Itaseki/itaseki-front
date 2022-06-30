@@ -164,10 +164,10 @@ const AllVideo = () => {
                 <img
                     src={PlayListIcon}
                     alt="플레이리스트에 추가"
-                    id={video.id}
+                    id={videoId}
                     onClick={onClickAddToPlaylist}
                     style={{marginLeft: "4px", cursor: "pointer"}}/>
-                {clickedPlyId === video.id &&   /*클릭한 아이콘과 id가 동일한 모달창에만 적용되도록*/
+                {clickedPlyId === videoId &&   /*클릭한 아이콘과 id가 동일한 모달창에만 적용되도록*/
                     <AutoFrame display={playlistToggleDisplay} style={{marginTop: "200px"}}>
                       플레이리스트에 추가
                     </AutoFrame>
