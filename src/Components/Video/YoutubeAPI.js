@@ -3,7 +3,7 @@ import axios from "axios";
 
 const YoutubeAPI = async (url) => {
   const videoId = url.split('v=')[1];
-  const YOUTUBE_API_KEY = "AIzaSyB-WyiV885WZcrvKmYaADQv0qEbgsvTgR8";
+  const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
 
   // 영상제목, 채널제목, 썸네일, 재생시간
   let title, channelTitle, thumbnail, duration;
