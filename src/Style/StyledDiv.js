@@ -10,3 +10,8 @@ export const StyledDivRow = styled.div`
   display: flex;
   align-items: center;
 `;
+
+export const StyledDivColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
