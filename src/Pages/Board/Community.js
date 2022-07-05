@@ -50,13 +50,15 @@ const Community = () => {
   const [showAddNewPostModal, setShowAddNewPostModal] = useState(false);
   const [newTitle, onChangeNewTitle, setNewTitle] = useInput("");
   const [newContent, onChangeNewContent, setNewContent] = useInput("");
-  const [newImages, onChangeNewImages, setNewImages] = useInput([]);
+  // const [newImages, onChangeNewImages, setNewImages] = useInput([]);
+  const [newImages, setNewImages] = useState([]);
   const [showGoLeftPages, setShowGoLeftPages] = useState(false);
   const [showGoRightPages, setShowGoRightPages] = useState(true);
 
   // 베스트 게시글 조회
   useEffect(() => {
-    axios.get(preURL.preURL + '/boards/community/best')
+    axios
+        .get(preURL.preURL + '/boards/community/best')
         .then((res) => {
           console.log("👍베스트 게시글 조회 성공");
           setBestPosts(res.data);
@@ -71,7 +73,7 @@ const Community = () => {
     axios
         .get(preURL.preURL + `/boards/community?page=${page}&size=10&sort=${sort}&sort=id,DESC&q=${search}`)
         .then((res) => {
-          console.log("👍전체 게시글 조회 성공");
+          console.log("👍전체 게시글 조회 성공", res.data);
           const data = res.data;
           const totalPage = data["totalPageCount"];
           const posts = data["boardsResponses"];
@@ -87,7 +89,7 @@ const Community = () => {
         .catch((err) => {
           console.log("🧨전체 게시글 조회 실패", err);
         })
-  }, [sort]);
+  }, [sort, page]);
 
   // 새 게시물 작성 버튼 클릭 -> 모달 창 open
   const onClickAddNewPost = useCallback(() => {
@@ -101,15 +103,46 @@ const Community = () => {
     console.log("새 게시물 쓰기 모달창 닫기");
   }, []);
 
+  // 이미지 인풋
+  const onChangeNewImages = (e) => {
+    const file = e.target.files;
+    console.log(file);
+    setNewImages(file);
+  };
+
   // 새 게시물 작성 submit
   const onAddNewPost = useCallback((e) => {
-    e.preventDefault();
+    if(!newTitle) {
+      alert("제목을 입력하세요");
+      e.preventDefault();
+      return;
+    }
+    if(!newContent) {
+      alert("내용을 입력하세요");
+      e.preventDefault();
+      return;
+    }
+    const formData = new FormData();
+    let variables = {
+      title: newTitle,
+      content: newContent
+    };
+    formData.append("communityBoardDto", new Blob([JSON.stringify(variables)], {type: "application/json"}));
+    for(let i=0; i<newImages.length; i++) {
+      formData.append('files', newImages[i]);
+    }
     axios
-        .post(preURL.preURL + '/boards/community', {
-          title: newTitle,
-          content: newContent,
-          files: newImages,
-        })
+        .post(preURL.preURL + '/boards/community',
+          // title: newTitle,
+          // content: newContent,
+          // files: newImages,
+          formData,
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            }
+        )
         .then((res) => {
           console.log("👍잡담글 등록 성공 ", res.data);
           setNewTitle("");
@@ -121,6 +154,11 @@ const Community = () => {
           console.log(newTitle);
           console.log(newContent);
           console.log(newImages);
+          // formData 내용 확인
+          console.log("formData: ");
+          for (let value of formData.values()) {
+            console.log(value);
+          }
         })
   }, [newTitle, newContent, newImages]);
 
@@ -263,13 +301,13 @@ const Community = () => {
           </StyledBtn>
           {/*새 게시글 쓰기 모달창*/}
           <Modal show={showAddNewPostModal} onCloseModal={onCloseModal}>
-            <form onSubmit={onAddNewPost}>
+            <form enctype="multipart/form-data" onSubmit={onAddNewPost}>
               <Input placeholder="제목을 입력하세요." value={newTitle} onChange={onChangeNewTitle}/>
               <ImgInput>
                 <label for="img-input">
                   <FontAwesomeIcon for="img-input" icon={faPlus} style={{ fontSize: "150%", color: "white" }} />
                 </label>
-                <input id="img-input" type="file" accept="image/*" multiple value={newImages} onChange={onChangeNewImages} style={{display: "none"}}/> {/*이미지 여러개 배열로 해야됨*/}
+                <input id="img-input" type="file" accept="image/*" multiple onChange={onChangeNewImages} style={{display: "none"}}/>
                 {/*<input value="선택된 파일 없음" disabled="disabled" />*/}
               </ImgInput>
               <TextArea placeholder="내용" value={newContent} onChange={onChangeNewContent}/>
@@ -312,7 +350,7 @@ const Community = () => {
           </SortBox>
           <Pagination>
             {showGoLeftPages &&
-                <StyledBtn id="next-page" onClick={onClickPreviousPages}>
+                <StyledBtn id="previous-page" onClick={onClickPreviousPages}>
                   <FontAwesomeIcon
                       icon={faCaretLeft}
                       style={{

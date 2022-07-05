@@ -15,6 +15,12 @@ import Reservation from "./Pages/Run/Reservation";
 // Member
 import MyPage from "./Pages/Member/MyPage";
 
+import GIFBoardDetail from "./Pages/Board/GIFBoardDetail";
+// Video
+import AddNewVideo from "./Pages/Video/AddNewVideo";
+import AllVideo from "./Pages/Video/AllVideo";
+import VideoDetail from "./Pages/Video/VideoDetail";
+
 const App = () => {
   return (
     <Routes>
@@ -31,6 +37,10 @@ const App = () => {
       <Route path="/reservation" element={<Reservation />} />
       {/* Member */}
       <Route path="/mypage" element={<MyPage />} />
+      {/* Video */}
+      <Route path="/addvideo" element={<AddNewVideo />} />
+      <Route path="/videolist" element={<AllVideo />} />
+      <Route path="/videolist/:id" element={<VideoDetail />} />
     </Routes>
   );
 };
