@@ -3,5 +3,6 @@ export const light = {
     backgroundColor: "#E5E5E5" /* gray */,
     mainColor: "#E35D12" /* orange */,
     reservColor: "#E37958" /* orange */,
+    red: "#C31212",
   },
 };
