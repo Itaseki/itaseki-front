@@ -14,12 +14,11 @@ import CommunityDetail from "./Pages/Board/CommunityDetail";
 import Reservation from "./Pages/Run/Reservation";
 // Member
 import MyPage from "./Pages/Member/MyPage";
-
-import GIFBoardDetail from "./Pages/Board/GIFBoardDetail";
 // Video
 import AddNewVideo from "./Pages/Video/AddNewVideo";
 import AllVideo from "./Pages/Video/AllVideo";
 import VideoDetail from "./Pages/Video/VideoDetail";
+import Running from "./Pages/Run/Running";
 
 const App = () => {
   return (
@@ -35,6 +34,7 @@ const App = () => {
       <Route path="/community/:id" element={<CommunityDetail />} />
       {/* Run */}
       <Route path="/reservation" element={<Reservation />} />
+      <Route path="/running" element={<Running />} />
       {/* Member */}
       <Route path="/mypage" element={<MyPage />} />
       {/* Video */}
