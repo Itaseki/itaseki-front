@@ -16,6 +16,7 @@ import {faHeart} from "@fortawesome/free-solid-svg-icons";
 import preURL from "../../preURL/preURL";
 import {AInfo, IFrame, Infos, TitleUploader, VideoDetailInfo, VideoWrapper} from "../../Style/Video";
 import CommentList from "../../Components/Comment/CommentList";
+import YoutubeIframe from "../../Components/Video/YoutubeIframe";
 
 const VideoDetail = () => {
   const videoId = useParams().id;
@@ -140,7 +141,9 @@ const VideoDetail = () => {
               </div>
               <div id="uploader">{video.videoUploader}</div>
             </TitleUploader>
-            <IFrame>{"영상 iframe"}</IFrame>
+            <IFrame>
+              <YoutubeIframe url={video.url} />
+            </IFrame>
             <a href={video.url} target="_blank" style={{color: "gray"}}>{video.url}</a>
           </VideoWrapper>
           <VideoDetailInfo>

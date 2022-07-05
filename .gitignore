@@ -2,6 +2,7 @@
 
 preURL/
 .preURL
+/preURL
 
 # dependencies
 /node_modules
