@@ -1,8 +1,17 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import Header from "../../Components/Header";
 import {
-  AutoFrame, Line,
-  OneVideoWrapper, SortBox, VideoContainer, VideoInfo, VideoList, VideoListWrapper, Wrapper
+  AutoFrame,
+  Line,
+  OneVideoWrapper,
+  SortBox,
+  ToggleScrollWrapper,
+  VideoContainer,
+  VideoInfo,
+  VideoList,
+  VideoListWrapper,
+  Wrapper,
+  XButton
 } from "../../Style/Video";
 import Best_Video from '../../Assets/Best_Video.png';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -37,6 +46,7 @@ const AllVideo = () => {
   const [showGoRightPages, setShowGoRightPages] = useState(true);
   const [sort, setSort] = useState(""); // 좋아요 순이면 -> likeCount,DESC
   const [playlistToggleDisplay, setPlaylistToggleDisplay] = useState(false);  // 플레이리스트 모달창 보이기
+  const [playlistList, setPlaylistList] = useState([]); // 받아온 내 플레이리스트 목록
   const [clickedPlyId, setClickedPlyId] = useState(-1); // 클릭한 플레이리스트 아이콘 id
   // 검색
   const [searchHashtag1, setSearchHashtag1] = useState("");
@@ -81,6 +91,20 @@ const AllVideo = () => {
         })
   }, [sort, page]);
 
+  // 사용자 플레이리스트 조회
+  useEffect(() => {
+    axios
+        .get(preURL.preURL + `/boards/playlist/user/${1}`)  /*사용자 id*/
+        .then((res) => {
+          setPlaylistList(res.data);
+          console.log("👍내 플레이리스트 조회 성공", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log("🧨내 플레이리스트 조회 실패", err);
+        })
+  },[]);
+
   // 플레이리스트에 추가하기 아이콘 클릭
   const onClickAddToPlaylist = (e) => {
     console.log("플레이리스트에 추가", e);
@@ -88,6 +112,24 @@ const AllVideo = () => {
     setClickedPlyId(clicked);
     setPlaylistToggleDisplay(prev => !prev);
   };
+
+  // 플레이리스트 토글 리스트
+  const PlayList = playlistList.map((onePlayList) => {
+    return(
+        <div>
+          <input
+              type="checkbox"
+              id={onePlayList.id}
+              value={onePlayList.title}
+              // onChange={selectPlayList}
+          />
+          <label>
+            {onePlayList.title}
+          </label>
+
+        </div>
+    )
+  });
 
   // 최신순 정렬
   const onClickSortNewest = () => {
@@ -172,7 +214,12 @@ const AllVideo = () => {
                     style={{marginLeft: "4px", cursor: "pointer"}}/>
                 {clickedPlyId === videoId &&   /*클릭한 아이콘과 id가 동일한 모달창에만 적용되도록*/
                     <AutoFrame display={playlistToggleDisplay} style={{marginTop: "200px"}}>
-                      플레이리스트에 추가
+                      <XButton onClick={() => setPlaylistToggleDisplay(prev => !prev)}>&times;</XButton>
+                      <span>플레이리스트에 담기</span>
+                      <hr/>
+                      <ToggleScrollWrapper>
+                        {PlayList}
+                      </ToggleScrollWrapper>
                     </AutoFrame>
                 }
               </div>

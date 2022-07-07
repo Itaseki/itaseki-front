@@ -86,7 +86,7 @@ export const AutoFrame = styled.div`
     margin-top: 5px;
   }
   & > hr{
-    width: 130px;
+    width: 150px;
     border-top: 3px dashed;
   }
 `
@@ -187,7 +187,7 @@ export const VideoContainer = styled.div`
 
 // 영상 썸네일 하단 정보
 export const VideoInfo = styled.div`
-  width: 224px;
+  width: 240px;
   display: flex;
   justify-content: space-between;
   & > #title {
@@ -214,6 +214,14 @@ export const SortBox = styled.div`
     color: #9E8FA8;
     font-size: 11px;
   }
+`
+
+export const XButton = styled(StyledBtn)`
+  color: #E35D12;
+  display: block;
+  align-self: end;
+  margin-right: 10px;
+  font-size: x-large;
 `
 
 
