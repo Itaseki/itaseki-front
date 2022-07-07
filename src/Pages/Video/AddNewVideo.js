@@ -5,10 +5,10 @@ import {
   AddVideoForm,
   AutoFrame, HashTag,
   Introduce,
-  NewUrlForm, OneSeries,
+  NewUrlForm, OneSelectItemWrapper, OneSeries,
   PreInform,
   PreInformContent, Round,
-  Series, ToggleScrollWrapper
+  Series, SwitchBtnLabel, SwitchBtnSpan, ToggleScrollWrapper
 } from "../../Style/Video";
 import StyledBtn from "../../Style/StyledBtn";
 import {useNavigate} from "react-router-dom";
@@ -190,6 +190,29 @@ const AddNewVideo = () => {
     }
   }
 
+  // 플레이리스트 공개/비공개
+  const onClickPublic = (prop) => {
+    const Target = prop.target;
+    const id = Target.id;
+    axios
+        .patch(preURL.preURL + `/boards/playlist/${id}`)
+        .then((res) => {
+          console.log("👍플레이리스트 공개/비공개 수정 성공");
+          if(res.status === 200) {
+            prop.target.parentNode.classList.toggle('active');
+            Target.classList.toggle('active');
+            // console.log(prop.target.parentNode.classList)
+            // console.log(Target);
+            if(Target.innerText === "비공개") Target.innerText = "공개";
+            else Target.innerText = "비공개";
+          }
+          else if(res.status === 403) alert("수정 권한이 없습니다.");
+        })
+        .catch((err) => {
+          console.log("🧨플레이리스트 공개/비공개 수정 실패", err);
+        })
+  }
+
   // 영상 등록
   const onSubmitNewVideo = (e) => {
     // 영상 등록 불가능 조건 처리
@@ -254,7 +277,7 @@ const AddNewVideo = () => {
   // 해시태그1 토글 리스트
   const HashTagList = hashTagsList.map((oneHashTag) => {
     return (
-        <div>
+        <OneSelectItemWrapper>
           <input
               type="checkbox"
               id={oneHashTag.id}
@@ -265,14 +288,14 @@ const AddNewVideo = () => {
           <label>
             {oneHashTag.name}
           </label>
-        </div>
+        </OneSelectItemWrapper>
     )
   });
 
   // 플레이리스트 토글 리스트
   const PlayList = playListList.map((onePlayList) => {
     return(
-        <div>
+        <OneSelectItemWrapper>
           <input
               type="checkbox"
               id={onePlayList.id} // 해시태그1과 id 중복 발생 -> 수정
@@ -282,8 +305,17 @@ const AddNewVideo = () => {
           <label>
             {onePlayList.title}
           </label>
-
-        </div>
+          {onePlayList.isPublic
+              ?
+              <SwitchBtnLabel>
+                <span class="active" id={onePlayList.id} onClick={onClickPublic}>공개</span>
+              </SwitchBtnLabel>
+              :
+              <SwitchBtnLabel>
+                <span id={onePlayList.id} onClick={onClickPublic}>비공개</span>
+              </SwitchBtnLabel>
+          }
+        </OneSelectItemWrapper>
     )
   });
 

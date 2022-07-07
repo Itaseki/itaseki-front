@@ -91,6 +91,12 @@ export const AutoFrame = styled.div`
   }
 `
 
+export const OneSelectItemWrapper = styled.div`
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+`
+
 export const ToggleScrollWrapper = styled.div`
   overflow-y: scroll;
   width: 100%;
@@ -147,6 +153,47 @@ export const AddToPlayList = styled.div`
     border: 0;
     padding: 5px 5px 5px 10px;
   }
+`
+
+// 플레이리스트 공개/비공개 토글 버튼
+export const SwitchBtnLabel = styled.label`
+  width: 60px;
+  margin-left: auto;
+  margin-right: 10px;
+  height: 25px;
+  display: inline-block;
+  position: relative;
+  border-radius: 71px;
+  background-color: black;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+  & > span{
+    width: 45px;
+    height: 18px;
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    transform: translateY(-50%);
+    border-radius: 71px;
+    background-color: #E35D12;
+    font-size: small;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.2s ease-in;
+  }
+  :active{  // 동작X
+    background-color: #E35D12;
+  }
+    
+  & > span.active{
+    background-color: black;
+    color: #E35D12;
+    left: calc(100% - 50px);
+    
+  }
+`
+export const SwitchBtnSpan = styled.span`
+  
 `
 
 export const AddVideoBtn = styled(StyledBtn)`

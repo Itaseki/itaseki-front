@@ -2,9 +2,9 @@ import React, {useCallback, useEffect, useState} from 'react';
 import Header from "../../Components/Header";
 import {
   AutoFrame,
-  Line,
+  Line, OneSelectItemWrapper,
   OneVideoWrapper,
-  SortBox,
+  SortBox, SwitchBtnLabel,
   ToggleScrollWrapper,
   VideoContainer,
   VideoInfo,
@@ -113,10 +113,33 @@ const AllVideo = () => {
     setPlaylistToggleDisplay(prev => !prev);
   };
 
+  // 플레이리스트 공개/비공개
+  const onClickPublic = (prop) => {
+    const Target = prop.target;
+    const id = Target.id;
+    axios
+        .patch(preURL.preURL + `/boards/playlist/${id}`)
+        .then((res) => {
+          console.log("👍플레이리스트 공개/비공개 수정 성공");
+          if(res.status === 200) {
+            prop.target.parentNode.classList.toggle('active');
+            Target.classList.toggle('active');
+            // console.log(prop.target.parentNode.classList)
+            // console.log(Target);
+            if(Target.innerText === "비공개") Target.innerText = "공개";
+            else Target.innerText = "비공개";
+          }
+          else if(res.status === 403) alert("수정 권한이 없습니다.");
+        })
+        .catch((err) => {
+          console.log("🧨플레이리스트 공개/비공개 수정 실패", err);
+        })
+  };
+
   // 플레이리스트 토글 리스트
   const PlayList = playlistList.map((onePlayList) => {
     return(
-        <div>
+        <OneSelectItemWrapper>
           <input
               type="checkbox"
               id={onePlayList.id}
@@ -126,8 +149,17 @@ const AllVideo = () => {
           <label>
             {onePlayList.title}
           </label>
-
-        </div>
+          {onePlayList.isPublic
+              ?
+              <SwitchBtnLabel>
+                <span class="active" id={onePlayList.id} onClick={onClickPublic}>공개</span>
+              </SwitchBtnLabel>
+              :
+              <SwitchBtnLabel>
+                <span id={onePlayList.id} onClick={onClickPublic}>비공개</span>
+              </SwitchBtnLabel>
+          }
+        </OneSelectItemWrapper>
     )
   });
 
