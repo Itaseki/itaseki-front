@@ -19,9 +19,10 @@ const YoutubeAPI = async (url) => {
       })
       .then((res) => {
         const data = res.data.items[0]["snippet"];
+        console.log(data);
         title = data.title;
         channelTitle = data["channelTitle"];
-        thumbnail = data["thumbnails"].default.url;
+        thumbnail = data["thumbnails"].medium.url;
         console.log("👍유튜브 영상제목, 채널이름, 썸네일 가져오기 성공");
       })
       .catch((err) => {

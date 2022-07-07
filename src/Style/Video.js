@@ -179,8 +179,8 @@ export const OneVideoWrapper = styled.div`
 
 // 영상 썸네일
 export const VideoContainer = styled.div`
-  width: 224px;
-  height: 126px;
+  width: 240px;
+  height: 135px;
   background: var(--sub-color);
   cursor: pointer;
 `

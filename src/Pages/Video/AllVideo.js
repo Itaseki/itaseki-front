@@ -18,16 +18,16 @@ const AllVideo = () => {
   const navigate = useNavigate();
 
   const [bestVideos, setBestVideos] = useState([
-    {id: 1, title: "베스트 영상 1", writerNickname: "닉네임1", likeCount: 5},
-    {id: 2, title: "베스트 영상 2", writerNickname: "닉네임2", likeCount: 5},
-    {id: 3, title: "베스트 영상 3", writerNickname: "닉네임3", likeCount: 5},
-    {id: 4, title: "베스트 영상 4", writerNickname: "닉네임4", likeCount: 5}
+    {id: 1, title: "베스트 영상 1", writerNickname: "닉네임1", likeCount: 5, thumbnailUrl: ""},
+    {id: 2, title: "베스트 영상 2", writerNickname: "닉네임2", likeCount: 5, thumbnailUrl: ""},
+    {id: 3, title: "베스트 영상 3", writerNickname: "닉네임3", likeCount: 5, thumbnailUrl: ""},
+    {id: 4, title: "베스트 영상 4", writerNickname: "닉네임4", likeCount: 5, thumbnailUrl: ""}
   ]);
   const [videos, setVideos] = useState([
-    {id: 1, title: "영상 1", writerNickname: "닉네임1", likeCount: 5},
-    {id: 2, title: "영상 2", writerNickname: "닉네임2", likeCount: 5},
-    {id: 3, title: "영상 3", writerNickname: "닉네임3", likeCount: 5},
-    {id: 4, title: "영상 4", writerNickname: "닉네임4", likeCount: 5}
+    {id: 1, title: "영상 1", writerNickname: "닉네임1", likeCount: 5, thumbnailUrl: ""},
+    {id: 2, title: "영상 2", writerNickname: "닉네임2", likeCount: 5, thumbnailUrl: ""},
+    {id: 3, title: "영상 3", writerNickname: "닉네임3", likeCount: 5, thumbnailUrl: ""},
+    {id: 4, title: "영상 4", writerNickname: "닉네임4", likeCount: 5, thumbnailUrl: ""}
   ]);
   const [totalPageCount, setTotalPageCount] = useState(0);  // 총 페이지 수
   const [pages, setPages] = useState([1,2,3,4,5]);
@@ -147,7 +147,9 @@ const AllVideo = () => {
     const videoId = video.id;
     return (
         <OneVideoWrapper>
-          <VideoContainer onClick={()=>navigate(`/videolist/${videoId}`)}/>  {/*영상 썸네일*/}
+          <VideoContainer onClick={()=>navigate(`/videolist/${videoId}`)}>
+            <img src={video.thumbnailUrl} alt="썸네일" style={{width: "240px", height: "135px"}}/>
+          </VideoContainer>
           <div>
             <VideoInfo>
               <span id="title" onClick={()=>navigate(`/videolist/${videoId}`)}>
