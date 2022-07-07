@@ -13,6 +13,7 @@ import axios from "axios";
 import PlayListIcon from "../../Assets/Playlist_mini.png";
 import {useNavigate} from "react-router-dom";
 import {PageNum, Pages, Pagination} from "../../Style/Community";
+import Add_New_Video from "../../Assets/Add_new_video.png";
 
 const AllVideo = () => {
   const navigate = useNavigate();
@@ -194,6 +195,12 @@ const AllVideo = () => {
   return (
       <div>
         <Header />
+        <img
+            src={Add_New_Video}
+            alt="새 영상글 쓰기"
+            style={{display: "block", marginLeft: "auto", marginRight: "200px", cursor: "pointer"}}
+            onClick={() => navigate("/addvideo")}
+        />
         <Wrapper>
           {(page===0) &&
               <VideoListWrapper>
