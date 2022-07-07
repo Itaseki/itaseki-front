@@ -26,7 +26,8 @@ const AddNewVideo = () => {
   const [searchSeries, onChangeSearchSeries, setSearchSeries] = useInput("");
   const [hashTagsList, setHashTagsList] = useState([{id: 0, name: ""}]);
   const [hashTag1, setHashTag1] = useState([]);
-  const [playList, setPlayList] = useState([{id: 0, name: ""}]);
+  const [playListList, setPlayListList] = useState([]);
+  const [playList, setPlayList] = useState([]);
   const [seriesToggleDisplay, setSeriesToggleDisplay] = useState(false);
   const [hashTagToggleDisplay, setHashTagToggleDisplay] = useState(false);
   const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
@@ -39,7 +40,7 @@ const AddNewVideo = () => {
   const [episode, onChangeEpisode, setEpisode] = useInput("");  // Int
   const [selectedHashtagId, setSelectedHashtagId] = useState([]);
   const [hashTag2, onChangeHashTag2, setHashTag2] = useInput("");
-  const [selectedPlayList, setSelectedPlayList] = useState([]);
+  const [selectedPlayListId, setSelectedPlayListId] = useState([]);
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [videoUploader, setVideoUploader] = useState("");
 
@@ -51,7 +52,7 @@ const AddNewVideo = () => {
           console.log("👍시리즈, 해시태그, 플레이리스트 조회 성공", res.data);
           setSeriesList(res.data['series']);
           setHashTagsList(res.data['hashtags']);
-          setPlayList(res.data['playlists']);
+          setPlayListList(res.data['playlists']);
         })
         .catch((err) => {
           console.log("🧨시리즈, 해시태그, 플레이리스트 조회 실패", err);
@@ -124,7 +125,6 @@ const AddNewVideo = () => {
 
   // 해시태그1 개수 3개 제한
   useEffect(() => {
-    console.log("해시태그 개수 제한");
     let box = document.getElementsByName("hashtag1");
     let cnt = 0;
     for(let i=0; i<box.length; i++)
@@ -156,8 +156,24 @@ const AddNewVideo = () => {
   };
 
   // 플레이리스트에 추가
-  const selectPlayList = () => {
-    // 플레이리스트 값 넘어오면 수정
+  const selectPlayList = (prop) => {
+    const selected = {id: prop.target.id, name: prop.target.value};
+    const boolChecked = prop.target.checked;
+    console.log(selected, boolChecked);
+
+    let newPlaylist, newPlaylistId;
+    if(boolChecked) {
+      newPlaylist = [...playList, selected.name];
+      newPlaylistId = [...selectedPlayListId, selected.id];
+      setPlayList(newPlaylist);
+      setSelectedPlayListId(newPlaylistId);
+    }
+    else {
+      newPlaylist = playList.filter(playList => playList !== selected.name);
+      newPlaylistId = selectedPlayListId.filter(selectedPlayList => selectedPlayList !== selected.id)
+      setPlayList(newPlaylist);
+      setSelectedPlayListId(newPlaylistId);
+    }
   }
 
   // 영상 등록
@@ -195,7 +211,7 @@ const AddNewVideo = () => {
           episode: episode,
           hashtags: selectedHashtagId,
           keywords: [hashTag2],
-          playlists: selectedPlayList,
+          playlists: selectedPlayListId,
           thumbnailUrl: thumbnailUrl,
           videoUploader: videoUploader,
         })
@@ -232,7 +248,7 @@ const AddNewVideo = () => {
               value={oneHashTag.name}
               onChange={selectHashTag1}
           />
-          <label for={oneHashTag.id}>
+          <label>
             {oneHashTag.name}
           </label>
         </div>
@@ -240,8 +256,7 @@ const AddNewVideo = () => {
   });
 
   // 플레이리스트 토글 리스트
-  const PlayList = playList.map((onePlayList) => {
-    // 지금은 null 값으로 넘어와서 아무것도 안 뜸 -> 플레이리스트 구현 후 수정
+  const PlayList = playListList.map((onePlayList) => {
     return(
         <div>
           <input
@@ -250,7 +265,7 @@ const AddNewVideo = () => {
               value={onePlayList.name}
               onChange={selectPlayList}
           />
-          <label for={onePlayList.id}>
+          <label>
             {onePlayList.name}
           </label>
 
@@ -333,7 +348,7 @@ const AddNewVideo = () => {
             <p>내 플레이리스트에 추가</p>
             <input
                 type="text"
-                value={selectedPlayList}
+                value={playList}
                 onFocus={()=>setPlayListToggleDisplay(true)}
                 onBlur={()=>setPlayListToggleDisplay(false)}
             />
