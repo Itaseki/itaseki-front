@@ -69,23 +69,37 @@ export const AutoFrame = styled.div`
   flex-direction: column;
   align-items: flex-start;
   box-sizing: border-box;
-  width: 170px;
-  height: 182px;
-  background: var(--main-color);
-  border-radius: 12px;
+  width: 200px;
+  height: 240px;
+  background: white;
+  border: 5px dashed rgba(0, 0, 0, 0.8);
+  border-radius: 29px;
   padding: 5px;
-  overflow-y: scroll;
   position: absolute;
   z-index: 2;
   :hover{
     display: flex
   }
+  & > span{
+    align-self: center;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  & > hr{
+    width: 130px;
+    border-top: 3px dashed;
+  }
+`
+
+export const ToggleScrollWrapper = styled.div`
+  overflow-y: scroll;
+  width: 100%;
 `
 
 export const OneSeries = styled(StyledBtn)`
   background-color: transparent;
-  margin: 2px;
-  color: white;
+  margin: 5px;
+  display: block;
   text-align: left;
 `
 

@@ -8,7 +8,7 @@ import {
   NewUrlForm, OneSeries,
   PreInform,
   PreInformContent, Round,
-  Series
+  Series, ToggleScrollWrapper
 } from "../../Style/Video";
 import StyledBtn from "../../Style/StyledBtn";
 import {useNavigate} from "react-router-dom";
@@ -122,6 +122,18 @@ const AddNewVideo = () => {
     setSelectedSeriesId(selected.id);
   };
 
+  // 해시태그1 개수 3개 제한
+  useEffect(() => {
+    console.log("해시태그 개수 제한");
+    let box = document.getElementsByName("hashtag1");
+    let cnt = 0;
+    for(let i=0; i<box.length; i++)
+      if(box[i].checked) cnt++;
+
+    if(cnt >= 3) box.forEach(one => one.checked? one : one.disabled = true);
+    else box.forEach(one => one.disabled = false);
+  }, [hashTag1]);
+
   // 해시태그1 토글에서 선택
   const selectHashTag1 = (prop) => {
     const selected = {id: prop.target.id, name: prop.target.value};
@@ -216,10 +228,11 @@ const AddNewVideo = () => {
           <input
               type="checkbox"
               id={oneHashTag.id}
+              name="hashtag1"
               value={oneHashTag.name}
               onChange={selectHashTag1}
           />
-          <label for={oneHashTag.id} style={{color: "white"}}>
+          <label for={oneHashTag.id}>
             {oneHashTag.name}
           </label>
         </div>
@@ -237,9 +250,10 @@ const AddNewVideo = () => {
               value={onePlayList.name}
               onChange={selectPlayList}
           />
-          <label for={onePlayList.id} style={{color: "white"}}>
+          <label for={onePlayList.id}>
             {onePlayList.name}
           </label>
+
         </div>
     )
   });
@@ -277,7 +291,11 @@ const AddNewVideo = () => {
                   onBlur={()=>setSeriesToggleDisplay(false)}
               />
               <AutoFrame display={seriesToggleDisplay}>
-                {SeriesList}
+                <span>시리즈</span>
+                <hr/>
+                <ToggleScrollWrapper>
+                  {SeriesList}
+                </ToggleScrollWrapper>
               </AutoFrame>
             </Series>
             <Introduce>
@@ -299,7 +317,11 @@ const AddNewVideo = () => {
                   onBlur={()=>setHashTagToggleDisplay(false)}
               />
               <AutoFrame display={hashTagToggleDisplay}>
-                {HashTagList}
+                <span>해시태그1</span>
+                <hr/>
+                <ToggleScrollWrapper>
+                  {HashTagList}
+                </ToggleScrollWrapper>
               </AutoFrame>
             </HashTag>
             <HashTag>
@@ -316,7 +338,11 @@ const AddNewVideo = () => {
                 onBlur={()=>setPlayListToggleDisplay(false)}
             />
             <AutoFrame display={playListToggleDisplay}>
-              {PlayList}
+              <span>플레이리스트에 담기</span>
+              <hr/>
+              <ToggleScrollWrapper>
+                {PlayList}
+              </ToggleScrollWrapper>
             </AutoFrame>
           </AddToPlayList>
           <AddVideoBtn type="submit">등록하기</AddVideoBtn>
