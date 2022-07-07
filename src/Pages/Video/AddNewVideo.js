@@ -52,12 +52,26 @@ const AddNewVideo = () => {
           console.log("👍시리즈, 해시태그, 플레이리스트 조회 성공", res.data);
           setSeriesList(res.data['series']);
           setHashTagsList(res.data['hashtags']);
-          setPlayListList(res.data['playlists']);
+          // setPlayListList(res.data['playlists']);
         })
         .catch((err) => {
           console.log("🧨시리즈, 해시태그, 플레이리스트 조회 실패", err);
         })
   }, []);
+
+  // 사용자 플레이리스트 조회
+  useEffect(() => {
+    axios
+        .get(preURL.preURL + `/boards/playlist/user/${1}`)  /*사용자 id*/
+        .then((res) => {
+          setPlayListList(res.data);
+          console.log("👍내 플레이리스트 조회 성공", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log("🧨내 플레이리스트 조회 실패", err);
+        })
+  },[]);
 
   // 유튜브 데이터 불러오기
   async function callYoutube() {
@@ -262,11 +276,11 @@ const AddNewVideo = () => {
           <input
               type="checkbox"
               id={onePlayList.id} // 해시태그1과 id 중복 발생 -> 수정
-              value={onePlayList.name}
+              value={onePlayList.title}
               onChange={selectPlayList}
           />
           <label>
-            {onePlayList.name}
+            {onePlayList.title}
           </label>
 
         </div>
