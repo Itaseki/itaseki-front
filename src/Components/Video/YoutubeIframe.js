@@ -1,7 +1,9 @@
 import React from "react";
 
 const YoutubeIframe = ({url}) => {
-  const id = url.split("v=")[1];
+  let str = url.split("v=")[1];
+  const id = (str || '').split("&")[0];
+  console.log(id);
   const embedUrl = `https://www.youtube.com/embed/${id}`;
 
   return (
