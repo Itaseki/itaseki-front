@@ -1,8 +1,9 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import Header from "../../Components/Header";
 import {
+  AddNewPlyBtn,
   AutoFrame,
-  Line, OneSelectItemWrapper,
+  Line, MakeNewPly, MakeNewPlyBtn, NewPlyInput, OneSelectItemWrapper,
   OneVideoWrapper,
   SortBox, SwitchBtnLabel,
   ToggleScrollWrapper,
@@ -23,6 +24,7 @@ import PlayListIcon from "../../Assets/Playlist_mini.png";
 import {useNavigate} from "react-router-dom";
 import {PageNum, Pages, Pagination} from "../../Style/Community";
 import Add_New_Video from "../../Assets/Add_new_video.png";
+import useInput from "../../Hooks/useInput";
 
 const AllVideo = () => {
   const navigate = useNavigate();
@@ -48,6 +50,10 @@ const AllVideo = () => {
   const [playlistToggleDisplay, setPlaylistToggleDisplay] = useState(false);  // 플레이리스트 모달창 보이기
   const [playlistList, setPlaylistList] = useState([]); // 받아온 내 플레이리스트 목록
   const [clickedPlyId, setClickedPlyId] = useState(-1); // 클릭한 플레이리스트 아이콘 id
+  // 새로운 플레이리스트
+  const [addNewPly, setAddNewPly] = useState(false);
+  const [newPlyName, onChangeNewPlyName, setNewPlyName] = useInput("");
+  const [newPlyPublic, setNewPlyPublic] = useState(false);
   // 검색
   const [searchHashtag1, setSearchHashtag1] = useState("");
   const [searchHashtag2, setSearchHashtag2] = useState("");
@@ -103,7 +109,7 @@ const AllVideo = () => {
           console.log(err);
           console.log("🧨내 플레이리스트 조회 실패", err);
         })
-  },[]);
+  },[playlistToggleDisplay]);
 
   // 플레이리스트에 추가하기 아이콘 클릭
   const onClickAddToPlaylist = (e) => {
@@ -136,6 +142,24 @@ const AllVideo = () => {
         })
   };
 
+  // 새 플레이리스트 생성
+  const onClickMakePly = () => {
+    axios
+        .post(preURL.preURL + '/boards/playlist', {
+          title: newPlyName,
+          isPublic: newPlyPublic
+        })
+        .then((res) => {
+          console.log("👍새 플레이리스트 생성 성공", res.data);
+          setNewPlyName("");
+          setNewPlyPublic(false);
+          setAddNewPly(false);
+        })
+        .catch((err) => {
+          console.log("🧨새 플레이리스트 생성 실패", err);
+        })
+  };
+
   // 플레이리스트 토글 리스트
   const PlayList = playlistList.map((onePlayList) => {
     return(
@@ -149,16 +173,18 @@ const AllVideo = () => {
           <label>
             {onePlayList.title}
           </label>
-          {onePlayList.isPublic
-              ?
-              <SwitchBtnLabel>
-                <span class="active" id={onePlayList.id} onClick={onClickPublic}>공개</span>
-              </SwitchBtnLabel>
-              :
-              <SwitchBtnLabel>
-                <span id={onePlayList.id} onClick={onClickPublic}>비공개</span>
-              </SwitchBtnLabel>
-          }
+          <div>
+            {onePlayList.isPublic
+                ?
+                <SwitchBtnLabel>
+                  <span className="active" id={onePlayList.id} onClick={onClickPublic}>공개</span>
+                </SwitchBtnLabel>
+                :
+                <SwitchBtnLabel>
+                  <span id={onePlayList.id} onClick={onClickPublic}>비공개</span>
+                </SwitchBtnLabel>
+            }
+          </div>
         </OneSelectItemWrapper>
     )
   });
@@ -246,12 +272,40 @@ const AllVideo = () => {
                     style={{marginLeft: "4px", cursor: "pointer"}}/>
                 {clickedPlyId === videoId &&   /*클릭한 아이콘과 id가 동일한 모달창에만 적용되도록*/
                     <AutoFrame display={playlistToggleDisplay} style={{marginTop: "200px"}}>
-                      <XButton onClick={() => setPlaylistToggleDisplay(prev => !prev)}>&times;</XButton>
+                      <XButton onClick={() => {
+                        setPlaylistToggleDisplay(prev => !prev)
+                        setAddNewPly(false);
+                      }}>&times;</XButton>
                       <span>플레이리스트에 담기</span>
                       <hr/>
                       <ToggleScrollWrapper>
                         {PlayList}
                       </ToggleScrollWrapper>
+                      <div style={{alignSelf: "center"}}>
+                        {addNewPly
+                            ?
+                            <>
+                              <NewPlyInput type="text" placeholder="플레이리스트 이름" value={newPlyName} onChange={onChangeNewPlyName}/>
+                              <div style={{display: "flex", alignItems: "center", justifyContent: "space-evenly", margin: "10px 0"}}>
+                                {newPlyPublic
+                                    ?
+                                    <SwitchBtnLabel style={{margin: 0}}>
+                                      <span className="active" onClick={() => setNewPlyPublic(prev => !prev)}>공개</span>
+                                    </SwitchBtnLabel>
+                                    :
+                                    <SwitchBtnLabel style={{margin: 0}}>
+                                      <span onClick={() => setNewPlyPublic(prev => !prev)}>비공개</span>
+                                    </SwitchBtnLabel>
+                                }
+                                <MakeNewPlyBtn onClick={onClickMakePly}>만들기</MakeNewPlyBtn>
+                              </div>
+                            </>
+                            :
+                            <AddNewPlyBtn onClick={() => setAddNewPly(prev => !prev)}>
+                              새 플레이리스트 만들기
+                            </AddNewPlyBtn>
+                        }
+                      </div>
                     </AutoFrame>
                 }
               </div>

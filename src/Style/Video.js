@@ -69,8 +69,8 @@ export const AutoFrame = styled.div`
   flex-direction: column;
   align-items: flex-start;
   box-sizing: border-box;
-  width: 200px;
-  height: 240px;
+  width: 220px;
+  height: 280px;
   background: white;
   border: 5px dashed rgba(0, 0, 0, 0.8);
   border-radius: 29px;
@@ -95,11 +95,15 @@ export const OneSelectItemWrapper = styled.div`
   margin: 5px 0;
   display: flex;
   align-items: center;
+  & > label{
+    width: 100px;
+  }
 `
 
 export const ToggleScrollWrapper = styled.div`
   overflow-y: scroll;
   width: 100%;
+  margin: 5px 0 10px 0;
 `
 
 export const OneSeries = styled(StyledBtn)`
@@ -158,8 +162,6 @@ export const AddToPlayList = styled.div`
 // 플레이리스트 공개/비공개 토글 버튼
 export const SwitchBtnLabel = styled.label`
   width: 60px;
-  margin-left: auto;
-  margin-right: 10px;
   height: 25px;
   display: inline-block;
   position: relative;
@@ -184,16 +186,47 @@ export const SwitchBtnLabel = styled.label`
   :active{  // 동작X
     background-color: #E35D12;
   }
-    
   & > span.active{
     background-color: black;
     color: #E35D12;
     left: calc(100% - 50px);
-    
   }
 `
 export const SwitchBtnSpan = styled.span`
   
+`
+
+export const AddNewPlyBtn = styled(StyledBtn)`
+  box-sizing: border-box;
+  width: 170px;
+  height: 33px;
+  background-color: black;
+  border: 2px dashed #FFFFFF;
+  border-radius: 29px;
+  color: white;
+  align-self: center;
+`
+
+export const NewPlyInput = styled.input`
+  box-sizing: border-box;
+  width: 170px;
+  height: 33px;
+  background: white;
+  border: 2px dashed #000000;
+  border-radius: 29px;
+  display: block;
+  align-self: center;
+  padding: 0 4px;
+`
+
+export const MakeNewPlyBtn = styled(StyledBtn)`
+  box-sizing: border-box;
+  width: 70px;
+  height: 30px;
+  background: black;
+  border: 2px dashed white;
+  border-radius: 29px;
+  color: white;
 `
 
 export const AddVideoBtn = styled(StyledBtn)`

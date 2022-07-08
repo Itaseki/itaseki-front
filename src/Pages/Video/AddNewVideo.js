@@ -1,10 +1,11 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import Header from "../../Components/Header";
 import {
+  AddNewPlyBtn,
   AddToPlayList, AddVideoBtn,
   AddVideoForm,
   AutoFrame, HashTag,
-  Introduce,
+  Introduce, MakeNewPlyBtn, NewPlyInput,
   NewUrlForm, OneSelectItemWrapper, OneSeries,
   PreInform,
   PreInformContent, Round,
@@ -43,6 +44,10 @@ const AddNewVideo = () => {
   const [selectedPlayListId, setSelectedPlayListId] = useState([]);
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [videoUploader, setVideoUploader] = useState("");
+  // 새로운 플레이리스트
+  const [addNewPly, setAddNewPly] = useState(false);
+  const [newPlyName, onChangeNewPlyName, setNewPlyName] = useInput("");
+  const [newPlyPublic, setNewPlyPublic] = useState(false);
 
   // 토글 정보 불러오기
   useEffect(() => {
@@ -305,19 +310,39 @@ const AddNewVideo = () => {
           <label>
             {onePlayList.title}
           </label>
-          {onePlayList.isPublic
-              ?
-              <SwitchBtnLabel>
-                <span class="active" id={onePlayList.id} onClick={onClickPublic}>공개</span>
-              </SwitchBtnLabel>
-              :
-              <SwitchBtnLabel>
-                <span id={onePlayList.id} onClick={onClickPublic}>비공개</span>
-              </SwitchBtnLabel>
-          }
+          <div>
+            {onePlayList.isPublic
+                ?
+                <SwitchBtnLabel>
+                  <span className="active" id={onePlayList.id} onClick={onClickPublic}>공개</span>
+                </SwitchBtnLabel>
+                :
+                <SwitchBtnLabel>
+                  <span id={onePlayList.id} onClick={onClickPublic}>비공개</span>
+                </SwitchBtnLabel>
+            }
+          </div>
         </OneSelectItemWrapper>
     )
   });
+
+  // 새 플레이리스트 생성
+  const onClickMakePly = () => {
+    axios
+        .post(preURL.preURL + '/boards/playlist', {
+          title: newPlyName,
+          isPublic: newPlyPublic
+        })
+        .then((res) => {
+          console.log("👍새 플레이리스트 생성 성공", res.data);
+          setNewPlyName("");
+          setNewPlyPublic(false);
+          setAddNewPly(false);
+        })
+        .catch((err) => {
+          console.log("🧨새 플레이리스트 생성 실패", err);
+        })
+  };
 
   return (
       <div>
@@ -404,6 +429,31 @@ const AddNewVideo = () => {
               <ToggleScrollWrapper>
                 {PlayList}
               </ToggleScrollWrapper>
+              <div style={{alignSelf: "center"}}>
+                {addNewPly
+                    ?
+                    <>
+                      <NewPlyInput type="text" placeholder="플레이리스트 이름" value={newPlyName} onChange={onChangeNewPlyName}/>
+                      <div style={{display: "flex", alignItems: "center", justifyContent: "space-evenly", margin: "10px 0"}}>
+                        {newPlyPublic
+                            ?
+                            <SwitchBtnLabel style={{margin: 0}}>
+                              <span className="active" onClick={() => setNewPlyPublic(prev => !prev)}>공개</span>
+                            </SwitchBtnLabel>
+                            :
+                            <SwitchBtnLabel style={{margin: 0}}>
+                              <span onClick={() => setNewPlyPublic(prev => !prev)}>비공개</span>
+                            </SwitchBtnLabel>
+                        }
+                        <MakeNewPlyBtn onClick={onClickMakePly}>만들기</MakeNewPlyBtn>
+                      </div>
+                    </>
+                    :
+                    <AddNewPlyBtn onClick={() => setAddNewPly(prev => !prev)}>
+                      새 플레이리스트 만들기
+                    </AddNewPlyBtn>
+                }
+              </div>
             </AutoFrame>
           </AddToPlayList>
           <AddVideoBtn type="submit">등록하기</AddVideoBtn>
