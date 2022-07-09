@@ -8,7 +8,7 @@ import {
   ChatInput,
   Chatting,
   ExitBtn, HeadBtns, ImgBtn,
-  Inform, Information, Switch,
+  Inform, Information, InformHeader, Switch,
   TopBar,
   Video,
   Wrapper
@@ -26,6 +26,7 @@ import ProfileImg from "../../Assets/Basic_profile.png";
 const Running = () => {
   const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
+  const [showInformModal, setShowInformModal] = useState(false);
 
   // 달리기방 나가기
   const onExit = () => {
@@ -38,11 +39,6 @@ const Running = () => {
     document.documentElement.classList.toggle('dark');
     setDarkMode(prev => !prev);
   };
-
-  // 공지사항 내용 펼치기
-  const onShowInform = () => {
-
-  }
 
   return (
       <div style={{marginBottom: "40px"}}>
@@ -66,14 +62,18 @@ const Running = () => {
             <Video>{"영상"}</Video>
             <Chatting darkMode={darkMode}>
               <TopBar />
-              <Inform>
-                <img src={ChatInformIcon} alt="공지사항 아이콘"/>
-                <img src={ChatInform} alt="공지사항 확인하기"/>
-                <img src={ChatInformArrow} alt="공지사항 화살표"
-                     style={{cursor: "pointer"}}
-                     onClick={onShowInform}/>
-                {/*<Information>공지사항 모달</Information>*/}
-              </Inform>
+                <Inform>
+                  <InformHeader>
+                  <img src={ChatInformIcon} alt="공지사항 아이콘"/>
+                  <img src={ChatInform} alt="공지사항 확인하기"/>
+                  <img src={ChatInformArrow} alt="공지사항 화살표"
+                       style={{cursor: "pointer"}}
+                       onClick={() => setShowInformModal(prev => !prev)}/>
+                  </InformHeader>
+                  <Information show={showInformModal}>
+                    {"공지사항 모달"}
+                  </Information>
+                </Inform>
               <ChatBody>{"채팅 내용, 임시 border"}</ChatBody>
               <ChatBottom>
                 <ImgBtn src={ProfileImg} alt="프로필 이미지"/>  {/*임시 프로필 이미지*/}

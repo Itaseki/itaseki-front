@@ -44,15 +44,22 @@ export const TopBar = styled.div`
 `
 
 export const Inform = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
   margin: 5px;
-  padding: 3px;
   background-color: #E8E8E8;
 `
 
+export const InformHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 3px;
+  
+`
+
 export const Information = styled.div`
+  position: absolute;
+  display: ${props => props.show? "contents" : "none"};
+  background-color: #E8E8E8;
 `
 
 export const ChatBody = styled.div`
