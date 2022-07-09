@@ -1,8 +1,18 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import Header from "../../Components/Header";
 import {
-  AutoFrame, Line,
-  OneVideoWrapper, SortBox, VideoContainer, VideoInfo, VideoList, VideoListWrapper, Wrapper
+  AddNewPlyBtn,
+  AutoFrame,
+  Line, MakeNewPly, MakeNewPlyBtn, NewPlyInput, OneSelectItemWrapper,
+  OneVideoWrapper,
+  SortBox, SwitchBtnLabel,
+  ToggleScrollWrapper,
+  VideoContainer,
+  VideoInfo,
+  VideoList,
+  VideoListWrapper,
+  Wrapper,
+  XButton
 } from "../../Style/Video";
 import Best_Video from '../../Assets/Best_Video.png';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -13,21 +23,23 @@ import axios from "axios";
 import PlayListIcon from "../../Assets/Playlist_mini.png";
 import {useNavigate} from "react-router-dom";
 import {PageNum, Pages, Pagination} from "../../Style/Community";
+import Add_New_Video from "../../Assets/Add_new_video.png";
+import useInput from "../../Hooks/useInput";
 
 const AllVideo = () => {
   const navigate = useNavigate();
 
   const [bestVideos, setBestVideos] = useState([
-    {id: 1, title: "베스트 영상 1", writerNickname: "닉네임1", likeCount: 5},
-    {id: 2, title: "베스트 영상 2", writerNickname: "닉네임2", likeCount: 5},
-    {id: 3, title: "베스트 영상 3", writerNickname: "닉네임3", likeCount: 5},
-    {id: 4, title: "베스트 영상 4", writerNickname: "닉네임4", likeCount: 5}
+    {id: 1, title: "베스트 영상 1", writerNickname: "닉네임1", likeCount: 5, thumbnailUrl: ""},
+    {id: 2, title: "베스트 영상 2", writerNickname: "닉네임2", likeCount: 5, thumbnailUrl: ""},
+    {id: 3, title: "베스트 영상 3", writerNickname: "닉네임3", likeCount: 5, thumbnailUrl: ""},
+    {id: 4, title: "베스트 영상 4", writerNickname: "닉네임4", likeCount: 5, thumbnailUrl: ""}
   ]);
   const [videos, setVideos] = useState([
-    {id: 1, title: "영상 1", writerNickname: "닉네임1", likeCount: 5},
-    {id: 2, title: "영상 2", writerNickname: "닉네임2", likeCount: 5},
-    {id: 3, title: "영상 3", writerNickname: "닉네임3", likeCount: 5},
-    {id: 4, title: "영상 4", writerNickname: "닉네임4", likeCount: 5}
+    {id: 1, title: "영상 1", writerNickname: "닉네임1", likeCount: 5, thumbnailUrl: ""},
+    {id: 2, title: "영상 2", writerNickname: "닉네임2", likeCount: 5, thumbnailUrl: ""},
+    {id: 3, title: "영상 3", writerNickname: "닉네임3", likeCount: 5, thumbnailUrl: ""},
+    {id: 4, title: "영상 4", writerNickname: "닉네임4", likeCount: 5, thumbnailUrl: ""}
   ]);
   const [totalPageCount, setTotalPageCount] = useState(0);  // 총 페이지 수
   const [pages, setPages] = useState([1,2,3,4,5]);
@@ -36,7 +48,12 @@ const AllVideo = () => {
   const [showGoRightPages, setShowGoRightPages] = useState(true);
   const [sort, setSort] = useState(""); // 좋아요 순이면 -> likeCount,DESC
   const [playlistToggleDisplay, setPlaylistToggleDisplay] = useState(false);  // 플레이리스트 모달창 보이기
+  const [playlistList, setPlaylistList] = useState([]); // 받아온 내 플레이리스트 목록
   const [clickedPlyId, setClickedPlyId] = useState(-1); // 클릭한 플레이리스트 아이콘 id
+  // 새로운 플레이리스트
+  const [addNewPly, setAddNewPly] = useState(false);
+  const [newPlyName, onChangeNewPlyName, setNewPlyName] = useInput("");
+  const [newPlyPublic, setNewPlyPublic] = useState(false);
   // 검색
   const [searchHashtag1, setSearchHashtag1] = useState("");
   const [searchHashtag2, setSearchHashtag2] = useState("");
@@ -80,6 +97,20 @@ const AllVideo = () => {
         })
   }, [sort, page]);
 
+  // 사용자 플레이리스트 조회
+  useEffect(() => {
+    axios
+        .get(preURL.preURL + `/boards/playlist/user/${1}`)  /*사용자 id*/
+        .then((res) => {
+          setPlaylistList(res.data);
+          console.log("👍내 플레이리스트 조회 성공", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log("🧨내 플레이리스트 조회 실패", err);
+        })
+  },[playlistToggleDisplay]);
+
   // 플레이리스트에 추가하기 아이콘 클릭
   const onClickAddToPlaylist = (e) => {
     console.log("플레이리스트에 추가", e);
@@ -87,6 +118,76 @@ const AllVideo = () => {
     setClickedPlyId(clicked);
     setPlaylistToggleDisplay(prev => !prev);
   };
+
+  // 플레이리스트 공개/비공개
+  const onClickPublic = (prop) => {
+    const Target = prop.target;
+    const id = Target.id;
+    axios
+        .patch(preURL.preURL + `/boards/playlist/${id}`)
+        .then((res) => {
+          console.log("👍플레이리스트 공개/비공개 수정 성공");
+          if(res.status === 200) {
+            prop.target.parentNode.classList.toggle('active');
+            Target.classList.toggle('active');
+            // console.log(prop.target.parentNode.classList)
+            // console.log(Target);
+            if(Target.innerText === "비공개") Target.innerText = "공개";
+            else Target.innerText = "비공개";
+          }
+          else if(res.status === 403) alert("수정 권한이 없습니다.");
+        })
+        .catch((err) => {
+          console.log("🧨플레이리스트 공개/비공개 수정 실패", err);
+        })
+  };
+
+  // 새 플레이리스트 생성
+  const onClickMakePly = () => {
+    axios
+        .post(preURL.preURL + '/boards/playlist', {
+          title: newPlyName,
+          isPublic: newPlyPublic
+        })
+        .then((res) => {
+          console.log("👍새 플레이리스트 생성 성공", res.data);
+          setNewPlyName("");
+          setNewPlyPublic(false);
+          setAddNewPly(false);
+        })
+        .catch((err) => {
+          console.log("🧨새 플레이리스트 생성 실패", err);
+        })
+  };
+
+  // 플레이리스트 토글 리스트
+  const PlayList = playlistList.map((onePlayList) => {
+    return(
+        <OneSelectItemWrapper>
+          <input
+              type="checkbox"
+              id={onePlayList.id}
+              value={onePlayList.title}
+              // onChange={selectPlayList}
+          />
+          <label>
+            {onePlayList.title}
+          </label>
+          <div>
+            {onePlayList.isPublic
+                ?
+                <SwitchBtnLabel>
+                  <span className="active" id={onePlayList.id} onClick={onClickPublic}>공개</span>
+                </SwitchBtnLabel>
+                :
+                <SwitchBtnLabel>
+                  <span id={onePlayList.id} onClick={onClickPublic}>비공개</span>
+                </SwitchBtnLabel>
+            }
+          </div>
+        </OneSelectItemWrapper>
+    )
+  });
 
   // 최신순 정렬
   const onClickSortNewest = () => {
@@ -147,7 +248,9 @@ const AllVideo = () => {
     const videoId = video.id;
     return (
         <OneVideoWrapper>
-          <VideoContainer onClick={()=>navigate(`/videolist/${videoId}`)}/>  {/*영상 썸네일*/}
+          <VideoContainer onClick={()=>navigate(`/videolist/${videoId}`)}>
+            <img src={video.thumbnailUrl} alt="썸네일" style={{width: "240px", height: "135px"}}/>
+          </VideoContainer>
           <div>
             <VideoInfo>
               <span id="title" onClick={()=>navigate(`/videolist/${videoId}`)}>
@@ -169,7 +272,40 @@ const AllVideo = () => {
                     style={{marginLeft: "4px", cursor: "pointer"}}/>
                 {clickedPlyId === videoId &&   /*클릭한 아이콘과 id가 동일한 모달창에만 적용되도록*/
                     <AutoFrame display={playlistToggleDisplay} style={{marginTop: "200px"}}>
-                      플레이리스트에 추가
+                      <XButton onClick={() => {
+                        setPlaylistToggleDisplay(prev => !prev)
+                        setAddNewPly(false);
+                      }}>&times;</XButton>
+                      <span>플레이리스트에 담기</span>
+                      <hr/>
+                      <ToggleScrollWrapper>
+                        {PlayList}
+                      </ToggleScrollWrapper>
+                      <div style={{alignSelf: "center"}}>
+                        {addNewPly
+                            ?
+                            <>
+                              <NewPlyInput type="text" placeholder="플레이리스트 이름" value={newPlyName} onChange={onChangeNewPlyName}/>
+                              <div style={{display: "flex", alignItems: "center", justifyContent: "space-evenly", margin: "10px 0"}}>
+                                {newPlyPublic
+                                    ?
+                                    <SwitchBtnLabel style={{margin: 0}}>
+                                      <span className="active" onClick={() => setNewPlyPublic(prev => !prev)}>공개</span>
+                                    </SwitchBtnLabel>
+                                    :
+                                    <SwitchBtnLabel style={{margin: 0}}>
+                                      <span onClick={() => setNewPlyPublic(prev => !prev)}>비공개</span>
+                                    </SwitchBtnLabel>
+                                }
+                                <MakeNewPlyBtn onClick={onClickMakePly}>만들기</MakeNewPlyBtn>
+                              </div>
+                            </>
+                            :
+                            <AddNewPlyBtn onClick={() => setAddNewPly(prev => !prev)}>
+                              새 플레이리스트 만들기
+                            </AddNewPlyBtn>
+                        }
+                      </div>
                     </AutoFrame>
                 }
               </div>
@@ -192,6 +328,12 @@ const AllVideo = () => {
   return (
       <div>
         <Header />
+        <img
+            src={Add_New_Video}
+            alt="새 영상글 쓰기"
+            style={{display: "block", marginLeft: "auto", marginRight: "200px", cursor: "pointer"}}
+            onClick={() => navigate("/addvideo")}
+        />
         <Wrapper>
           {(page===0) &&
               <VideoListWrapper>

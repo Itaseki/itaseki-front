@@ -69,23 +69,47 @@ export const AutoFrame = styled.div`
   flex-direction: column;
   align-items: flex-start;
   box-sizing: border-box;
-  width: 170px;
-  height: 182px;
-  background: var(--main-color);
-  border-radius: 12px;
+  width: 220px;
+  height: 280px;
+  background: white;
+  border: 5px dashed rgba(0, 0, 0, 0.8);
+  border-radius: 29px;
   padding: 5px;
-  overflow-y: scroll;
   position: absolute;
   z-index: 2;
   :hover{
     display: flex
   }
+  & > span{
+    align-self: center;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  & > hr{
+    width: 150px;
+    border-top: 3px dashed;
+  }
+`
+
+export const OneSelectItemWrapper = styled.div`
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  & > label{
+    width: 100px;
+  }
+`
+
+export const ToggleScrollWrapper = styled.div`
+  overflow-y: scroll;
+  width: 100%;
+  margin: 5px 0 10px 0;
 `
 
 export const OneSeries = styled(StyledBtn)`
   background-color: transparent;
-  margin: 2px;
-  color: white;
+  margin: 5px;
+  display: block;
   text-align: left;
 `
 
@@ -135,6 +159,76 @@ export const AddToPlayList = styled.div`
   }
 `
 
+// 플레이리스트 공개/비공개 토글 버튼
+export const SwitchBtnLabel = styled.label`
+  width: 60px;
+  height: 25px;
+  display: inline-block;
+  position: relative;
+  border-radius: 71px;
+  background-color: black;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+  & > span{
+    width: 45px;
+    height: 18px;
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    transform: translateY(-50%);
+    border-radius: 71px;
+    background-color: #E35D12;
+    font-size: small;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.2s ease-in;
+  }
+  :active{  // 동작X
+    background-color: #E35D12;
+  }
+  & > span.active{
+    background-color: black;
+    color: #E35D12;
+    left: calc(100% - 50px);
+  }
+`
+export const SwitchBtnSpan = styled.span`
+  
+`
+
+export const AddNewPlyBtn = styled(StyledBtn)`
+  box-sizing: border-box;
+  width: 170px;
+  height: 33px;
+  background-color: black;
+  border: 2px dashed #FFFFFF;
+  border-radius: 29px;
+  color: white;
+  align-self: center;
+`
+
+export const NewPlyInput = styled.input`
+  box-sizing: border-box;
+  width: 170px;
+  height: 33px;
+  background: white;
+  border: 2px dashed #000000;
+  border-radius: 29px;
+  display: block;
+  align-self: center;
+  padding: 0 4px;
+`
+
+export const MakeNewPlyBtn = styled(StyledBtn)`
+  box-sizing: border-box;
+  width: 70px;
+  height: 30px;
+  background: black;
+  border: 2px dashed white;
+  border-radius: 29px;
+  color: white;
+`
+
 export const AddVideoBtn = styled(StyledBtn)`
   font-size: 20px;
   margin-left: auto;
@@ -165,15 +259,15 @@ export const OneVideoWrapper = styled.div`
 
 // 영상 썸네일
 export const VideoContainer = styled.div`
-  width: 224px;
-  height: 126px;
+  width: 240px;
+  height: 135px;
   background: var(--sub-color);
   cursor: pointer;
 `
 
 // 영상 썸네일 하단 정보
 export const VideoInfo = styled.div`
-  width: 224px;
+  width: 240px;
   display: flex;
   justify-content: space-between;
   & > #title {
@@ -200,6 +294,14 @@ export const SortBox = styled.div`
     color: #9E8FA8;
     font-size: 11px;
   }
+`
+
+export const XButton = styled(StyledBtn)`
+  color: #E35D12;
+  display: block;
+  align-self: end;
+  margin-right: 10px;
+  font-size: x-large;
 `
 
 
