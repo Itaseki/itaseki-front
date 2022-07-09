@@ -4,10 +4,17 @@ export const Wrapper = styled.div`
   margin: 20px;
 `
 
+export const HeadBtns = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 0 10px;
+`
+
+export const Switch = styled.img`
+  cursor: pointer;
+`
+
 export const ExitBtn = styled.img`
-  display: block;
-  margin-left: auto;
-  margin-right: 10px;
   cursor: pointer;
 `
 
@@ -26,7 +33,7 @@ export const Video = styled.div`
 export const Chatting = styled.div`
   width: 30%;
   margin: 10px;
-  background-color: white;
+  background-color: ${props => props.darkMode? "black" : "white"};
   display: flex;
   flex-direction: column;
 `

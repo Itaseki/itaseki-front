@@ -1,3 +1,11 @@
+/*다크모드*/
+html.dark{
+  background-color: black;
+}
+html.dark #root{
+  background-color: black;
+}
+
 body {
     background-color: #F4F3EE;
   margin: 0;
