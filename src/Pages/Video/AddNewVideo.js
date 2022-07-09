@@ -1,14 +1,15 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import Header from "../../Components/Header";
 import {
+  AddNewPlyBtn,
   AddToPlayList, AddVideoBtn,
   AddVideoForm,
   AutoFrame, HashTag,
-  Introduce,
-  NewUrlForm, OneSeries,
+  Introduce, MakeNewPlyBtn, NewPlyInput,
+  NewUrlForm, OneSelectItemWrapper, OneSeries,
   PreInform,
   PreInformContent, Round,
-  Series
+  Series, SwitchBtnLabel, SwitchBtnSpan, ToggleScrollWrapper
 } from "../../Style/Video";
 import StyledBtn from "../../Style/StyledBtn";
 import {useNavigate} from "react-router-dom";
@@ -26,7 +27,8 @@ const AddNewVideo = () => {
   const [searchSeries, onChangeSearchSeries, setSearchSeries] = useInput("");
   const [hashTagsList, setHashTagsList] = useState([{id: 0, name: ""}]);
   const [hashTag1, setHashTag1] = useState([]);
-  const [playList, setPlayList] = useState([{id: 0, name: ""}]);
+  const [playListList, setPlayListList] = useState([]);
+  const [playList, setPlayList] = useState([]);
   const [seriesToggleDisplay, setSeriesToggleDisplay] = useState(false);
   const [hashTagToggleDisplay, setHashTagToggleDisplay] = useState(false);
   const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
@@ -39,9 +41,13 @@ const AddNewVideo = () => {
   const [episode, onChangeEpisode, setEpisode] = useInput("");  // Int
   const [selectedHashtagId, setSelectedHashtagId] = useState([]);
   const [hashTag2, onChangeHashTag2, setHashTag2] = useInput("");
-  const [selectedPlayList, setSelectedPlayList] = useState([]);
+  const [selectedPlayListId, setSelectedPlayListId] = useState([]);
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [videoUploader, setVideoUploader] = useState("");
+  // 새로운 플레이리스트
+  const [addNewPly, setAddNewPly] = useState(false);
+  const [newPlyName, onChangeNewPlyName, setNewPlyName] = useInput("");
+  const [newPlyPublic, setNewPlyPublic] = useState(false);
 
   // 토글 정보 불러오기
   useEffect(() => {
@@ -51,12 +57,26 @@ const AddNewVideo = () => {
           console.log("👍시리즈, 해시태그, 플레이리스트 조회 성공", res.data);
           setSeriesList(res.data['series']);
           setHashTagsList(res.data['hashtags']);
-          setPlayList(res.data['playlists']);
+          // setPlayListList(res.data['playlists']);
         })
         .catch((err) => {
           console.log("🧨시리즈, 해시태그, 플레이리스트 조회 실패", err);
         })
   }, []);
+
+  // 사용자 플레이리스트 조회
+  useEffect(() => {
+    axios
+        .get(preURL.preURL + `/boards/playlist/user/${1}`)  /*사용자 id*/
+        .then((res) => {
+          setPlayListList(res.data);
+          console.log("👍내 플레이리스트 조회 성공", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log("🧨내 플레이리스트 조회 실패", err);
+        })
+  },[]);
 
   // 유튜브 데이터 불러오기
   async function callYoutube() {
@@ -122,6 +142,17 @@ const AddNewVideo = () => {
     setSelectedSeriesId(selected.id);
   };
 
+  // 해시태그1 개수 3개 제한
+  useEffect(() => {
+    let box = document.getElementsByName("hashtag1");
+    let cnt = 0;
+    for(let i=0; i<box.length; i++)
+      if(box[i].checked) cnt++;
+
+    if(cnt >= 3) box.forEach(one => one.checked? one : one.disabled = true);
+    else box.forEach(one => one.disabled = false);
+  }, [hashTag1]);
+
   // 해시태그1 토글에서 선택
   const selectHashTag1 = (prop) => {
     const selected = {id: prop.target.id, name: prop.target.value};
@@ -144,8 +175,47 @@ const AddNewVideo = () => {
   };
 
   // 플레이리스트에 추가
-  const selectPlayList = () => {
-    // 플레이리스트 값 넘어오면 수정
+  const selectPlayList = (prop) => {
+    const selected = {id: prop.target.id, name: prop.target.value};
+    const boolChecked = prop.target.checked;
+    console.log(selected, boolChecked);
+
+    let newPlaylist, newPlaylistId;
+    if(boolChecked) {
+      newPlaylist = [...playList, selected.name];
+      newPlaylistId = [...selectedPlayListId, selected.id];
+      setPlayList(newPlaylist);
+      setSelectedPlayListId(newPlaylistId);
+    }
+    else {
+      newPlaylist = playList.filter(playList => playList !== selected.name);
+      newPlaylistId = selectedPlayListId.filter(selectedPlayList => selectedPlayList !== selected.id)
+      setPlayList(newPlaylist);
+      setSelectedPlayListId(newPlaylistId);
+    }
+  }
+
+  // 플레이리스트 공개/비공개
+  const onClickPublic = (prop) => {
+    const Target = prop.target;
+    const id = Target.id;
+    axios
+        .patch(preURL.preURL + `/boards/playlist/${id}`)
+        .then((res) => {
+          console.log("👍플레이리스트 공개/비공개 수정 성공");
+          if(res.status === 200) {
+            prop.target.parentNode.classList.toggle('active');
+            Target.classList.toggle('active');
+            // console.log(prop.target.parentNode.classList)
+            // console.log(Target);
+            if(Target.innerText === "비공개") Target.innerText = "공개";
+            else Target.innerText = "비공개";
+          }
+          else if(res.status === 403) alert("수정 권한이 없습니다.");
+        })
+        .catch((err) => {
+          console.log("🧨플레이리스트 공개/비공개 수정 실패", err);
+        })
   }
 
   // 영상 등록
@@ -183,7 +253,7 @@ const AddNewVideo = () => {
           episode: episode,
           hashtags: selectedHashtagId,
           keywords: [hashTag2],
-          playlists: selectedPlayList,
+          playlists: selectedPlayListId,
           thumbnailUrl: thumbnailUrl,
           videoUploader: videoUploader,
         })
@@ -212,37 +282,67 @@ const AddNewVideo = () => {
   // 해시태그1 토글 리스트
   const HashTagList = hashTagsList.map((oneHashTag) => {
     return (
-        <div>
+        <OneSelectItemWrapper>
           <input
               type="checkbox"
               id={oneHashTag.id}
+              name="hashtag1"
               value={oneHashTag.name}
               onChange={selectHashTag1}
           />
-          <label for={oneHashTag.id} style={{color: "white"}}>
+          <label>
             {oneHashTag.name}
           </label>
-        </div>
+        </OneSelectItemWrapper>
     )
   });
 
   // 플레이리스트 토글 리스트
-  const PlayList = playList.map((onePlayList) => {
-    // 지금은 null 값으로 넘어와서 아무것도 안 뜸 -> 플레이리스트 구현 후 수정
+  const PlayList = playListList.map((onePlayList) => {
     return(
-        <div>
+        <OneSelectItemWrapper>
           <input
               type="checkbox"
               id={onePlayList.id} // 해시태그1과 id 중복 발생 -> 수정
-              value={onePlayList.name}
+              value={onePlayList.title}
               onChange={selectPlayList}
           />
-          <label for={onePlayList.id} style={{color: "white"}}>
-            {onePlayList.name}
+          <label>
+            {onePlayList.title}
           </label>
-        </div>
+          <div>
+            {onePlayList.isPublic
+                ?
+                <SwitchBtnLabel>
+                  <span className="active" id={onePlayList.id} onClick={onClickPublic}>공개</span>
+                </SwitchBtnLabel>
+                :
+                <SwitchBtnLabel>
+                  <span id={onePlayList.id} onClick={onClickPublic}>비공개</span>
+                </SwitchBtnLabel>
+            }
+          </div>
+        </OneSelectItemWrapper>
     )
   });
+
+  // 새 플레이리스트 생성
+  const onClickMakePly = () => {
+    axios
+        .post(preURL.preURL + '/boards/playlist', {
+          title: newPlyName,
+          isPublic: newPlyPublic
+        })
+        .then((res) => {
+          console.log("👍새 플레이리스트 생성 성공", res.data);
+          setNewPlyName("");
+          setNewPlyPublic(false);
+          setAddNewPly(false);
+        })
+        .catch((err) => {
+          console.log("🧨새 플레이리스트 생성 실패", err);
+        })
+  };
 
   return (
       <div>
@@ -277,7 +377,11 @@ const AddNewVideo = () => {
                   onBlur={()=>setSeriesToggleDisplay(false)}
               />
               <AutoFrame display={seriesToggleDisplay}>
-                {SeriesList}
+                <span>시리즈</span>
+                <hr/>
+                <ToggleScrollWrapper>
+                  {SeriesList}
+                </ToggleScrollWrapper>
               </AutoFrame>
             </Series>
             <Introduce>
@@ -299,7 +403,11 @@ const AddNewVideo = () => {
                   onBlur={()=>setHashTagToggleDisplay(false)}
               />
               <AutoFrame display={hashTagToggleDisplay}>
-                {HashTagList}
+                <span>해시태그1</span>
+                <hr/>
+                <ToggleScrollWrapper>
+                  {HashTagList}
+                </ToggleScrollWrapper>
               </AutoFrame>
             </HashTag>
             <HashTag>
@@ -311,12 +419,41 @@ const AddNewVideo = () => {
             <p>내 플레이리스트에 추가</p>
             <input
                 type="text"
-                value={selectedPlayList}
+                value={playList}
                 onFocus={()=>setPlayListToggleDisplay(true)}
                 onBlur={()=>setPlayListToggleDisplay(false)}
             />
             <AutoFrame display={playListToggleDisplay}>
-              {PlayList}
+              <span>플레이리스트에 담기</span>
+              <hr/>
+              <ToggleScrollWrapper>
+                {PlayList}
+              </ToggleScrollWrapper>
+              <div style={{alignSelf: "center"}}>
+                {addNewPly
+                    ?
+                    <>
+                      <NewPlyInput type="text" placeholder="플레이리스트 이름" value={newPlyName} onChange={onChangeNewPlyName}/>
+                      <div style={{display: "flex", alignItems: "center", justifyContent: "space-evenly", margin: "10px 0"}}>
+                        {newPlyPublic
+                            ?
+                            <SwitchBtnLabel style={{margin: 0}}>
+                              <span className="active" onClick={() => setNewPlyPublic(prev => !prev)}>공개</span>
+                            </SwitchBtnLabel>
+                            :
+                            <SwitchBtnLabel style={{margin: 0}}>
+                              <span onClick={() => setNewPlyPublic(prev => !prev)}>비공개</span>
+                            </SwitchBtnLabel>
+                        }
+                        <MakeNewPlyBtn onClick={onClickMakePly}>만들기</MakeNewPlyBtn>
+                      </div>
+                    </>
+                    :
+                    <AddNewPlyBtn onClick={() => setAddNewPly(prev => !prev)}>
+                      새 플레이리스트 만들기
+                    </AddNewPlyBtn>
+                }
+              </div>
             </AutoFrame>
           </AddToPlayList>
           <AddVideoBtn type="submit">등록하기</AddVideoBtn>
