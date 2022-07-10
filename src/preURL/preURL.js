@@ -1,3 +1,3 @@
 module.exports = {
-  preURL: "13.124.33.131:8080",
+  preURL: "http://13.124.33.131:8080",
 };
