@@ -7,7 +7,6 @@ import SignUp from "./Pages/Start/SignUp";
 // Board
 import GIFBoard from "./Pages/Board/GIFBoard";
 import GIFBoardDetail from "./Pages/Board/GIFBoardDetail";
-
 import Community from "./Pages/Board/Community";
 import CommunityDetail from "./Pages/Board/CommunityDetail";
 // Run
