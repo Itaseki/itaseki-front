@@ -1,4 +1,13 @@
+/*다크모드*/
+html.dark{
+  background-color: black;
+}
+html.dark #root{
+  background-color: black;
+}
+
 body {
+    background-color: #F4F3EE;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
