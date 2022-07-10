@@ -245,6 +245,12 @@ export const Wrapper = styled.div`
 
 export const VideoListWrapper = styled.div`
   width: 100%;
+  & > img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
 `
 
 export const VideoList = styled.div`

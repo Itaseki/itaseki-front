@@ -3,7 +3,7 @@ import Header from "../../Components/Header";
 import {
   AddNewPlyBtn,
   AutoFrame,
-  Line, MakeNewPly, MakeNewPlyBtn, NewPlyInput, OneSelectItemWrapper,
+  Line, MakeNewPlyBtn, NewPlyInput, OneSelectItemWrapper,
   OneVideoWrapper,
   SortBox, SwitchBtnLabel,
   ToggleScrollWrapper,
@@ -14,7 +14,7 @@ import {
   Wrapper,
   XButton
 } from "../../Style/Video";
-import Best_Video from '../../Assets/Best_Video.png';
+import TV from '../../Assets/TV.png';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretLeft, faCaretRight, faHeart} from "@fortawesome/free-solid-svg-icons";
 import StyledBtn from "../../Style/StyledBtn";
@@ -337,8 +337,8 @@ const AllVideo = () => {
         <Wrapper>
           {(page===0) &&
               <VideoListWrapper>
-                <img src={Best_Video} alt="Best Videos" />
-                <VideoList>
+                <img src={TV} alt="Best Videos" />
+                <VideoList style={{marginTop: "5%"}}>
                   {bestVideos.map((bestVideo) => {
                     return OneVideo(bestVideo)
                   })}
