@@ -4,7 +4,7 @@ import axios from "axios";
 import {
   BestPostsWrapper,
   BestRankNum, Contents, ImgInput, Info, Input,
-  Line, PageNum, Pages, Pagination,
+  Line,
   PostLists,
   PostsWrapper,
   SortBox, SubmitBtn, TextArea,
@@ -15,11 +15,12 @@ import Header from "../../Components/Header";
 import BestCommu from "../../Assets/BEST_Commu.png";
 import AddPost from "../../Assets/Add_Post.png";
 import StyledBtn from "../../Style/StyledBtn";
-import {faCaretLeft, faCaretRight, faHeart, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faHeart, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Modal from "../../Components/Modal";
 import {Link} from "react-router-dom";
 import useInput from "../../Hooks/useInput";
+import Pagination from "../../Components/Pagination";
 
 const Community = () => {
 
@@ -52,8 +53,6 @@ const Community = () => {
   const [newContent, onChangeNewContent, setNewContent] = useInput("");
   // const [newImages, onChangeNewImages, setNewImages] = useInput([]);
   const [newImages, setNewImages] = useState([]);
-  const [showGoLeftPages, setShowGoLeftPages] = useState(false);
-  const [showGoRightPages, setShowGoRightPages] = useState(true);
 
   // 베스트 게시글 조회
   useEffect(() => {
@@ -180,47 +179,6 @@ const Community = () => {
     console.log("조회순 정렬");
   }, []);
 
-  // 페이지 클릭
-  const onClickPage = (e) => {
-    setPage(e.target.innerHTML-1);
-    console.log("페이지 클릭", e.target.innerHTML);
-  };
-
-  // 페이지 넘기기
-  const onClickNextPages = useCallback((e) => {
-    console.log("페이지 넘기기");
-    console.log("페이지:" + pages);
-    if(pages.length < 5) return;
-    let list = [];
-    for(let i=0; i<5; i++){
-      list[i] = pages[i]+5;
-      if(list[i] >= totalPage) {
-        setShowGoRightPages(false);
-        break;
-      }
-    }
-    setPages(list);
-    setShowGoLeftPages(true);
-  }, [pages]);
-
-  // 페이지 돌아가기
-  const onClickPreviousPages = useCallback((e) => {
-    console.log("페이지 돌아가기");
-    console.log("페이지: " + pages);
-    if(pages.length < 5){
-      for(let i=0; i<5; i++) pages[i] = pages[0]+i;
-    }
-    let list = [];
-    for(let i=4; i>=0; i--){
-      list[i] = pages[i]-5;
-      if(list[i] <= 1) {
-        setShowGoLeftPages(false);
-        break;
-      }
-    }
-    setPages(list);
-    setShowGoRightPages(true);
-  },[]);
 
   // 베스트 게시물 목록
   let rank = 1;
@@ -279,14 +237,6 @@ const Community = () => {
     )
   });
 
-  // 페이지 번호
-  const showPages = pages.map((page) => {
-    return (
-        <PageNum style={{fontSize: "20px", padding: "10.5px"}} onClick={onClickPage}>
-          {page}
-        </PageNum>
-    )
-  });
 
   return (
       <div>
@@ -348,33 +298,7 @@ const Community = () => {
               조회순
             </StyledBtn>
           </SortBox>
-          <Pagination>
-            {showGoLeftPages &&
-                <StyledBtn id="previous-page" onClick={onClickPreviousPages}>
-                  <FontAwesomeIcon
-                      icon={faCaretLeft}
-                      style={{
-                        fontSize: "20px",
-                        color: "#9C9C9C",
-                        marginLeft: "10.5px",
-                      }}
-                  />
-                </StyledBtn>
-            }
-            <Pages>{showPages}</Pages>
-            {showGoRightPages &&
-                <StyledBtn id="next-page" onClick={onClickNextPages}>
-                  <FontAwesomeIcon
-                      icon={faCaretRight}
-                      style={{
-                        fontSize: "20px",
-                        color: "#9C9C9C",
-                        marginLeft: "10.5px",
-                      }}
-                  />
-                </StyledBtn>
-            }
-          </Pagination>
+          <Pagination pages={pages} setPages={setPages} setPage={setPage} totalPageCount={totalPage} />
         </Wrapper>
       </div>
   )
