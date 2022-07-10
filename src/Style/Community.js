@@ -76,22 +76,6 @@ export const SortBox = styled.div`
   }
 `
 
-/*페이지네이션*/
-export const Pagination = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`
-
-export const Pages = styled.div`
-  display: flex;
-  flex-direction: row;
-`
-
-export const PageNum = styled(StyledBtn)`
-  font-size: 20px;
-  padding: 10.5px;
-`
 
 ////////////////////////////////////////////////////////
 // 새 게시물 작성 모달
