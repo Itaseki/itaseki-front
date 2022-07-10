@@ -9,6 +9,15 @@ import StyledBtn from "../../Style/StyledBtn";
 import { StyledDiv } from "../../Style/StyledDiv";
 
 const AddReserv = () => {
+  const [title, setTitle] = useState("");
+  const [sTitle, setSTitle] = useState("");
+  const [result, setResult] = useState([]);
+  const [sResult, setSResult] = useState(false);
+  const [results, setResults] = useState([]);
+  // 검색 후, 선택된 제목
+  const [rItem, setRItem] = useState({});
+  const [rTitle, setRTitle] = useState("");
+
   const WhiteBoxStyle = {
     borderStyle: "none",
     backgroundColor: "white",
@@ -18,7 +27,52 @@ const AddReserv = () => {
     display: "flex",
     alignItems: "center",
     paddingLeft: 10,
+    margin: 0,
   };
+
+  // 영상 제목 조회
+  const searchTitle = () => {
+    axios
+      .get(preURL.preURL + `/run/reservations/title/search?q=${sTitle}`)
+      .then((res) => {
+        console.log("❕영상 제목 조회❕ ", res.data);
+        setResults(res.data);
+        let newResult = [];
+        for (let i = 0; i < results.length; i++) {
+          newResult.push(results[i].title);
+        }
+        // 한 번에 작동하지 않음 <- 수정 필요
+        setResult(newResult);
+        console.log("연관 검색어 리스트 : ", result);
+        setSResult(true);
+      })
+      .catch((err) => {
+        console.error("⚠️ 영상 제목 조회 ⚠️ ", err);
+      });
+  };
+
+  // 연관 검색어 드롭 다운 리스트
+  const ArrayData = result.map((item, i) => {
+    return (
+      <li
+        key={i}
+        style={{ listStyle: "none", backgroundColor: "white", padding: 3 }}
+      >
+        <StyledBtn
+          type="button"
+          onClick={() => {
+            setRTitle(item);
+            setRItem(results[i]);
+            // 한 번에 작동하지 않음 <- 수정 필요
+            console.log("선택된 제목의 정보 :", rItem);
+            setSResult(false);
+          }}
+        >
+          <span>{item}</span>
+        </StyledBtn>
+      </li>
+    );
+  });
 
   // 날짜 구하기
   let now = new Date();
@@ -26,15 +80,31 @@ const AddReserv = () => {
   let todayMonth = now.getMonth() + 1;
   let todayDate = now.getDate();
 
+  let body = {
+    id: rItem.id,
+    reservationDate: `${year}-${todayMonth}-${todayDate}`,
+    startTime: 0,
+    endTime: 0,
+  };
+
   const reservations = () => {
     axios
-      .post(preURL.preURL + "/run/reservations")
+      .post(preURL.preURL + "/run/reservations", body)
       .then((res) => {
         console.log("❕예약 등록❕ ", res.data);
       })
       .catch((err) => {
         console.error("⚠️ 예약 등록 ⚠️ ", err);
       });
+  };
+
+  const onChange = (e) => {
+    setTitle(e.target.value);
+    if (title.length > 0) {
+      searchTitle();
+    } else if (title.length == 0) {
+      setSResult(false);
+    }
   };
 
   return (
@@ -55,11 +125,34 @@ const AddReserv = () => {
             }}
           >
             <StyledDiv>
-              <div>
+              <div style={{ position: "relative" }}>
                 <p>영상 제목</p>
-                <input type="text" name="title" style={WhiteBoxStyle} />
+                <input
+                  type="text"
+                  name="title"
+                  onChange={onChange}
+                  value={title}
+                  style={WhiteBoxStyle}
+                />
+                {sResult ? (
+                  <ul
+                    style={{
+                      width: 393,
+                      textAlign: "start",
+                      paddingLeft: 10,
+                      zIndex: 10,
+                      backgroundColor: "white",
+                      margin: 0,
+                      position: "absolute",
+                    }}
+                  >
+                    {ArrayData}
+                  </ul>
+                ) : (
+                  <></>
+                )}
                 <p>영상 URL</p>
-                <p style={WhiteBoxStyle}>anjtlll</p>
+                <p style={WhiteBoxStyle}>{rItem.thumbnailUrl}</p>
                 <div>
                   <p>영상 예약 날짜</p>
                   <StyledDiv
