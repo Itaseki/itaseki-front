@@ -1,3 +1,11 @@
+import { faDashcube } from "@fortawesome/free-brands-svg-icons";
+import { faColonSign } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  HorizontalRule,
+  HorizontalRuleRounded,
+  Rule,
+} from "@mui/icons-material";
 import axios from "axios";
 import React, { useState } from "react";
 import styled from "styled-components";
@@ -6,7 +14,7 @@ import Add_Reserv from "../../Assets/Add_Reserv.png";
 import Temp from "../../Assets/Temp_gif.png";
 import preURL from "../../preURL/preURL";
 import StyledBtn from "../../Style/StyledBtn";
-import { StyledDiv } from "../../Style/StyledDiv";
+import { StyledDiv, StyledDivRow } from "../../Style/StyledDiv";
 
 const AddReserv = () => {
   const [title, setTitle] = useState("");
@@ -18,6 +26,11 @@ const AddReserv = () => {
   const [rItem, setRItem] = useState({});
   const [rTitle, setRTitle] = useState("");
 
+  const [date, setDate] = useState("00");
+  const [hour1, setHour1] = useState("0");
+  const [hour2, setHour2] = useState("0");
+  const [min1, setmin1] = useState("0");
+
   const WhiteBoxStyle = {
     borderStyle: "none",
     backgroundColor: "white",
@@ -28,6 +41,16 @@ const AddReserv = () => {
     alignItems: "center",
     paddingLeft: 10,
     margin: 0,
+  };
+
+  // 제목 input 관리
+  const onChange = (e) => {
+    setTitle(e.target.value);
+    if (title.length > 0) {
+      searchTitle();
+    } else if (title.length == 0) {
+      setSResult(false);
+    }
   };
 
   // 영상 제목 조회
@@ -62,6 +85,7 @@ const AddReserv = () => {
           type="button"
           onClick={() => {
             setRTitle(item);
+            setTitle(rTitle);
             setRItem(results[i]);
             // 한 번에 작동하지 않음 <- 수정 필요
             console.log("선택된 제목의 정보 :", rItem);
@@ -74,6 +98,18 @@ const AddReserv = () => {
     );
   });
 
+  // 24시간에 대한 제약 필요(1. 십의 자리수는 2를 초과할 수 없음 2. 십의 자리가 2일 경우, 1의 자리는 4를 초과할 수 없음)
+  // 예약 시간 input 관리
+  const onChangeTime = (e) => {
+    if (e.target.name == "hour1") {
+      setHour1(e.target.value);
+    } else if (e.target.name == "hour2") {
+      setHour2(e.target.value);
+    } else if (e.target.name == "min1") {
+      setmin1(e.target.value);
+    }
+  };
+
   // 날짜 구하기
   let now = new Date();
   let year = now.getFullYear();
@@ -82,7 +118,7 @@ const AddReserv = () => {
 
   let body = {
     id: rItem.id,
-    reservationDate: `${year}-${todayMonth}-${todayDate}`,
+    reservationDate: `${year}-${todayMonth}-${date}`,
     startTime: 0,
     endTime: 0,
   };
@@ -96,15 +132,6 @@ const AddReserv = () => {
       .catch((err) => {
         console.error("⚠️ 예약 등록 ⚠️ ", err);
       });
-  };
-
-  const onChange = (e) => {
-    setTitle(e.target.value);
-    if (title.length > 0) {
-      searchTitle();
-    } else if (title.length == 0) {
-      setSResult(false);
-    }
   };
 
   return (
@@ -162,16 +189,54 @@ const AddReserv = () => {
                       오늘 ({todayMonth}/{todayDate})
                     </WhiteBoxBtn>
                     {/* 다음달로 넘어가는 경우 처리 필요 */}
-                    <WhiteBoxBtn>
+                    <WhiteBoxBtn
+                      onClick={() => {
+                        setDate(todayDate + 1);
+                      }}
+                    >
                       내일 ({todayMonth}/{todayDate + 1})
                     </WhiteBoxBtn>
-                    <WhiteBoxBtn>
+                    <WhiteBoxBtn
+                      onClick={() => {
+                        setDate(todayDate + 2);
+                      }}
+                    >
                       모레 ({todayMonth}/{todayDate + 2})
                     </WhiteBoxBtn>
                     {/* 처리 필요 */}
                   </StyledDiv>
-                  <p>영상 예약 시간</p>
-                  <p>시간 들어갈 예정</p>
+                  <p>영상 예약 시간(10분 단위로 입력 가능)</p>
+                  <StyledDivRow
+                    className="reservTime"
+                    style={{ width: 403, justifyContent: "space-between" }}
+                  >
+                    <TimeInput
+                      type="number"
+                      name="hour1"
+                      onChange={onChangeTime}
+                      value={hour1}
+                    ></TimeInput>
+                    <TimeInput
+                      type="number"
+                      name="hour2"
+                      onChange={onChangeTime}
+                      value={hour2}
+                    ></TimeInput>
+                    <Sign>:</Sign>
+                    <TimeInput
+                      type="number"
+                      name="min1"
+                      onChange={onChangeTime}
+                      value={min1}
+                    ></TimeInput>
+                    <TimeWBox>0</TimeWBox>
+                    <Sign>-</Sign>
+                    <TimeWBox></TimeWBox>
+                    <TimeWBox></TimeWBox>
+                    <Sign>:</Sign>
+                    <TimeWBox></TimeWBox>
+                    <TimeWBox></TimeWBox>
+                  </StyledDivRow>
                 </div>
               </div>
               <StyledDiv
@@ -185,7 +250,17 @@ const AddReserv = () => {
                 <img src={Temp} style={{ width: 188, height: 106 }} />
                 <div>
                   <p>총 재생 시간</p>
-                  <p>시간 들어갈 예정</p>
+                  <StyledDivRow
+                    style={{ width: 163, justifyContent: "space-between" }}
+                  >
+                    <TimeWBox style={{ width: 62 }}>
+                      {rItem.runtimeHour}
+                    </TimeWBox>
+                    <Sign>:</Sign>
+                    <TimeWBox style={{ width: 62 }}>
+                      {rItem.runtimeMin}
+                    </TimeWBox>
+                  </StyledDivRow>
                   <StyledBtn
                     style={{
                       color: "white",
@@ -257,6 +332,11 @@ const WhiteBoxBtn = styled(StyledBtn)`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:hover {
+    background-color: #e37958;
+    color: white;
+  }
 `;
 
 const AddCatWrapper = styled.div`
@@ -272,4 +352,30 @@ const AddCat = styled(StyledBtn)`
   border-radius: 10px;
   font-weight: bold;
   background-color: ${(props) => (props.default ? "#EFE8CC" : "#E37958")};
+`;
+
+const TimeInput = styled.input`
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 33px;
+  width: 31px;
+  border-radius: 8px;
+  font-weight: bold;
+`;
+
+const TimeWBox = styled(StyledDiv)`
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 33px;
+  width: 31px;
+  border-style: none;
+  border-radius: 8px;
+  font-weight: bold;
+`;
+
+const Sign = styled.span`
+  font-size: 35px;
+  font-weight: bold;
 `;
