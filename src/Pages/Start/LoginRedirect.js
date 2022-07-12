@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import {useNavigate} from 'react-router-dom';
 import axios from "axios";
+import preURL from "../../preURL/preURL";
 
 const LoginRedirect = () => {
 
@@ -14,7 +15,7 @@ const LoginRedirect = () => {
         .get(`http://localhost:8080/oauth/kakao?code=${code}`)
         .then((res) => {
           console.log(res.data);
-          const ACCESS_TOKEN = res.data.searchParams.get("access_token");
+          const ACCESS_TOKEN = res.data.searchParams.get("ITASEKKI");
           localStorage.setItem("access_token", ACCESS_TOKEN);
           window.alert("환영합니다!");
           navigate('/');

@@ -5,8 +5,8 @@ import { Header, KakaoLoginBtn } from "../../Style/Login";
 
 const Login = () => {
 
-  const client_id = "53ab9d9beaf347ecc3d5779342ef3562";
-  const redirect_uri = "http://localhost:3000/oauth/kakao";
+  const client_id = process.env.REACT_APP_KAKAO_REST_API_KEY;
+  const redirect_uri = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code`;
 

@@ -18,6 +18,7 @@ import AddNewVideo from "./Pages/Video/AddNewVideo";
 import AllVideo from "./Pages/Video/AllVideo";
 import VideoDetail from "./Pages/Video/VideoDetail";
 import Running from "./Pages/Run/Running";
+import LoginRedirect from "./Pages/Start/LoginRedirect";
 
 
 const App = () => {
@@ -25,8 +26,8 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Main />} />
       {/* Start */}
-      <Route path="/signup" element={<SignUp />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/oauth/kakao" element={<LoginRedirect />} />
       {/* Board */}
       <Route path="/boards" element={<GIFBoard />} />
       <Route path="/boards/:Id" element={<GIFBoardDetail />} />
