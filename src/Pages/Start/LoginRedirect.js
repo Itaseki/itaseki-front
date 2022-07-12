@@ -12,10 +12,10 @@ const LoginRedirect = () => {
 
   useEffect(() => {
     axios
-        .get(`http://localhost:8080/oauth/kakao?code=${code}`)
+        .get(preURL.preURL + `/oauth/kakao?code=${code}`)
         .then((res) => {
-          console.log(res.data);
-          const ACCESS_TOKEN = res.data.searchParams.get("ITASEKKI");
+          // console.log(res);
+          const ACCESS_TOKEN = res.headers["itasekki"];
           localStorage.setItem("access_token", ACCESS_TOKEN);
           window.alert("환영합니다!");
           navigate('/');
