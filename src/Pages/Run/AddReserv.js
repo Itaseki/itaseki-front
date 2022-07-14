@@ -1,11 +1,11 @@
 import { faDashcube } from "@fortawesome/free-brands-svg-icons";
 import { faColonSign } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  HorizontalRule,
-  HorizontalRuleRounded,
-  Rule,
-} from "@mui/icons-material";
+// import {
+//   HorizontalRule,
+//   HorizontalRuleRounded,
+//   Rule,
+// } from "@mui/icons-material";
 import axios from "axios";
 import React, { useState } from "react";
 import styled from "styled-components";
