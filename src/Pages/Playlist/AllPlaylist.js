@@ -1,17 +1,19 @@
 import React, {useState} from "react";
 import Header from "../../Components/Header";
+import Pagination from "../../Components/Pagination";
+// Style
 import {Line, SortBox, Wrapper} from "../../Style/Video";
 import {FourListWrapper, FourList, OnePlyWrapper, PlyContainer, PlyInfo, TopBtns} from "../../Style/Playlist";
-import BestPly from "../../Assets/Best_Ply.png";
 import StyledBtn from "../../Style/StyledBtn";
+import {light} from "../../Style/Color";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart} from "@fortawesome/free-solid-svg-icons";
-import PlayListIcon from "../../Assets/Playlist_mini.png";
-import {light} from "../../Style/Color";
+// Assets
+import BestPly from "../../Assets/Best_Ply.png";
 import Line_info from "../../Assets/Line_info.png";
-import Pagination from "../../Components/Pagination";
 import Add_New_Ply from "../../Assets/Add_New_Ply.png";
 import Stored_Ply from "../../Assets/Stored_Ply.png";
+import Ply_Count_Icon from "../../Assets/Ply_Count_Icon.png";
 
 
 const AllPlaylist = () => {
@@ -77,9 +79,9 @@ const AllPlaylist = () => {
                 </StyledBtn>
                 <span style={{color: "#D9767C"}}>{ply.likeCount}</span>
                 <img
-                    src={PlayListIcon}
+                    src={Ply_Count_Icon}
                     alt="저장된 카운트"
-                    style={{marginLeft: "4px"}}/>
+                    style={{width: "22px", height: "13px", marginLeft: "4px"}}/>
                 <span>{ply.saveCount}</span>
               </div>
             </PlyInfo>
