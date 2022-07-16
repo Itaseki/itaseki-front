@@ -10,7 +10,7 @@ import {
   VideoListWrapper,
   Wrapper,
 } from "../../Style/Video";
-import TV from '../../Assets/TV.png';
+import TV from '../../Assets/Best_Video_TV.png';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart} from "@fortawesome/free-solid-svg-icons";
 import StyledBtn from "../../Style/StyledBtn";
@@ -190,9 +190,9 @@ const AllVideo = () => {
                     return OneVideo(bestVideo)
                   })}
                 </VideoList>
+                <Line />
               </VideoListWrapper>
           }
-          <Line />
           <VideoListWrapper>
             <VideoList>
               {videos.map((video) => {
