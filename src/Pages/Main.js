@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import preURL from "../preURL/preURL";
@@ -8,6 +9,10 @@ import Footer from "../Components/Footer";
 // Assets
 import Home_running from "../Assets/Home_running.png";
 import Temp_gif from "../Assets/Temp_gif.png";
+=======
+import React from 'react';
+import {Link} from "react-router-dom";
+>>>>>>> 2e0d404ad9ec1d07d87023bfee25f49cf244d0c5
 
 const Main = () => {
   const [pVideos, setPVideos] = useState([
@@ -58,6 +63,7 @@ const Main = () => {
   ));
 
   return (
+<<<<<<< HEAD
     <>
       <Header />
       <FirstBWrapper>
@@ -110,6 +116,14 @@ const Subheading = styled.p`
   font-weight: bold;
   margin: 0;
 `;
+=======
+      <div>
+        <h3>메인페이지</h3>
+        <Link to="/community">잡담게시판</Link>
+      </div>
+  )
+}
+>>>>>>> 2e0d404ad9ec1d07d87023bfee25f49cf244d0c5
 
 const ListWrapper = styled.div`
   display: flex;

@@ -2,12 +2,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import styled from "styled-components";
 import {
-  faBars,
   faMagnifyingGlass,
   faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
 
 // assets
+import Menu_bar from "../Assets/Menu_bar.png";
 import Main_logo from "../Assets/Main_logo.png";
 import Basic_profile from "../Assets/Basic_profile.png";
 
@@ -20,10 +20,7 @@ const Header = () => {
   return (
     <Wrapper>
       <LeftWrapper>
-        <FontAwesomeIcon
-          icon={faBars}
-          style={{ fontSize: "150%", paddingRight: "5%", color: "9C9C9C" }}
-        />
+        <MenuBarBtn src={Menu_bar} alt="메뉴바버튼" />
         <Logo src={Main_logo} />
       </LeftWrapper>
       <RightWrapper>
@@ -93,7 +90,13 @@ const Wrapper = styled.div`
 const LeftWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
+
+const MenuBarBtn = styled.img`
+  width: 25px;
+  height: 30px;
+`
 
 const Logo = styled.img`
   width: 185px;
