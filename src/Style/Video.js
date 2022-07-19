@@ -221,7 +221,7 @@ export const VideoInfo = styled.div`
 
 export const Line = styled.div`
   width: 100%;
-  border-bottom: 1px solid #9C9C9C;
+  border-bottom: 3px dashed black;;
 `
 
 /*정렬 버튼*/

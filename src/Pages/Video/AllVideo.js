@@ -190,9 +190,9 @@ const AllVideo = () => {
                     return OneVideo(bestVideo)
                   })}
                 </VideoList>
+                <Line />
               </VideoListWrapper>
           }
-          <Line />
           <VideoListWrapper>
             <VideoList>
               {videos.map((video) => {
