@@ -33,6 +33,10 @@ export const PlyContainer = styled.div`
   background-color: gray;
   width: 240px;
   height: 135px;
+  & > img {
+    width: 240px;
+    height: 135px;
+  }
 `
 
 // 플레이리스트 하단 정보

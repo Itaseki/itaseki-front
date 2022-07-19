@@ -1,4 +1,7 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
+import preURL from "../../preURL/preURL";
+// Components
 import Header from "../../Components/Header";
 import Pagination from "../../Components/Pagination";
 // Style
@@ -45,6 +48,19 @@ const AllPlaylist = () => {
   const [page, setPage] = useState(0);  // 현재 페이지
   const [sort, setSort] = useState(""); // 좋아요 순이면 -> likeCount,DESC
 
+  // 베스트 플리 조회
+  useEffect(() => {
+    axios
+        .get(preURL.preURL + '/boards/playlist/best')
+        .then((res) => {
+          console.log("👍베스트 플레이리스트 조회 성공", res.data);
+          setBestPlaylist(res.data);
+        })
+        .catch((err) => {
+          console.log("🧨베스트 플레이리스트 조회 실패", err);
+        })
+  },[]);
+
   // 최신순 정렬
   const onClickSortNewest = () => {
     console.log("최신순 정렬");
@@ -63,7 +79,7 @@ const AllPlaylist = () => {
     return (
         <OnePlyWrapper>
           <PlyContainer>
-            {/*플리 썸네일*/}
+            <img src={ply.titleImageUrl} alt="썸네일" />
           </PlyContainer>
           <div>
             <PlyInfo>
