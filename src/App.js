@@ -19,7 +19,6 @@ import VideoDetail from "./Pages/Video/VideoDetail";
 import Running from "./Pages/Run/Running";
 import LoginRedirect from "./Pages/Start/LoginRedirect";
 
-
 const App = () => {
   return (
     <Routes>
@@ -29,7 +28,7 @@ const App = () => {
       <Route path="/oauth/kakao" element={<LoginRedirect />} />
       {/* Board */}
       <Route path="/boards" element={<GIFBoard />} />
-      <Route path="/boards/:Id" element={<GIFBoardDetail />} />
+      <Route path="/boards/:id" element={<GIFBoardDetail />} />
       <Route path="/community" element={<Community />} />
       <Route path="/community/:id" element={<CommunityDetail />} />
       {/* Run */}
@@ -41,6 +40,10 @@ const App = () => {
       <Route path="/addvideo" element={<AddNewVideo />} />
       <Route path="/videolist" element={<AllVideo />} />
       <Route path="/videolist/:id" element={<VideoDetail />} />
+      {/* Playlist */}
+      {/* <Route path="/addplaylist" element={<AddNewPlaylist />} />
+      <Route path="/playlist" element={<AllPlaylist />} />
+      <Route path="/playlist/:id" element={<PlaylistDetail />} /> */}
     </Routes>
   );
 };
