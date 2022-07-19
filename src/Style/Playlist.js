@@ -33,9 +33,16 @@ export const PlyContainer = styled.div`
   background-color: gray;
   width: 240px;
   height: 135px;
-  & > img {
+  position: relative;
+  & > #thumbnail {
     width: 240px;
     height: 135px;
+    position: absolute;
+  }
+  & > #cover {
+    position: absolute;
+    z-index: 2;
+    right: 0;
   }
 `
 

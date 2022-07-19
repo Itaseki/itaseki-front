@@ -17,6 +17,7 @@ import Line_info from "../../Assets/Line_info.png";
 import Add_New_Ply from "../../Assets/Add_New_Ply.png";
 import Stored_Ply from "../../Assets/Stored_Ply.png";
 import Ply_Count_Icon from "../../Assets/Ply_Count_Icon.png";
+import Ply_preview from "../../Assets/Ply_preview.png";
 
 
 const AllPlaylist = () => {
@@ -32,7 +33,7 @@ const AllPlaylist = () => {
 
   // 수정 필요
   const [playlist1, setPlaylist1] = useState([
-    {id: 1, title: "플리1", titleImageUrl: "url", writerNickname: "작성자", likeCount: 3, saveCount: 3, videoCount: 7},
+    {id: 1, title: "플리1", titleImageUrl: "http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg", writerNickname: "작성자", likeCount: 3, saveCount: 3, videoCount: 7},
     {id: 2, title: "플리2", titleImageUrl: "url", writerNickname: "작성자", likeCount: 3, saveCount: 3, videoCount: 7},
     {id: 3, title: "플리3", titleImageUrl: "url", writerNickname: "작성자", likeCount: 3, saveCount: 3, videoCount: 7},
     {id: 4, title: "플리4", titleImageUrl: "url", writerNickname: "작성자", likeCount: 3, saveCount: 3, videoCount: 7}
@@ -79,7 +80,8 @@ const AllPlaylist = () => {
     return (
         <OnePlyWrapper>
           <PlyContainer>
-            <img src={ply.titleImageUrl} alt="썸네일" />
+            <img id="thumbnail" src={ply.titleImageUrl} alt="썸네일" />
+            <img id="cover" src={Ply_preview} alt="썸네일 커버" />
           </PlyContainer>
           <div>
             <PlyInfo>
