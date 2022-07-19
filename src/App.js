@@ -21,7 +21,6 @@ import VideoDetail from "./Pages/Video/VideoDetail";
 // Playlist
 import AllPlaylist from "./Pages/Playlist/AllPlaylist";
 
-
 const App = () => {
   return (
     <Routes>
@@ -31,7 +30,7 @@ const App = () => {
       <Route path="/oauth/kakao" element={<LoginRedirect />} />
       {/* Board */}
       <Route path="/boards" element={<GIFBoard />} />
-      <Route path="/boards/:Id" element={<GIFBoardDetail />} />
+      <Route path="/boards/:id" element={<GIFBoardDetail />} />
       <Route path="/community" element={<Community />} />
       <Route path="/community/:id" element={<CommunityDetail />} />
       {/* Run */}

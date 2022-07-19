@@ -222,7 +222,7 @@ export const VideoInfo = styled.div`
 
 export const Line = styled.div`
   width: 100%;
-  border-bottom: 3px dashed #000000;
+  border-bottom: 3px dashed black;
 `
 
 /*정렬 버튼*/

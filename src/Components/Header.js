@@ -4,25 +4,101 @@ import styled from "styled-components";
 import {
   faMagnifyingGlass,
   faCaretDown,
+  faClose,
 } from "@fortawesome/free-solid-svg-icons";
 
 // assets
 import Menu_bar from "../Assets/Menu_bar.png";
 import Main_logo from "../Assets/Main_logo.png";
 import Basic_profile from "../Assets/Basic_profile.png";
+import Menu_Home from "../Assets/Menu_Home.png";
 
 import StyledBtn from "../Style/StyledBtn";
 import { Link } from "react-router-dom";
+import { StyledDivColumn } from "../Style/StyledDiv";
+import { light } from "../Style/Color";
 
 const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
   const [caretOpen, setCaretOpen] = useState(false);
 
   return (
     <Wrapper>
       <LeftWrapper>
-        <MenuBarBtn src={Menu_bar} alt="메뉴바버튼" />
-        <Logo src={Main_logo} />
+        <MenuBarBtn
+          src={Menu_bar}
+          alt="메뉴바버튼"
+          onClick={() => setMenuOpen(true)}
+        />
+        <Link to="/">
+          <Logo src={Main_logo} />
+        </Link>
       </LeftWrapper>
+      {menuOpen ? (
+        <MenuWrapper>
+          <StyledBtn onClick={() => setMenuOpen(false)}>
+            <FontAwesomeIcon
+              icon={faClose}
+              style={{
+                fontSize: "200%",
+                marginTop: 30,
+              }}
+            />
+          </StyledBtn>
+          <Link to="/">
+            <Logo src={Main_logo} style={{ width: 177, height: 70 }} />
+          </Link>
+          {/* 달리기 방(페이지)으로 이동 */}
+          <Link to="/running">
+            <StyledBtn
+              style={{
+                width: 157,
+                height: 40,
+                color: "white",
+                fontSize: 14,
+                fontWeight: "bold",
+                backgroundColor: "#000000",
+                border: 2,
+                borderStyle: "dashed",
+                borderRadius: 29,
+              }}
+            >
+              입장하기
+            </StyledBtn>
+          </Link>
+          <div
+            style={{
+              width: 277,
+              height: 0,
+              border: 4,
+              borderStyle: "solid",
+              borderRadius: 25,
+            }}
+          />
+          <img src={Menu_Home} style={{ width: 170, height: 35 }} />
+          {[
+            { name: "영상 게시판", url: "/videolist" },
+            { name: "잡담 게시판", url: "/community" },
+            { name: "짤 게시판", url: "/boards" },
+            { name: "플레이리스트 게시판", url: "/playlist" },
+            { name: "마이페이지", url: "/mypage" },
+            { name: "", url: "" },
+          ].map((i, index) => {
+            return (
+              <Link to={i.url}>
+                <StyledBtn
+                  id={index}
+                  style={{ fontSize: 20, fontWeight: "bold", color: "#505050" }}
+                >
+                  {i.name}
+                </StyledBtn>
+              </Link>
+            );
+          })}
+        </MenuWrapper>
+      ) : (
+        <></>
+      )}
       <RightWrapper>
         {/* <NewWriting>
           <p
@@ -80,6 +156,7 @@ const Wrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  // Header 아래 여백은 23px
   padding: 2%;
   padding-left: 2%;
   padding-right: 2%;
@@ -92,14 +169,34 @@ const LeftWrapper = styled.div`
   align-items: center;
 `;
 
-const MenuBarBtn = styled.img`
+const MenuBarBtn = styled(StyledBtn)`
   width: 25px;
   height: 30px;
-`
+  background-image: url(${Menu_bar});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+`;
 
 const Logo = styled.img`
   width: 185px;
   height: 60px;
+`;
+
+const MenuWrapper = styled(StyledDivColumn)`
+  background-color: #ffffff;
+  height: 100%;
+  width: 381px;
+  padding-bottom: 20%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+const MenuList = styled(StyledBtn)`
+  color: ${(props) => (props.onClick ? "#E35D12" : "#505050")};
 `;
 
 const RightWrapper = styled.div`

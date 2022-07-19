@@ -31,12 +31,13 @@ const AllVideo = () => {
     {id: 3, title: "베스트 영상 3", writerNickname: "닉네임3", likeCount: 5, thumbnailUrl: ""},
     {id: 4, title: "베스트 영상 4", writerNickname: "닉네임4", likeCount: 5, thumbnailUrl: ""}
   ]);
-  const [videos, setVideos] = useState([
+  const [videos1, setVideos1] = useState([
     {id: 1, title: "영상 1", writerNickname: "닉네임1", likeCount: 5, thumbnailUrl: ""},
     {id: 2, title: "영상 2", writerNickname: "닉네임2", likeCount: 5, thumbnailUrl: ""},
     {id: 3, title: "영상 3", writerNickname: "닉네임3", likeCount: 5, thumbnailUrl: ""},
     {id: 4, title: "영상 4", writerNickname: "닉네임4", likeCount: 5, thumbnailUrl: ""}
   ]);
+  const [videos2, setVideos2] = useState([]);
   const [totalPageCount, setTotalPageCount] = useState(0);  // 총 페이지 수
   const [pages, setPages] = useState([1,2,3,4,5]);
   const [page, setPage] = useState(0);  // 현재 페이지
@@ -77,7 +78,11 @@ const AllVideo = () => {
           const totalPage = data["totalPageCount"];
           const allVideo = data["videosResponses"];
           setTotalPageCount(totalPage);
-          setVideos(allVideo);
+          if(page !== 0) {
+            setVideos1(allVideo.slice(0, 4));
+            setVideos2(allVideo.slice(4, 8));
+          }
+          else setVideos1(allVideo);
           let list = [];
           if(totalPage < 5) {
             for(let i=1; i<=totalPage; i++)
@@ -195,10 +200,17 @@ const AllVideo = () => {
           }
           <VideoListWrapper>
             <VideoList>
-              {videos.map((video) => {
+              {videos1.map((video) => {
                 return OneVideo(video)
               })}
             </VideoList>
+            {videos2 &&
+                <VideoList>
+                  {videos2.map((video) => {
+                    return OneVideo(video)
+                  })}
+                </VideoList>
+            }
           </VideoListWrapper>
           <SortBox>
             <StyledBtn
