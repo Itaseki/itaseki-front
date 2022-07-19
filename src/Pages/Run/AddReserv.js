@@ -1,17 +1,9 @@
-import { faDashcube } from "@fortawesome/free-brands-svg-icons";
-import { faColonSign } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import {
-//   HorizontalRule,
-//   HorizontalRuleRounded,
-//   Rule,
-// } from "@mui/icons-material";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import Add_Reserv from "../../Assets/Add_Reserv.png";
-import Temp from "../../Assets/Temp_gif.png";
 import preURL from "../../preURL/preURL";
 import StyledBtn from "../../Style/StyledBtn";
 import { StyledDiv, StyledDivRow } from "../../Style/StyledDiv";
@@ -23,13 +15,24 @@ const AddReserv = () => {
   const [sResult, setSResult] = useState(false);
   const [results, setResults] = useState([]);
   // 검색 후, 선택된 제목
-  const [rItem, setRItem] = useState({});
-  const [rTitle, setRTitle] = useState("");
+  let [rItem, setRItem] = useState({});
+  let [rTitle, setRTitle] = useState("");
 
-  const [date, setDate] = useState("00");
+  let [date, setDate] = useState("00");
   const [hour1, setHour1] = useState("0");
   const [hour2, setHour2] = useState("0");
-  const [min1, setmin1] = useState("0");
+  let [min1, setmin1] = useState(0);
+
+  const [rHour1, setRHour1] = useState(0);
+  const [rHour2, setRHour2] = useState(0);
+  let [rMin1, setRMin1] = useState(0);
+  const [rMin2, setRMin2] = useState(0);
+
+  useEffect(() => {
+    console.log(
+      "==============================[AddReserv]=============================="
+    );
+  }, []);
 
   const WhiteBoxStyle = {
     borderStyle: "none",
@@ -48,7 +51,7 @@ const AddReserv = () => {
     setTitle(e.target.value);
     if (title.length > 0) {
       searchTitle();
-    } else if (title.length == 0) {
+    } else if (title.length === 0) {
       setSResult(false);
     }
   };
@@ -64,7 +67,7 @@ const AddReserv = () => {
         for (let i = 0; i < results.length; i++) {
           newResult.push(results[i].title);
         }
-        // 한 번에 작동하지 않음 <- 수정 필요
+        // 🚨 한 번에 작동하지 않음 <- 수정 필요
         setResult(newResult);
         console.log("연관 검색어 리스트 : ", result);
         setSResult(true);
@@ -87,7 +90,7 @@ const AddReserv = () => {
             setRTitle(item);
             setTitle(rTitle);
             setRItem(results[i]);
-            // 한 번에 작동하지 않음 <- 수정 필요
+            // 🚨 한 번에 작동하지 않음 <- 수정 필요
             console.log("선택된 제목의 정보 :", rItem);
             setSResult(false);
           }}
@@ -98,15 +101,19 @@ const AddReserv = () => {
     );
   });
 
-  // 24시간에 대한 제약 필요(1. 십의 자리수는 2를 초과할 수 없음 2. 십의 자리가 2일 경우, 1의 자리는 4를 초과할 수 없음)
   // 예약 시간 input 관리
   const onChangeTime = (e) => {
-    if (e.target.name == "hour1") {
-      setHour1(e.target.value);
-    } else if (e.target.name == "hour2") {
-      setHour2(e.target.value);
-    } else if (e.target.name == "min1") {
-      setmin1(e.target.value);
+    if (title == "") {
+      alert("영상을 먼저 선택해주세요!");
+    } else {
+      if (e.target.name === "hour1") {
+        setHour1((hour1) => e.target.value);
+      } else if (e.target.name === "hour2") {
+        setHour2((hour2) => e.target.value);
+      } else if (e.target.name === "min1") {
+        reservationTime();
+        setmin1((prevmin1) => e.target.value);
+      }
     }
   };
 
@@ -116,18 +123,60 @@ const AddReserv = () => {
   let todayMonth = now.getMonth() + 1;
   let todayDate = now.getDate();
 
+  // 예약 시간 계산 (예약 시작 시간 + 총 재생 시간)
+  const reservationTime = () => {
+    console.log(`입력값 : ${hour1} ${hour2} : ${min1} 0`);
+    let hour = parseInt(`${hour1}${hour2}`) + rItem.runtimeHour;
+    console.log("시 :", hour);
+    if (rItem.runtimeMin > 0) {
+      rItem.runtimeMin = 10;
+    } else if (rItem.runtimeMin > 10) {
+      rItem.runtimeMin = 20;
+    } else if (rItem.runtimeMin > 20) {
+      rItem.runtimeMin = 30;
+    } else if (rItem.runtimeMin > 30) {
+      rItem.runtimeMin = 40;
+    } else if (rItem.runtimeMin > 40) {
+      rItem.runtimeMin = 50;
+    } else if (rItem.runtimeMin > 50) {
+      rItem.runtimeMin = 60;
+    }
+    let min = parseInt(`${min1}0`) + rItem.runtimeMin;
+    console.log("분 :", min);
+
+    if (min > 60) {
+      hour = hour + min / 60;
+      min = min % 60;
+    } else if (hour > 23) {
+      alert("다음날로 넘어가는 시간에는 예약이 불가능합니다.");
+    }
+    hour = hour.toString();
+    min = min.toString();
+    console.log("최종 시간 : ", hour, min);
+    setRHour1(hour.substring(0, 1));
+    setRHour2(hour.substring(1, 2));
+    setRMin1(min.substring(0, 1));
+    setRMin2(min.substring(1, 2));
+  };
+
   let body = {
     id: rItem.id,
-    reservationDate: `${year}-${todayMonth}-${date}`,
-    startTime: 0,
-    endTime: 0,
+    reservationDate: `${year}-${
+      todayMonth > 9 ? todayMonth : `0${todayMonth}`
+    }-${date}`,
+    startTime: `${hour1}${hour2}:${min1}${0}`,
+    endTime: `${rHour1}${rHour2}:${rMin1}${rMin2}`,
   };
 
   const reservations = () => {
+    console.log("REQUEST BODY : ", body);
+
     axios
       .post(preURL.preURL + "/run/reservations", body)
       .then((res) => {
         console.log("❕예약 등록❕ ", res.data);
+        alert("예약이 등록되었습니다!");
+        window.location = "/reservation";
       })
       .catch((err) => {
         console.error("⚠️ 예약 등록 ⚠️ ", err);
@@ -179,26 +228,33 @@ const AddReserv = () => {
                   <></>
                 )}
                 <p>영상 URL</p>
-                <p style={WhiteBoxStyle}>{rItem.thumbnailUrl}</p>
+                <p style={WhiteBoxStyle}>{rItem.url}</p>
                 <div>
                   <p>영상 예약 날짜</p>
                   <StyledDiv
                     style={{ width: 403, justifyContent: "space-between" }}
                   >
-                    <WhiteBoxBtn>
+                    <WhiteBoxBtn
+                      onClick={() => {
+                        setDate((date) => todayDate);
+                        console.log(date);
+                      }}
+                    >
                       오늘 ({todayMonth}/{todayDate})
                     </WhiteBoxBtn>
                     {/* 다음달로 넘어가는 경우 처리 필요 */}
                     <WhiteBoxBtn
                       onClick={() => {
-                        setDate(todayDate + 1);
+                        setDate((date) => todayDate + 1);
+                        console.log(date);
                       }}
                     >
                       내일 ({todayMonth}/{todayDate + 1})
                     </WhiteBoxBtn>
                     <WhiteBoxBtn
                       onClick={() => {
-                        setDate(todayDate + 2);
+                        setDate((date) => todayDate + 2);
+                        console.log(date);
                       }}
                     >
                       모레 ({todayMonth}/{todayDate + 2})
@@ -215,27 +271,46 @@ const AddReserv = () => {
                       name="hour1"
                       onChange={onChangeTime}
                       value={hour1}
+                      min="0"
+                      max="2"
                     ></TimeInput>
-                    <TimeInput
-                      type="number"
-                      name="hour2"
-                      onChange={onChangeTime}
-                      value={hour2}
-                    ></TimeInput>
+                    {hour1 === 0 || 1 ? (
+                      <TimeInput
+                        type="number"
+                        name="hour2"
+                        onChange={onChangeTime}
+                        value={hour2}
+                        min="0"
+                        max="9"
+                      ></TimeInput>
+                    ) : (
+                      <TimeInput
+                        type="number"
+                        name="hour2"
+                        onChange={onChangeTime}
+                        value={hour2}
+                        min="0"
+                        max="3"
+                      ></TimeInput>
+                    )}
+
                     <Sign>:</Sign>
+                    {/* 🚨 한  클릭씩 늦게 분의 값이 바뀜 (수정 예정) */}
                     <TimeInput
                       type="number"
                       name="min1"
-                      onChange={onChangeTime}
                       value={min1}
+                      onChange={onChangeTime}
+                      min="0"
+                      max="5"
                     ></TimeInput>
                     <TimeWBox>0</TimeWBox>
                     <Sign>-</Sign>
-                    <TimeWBox></TimeWBox>
-                    <TimeWBox></TimeWBox>
+                    <TimeWBox>{rHour1}</TimeWBox>
+                    <TimeWBox>{rHour2}</TimeWBox>
                     <Sign>:</Sign>
-                    <TimeWBox></TimeWBox>
-                    <TimeWBox></TimeWBox>
+                    <TimeWBox>{rMin1}</TimeWBox>
+                    <TimeWBox>{rMin2}</TimeWBox>
                   </StyledDivRow>
                 </div>
               </div>
@@ -247,18 +322,25 @@ const AddReserv = () => {
                   marginLeft: 77,
                 }}
               >
-                <img src={Temp} style={{ width: 188, height: 106 }} />
+                <img
+                  src={rItem.thumbnailUrl}
+                  style={{ width: 188, height: 106 }}
+                />
                 <div>
                   <p>총 재생 시간</p>
                   <StyledDivRow
                     style={{ width: 163, justifyContent: "space-between" }}
                   >
                     <TimeWBox style={{ width: 62 }}>
-                      {rItem.runtimeHour}
+                      {rItem.runtimeHour < 10
+                        ? `0${rItem.runtimeHour}`
+                        : rItem.runtimeHour}
                     </TimeWBox>
                     <Sign>:</Sign>
                     <TimeWBox style={{ width: 62 }}>
-                      {rItem.runtimeMin}
+                      {rItem.runtimeMin < 10
+                        ? `0${rItem.runtimeMin}`
+                        : rItem.runtimeMin}
                     </TimeWBox>
                   </StyledDivRow>
                   <StyledBtn
@@ -271,6 +353,7 @@ const AddReserv = () => {
                       fontSize: 16,
                       marginTop: 50,
                     }}
+                    onClick={() => reservations()}
                   >
                     영상 등록 완료(수정 불가)
                   </StyledBtn>
@@ -280,10 +363,8 @@ const AddReserv = () => {
             <StyledDiv
               style={{ flexDirection: "column", alignItems: "flex-start" }}
             >
-              <p>영상을 간단하게 소개해주세요!(10글자 내외)</p>
-              <input
-                type="text"
-                name="introduction"
+              <p>영상을 간단하게 소개해주세요!</p>
+              <p
                 style={{
                   borderStyle: "none",
                   backgroundColor: "white",
@@ -294,7 +375,7 @@ const AddReserv = () => {
                   alignItems: "center",
                   paddingLeft: 10,
                 }}
-              />
+              ></p>
             </StyledDiv>
           </StyledDiv>
         </Modal>
@@ -362,6 +443,8 @@ const TimeInput = styled.input`
   width: 31px;
   border-radius: 8px;
   font-weight: bold;
+  outline: none;
+  border: 0 solid black;
 `;
 
 const TimeWBox = styled(StyledDiv)`

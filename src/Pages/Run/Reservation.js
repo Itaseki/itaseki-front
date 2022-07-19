@@ -8,7 +8,7 @@ import ReservationListWrapper from "./ReservationList";
 
 const Reservation = () => {
   // 예약 추가 팝업
-  const [pop, setPop] = useState(false);
+  const [pop, setPop] = useState(true);
 
   return (
     <div>
