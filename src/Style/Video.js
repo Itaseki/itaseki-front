@@ -159,74 +159,8 @@ export const AddToPlayList = styled.div`
   }
 `
 
-// 플레이리스트 공개/비공개 토글 버튼
-export const SwitchBtnLabel = styled.label`
-  width: 60px;
-  height: 25px;
-  display: inline-block;
-  position: relative;
-  border-radius: 71px;
-  background-color: black;
-  cursor: pointer;
-  transition: all 0.2s ease-in;
-  & > span{
-    width: 45px;
-    height: 18px;
-    position: absolute;
-    top: 50%;
-    left: 4px;
-    transform: translateY(-50%);
-    border-radius: 71px;
-    background-color: #E35D12;
-    font-size: small;
-    font-weight: bold;
-    text-align: center;
-    transition: all 0.2s ease-in;
-  }
-  :active{  // 동작X
-    background-color: #E35D12;
-  }
-  & > span.active{
-    background-color: black;
-    color: #E35D12;
-    left: calc(100% - 50px);
-  }
-`
 export const SwitchBtnSpan = styled.span`
   
-`
-
-export const AddNewPlyBtn = styled(StyledBtn)`
-  box-sizing: border-box;
-  width: 170px;
-  height: 33px;
-  background-color: black;
-  border: 2px dashed #FFFFFF;
-  border-radius: 29px;
-  color: white;
-  align-self: center;
-`
-
-export const NewPlyInput = styled.input`
-  box-sizing: border-box;
-  width: 170px;
-  height: 33px;
-  background: white;
-  border: 2px dashed #000000;
-  border-radius: 29px;
-  display: block;
-  align-self: center;
-  padding: 0 4px;
-`
-
-export const MakeNewPlyBtn = styled(StyledBtn)`
-  box-sizing: border-box;
-  width: 70px;
-  height: 30px;
-  background: black;
-  border: 2px dashed white;
-  border-radius: 29px;
-  color: white;
 `
 
 export const AddVideoBtn = styled(StyledBtn)`
@@ -287,7 +221,7 @@ export const VideoInfo = styled.div`
 
 export const Line = styled.div`
   width: 100%;
-  border-bottom: 1px solid #9C9C9C;
+  border-bottom: 3px dashed black;;
 `
 
 /*정렬 버튼*/
@@ -300,14 +234,6 @@ export const SortBox = styled.div`
     color: #9E8FA8;
     font-size: 11px;
   }
-`
-
-export const XButton = styled(StyledBtn)`
-  color: #E35D12;
-  display: block;
-  align-self: end;
-  margin-right: 10px;
-  font-size: x-large;
 `
 
 
