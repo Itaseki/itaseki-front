@@ -208,6 +208,7 @@ export const VideoContainer = styled.div`
 // 영상 썸네일 하단 정보
 export const VideoInfo = styled.div`
   width: 240px;
+  margin: 3px 0;
   display: flex;
   justify-content: space-between;
   & > #title {
@@ -221,7 +222,7 @@ export const VideoInfo = styled.div`
 
 export const Line = styled.div`
   width: 100%;
-  border-bottom: 3px dashed black;;
+  border-bottom: 3px dashed black;
 `
 
 /*정렬 버튼*/
