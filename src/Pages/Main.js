@@ -205,6 +205,11 @@ const Main = () => {
       </PWrapper>
       <PWrapper style={{ marginTop: "42px" }}>
         <Subheading>지금 가장 인기 있는 플레이리스트</Subheading>
+        <StyledDivRow>
+          {popPlaylists.map((plylist) => {
+            return <OnePly ply={plylist} />;
+          })}
+        </StyledDivRow>
       </PWrapper>
       <Footer />
     </>
