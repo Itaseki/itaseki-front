@@ -4,6 +4,7 @@ import preURL from "../preURL/preURL";
 import styled from "styled-components";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import OneVideo from "../Components/Main/OneVideo";
 
 // Assets
 import Temp_gif from "../Assets/Temp_gif.png";
@@ -17,6 +18,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { light } from "../Style/Color";
 import { Link } from "react-router-dom";
+import OnePly from "../Components/Main/Oneply";
 
 const Main = () => {
   const [popCommus, setpopCommus] = useState([]);
@@ -195,6 +197,11 @@ const Main = () => {
       </StyledDiv>
       <PWrapper>
         <Subheading>지금 가장 인기 있는 영상</Subheading>
+        <StyledDivRow>
+          {popVideos.map((video) => {
+            return <OneVideo video={video} />;
+          })}
+        </StyledDivRow>
       </PWrapper>
       <PWrapper style={{ marginTop: "42px" }}>
         <Subheading>지금 가장 인기 있는 플레이리스트</Subheading>
