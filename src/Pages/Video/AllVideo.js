@@ -69,6 +69,7 @@ const AllVideo = () => {
 
   // 전체 영상 조회
   useEffect(() => {
+    if(page === 0) setVideos2([]);
     axios
         .get(preURL.preURL +
             `/boards/video?page=${page}&sort=${sort}&sort=id,DESC`) /*검색 - &tag=${searchHashtag1}%2C${searchHashtag2}&nickname=${searchNickname}&q=${searchKeyword}*/
