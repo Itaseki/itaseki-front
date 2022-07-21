@@ -37,7 +37,7 @@ const OneVideo = (video) => {
     console.log("플레이리스트에 추가", e);
     const clicked = parseInt(e.target.id);
     setClickedPlyId(clicked);
-    setPlaylistToggleDisplay((prev) => !prev);
+    setPlayListToggleDisplay((prev) => !prev);
   };
 
   let videolistURL = `/videolist/${videoId}`;
