@@ -10,15 +10,15 @@ import {
 // assets
 import Menu_bar from "../Assets/Menu_bar.png";
 import Main_logo from "../Assets/Main_logo.png";
+import Main_logo_dark from "../Assets/Main_logo_dark.png";
 import Basic_profile from "../Assets/Basic_profile.png";
 import Menu_Home from "../Assets/Menu_Home.png";
 
 import StyledBtn from "../Style/StyledBtn";
 import { Link } from "react-router-dom";
 import { StyledDivColumn } from "../Style/StyledDiv";
-import { light } from "../Style/Color";
 
-const Header = () => {
+const Header = ({darkMode}) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [caretOpen, setCaretOpen] = useState(false);
 
@@ -31,7 +31,10 @@ const Header = () => {
           onClick={() => setMenuOpen(true)}
         />
         <Link to="/">
-          <Logo src={Main_logo} />
+          {darkMode
+              ? <Logo src={Main_logo_dark} />
+              : <Logo src={Main_logo} />
+          }
         </Link>
       </LeftWrapper>
       {menuOpen ? (
