@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import Header from "../../Components/Header";
+// Style
 import {
   Body,
   ChatBody,
@@ -13,6 +14,7 @@ import {
   Video,
   Wrapper
 } from "../../Style/Running";
+// Assetes
 import Exit_Light from "../../Assets/Exit_Light.png";
 import Exit_Dark from "../../Assets/Exit_Dark.png";
 import Switch_Light from "../../Assets/Switch_Light.png";
@@ -42,7 +44,7 @@ const Running = () => {
 
   return (
       <div style={{marginBottom: "40px"}}>
-        <Header/>
+        <Header darkMode={darkMode}/>
         <Wrapper>
           <HeadBtns>
           {darkMode
