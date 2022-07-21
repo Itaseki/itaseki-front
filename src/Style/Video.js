@@ -324,7 +324,7 @@ export const AInfo = styled.div`
     margin-right: 100px;
     font-size: 18px;
     font-weight: 600;
-    color: var(--main-color);
+    color: ${light.colors.mainColor};
   }
   & > #value{
     margin-right: 100px;
