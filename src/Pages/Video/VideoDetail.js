@@ -17,6 +17,7 @@ import preURL from "../../preURL/preURL";
 import {AInfo, IFrame, Infos, TitleUploader, VideoDetailInfo, VideoWrapper} from "../../Style/Video";
 import CommentList from "../../Components/Comment/CommentList";
 import YoutubeIframe from "../../Components/Video/YoutubeIframe";
+import {light} from "../../Style/Color";
 
 const VideoDetail = () => {
   const videoId = useParams().id;
@@ -121,7 +122,7 @@ const VideoDetail = () => {
                   : null}
             </DetailTitle>
             <DetailInfo>
-              <p>{video.writerNickname}</p>
+              <p style={{color: light.colors.mainColor}}>{video.writerNickname}</p>
               <p>|</p>
               <p>{video.createdTime}</p>
               <p>|</p>
@@ -173,9 +174,9 @@ const VideoDetail = () => {
             </div>
           </VideoDetailInfo>
           <AdditionalBtns>
-            <AButton style={{background: "var(--sub-color)"}}>달리기 예약</AButton>
-            <AButton style={{background: "var(--main-color)"}} onClick={onClickLike}>좋아요</AButton>
-            <AButton style={{background: "var(--sub-color)"}} onClick={onClickReport}>신고하기</AButton>
+            <AButton>달리기 예약</AButton>
+            <AButton style={{borderWidth: "4px"}} onClick={onClickLike}>좋아요</AButton>
+            <AButton onClick={onClickReport}>신고하기</AButton>
           </AdditionalBtns>
           <CommentList contentInfo={video} commentList={comments} board={"video"} boardId={videoId} />
         </Wrapper>

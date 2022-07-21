@@ -243,7 +243,9 @@ export const AdditionalBtns = styled.div`
 export const AButton = styled(StyledBtn)`
   width: 146px;
   height: 58px;
-  color: white;
+  background: white;
+  border: 3px dashed black;
   border-radius: 29px;
   margin: 0 60px;
+  font-weight: bold;
 `

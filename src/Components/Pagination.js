@@ -54,7 +54,7 @@ const Pagination = ({pages, setPages, setPage, totalPageCount}) => {
   // 페이지 번호
   const showPages = pages.map((page) => {
     return (
-        <PageNum style={{fontSize: "20px", padding: "10.5px"}} onClick={onClickPage}>
+        <PageNum onClick={onClickPage}>
           {page}
         </PageNum>
     )
@@ -68,7 +68,6 @@ const Pagination = ({pages, setPages, setPage, totalPageCount}) => {
                   icon={faCaretLeft}
                   style={{
                     fontSize: "20px",
-                    color: "#9C9C9C",
                     marginLeft: "10.5px",
                   }}
               />
