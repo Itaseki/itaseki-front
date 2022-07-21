@@ -1,22 +1,26 @@
 import React, {useCallback, useEffect, useState} from 'react';
+import {useNavigate} from "react-router-dom";
+import useInput from "../../Hooks/useInput";
+import preURL from "../../preURL/preURL";
+import axios from "axios";
+// Components
 import Header from "../../Components/Header";
+import YoutubeAPI from "../../Components/Video/YoutubeAPI";
+import PlaylistToggle from "../../Components/PlaylistToggle";
+// Style
 import {
   AddToPlayList, AddVideoBtn,
   AddVideoForm,
   AutoFrame, HashTag,
   Introduce,
-  NewUrlForm, OneSelectItemWrapper, OneSeries,
+  NewUrlForm, OneRowWrapper, OneSelectItemWrapper, OneSeries,
   PreInform,
   PreInformContent, Round,
   Series, ToggleScrollWrapper
 } from "../../Style/Video";
 import StyledBtn from "../../Style/StyledBtn";
-import {useNavigate} from "react-router-dom";
-import axios from "axios";
-import preURL from "../../preURL/preURL";
-import useInput from "../../Hooks/useInput";
-import YoutubeAPI from "../../Components/Video/YoutubeAPI";
-import PlaylistToggle from "../../Components/PlaylistToggle";
+// Assets
+import Add_video_submit from "../../Assets/Add_video_submit.png";
 
 const AddNewVideo = () => {
   const navigate = useNavigate();
@@ -261,20 +265,22 @@ const AddNewVideo = () => {
               <p>2. 공지사항입니다</p>
             </span>
             <span id="agree">
-              <input id="agree-check" type="checkbox" onChange={(e) => e.target.checked ? setAgree(true) : setAgree(false)}/>
+              <input id="agree-check" type="checkbox"
+                     onChange={(e) =>
+                         e.target.checked ? setAgree(true) : setAgree(false)}/>
               <label for="agree-check">동의합니다</label>
             </span>
           </PreInformContent>
         </PreInform>
         <AddVideoForm onSubmit={onSubmitNewVideo}>
           <NewUrlForm>
-            <p>URL 입력</p>
+            <p>URL 입력*</p>
             <input type="text" value={newUrl} onChange={onChangeNewUrl}/>
             <StyledBtn id="verify-btn" onClick={onClickUrlCheck}>검증</StyledBtn>
           </NewUrlForm>
-          <div style={{display: "flex"}}>
+          <OneRowWrapper>
             <Series>
-              <p>시리즈</p>
+              <p>시리즈*</p>
               <input
                   type="text"
                   value={searchSeries}
@@ -291,17 +297,17 @@ const AddNewVideo = () => {
               </AutoFrame>
             </Series>
             <Introduce>
-              <p>영상을 간단하게 소개한다면? (20자 이내)</p>
+              <p>영상을 간단하게 소개한다면? (20자 이내)*</p>
               <input type="text" value={introduction} onChange={onChangeIntroduction} maxLength="20"/>
             </Introduce>
-          </div>
-          <div style={{display: "flex"}}>
+          </OneRowWrapper>
+          <OneRowWrapper>
             <Round>
               <p>회차</p>
               <input type="number" value={episode} onChange={onChangeEpisode}/>
             </Round>
             <HashTag>
-              <p>해시태그1 (장르, 상황)</p>
+              <p>해시태그1 (장르, 상황)*</p>
               <input
                   type="text"
                   value={hashTag1}
@@ -320,26 +326,30 @@ const AddNewVideo = () => {
               <p>해시태그2 (키워드)</p>
               <input type="text" value={hashTag2} onChange={onChangeHashTag2}/>
             </HashTag>
-          </div>
-          <AddToPlayList>
-            <p>내 플레이리스트에 추가</p>
-            <input
-                type="text"
-                value={playList}
-                onFocus={()=>setPlayListToggleDisplay(true)}
-                onBlur={()=>setPlayListToggleDisplay(false)}
-            />
-            <PlaylistToggle
-                show={playListToggleDisplay}
-                setShow={setPlayListToggleDisplay}
-                playListList={playListList}
-                playList={playList}
-                setPlayList={setPlayList}
-                selectedPlayListId={selectedPlayListId}
-                setSelectedPlayListId={setSelectedPlayListId}
-            />
-          </AddToPlayList>
-          <AddVideoBtn type="submit">등록하기</AddVideoBtn>
+          </OneRowWrapper>
+          <OneRowWrapper>
+            <AddToPlayList>
+              <p>내 플레이리스트에 추가</p>
+              <input
+                  type="text"
+                  value={playList}
+                  onFocus={()=>setPlayListToggleDisplay(true)}
+                  onBlur={()=>setPlayListToggleDisplay(false)}
+              />
+              <PlaylistToggle
+                  show={playListToggleDisplay}
+                  setShow={setPlayListToggleDisplay}
+                  playListList={playListList}
+                  playList={playList}
+                  setPlayList={setPlayList}
+                  selectedPlayListId={selectedPlayListId}
+                  setSelectedPlayListId={setSelectedPlayListId}
+              />
+            </AddToPlayList>
+            <AddVideoBtn type="submit">
+              <img src={Add_video_submit} alt="영상 등록"/>
+            </AddVideoBtn>
+          </OneRowWrapper>
         </AddVideoForm>
       </div>
   )
