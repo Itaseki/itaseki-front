@@ -102,7 +102,7 @@ const Main = () => {
     <>
       <Header />
       <StyledDiv>
-        <Link to="/running">
+        <Link to="/reservation">
           <img
             src={Go_To_Run}
             alt="running"
@@ -154,7 +154,6 @@ const Main = () => {
               })}
             </div>
           </PopArticleContainer>
-
           {/* 인기 짤  */}
           <PopGIFContainer>
             <div style={{ paddingTop: 50, paddingLeft: 20 }}>
