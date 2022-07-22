@@ -1,14 +1,18 @@
 import styled from 'styled-components';
 import StyledBtn from "./StyledBtn";
 import "./color.css";
+import {light} from "./Color"
 
 //================================AddNewVideo====================================
 export const PreInform = styled.div`
   width: 65%;
   margin: 2% auto;
-  background-color: #E0BFE6;
+  border: 4px dashed #000000;
+  border-radius: 30px;
+  background-color: white;
   display: flex;
   flex-direction: column;
+  font-weight: bold;
   & > b {
     text-align: center;
     margin-top: 2%;
@@ -35,31 +39,42 @@ export const AddVideoForm = styled.form`
 `
 
 export const NewUrlForm = styled.div`
+  width: 100%;
   & > input {
-    background: var(--tag-select);
-    border-radius: 17px;
-    border: 0;
+    background: rgba(255, 255, 255, 0.65);
+    border: 3px dashed #000000;
+    border-radius: 29px;
     padding: 5px 5px 5px 10px;
-    width: 90%;
+    box-sizing: border-box;
+    width: 93%;
+    height: 50px;
   }
   & > #verify-btn {
-    width: 79px;
-    background: var(--sub-color);
+    width: 60px;
+    height: 35px;
     border-radius: 17px;
     padding: 3px;
-    margin-left: 3px;
+    margin-left: 5px;
     text-align: center;
-    color: white;
+    background: black;
+    color: ${light.colors.mainColor};
   }
+`
+
+export const OneRowWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  margin: 5px 0;
 `
 
 export const Series = styled.div`
   width: 40%;
   & > input {
-    width: 60%;
-    background: var(--tag-select);
-    border: 0;
-    border-radius: 17px;
+    width: 90%;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.65);
+    border: 3px dashed black;
+    border-radius: 29px;
     padding: 5px 5px 5px 10px;
   }
 `
@@ -116,56 +131,59 @@ export const OneSeries = styled(StyledBtn)`
 export const Introduce = styled.div`
   width: 100%;
   & > input {
-    width: 100%;
-    background: var(--sub-color);
-    border-radius: 17px;
-    border: 0;
+    width: 97%;
+    height: 25px;
+    background: white;
+    border: 3px dashed black;
+    border-radius: 29px;
     padding: 5px 5px 5px 10px;
   }
 `
 
 export const Round = styled.div`
-  width: 30%;
+  width: 28%;
   & > input {
-    width: 60%;
-    background: var(--sub-color);
-    border-radius: 17px;
-    border: 0;
+    width: 90%;
+    height: 25px;
+    background: white;
+    border: 4px dashed black;
+    border-radius: 29px;
     padding: 5px 5px 5px 10px;
   }
 `
 
 export const HashTag = styled.div`
-  width: 30%;
-  margin-right: 5%;
+  width: 36%;
+  margin-left: 8px;
   & > input {
-    width: 90%;
-    background: var(--tag-select);
-    border-radius: 17px;
-    border: 0;
+    width: 95%;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.65);
+    border: 3px dashed black;
+    border-radius: 29px;
     padding: 5px 5px 5px 10px;
     margin-bottom: 2px;
   }
 `
 
 export const AddToPlayList = styled.div`
-  width: 30%;
+  width: 28%;
   & > input {
-    width: 60%;
-    background: var(--sub-color);
-    border-radius: 17px;
-    border: 0;
+    width: 90%;
+    height: 25px;
+    background: white;
+    border: 4px dashed black;
+    border-radius: 29px;
     padding: 5px 5px 5px 10px;
   }
 `
 
-export const SwitchBtnSpan = styled.span`
-  
-`
-
 export const AddVideoBtn = styled(StyledBtn)`
-  font-size: 20px;
   margin-left: auto;
+  align-self: flex-end;
+  & > img{
+    width: 400px;
+  }
 `
 
 //================================AllVideo====================================
@@ -306,7 +324,7 @@ export const AInfo = styled.div`
     margin-right: 100px;
     font-size: 18px;
     font-weight: 600;
-    color: var(--main-color);
+    color: ${light.colors.mainColor};
   }
   & > #value{
     margin-right: 100px;
