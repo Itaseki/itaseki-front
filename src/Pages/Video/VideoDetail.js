@@ -1,7 +1,8 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import Header from "../../Components/Header";
+import preURL from "../../preURL/preURL";
+// Style
 import {
   AButton,
   AdditionalBtns,
@@ -13,11 +14,12 @@ import {
 import StyledBtn from "../../Style/StyledBtn";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart} from "@fortawesome/free-solid-svg-icons";
-import preURL from "../../preURL/preURL";
 import {AInfo, IFrame, Infos, TitleUploader, VideoDetailInfo, VideoWrapper} from "../../Style/Video";
+import {light} from "../../Style/Color";
+// Components
+import Header from "../../Components/Header";
 import CommentList from "../../Components/Comment/CommentList";
 import YoutubeIframe from "../../Components/Video/YoutubeIframe";
-import {light} from "../../Style/Color";
 
 const VideoDetail = () => {
   const videoId = useParams().id;
@@ -126,7 +128,7 @@ const VideoDetail = () => {
               <p>|</p>
               <p>{video.createdTime}</p>
               <p>|</p>
-              <p>{"조회 "}{video.viewCount}</p>
+              <p>조회 {video.viewCount}</p>
               <p>|</p>
               <FontAwesomeIcon
                   icon={faHeart}

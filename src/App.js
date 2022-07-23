@@ -20,6 +20,7 @@ import AllVideo from "./Pages/Video/AllVideo";
 import VideoDetail from "./Pages/Video/VideoDetail";
 // Playlist
 import AllPlaylist from "./Pages/Playlist/AllPlaylist";
+import SubscribedPly from "./Pages/Playlist/SubscribedPly";
 
 const App = () => {
   return (
@@ -44,6 +45,7 @@ const App = () => {
       <Route path="/videolist/:id" element={<VideoDetail />} />
       {/* Playlist */}
       <Route path="/playlist" element={<AllPlaylist />} />
+      <Route path="/playlist/subscribe" element={<SubscribedPly />} />
     </Routes>
   );
 };
