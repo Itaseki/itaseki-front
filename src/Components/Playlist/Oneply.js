@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import {useNavigate} from "react-router-dom";
+
 // Style
 import {
   OnePlyWrapper,
@@ -17,16 +19,17 @@ import Ply_preview from "../../Assets/Ply_preview.png";
 // 플레이리스트 한개
 const OnePly = ({ply}) => {
   const colors = light.colors;
+  const navigate = useNavigate();
 
   return (
     <OnePlyWrapper>
-      <PlyContainer>
+      <PlyContainer onClick={() => navigate(`/playlist/${ply.id}`)}>
         <img id="thumbnail" src={ply.titleImageUrl} alt="썸네일" />
         <img id="cover" src={Ply_preview} alt="썸네일 커버" />
       </PlyContainer>
       <div>
         <PlyInfo>
-          <span id="title">{ply.title}</span>
+          <span id="title" onClick={() => navigate(`/playlist/${ply.id}`)}>{ply.title}</span>
           <div id="info-right">
             <StyledBtn>
               <FontAwesomeIcon

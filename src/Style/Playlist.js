@@ -35,6 +35,7 @@ export const PlyContainer = styled.div`
   width: 240px;
   height: 135px;
   position: relative;
+  cursor: pointer;
   & > #thumbnail {
     width: 240px;
     height: 135px;
