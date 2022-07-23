@@ -8,7 +8,7 @@ import Pagination from "../../Components/Pagination";
 import OnePly from "../../Components/Playlist/Oneply";
 // Style
 import {Line, SortBox, Wrapper} from "../../Style/Video";
-import {FourListWrapper, FourList, OnePlyWrapper, PlyContainer, PlyInfo, TopBtns, MainLogo} from "../../Style/Playlist";
+import {FourListWrapper, FourList, TopBtns, MainLogo} from "../../Style/Playlist";
 import StyledBtn from "../../Style/StyledBtn";
 import {light} from "../../Style/Color";
 // Assets

@@ -1,12 +1,7 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
-
 // Style
-import {
-  OnePlyWrapper,
-  PlyContainer,
-  PlyInfo,
-} from "../../Style/Playlist";
+import styled from "styled-components";
 import StyledBtn from "../../Style/StyledBtn";
 import { light } from "../../Style/Color";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,7 +24,9 @@ const OnePly = ({ply}) => {
       </PlyContainer>
       <div>
         <PlyInfo>
-          <span id="title" onClick={() => navigate(`/playlist/${ply.id}`)}>{ply.title}</span>
+          <span id="title" onClick={() => navigate(`/playlist/${ply.id}`)}>
+            {ply.title}
+          </span>
           <div id="info-right">
             <StyledBtn>
               <FontAwesomeIcon
@@ -41,7 +38,9 @@ const OnePly = ({ply}) => {
                 }}
               />
             </StyledBtn>
-            <span style={{ color: "#D9767C" }}>{ply.likeCount}</span>
+            <span style={{ color: "#D9767C" }}>
+              {ply.likeCount}
+            </span>
             <img
               src={Ply_Count_Icon}
               alt="저장된 카운트"
@@ -63,3 +62,41 @@ const OnePly = ({ply}) => {
 };
 
 export default OnePly;
+
+
+const OnePlyWrapper = styled.div`
+  width: 25%;
+`
+
+const PlyContainer = styled.div`
+  background-color: gray;
+  width: 240px;
+  height: 135px;
+  position: relative;
+  cursor: pointer;
+  & > #thumbnail {
+    width: 240px;
+    height: 135px;
+    position: absolute;
+  }
+  & > #cover {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+  }
+`
+
+// 플레이리스트 하단 정보
+const PlyInfo = styled.div`
+  width: 240px;
+  margin: 3px 0;
+  display: flex;
+  justify-content: space-between;
+  & > #title {
+    cursor: pointer;
+  }
+  & > #info-right {
+    display: flex;
+    align-items: center;
+  }
+`
