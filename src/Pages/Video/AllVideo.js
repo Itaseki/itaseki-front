@@ -20,7 +20,7 @@ import PlayListIcon from "../../Assets/Playlist_mini.png";
 import {useNavigate} from "react-router-dom";
 import Add_New_Video from "../../Assets/Add_new_video.png";
 import Pagination from "../../Components/Pagination";
-import PlaylistToggle from "../../Components/PlaylistToggle";
+import PlaylistToggle from "../../Components/Playlist/PlaylistToggle";
 import OneVideo from "../../Components/Video/OneVideo";
 
 const AllVideo = () => {

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
-import useInput from "../Hooks/useInput";
-import { AutoFrame, OneSelectItemWrapper, ToggleScrollWrapper} from "../Style/Video";
+import useInput from "../../Hooks/useInput";
+import { AutoFrame, OneSelectItemWrapper, ToggleScrollWrapper} from "../../Style/Video";
 import axios from "axios";
-import preURL from "../preURL/preURL";
+import preURL from "../../preURL/preURL";
 import styled from "styled-components";
-import StyledBtn from "../Style/StyledBtn";
+import StyledBtn from "../../Style/StyledBtn";
 
 const PlaylistToggle = ({show, setShow}) => {
 

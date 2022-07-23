@@ -111,7 +111,7 @@ const SubscribedPly = () => {
         result.map((fourPly) => {
           return (
               <FourPlysWrapper>
-                {fourPly.map((ply) => {return OnePly(ply)})}
+                {fourPly.map((ply) => {return <OnePly ply={ply} />})}
               </FourPlysWrapper>
           )
         })

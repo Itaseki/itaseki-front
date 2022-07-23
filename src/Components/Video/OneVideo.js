@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 // Components
-import PlaylistToggle from "../PlaylistToggle";
+import PlaylistToggle from "../Playlist/PlaylistToggle";
 // Style
 import {OneVideoWrapper, VideoContainer, VideoInfo} from "../../Style/Video";
 import StyledBtn from "../../Style/StyledBtn";

@@ -6,7 +6,7 @@ import axios from "axios";
 // Components
 import Header from "../../Components/Header";
 import YoutubeAPI from "../../Components/Video/YoutubeAPI";
-import PlaylistToggle from "../../Components/PlaylistToggle";
+import PlaylistToggle from "../../Components/Playlist/PlaylistToggle";
 // Style
 import {
   AddToPlayList, AddVideoBtn,

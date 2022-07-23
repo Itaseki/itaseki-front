@@ -15,7 +15,7 @@ import Ply_Count_Icon from "../../Assets/Ply_Count_Icon.png";
 import Ply_preview from "../../Assets/Ply_preview.png";
 
 // 플레이리스트 한개
-const OnePly = (ply) => {
+const OnePly = ({ply}) => {
   const colors = light.colors;
 
   return (
