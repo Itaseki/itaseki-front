@@ -2,13 +2,17 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Add_Reserv from "../../Assets/Add_Reserv.png";
 import preURL from "../../preURL/preURL";
 import StyledBtn from "../../Style/StyledBtn";
 import { StyledDiv, StyledDivRow } from "../../Style/StyledDiv";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 
-const AddReserv = () => {
+import Pre_Thumbnail from "../../Assets/Pre_Thumbnail.png";
+
+const AddReserv = (props) => {
   const [title, setTitle] = useState("");
   const [sTitle, setSTitle] = useState("");
   const [result, setResult] = useState([]);
@@ -17,6 +21,7 @@ const AddReserv = () => {
   // 검색 후, 선택된 제목
   let [rItem, setRItem] = useState({});
   let [rTitle, setRTitle] = useState("");
+  let [thumbnail, setThumbnail] = useState(Pre_Thumbnail);
 
   let [date, setDate] = useState("00");
   const [hour1, setHour1] = useState("0");
@@ -57,7 +62,7 @@ const AddReserv = () => {
   };
 
   // 영상 제목 조회
-  const searchTitle = () => {
+  const searchTitle = (e) => {
     axios
       .get(preURL.preURL + `/run/reservations/title/search?q=${sTitle}`)
       .then((res) => {
@@ -69,7 +74,7 @@ const AddReserv = () => {
         }
         // 🚨 한 번에 작동하지 않음 <- 수정 필요
         setResult(newResult);
-        console.log("연관 검색어 리스트 : ", result);
+        console.log("연관 검색어 리스트 : ", result.length);
         setSResult(true);
       })
       .catch((err) => {
@@ -90,7 +95,7 @@ const AddReserv = () => {
             setRTitle(item);
             setTitle(rTitle);
             setRItem(results[i]);
-            // 🚨 한 번에 작동하지 않음 <- 수정 필요
+            setThumbnail(rItem.thumbnailUrl);
             console.log("선택된 제목의 정보 :", rItem);
             setSResult(false);
           }}
@@ -124,38 +129,56 @@ const AddReserv = () => {
   let todayDate = now.getDate();
 
   // 예약 시간 계산 (예약 시작 시간 + 총 재생 시간)
+  // 🚨 이전 값을 받아옴 <- 수정 필요
+  // 값 올리는 것 가능, 값 내리는 것 불가능
   const reservationTime = () => {
     console.log(`입력값 : ${hour1} ${hour2} : ${min1} 0`);
     let hour = parseInt(`${hour1}${hour2}`) + rItem.runtimeHour;
+    let runtimeMin = 0;
     console.log("시 :", hour);
-    if (rItem.runtimeMin > 0) {
-      rItem.runtimeMin = 10;
-    } else if (rItem.runtimeMin > 10) {
-      rItem.runtimeMin = 20;
-    } else if (rItem.runtimeMin > 20) {
-      rItem.runtimeMin = 30;
-    } else if (rItem.runtimeMin > 30) {
-      rItem.runtimeMin = 40;
+    if (rItem.runtimeMin > 50) {
+      runtimeMin = 60;
     } else if (rItem.runtimeMin > 40) {
-      rItem.runtimeMin = 50;
-    } else if (rItem.runtimeMin > 50) {
-      rItem.runtimeMin = 60;
+      runtimeMin = 50;
+    } else if (rItem.runtimeMin > 30) {
+      runtimeMin = 40;
+    } else if (rItem.runtimeMin > 20) {
+      runtimeMin = 30;
+    } else if (rItem.runtimeMin > 10) {
+      runtimeMin = 20;
+    } else if (rItem.runtimeMin > 0) {
+      runtimeMin = 10;
     }
-    let min = parseInt(`${min1}0`) + rItem.runtimeMin;
+    let min = parseInt(`${min1}0`) + runtimeMin;
     console.log("분 :", min);
-
+    // 🚨 임의 값(수정 필요)
+    min = min + 10;
     if (min > 60) {
       hour = hour + min / 60;
+      hour = Math.floor(hour);
       min = min % 60;
     } else if (hour > 23) {
       alert("다음날로 넘어가는 시간에는 예약이 불가능합니다.");
     }
-    hour = hour.toString();
-    min = min.toString();
     console.log("최종 시간 : ", hour, min);
-    setRHour1(hour.substring(0, 1));
-    setRHour2(hour.substring(1, 2));
-    setRMin1(min.substring(0, 1));
+    setRHour1(hour.toString().substring(0, 1));
+    min = min.toString();
+    let rHour = hour;
+
+    if (min.substring(0, 1) === "6") {
+      if (rHour > 23) {
+        alert("다음날로 넘어가는 시간에는 예약이 불가능합니다.");
+      } else {
+        rHour = hour + 1;
+        rHour = rHour.toString();
+        setRHour2(rHour.substring(1, 2));
+        setRMin1(0);
+      }
+    } else {
+      rHour = rHour.toString();
+      setRHour2(rHour.substring(1, 2));
+      setRMin1(min.substring(0, 1));
+    }
     setRMin2(min.substring(1, 2));
   };
 
@@ -176,10 +199,15 @@ const AddReserv = () => {
       .then((res) => {
         console.log("❕예약 등록❕ ", res.data);
         alert("예약이 등록되었습니다!");
-        window.location = "/reservation";
+        props.setPop(false);
       })
       .catch((err) => {
         console.error("⚠️ 예약 등록 ⚠️ ", err);
+        if (err.response.status === 409) {
+          alert(
+            "해당 시간에 다른 확정된 예약이 있거나 오늘 이미 예약을 하셨습니다."
+          );
+        }
       });
   };
 
@@ -188,9 +216,22 @@ const AddReserv = () => {
       <StyledDiv>
         <Modal>
           <AddCatWrapper>
-            <AddCat>영상 가져오기</AddCat>
-            <AddCat default>영상 등록하기</AddCat>
+            <Link to="/addvideo">
+              <AddCat>영상 등록하기</AddCat>
+            </Link>
+            <AddCat default>영상 가져오기</AddCat>
           </AddCatWrapper>
+          <StyledBtn onClick={() => props.setPop(false)}>
+            <FontAwesomeIcon
+              icon={faClose}
+              style={{
+                fontSize: "150%",
+                position: "relative",
+                right: -287,
+                top: 15,
+              }}
+            />
+          </StyledBtn>
           <StyledDiv
             style={{
               flexDirection: "column",
@@ -207,7 +248,7 @@ const AddReserv = () => {
                   type="text"
                   name="title"
                   onChange={onChange}
-                  value={title}
+                  value={rItem.title}
                   style={WhiteBoxStyle}
                 />
                 {sResult ? (
@@ -322,10 +363,7 @@ const AddReserv = () => {
                   marginLeft: 77,
                 }}
               >
-                <img
-                  src={rItem.thumbnailUrl}
-                  style={{ width: 188, height: 106 }}
-                />
+                <img src={thumbnail} style={{ width: 174, height: 98 }} />
                 <div>
                   <p>총 재생 시간</p>
                   <StyledDivRow
@@ -363,7 +401,7 @@ const AddReserv = () => {
             <StyledDiv
               style={{ flexDirection: "column", alignItems: "flex-start" }}
             >
-              <p>영상을 간단하게 소개해주세요!</p>
+              <p style={{ marginBottom: 0 }}>영상을 간단하게 소개해주세요!</p>
               <p
                 style={{
                   borderStyle: "none",
@@ -375,7 +413,9 @@ const AddReserv = () => {
                   alignItems: "center",
                   paddingLeft: 10,
                 }}
-              ></p>
+              >
+                {rItem.description}
+              </p>
             </StyledDiv>
           </StyledDiv>
         </Modal>
@@ -396,7 +436,7 @@ const Modal = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  z-index: 100;
+  z-index: 5;
   display: flex;
   padding-top: 2%;
   flex-direction: column;
@@ -423,7 +463,7 @@ const WhiteBoxBtn = styled(StyledBtn)`
 const AddCatWrapper = styled.div`
   flex-direction: row;
   position: relative;
-  top: -15px;
+  top: 0px;
   left: -320px;
 `;
 
