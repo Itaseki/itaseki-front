@@ -48,13 +48,13 @@ const ReservationListWrapper = () => {
   const [hourLeft, setHourLeft] = useState(false);
   const [doInterval, setDoInterval] = useState(false);
 
-  if (doInterval === true) {
-    setInterval(() => NextVideo(), 1000);
-  }
+  // if (doInterval === true) {
+  //   setInterval(() => NextVideo(), 1000);
+  // }
 
   useEffect(() => {
     nextVideo();
-    NextVideo();
+    // NextVideo();
     console.log("================[ReservationList]================");
   }, []);
 
@@ -137,7 +137,7 @@ const ReservationListWrapper = () => {
         style={{
           height: 85,
           width: 98,
-          position: "fixed",
+          position: "absolute",
           left: 297,
           top: 214,
         }}
@@ -145,7 +145,7 @@ const ReservationListWrapper = () => {
       <img
         src={Line1}
         alt="line1"
-        style={{ width: 13, position: "fixed", left: 395, top: 259 }}
+        style={{ width: 13, position: "absolute", left: 395, top: 259 }}
       />
       <Link to="/running">
         <img
@@ -154,7 +154,7 @@ const ReservationListWrapper = () => {
           style={{
             height: 56,
             width: 190,
-            position: "fixed",
+            position: "absolute",
             left: 408,
             top: 228,
           }}
@@ -163,10 +163,11 @@ const ReservationListWrapper = () => {
       <img
         src={Line2}
         alt="line2"
-        style={{ width: 172, position: "fixed", left: 598, top: 259 }}
+        style={{ width: 172, position: "absolute", left: 598, top: 259 }}
       />
       {next ? (
-        NextVideo()
+        // NextVideo()
+        <></>
       ) : (
         <NothingContainer>
           <p style={{ fontSize: 14, fontWeight: "bold", color: "white" }}>
@@ -177,12 +178,12 @@ const ReservationListWrapper = () => {
       <img
         src={Line3}
         alt="line3"
-        style={{ position: "fixed", left: 732, top: 369 }}
+        style={{ position: "absolute", left: 732, top: 369 }}
       />
       <img
         src={Line3}
         alt="line3"
-        style={{ position: "fixed", left: 732, top: 563 }}
+        style={{ position: "absolute", left: 732, top: 563 }}
       />
       <img
         src={Best_Video}
@@ -190,7 +191,7 @@ const ReservationListWrapper = () => {
         style={{
           height: 450,
           width: 445,
-          position: "fixed",
+          position: "absolute",
           left: 767,
           top: 163,
         }}
@@ -201,7 +202,7 @@ const ReservationListWrapper = () => {
         style={{
           height: 120,
           width: 19,
-          position: "fixed",
+          position: "absolute",
           left: 1010,
           top: 604,
         }}
@@ -221,6 +222,8 @@ export default ReservationListWrapper;
 
 const Wrapper = styled(StyledDivRow)`
   margin-left: 20%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 `;
 
 const NothingContainer = styled(StyledDiv)`
@@ -230,7 +233,7 @@ const NothingContainer = styled(StyledDiv)`
   background-position: center;
   width: 435px;
   height: 288px;
-  position: fixed;
+  position: absolute;
   left: 297px;
   top: 316px;
   border-radius: 10px;
@@ -240,7 +243,7 @@ const NextVideoContainer = styled(StyledDivColumn)`
   background-color: black;
   width: 435px;
   height: 288px;
-  position: fixed;
+  position: absolute;
   left: 297px;
   top: 316px;
   border-radius: 10px;

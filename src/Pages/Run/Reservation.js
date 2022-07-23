@@ -7,6 +7,7 @@ import StyledBtn from "../../Style/StyledBtn";
 
 import AddReserv from "./AddReserv";
 import ReservationListWrapper from "./ReservationList";
+import TimeTable from "./TimeTable";
 
 const Reservation = () => {
   // 예약 추가 팝업
@@ -17,9 +18,10 @@ const Reservation = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ height: 1505, width: "100%" }}>
       <Header />
       <ReservationListWrapper />
+      <TimeTable />
       {pop ? <AddReserv setPop={setPop} /> : <></>}
     </div>
   );
