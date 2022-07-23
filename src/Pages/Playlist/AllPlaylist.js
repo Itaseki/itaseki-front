@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
+import {Link} from "react-router-dom";
 // Components
 import Header from "../../Components/Header";
 import Pagination from "../../Components/Pagination";
+import SubscribedPly from "./SubscribedPly";
 // Style
 import {Line, SortBox, Wrapper} from "../../Style/Video";
-import {FourListWrapper, FourList, OnePlyWrapper, PlyContainer, PlyInfo, TopBtns} from "../../Style/Playlist";
+import {FourListWrapper, FourList, OnePlyWrapper, PlyContainer, PlyInfo, TopBtns, MainLogo} from "../../Style/Playlist";
 import StyledBtn from "../../Style/StyledBtn";
 import {light} from "../../Style/Color";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -51,7 +53,6 @@ const AllPlaylist = () => {
   const [sort, setSort] = useState(""); // 좋아요 순이면 -> likeCount,DESC
   const [search, setSearch] = useState("");
   const [nickname, setNickname] = useState("");
-/*
 
   // 베스트 플리 조회
   useEffect(() => {
@@ -69,7 +70,7 @@ const AllPlaylist = () => {
   // 전체 플레이리스트 조회
   useEffect(() => {
     axios
-        .get(preURL.preURL + `/boards/playlist?page=${page}&sort=${sort}&sort=id,DESC&q=${search}`) /!*&nickname=${nickname}*!/
+        .get(preURL.preURL + `/boards/playlist?page=${page}&sort=${sort}&sort=id,DESC&q=${search}`) /*&nickname=${nickname}*/
         .then((res) => {
           console.log("👍전체 플레이리스트 조회 성공", res.data);
           const totalPage = res.data['totalPageCount'];
@@ -89,7 +90,6 @@ const AllPlaylist = () => {
           console.log("🧨전체 플레이리스트 조회 실패", err);
         })
   },[page, sort]);
-*/
 
   // 최신순 정렬
   const onClickSortNewest = () => {
@@ -147,13 +147,15 @@ const AllPlaylist = () => {
       <div>
         <Header />
         <TopBtns>
-          <img src={Stored_Ply} alt="새 플레이리스트 만들기" />
-          <img src={Add_New_Ply} alt="구독 플레이리스트 보기" />
+          <Link to="/playlist/subscribe">
+            <img src={Stored_Ply} alt="구독 플레이리스트 보기" />
+          </Link>
+          <img src={Add_New_Ply} alt="새 플레이리스트 만들기" />
         </TopBtns>
         <Wrapper>
           {(page===0) &&
               <FourListWrapper>
-                <img src={BestPly} alt="Best Playlist" />
+                <MainLogo src={BestPly} alt="Best Playlist" />
                 <FourList style={{marginTop: "64px"}}>
                   {bestPlaylist.map((bestPly) => {
                     return OnePly(bestPly);
