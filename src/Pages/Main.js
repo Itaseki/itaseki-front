@@ -4,7 +4,7 @@ import preURL from "../preURL/preURL";
 import styled from "styled-components";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
-import OneVideo from "../Components/Main/OneVideo";
+import OneVideo from "../Components/Video/OneVideo";
 
 // Assets
 import Temp_gif from "../Assets/Temp_gif.png";
@@ -18,7 +18,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { light } from "../Style/Color";
 import { Link } from "react-router-dom";
-import OnePly from "../Components/Main/Oneply";
+import OnePly from "../Components/Playlist/Oneply";
 
 const Main = () => {
   const [popCommus, setpopCommus] = useState([]);

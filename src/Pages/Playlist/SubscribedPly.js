@@ -3,7 +3,7 @@ import axios from "axios";
 import preURL from "../../preURL/preURL";
 // Components
 import Header from "../../Components/Header";
-import OnePly from "../../Components/Main/Oneply";
+import OnePly from "../../Components/Playlist/Oneply";
 import Pagination from "../../Components/Pagination";
 import Token from "../../Components/Token";
 // Style
@@ -111,7 +111,7 @@ const SubscribedPly = () => {
         result.map((fourPly) => {
           return (
               <FourPlysWrapper>
-                {fourPly.map((ply) => {return OnePly(ply)})}
+                {fourPly.map((ply) => {return <OnePly ply={ply} />})}
               </FourPlysWrapper>
           )
         })

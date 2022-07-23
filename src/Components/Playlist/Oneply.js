@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import preURL from "../../preURL/preURL";
-// Components
-import Header from "../../Components/Header";
-import Pagination from "../../Components/Pagination";
 // Style
-import { Line, SortBox, Wrapper } from "../../Style/Video";
 import {
-  FourListWrapper,
-  FourList,
   OnePlyWrapper,
   PlyContainer,
   PlyInfo,
@@ -18,15 +10,12 @@ import { light } from "../../Style/Color";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 // Assets
-import BestPly from "../../Assets/Best_Ply.png";
 import Line_info from "../../Assets/Line_info.png";
-import Add_New_Ply from "../../Assets/Add_New_Ply.png";
-import Stored_Ply from "../../Assets/Stored_Ply.png";
 import Ply_Count_Icon from "../../Assets/Ply_Count_Icon.png";
 import Ply_preview from "../../Assets/Ply_preview.png";
 
 // 플레이리스트 한개
-const OnePly = (ply) => {
+const OnePly = ({ply}) => {
   const colors = light.colors;
 
   return (
