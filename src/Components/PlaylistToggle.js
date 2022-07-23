@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import useInput from "../Hooks/useInput";
 import { AutoFrame, OneSelectItemWrapper, ToggleScrollWrapper} from "../Style/Video";
 import axios from "axios";
@@ -6,12 +6,30 @@ import preURL from "../preURL/preURL";
 import styled from "styled-components";
 import StyledBtn from "../Style/StyledBtn";
 
-const PlaylistToggle = ({show, setShow, playListList, playList, setPlayList, selectedPlayListId, setSelectedPlayListId}) => {
+const PlaylistToggle = ({show, setShow}) => {
 
-  // 새로운 플레이리스트
+  const [playListList, setPlayListList] = useState([]); // 받아온 내 플레이리스트 목록
+  /* 등록 처리 필요 */
+  const [playList, setPlayList] = useState([]);
+  const [selectedPlayListId, setSelectedPlayListId] = useState([]);
+  // 새로운 플레이리스트 생성
   const [addNewPly, setAddNewPly] = useState(false);
   const [newPlyName, onChangeNewPlyName, setNewPlyName] = useInput("");
   const [newPlyPublic, setNewPlyPublic] = useState(false);
+
+  // 사용자 플레이리스트 조회
+  useEffect(() => {
+    axios
+        .get(preURL.preURL + `/boards/playlist/user/${1}`)  /*사용자 id*/
+        .then((res) => {
+          setPlayListList(res.data);
+          console.log("👍내 플레이리스트 조회 성공", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log("🧨내 플레이리스트 조회 실패", err);
+        })
+  },[]);
 
   // 플레이리스트에 추가
   const selectPlayList = (prop) => {
