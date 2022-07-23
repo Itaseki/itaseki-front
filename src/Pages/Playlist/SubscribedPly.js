@@ -5,6 +5,7 @@ import preURL from "../../preURL/preURL";
 import Header from "../../Components/Header";
 import OnePly from "../../Components/Main/Oneply";
 import Pagination from "../../Components/Pagination";
+import Token from "../../Components/Token";
 // Style
 import {Line, SortBox, Wrapper} from "../../Style/Video";
 import {
@@ -17,6 +18,7 @@ import StyledBtn from "../../Style/StyledBtn";
 // Assets
 import Subscribed_ply from "../../Assets/Subscribed_ply.png";
 
+const token = Token();  // 토큰
 
 const SubscribedPly = () => {
 
@@ -57,7 +59,7 @@ const SubscribedPly = () => {
     axios
         .get(preURL.preURL + `/boards/playlist/subscribe?page=${page}&sort=${sort}`, {
           headers: {
-            // 토큰
+            'itasekki' : token
           }
         })
         .then((res) => {
