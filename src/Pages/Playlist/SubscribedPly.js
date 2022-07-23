@@ -1,41 +1,34 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
+import preURL from "../../preURL/preURL";
 // Components
 import Header from "../../Components/Header";
-//Style
+import OnePly from "../../Components/Main/Oneply";
+import Pagination from "../../Components/Pagination";
+import Token from "../../Components/Token";
+// Style
 import {Line, SortBox, Wrapper} from "../../Style/Video";
 import {
-  AccountName, FourList, FourListWrapper, FourPlysWrapper,
+  AccountName, FourPlysWrapper,
   ListWrapper,
   MainLogo,
   OneAccountPlysWrapper, OneAccountWrapper,
-  OnePlyWrapper,
-  PlyContainer,
-  PlyInfo
 } from "../../Style/Playlist";
 import StyledBtn from "../../Style/StyledBtn";
-import {faHeart} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {light} from "../../Style/Color";
 // Assets
 import Subscribed_ply from "../../Assets/Subscribed_ply.png";
-import Ply_preview from "../../Assets/Ply_preview.png";
-import Ply_Count_Icon from "../../Assets/Ply_Count_Icon.png";
-import Line_info from "../../Assets/Line_info.png";
-import OnePly from "../../Components/Main/Oneply";
-import Pagination from "../../Components/Pagination";
 
-
-const colors = light.colors;
+const token = Token();  // 토큰
 
 const SubscribedPly = () => {
 
   const [totalPageCount, setTotalPageCount] = useState(1);
   const [allPlyResponse, setAllPlyResponse] = useState([
-    {userNickname: "IU", OneUserPly: [
+    {userNickname: "IU", playlistsResponses: [
         {id: 1, title: "IU 플리1", titleImageUrl: "https://i.ytimg.com/vi/-mM-OTwhw7A/maxresdefault.jpg", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
         {id: 1, title: "IU 플리2", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3}
       ]},
-    {userNickname: "suzy", OneUserPly: [
+    {userNickname: "suzy", playlistsResponses: [
         {id: 1, title: "suzy 플리1", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
         {id: 1, title: "suzy 플리2", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
         {id: 1, title: "suzy 플리3", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
@@ -47,24 +40,51 @@ const SubscribedPly = () => {
         {id: 1, title: "suzy 플리9", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
         // {id: 1, title: "suzy 플리10", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3}
       ]},
-    {userNickname: "user1", OneUserPly: [
+    {userNickname: "user1", playlistsResponses: [
         {id: 1, title: "user1 플리1", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
         {id: 1, title: "user1 플리2", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3}
       ]},
-    {userNickname: "user2", OneUserPly: [
+    {userNickname: "user2", playlistsResponses: [
         {id: 1, title: "user2 플리1", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
         {id: 1, title: "user2 플리2", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3}
       ]},
   ]);
   const [pages, setPages] = useState([1,2,3,4,5]);
   const [page, setPage] = useState(0);  // 현재 페이지
-  const [sort, setSort] = useState(""); // 좋아요 순이면 -> likeCount,DESC
+  const [sort, setSort] = useState("id,DESC"); // 좋아요 순이면 -> likeCount,DESC
+
+
+  // 구독 플레이리스트 조회
+  useEffect(() => {
+    axios
+        .get(preURL.preURL + `/boards/playlist/subscribe?page=${page}&sort=${sort}`, {
+          headers: {
+            'itasekki' : token
+          }
+        })
+        .then((res) => {
+          console.log("👍구독 플레이리스트 조회 성공", res.data);
+          const data = res.data;
+          const totalPage = data['totalPageCount'];
+          setTotalPageCount(totalPage);
+          setAllPlyResponse(data['playlistsResponses']);
+          let list = [];
+          if(totalPage < 5) {
+            for(let i=1; i<=totalPage; i++)
+              list.push(i);
+            setPages(list);
+          }
+        })
+        .catch((err) => {
+          console.log("🧨구독 플레이리스트 조회 실패", err);
+        })
+  }, [page, sort]);
 
 
   // 최신순 정렬
   const onClickSortNewest = () => {
     console.log("최신순 정렬");
-    setSort("");
+    setSort("id,DESC");
   };
 
   // 좋아요순 정렬
@@ -102,7 +122,7 @@ const SubscribedPly = () => {
   const AllPlys = allPlyResponse.map((account) => {
 
     const name = account.userNickname;
-    const plys = account.OneUserPly;
+    const plys = account.playlistsResponses;
 
     let fourPly = [];
     return (
