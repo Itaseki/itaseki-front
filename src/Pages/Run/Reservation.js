@@ -13,14 +13,13 @@ const Reservation = () => {
   const [pop, setPop] = useState(false);
 
   useEffect(() => {
-    console.log(
-      "==============================[Reservation]=============================="
-    );
+    console.log("================[Reservation]================");
   }, []);
+
   return (
     <div>
       <Header />
-      {/* <ReservationListWrapper /> */}
+      <ReservationListWrapper />
       {pop ? <AddReserv setPop={setPop} /> : <></>}
     </div>
   );
