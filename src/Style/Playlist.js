@@ -89,7 +89,7 @@ export const AccountName = styled.div`
 
 export const OneAccountPlysWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin-bottom: 2%;
 `
 

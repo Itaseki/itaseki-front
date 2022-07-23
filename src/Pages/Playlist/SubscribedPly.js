@@ -4,7 +4,7 @@ import Header from "../../Components/Header";
 //Style
 import {Line, SortBox, Wrapper} from "../../Style/Video";
 import {
-  AccountName, FourList, FourListWrapper,
+  AccountName, FourList, FourListWrapper, FourPlysWrapper,
   ListWrapper,
   MainLogo,
   OneAccountPlysWrapper, OneAccountWrapper,
@@ -38,10 +38,14 @@ const SubscribedPly = () => {
     {userNickname: "suzy", OneUserPly: [
         {id: 1, title: "suzy 플리1", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
         {id: 1, title: "suzy 플리2", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
-        {id: 1, title: "suzy 플리1", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
-        {id: 1, title: "suzy 플리2", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
-        {id: 1, title: "suzy 플리1", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
-        {id: 1, title: "suzy 플리2", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3}
+        {id: 1, title: "suzy 플리3", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+        {id: 1, title: "suzy 플리4", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+        {id: 1, title: "suzy 플리5", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+        {id: 1, title: "suzy 플리6", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+        {id: 1, title: "suzy 플리7", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+        {id: 1, title: "suzy 플리8", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+        {id: 1, title: "suzy 플리9", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+        // {id: 1, title: "suzy 플리10", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3}
       ]},
     {userNickname: "user1", OneUserPly: [
         {id: 1, title: "user1 플리1", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
@@ -69,6 +73,31 @@ const SubscribedPly = () => {
     setSort("likeCount,DESC");
   };
 
+
+  // 하나의 계정의 플리들
+  const OneAccountPly = (plys) => {
+    let fourPly = [];
+    let result = [];  // 4개씩 담은 이중배열
+    for(let i=0; i<plys.length; i++){
+      fourPly = [...fourPly, plys[i]];
+      if(fourPly.length === 4) {
+        result.push(fourPly);
+        fourPly = [];
+      }
+    }
+    result.push(fourPly);
+
+    return (
+        result.map((fourPly) => {
+          return (
+              <FourPlysWrapper>
+                {fourPly.map((ply) => {return OnePly(ply)})}
+              </FourPlysWrapper>
+          )
+        })
+    )
+  }
+
   // 전체 결과
   const AllPlys = allPlyResponse.map((account) => {
 
@@ -80,9 +109,7 @@ const SubscribedPly = () => {
         <OneAccountWrapper>
           <AccountName>{name}</AccountName>
           <OneAccountPlysWrapper>
-            {plys.map((ply) => {
-              return OnePly(ply)
-            })}
+            {OneAccountPly(plys)}
           </OneAccountPlysWrapper>
           <Line />
         </OneAccountWrapper>
