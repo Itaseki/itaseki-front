@@ -33,7 +33,8 @@ const GIFBoardDetail = ({ match }) => {
     isThisUserWriter: false,
     hashtags: ["1", "2", "3"],
   });
-  const [likeCount, setLikeCount] = useState(detailInfo.likeCount);
+  let [likeCount, setLikeCount] = useState(detailInfo.likeCount);
+  let [Ltime, setLtime] = useState(detailInfo.LocalDateTime);
 
   useEffect(() => {
     console.log(
@@ -62,7 +63,8 @@ const GIFBoardDetail = ({ match }) => {
       .post(preURL.preURL + `/boards/image/${Id}/likes`)
       .then((res) => {
         console.error("❕짤 좋아요 등록/취소❕ ", res.data);
-        setLikeCount(res.data);
+        console.log(likeCount);
+        setLikeCount((prev) => res.data);
       })
       .catch((err) => {
         console.error("⚠️ 짤 좋아요 등록/취소 ⚠️ ", err);
@@ -133,7 +135,7 @@ const GIFBoardDetail = ({ match }) => {
             </Detail>
             <Detail>|</Detail>
             <Detail>{detailInfo.createdTime}</Detail>
-            <Detail>{detailInfo.LocalDateTime}</Detail>
+            <Detail>{Ltime}</Detail>
             <Detail>|</Detail>
             <Detail>조회 {detailInfo.viewCount}</Detail>
             <Detail>|</Detail>
