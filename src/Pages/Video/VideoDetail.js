@@ -180,7 +180,7 @@ const VideoDetail = () => {
             <AButton style={{borderWidth: "4px"}} onClick={onClickLike}>좋아요</AButton>
             <AButton onClick={onClickReport}>신고하기</AButton>
           </AdditionalBtns>
-          <CommentList contentInfo={video} commentList={comments} board={"video"} boardId={videoId} />
+          <CommentList commentCount={video.commentCount} commentList={comments} board={"video"} boardId={videoId} />
         </Wrapper>
       </div>
   )

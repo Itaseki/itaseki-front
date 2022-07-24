@@ -3,9 +3,11 @@ import styled from "styled-components";
 export const TopBtns = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   margin-right: 150px;
-  & > img {
+  & img {
     margin: 0 5px;
+    width: 200px;
   }
 `
 
@@ -26,46 +28,10 @@ export const FourList = styled.div`
   margin: 2% 0;
 `
 
-export const OnePlyWrapper = styled.div`
-  width: 25%;
-`
-
-export const PlyContainer = styled.div`
-  background-color: gray;
-  width: 240px;
-  height: 135px;
-  position: relative;
-  & > #thumbnail {
-    width: 240px;
-    height: 135px;
-    position: absolute;
-  }
-  & > #cover {
-    position: absolute;
-    z-index: 2;
-    right: 0;
-  }
-`
-
-// 플레이리스트 하단 정보
-export const PlyInfo = styled.div`
-  width: 240px;
-  margin: 3px 0;
-  display: flex;
-  justify-content: space-between;
-  & > #title {
-    cursor: pointer;
-  }
-  & > #info-right {
-    display: flex;
-    align-items: center;
-  }
-`
-
 ////////////////////// SubscribedPly ////////////////////////
 export const ListWrapper = styled.div`
   width: 100%;
-  margin-top: 60px;
+  margin-top: 30px;
 `
 
 export const OneAccountWrapper = styled.div`
@@ -96,4 +62,60 @@ export const OneAccountPlysWrapper = styled.div`
 export const FourPlysWrapper = styled.div`
   display: flex;
   flex-direction: row;
+`
+
+/////////////////////////// Playlistdetail //////////////////////////
+export const PlaylistWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 20px 0;
+  padding: 20px;
+  & > #line {
+    border-left: 4px dashed black;
+  }
+`
+
+export const VideosWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const OneVideoInPly = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+`
+
+export const VideoNum = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 0 10px 0 5px;
+  align-items: center;
+  font-weight: bold;
+`
+
+// 영상 썸네일
+export const VideoContainer = styled.div`
+  width: 336px;
+  height: 189px;
+  background: gray;
+  cursor: pointer;
+  & > img{
+    width: 336px;
+    height: 189px;
+  }
+`
+
+export const PlyVideoInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+  & > span{
+    font-size: small;
+  }
+  & #title{
+    font-size: large;
+    font-weight: bold;
+    margin-right: 5px;
+  }
 `

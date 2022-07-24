@@ -12,11 +12,14 @@ import {
   AccountName, FourPlysWrapper,
   ListWrapper,
   MainLogo,
-  OneAccountPlysWrapper, OneAccountWrapper,
+  OneAccountPlysWrapper, OneAccountWrapper, TopBtns,
 } from "../../Style/Playlist";
 import StyledBtn from "../../Style/StyledBtn";
 // Assets
 import Subscribed_ply from "../../Assets/Subscribed_ply.png";
+import {Link} from "react-router-dom";
+import Stored_Ply from "../../Assets/Stored_Ply.png";
+import Add_New_Ply from "../../Assets/Add_New_Ply.png";
 
 const token = Token();  // 토큰
 
@@ -140,6 +143,12 @@ const SubscribedPly = () => {
   return (
       <div>
         <Header />
+        <TopBtns>
+          <Link to="/playlist/subscribe">
+            <img src={Stored_Ply} alt="구독 플레이리스트 보기" />
+          </Link>
+          <img src={Add_New_Ply} alt="새 플레이리스트 만들기" />
+        </TopBtns>
         <Wrapper>
           <MainLogo
               src={Subscribed_ply}

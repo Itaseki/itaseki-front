@@ -7,7 +7,7 @@ import preURL from "../../preURL/preURL";
 import useInput from "../../Hooks/useInput";
 
 
-const CommentList = ({contentInfo, commentList, board, boardId}) => {
+const CommentList = ({commentCount, commentList, board, boardId}) => {
   const [newComment, onChangeNewComment, setNewComment] = useInput("");
 
   // 댓글 등록
@@ -30,7 +30,7 @@ const CommentList = ({contentInfo, commentList, board, boardId}) => {
   return (
       <CommentsWrapper>
         <CommentsListWrapper>
-          <p>댓글 {contentInfo.commentCount}</p>
+          <p>댓글 {commentCount}</p>
           {commentList.map((comment) => (
               <SingleComment comment={comment} board={board} boardId={boardId}/>
           ))}

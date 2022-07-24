@@ -1,27 +1,23 @@
 import React, {useEffect, useState} from 'react';
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
+import preURL from "../../preURL/preURL";
+// Components
 import Header from "../../Components/Header";
+import Pagination from "../../Components/Pagination";
+import OneVideo from "../../Components/Video/OneVideo";
+// Style
 import {
   Line,
-  OneVideoWrapper,
   SortBox,
-  VideoContainer,
-  VideoInfo,
   VideoList,
   VideoListWrapper,
   Wrapper,
 } from "../../Style/Video";
-import TV from '../../Assets/Best_Video_TV.png';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHeart} from "@fortawesome/free-solid-svg-icons";
 import StyledBtn from "../../Style/StyledBtn";
-import preURL from "../../preURL/preURL";
-import axios from "axios";
-import PlayListIcon from "../../Assets/Playlist_mini.png";
-import {useNavigate} from "react-router-dom";
+// Aseets
+import TV from '../../Assets/Best_Video_TV.png';
 import Add_New_Video from "../../Assets/Add_new_video.png";
-import Pagination from "../../Components/Pagination";
-import PlaylistToggle from "../../Components/Playlist/PlaylistToggle";
-import OneVideo from "../../Components/Video/OneVideo";
 
 const AllVideo = () => {
   const navigate = useNavigate();
