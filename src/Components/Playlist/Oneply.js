@@ -1,43 +1,32 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import preURL from "../../preURL/preURL";
-// Components
-import Header from "../../Components/Header";
-import Pagination from "../../Components/Pagination";
+import React from "react";
+import {useNavigate} from "react-router-dom";
 // Style
-import { Line, SortBox, Wrapper } from "../../Style/Video";
-import {
-  FourListWrapper,
-  FourList,
-  OnePlyWrapper,
-  PlyContainer,
-  PlyInfo,
-} from "../../Style/Playlist";
+import styled from "styled-components";
 import StyledBtn from "../../Style/StyledBtn";
 import { light } from "../../Style/Color";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 // Assets
-import BestPly from "../../Assets/Best_Ply.png";
 import Line_info from "../../Assets/Line_info.png";
-import Add_New_Ply from "../../Assets/Add_New_Ply.png";
-import Stored_Ply from "../../Assets/Stored_Ply.png";
 import Ply_Count_Icon from "../../Assets/Ply_Count_Icon.png";
 import Ply_preview from "../../Assets/Ply_preview.png";
 
 // 플레이리스트 한개
-const OnePly = (ply) => {
+const OnePly = ({ply}) => {
   const colors = light.colors;
+  const navigate = useNavigate();
 
   return (
     <OnePlyWrapper>
-      <PlyContainer>
+      <PlyContainer onClick={() => navigate(`/playlist/${ply.id}`)}>
         <img id="thumbnail" src={ply.titleImageUrl} alt="썸네일" />
         <img id="cover" src={Ply_preview} alt="썸네일 커버" />
       </PlyContainer>
       <div>
         <PlyInfo>
-          <span id="title">{ply.title}</span>
+          <span id="title" onClick={() => navigate(`/playlist/${ply.id}`)}>
+            {ply.title}
+          </span>
           <div id="info-right">
             <StyledBtn>
               <FontAwesomeIcon
@@ -49,7 +38,9 @@ const OnePly = (ply) => {
                 }}
               />
             </StyledBtn>
-            <span style={{ color: "#D9767C" }}>{ply.likeCount}</span>
+            <span style={{ color: "#D9767C" }}>
+              {ply.likeCount}
+            </span>
             <img
               src={Ply_Count_Icon}
               alt="저장된 카운트"
@@ -71,3 +62,41 @@ const OnePly = (ply) => {
 };
 
 export default OnePly;
+
+
+const OnePlyWrapper = styled.div`
+  width: 25%;
+`
+
+const PlyContainer = styled.div`
+  background-color: gray;
+  width: 240px;
+  height: 135px;
+  position: relative;
+  cursor: pointer;
+  & > #thumbnail {
+    width: 240px;
+    height: 135px;
+    position: absolute;
+  }
+  & > #cover {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+  }
+`
+
+// 플레이리스트 하단 정보
+const PlyInfo = styled.div`
+  width: 240px;
+  margin: 3px 0;
+  display: flex;
+  justify-content: space-between;
+  & > #title {
+    cursor: pointer;
+  }
+  & > #info-right {
+    display: flex;
+    align-items: center;
+  }
+`

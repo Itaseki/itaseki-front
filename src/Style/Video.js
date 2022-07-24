@@ -211,33 +211,6 @@ export const VideoList = styled.div`
   margin: 2% 0;
 `
 
-export const OneVideoWrapper = styled.div`
-  width: 25%;
-`
-
-// 영상 썸네일
-export const VideoContainer = styled.div`
-  width: 240px;
-  height: 135px;
-  background: var(--sub-color);
-  cursor: pointer;
-`
-
-// 영상 썸네일 하단 정보
-export const VideoInfo = styled.div`
-  width: 240px;
-  margin: 3px 0;
-  display: flex;
-  justify-content: space-between;
-  & > #title {
-    cursor: pointer;
-  }
-  & > #info-right {
-    display: flex;
-    align-items: center;
-  }
-`
-
 export const Line = styled.div`
   width: 100%;
   border-bottom: 3px dashed black;

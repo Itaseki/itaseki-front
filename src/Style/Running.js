@@ -25,6 +25,7 @@ export const Body = styled.div`
 export const Video = styled.div`
   width: 70%;
   height: 0;
+  position: relative;
   padding-bottom: 43.74%;
   margin: 10px;
   background-color: gray;

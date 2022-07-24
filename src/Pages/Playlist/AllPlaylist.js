@@ -1,23 +1,20 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
+import {Link} from "react-router-dom";
 // Components
 import Header from "../../Components/Header";
 import Pagination from "../../Components/Pagination";
+import OnePly from "../../Components/Playlist/Oneply";
 // Style
 import {Line, SortBox, Wrapper} from "../../Style/Video";
-import {FourListWrapper, FourList, OnePlyWrapper, PlyContainer, PlyInfo, TopBtns} from "../../Style/Playlist";
+import {FourListWrapper, FourList, TopBtns, MainLogo} from "../../Style/Playlist";
 import StyledBtn from "../../Style/StyledBtn";
 import {light} from "../../Style/Color";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHeart} from "@fortawesome/free-solid-svg-icons";
 // Assets
 import BestPly from "../../Assets/Best_Ply.png";
-import Line_info from "../../Assets/Line_info.png";
 import Add_New_Ply from "../../Assets/Add_New_Ply.png";
 import Stored_Ply from "../../Assets/Stored_Ply.png";
-import Ply_Count_Icon from "../../Assets/Ply_Count_Icon.png";
-import Ply_preview from "../../Assets/Ply_preview.png";
 
 
 const AllPlaylist = () => {
@@ -51,7 +48,6 @@ const AllPlaylist = () => {
   const [sort, setSort] = useState(""); // 좋아요 순이면 -> likeCount,DESC
   const [search, setSearch] = useState("");
   const [nickname, setNickname] = useState("");
-/*
 
   // 베스트 플리 조회
   useEffect(() => {
@@ -69,7 +65,7 @@ const AllPlaylist = () => {
   // 전체 플레이리스트 조회
   useEffect(() => {
     axios
-        .get(preURL.preURL + `/boards/playlist?page=${page}&sort=${sort}&sort=id,DESC&q=${search}`) /!*&nickname=${nickname}*!/
+        .get(preURL.preURL + `/boards/playlist?page=${page}&sort=${sort}&sort=id,DESC&q=${search}`) /*&nickname=${nickname}*/
         .then((res) => {
           console.log("👍전체 플레이리스트 조회 성공", res.data);
           const totalPage = res.data['totalPageCount'];
@@ -89,7 +85,6 @@ const AllPlaylist = () => {
           console.log("🧨전체 플레이리스트 조회 실패", err);
         })
   },[page, sort]);
-*/
 
   // 최신순 정렬
   const onClickSortNewest = () => {
@@ -104,59 +99,23 @@ const AllPlaylist = () => {
   };
 
 
-  // 플레이리스트 한개
-  const OnePly = (ply) => {
-    return (
-        <OnePlyWrapper>
-          <PlyContainer>
-            <img id="thumbnail" src={ply.titleImageUrl} alt="썸네일" />
-            <img id="cover" src={Ply_preview} alt="썸네일 커버" />
-          </PlyContainer>
-          <div>
-            <PlyInfo>
-              <span id="title">
-                {ply.title}
-              </span>
-              <div id="info-right">
-                <StyledBtn>
-                  <FontAwesomeIcon
-                      icon={faHeart}
-                      style={{ fontSize: "80%", color: "#D9767C", marginLeft: "auto" }}
-                  />
-                </StyledBtn>
-                <span style={{color: "#D9767C"}}>{ply.likeCount}</span>
-                <img
-                    src={Ply_Count_Icon}
-                    alt="저장된 카운트"
-                    style={{width: "22px", height: "13px", marginLeft: "4px"}}/>
-                <span>{ply.saveCount}</span>
-              </div>
-            </PlyInfo>
-            <div style={{fontSize: "small"}}>
-              <span>{ply.writerNickname}</span>
-              <img src={Line_info} alt="line" style={{margin: "0 10px"}}/>
-              <span style={{color: colors.reservColor}}>총 {ply.videoCount}개 영상</span>
-            </div>
-          </div>
-        </OnePlyWrapper>
-    )
-  };
-
 
   return (
       <div>
         <Header />
         <TopBtns>
-          <img src={Stored_Ply} alt="새 플레이리스트 만들기" />
-          <img src={Add_New_Ply} alt="구독 플레이리스트 보기" />
+          <Link to="/playlist/subscribe">
+            <img src={Stored_Ply} alt="구독 플레이리스트 보기" />
+          </Link>
+          <img src={Add_New_Ply} alt="새 플레이리스트 만들기" />
         </TopBtns>
         <Wrapper>
           {(page===0) &&
               <FourListWrapper>
-                <img src={BestPly} alt="Best Playlist" />
+                <MainLogo src={BestPly} alt="Best Playlist" />
                 <FourList style={{marginTop: "64px"}}>
                   {bestPlaylist.map((bestPly) => {
-                    return OnePly(bestPly);
+                    return <OnePly ply={bestPly} />;
                   })}
                 </FourList>
                 <Line />
@@ -166,18 +125,18 @@ const AllPlaylist = () => {
             {/*수정 필요*/}
             <FourList>
               {playlist1.map((ply) => {
-                return OnePly(ply)
+                return <OnePly ply={ply} />
               })}
             </FourList>
             <FourList>
               {playlist2.map((ply) => {
-                return OnePly(ply)
+                return <OnePly ply={ply} />
               })}
             </FourList>
             {playlist3 &&
                 <FourList>
                   {playlist3.map((ply) => {
-                    return OnePly(ply)
+                    return <OnePly ply={ply} />
                   })}
                 </FourList>
             }

@@ -1,26 +1,23 @@
 import React, {useEffect, useState} from 'react';
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
+import preURL from "../../preURL/preURL";
+// Components
 import Header from "../../Components/Header";
+import Pagination from "../../Components/Pagination";
+import OneVideo from "../../Components/Video/OneVideo";
+// Style
 import {
   Line,
-  OneVideoWrapper,
   SortBox,
-  VideoContainer,
-  VideoInfo,
   VideoList,
   VideoListWrapper,
   Wrapper,
 } from "../../Style/Video";
-import TV from '../../Assets/Best_Video_TV.png';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHeart} from "@fortawesome/free-solid-svg-icons";
 import StyledBtn from "../../Style/StyledBtn";
-import preURL from "../../preURL/preURL";
-import axios from "axios";
-import PlayListIcon from "../../Assets/Playlist_mini.png";
-import {useNavigate} from "react-router-dom";
+// Aseets
+import TV from '../../Assets/Best_Video_TV.png';
 import Add_New_Video from "../../Assets/Add_new_video.png";
-import Pagination from "../../Components/Pagination";
-import PlaylistToggle from "../../Components/PlaylistToggle";
 
 const AllVideo = () => {
   const navigate = useNavigate();
@@ -43,11 +40,7 @@ const AllVideo = () => {
   const [page, setPage] = useState(0);  // 현재 페이지
   const [sort, setSort] = useState(""); // 좋아요 순이면 -> likeCount,DESC
   const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);  // 플레이리스트 모달창 보이기
-  const [playListList, setPlayListList] = useState([]); // 받아온 내 플레이리스트 목록
   const [clickedPlyId, setClickedPlyId] = useState(-1); // 클릭한 플레이리스트 아이콘 id
-  /* 등록 처리 필요 */
-  const [playList, setPlayList] = useState([]);
-  const [selectedPlayListId, setSelectedPlayListId] = useState([]);
   // 검색
   const [searchHashtag1, setSearchHashtag1] = useState("");
   const [searchHashtag2, setSearchHashtag2] = useState("");
@@ -96,19 +89,7 @@ const AllVideo = () => {
         })
   }, [sort, page]);
 
-  // 사용자 플레이리스트 조회
-  useEffect(() => {
-    axios
-        .get(preURL.preURL + `/boards/playlist/user/${1}`)  /*사용자 id*/
-        .then((res) => {
-          setPlayListList(res.data);
-          console.log("👍내 플레이리스트 조회 성공", res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-          console.log("🧨내 플레이리스트 조회 실패", err);
-        })
-  },[playListToggleDisplay]);
+
 
   // 플레이리스트에 추가하기 아이콘 클릭
   const onClickAddToPlaylist = (e) => {
@@ -131,53 +112,6 @@ const AllVideo = () => {
   };
 
 
-  // 각 비디오
-  const OneVideo = (video) => {
-    const videoId = video.id;
-    return (
-        <OneVideoWrapper>
-          <VideoContainer onClick={()=>navigate(`/videolist/${videoId}`)}>
-            <img src={video.thumbnailUrl} alt="썸네일" style={{width: "240px", height: "135px"}}/>
-          </VideoContainer>
-          <div>
-            <VideoInfo>
-              <span id="title" onClick={()=>navigate(`/videolist/${videoId}`)}>
-                {video.title}
-              </span>
-              <div id="info-right">
-                <StyledBtn>
-                  <FontAwesomeIcon
-                      icon={faHeart}
-                      style={{ fontSize: "80%", color: "#D9767C", marginLeft: "auto" }}
-                  />
-                </StyledBtn>
-                <span style={{color: "#D9767C"}}>{video.likeCount}</span>
-                <img
-                    src={PlayListIcon}
-                    alt="플레이리스트에 추가"
-                    id={videoId}
-                    onClick={onClickAddToPlaylist}
-                    style={{marginLeft: "4px", cursor: "pointer"}}/>
-                {clickedPlyId === videoId &&   /*클릭한 아이콘과 id가 동일한 모달창에만 적용되도록*/
-                    <PlaylistToggle
-                        show={playListToggleDisplay}
-                        setShow={setPlayListToggleDisplay}
-                        playListList={playListList}
-                        playList={playList}
-                        setPlayList={setPlayList}
-                        selectedPlayListId={selectedPlayListId}
-                        setSelectedPlayListId={setSelectedPlayListId}
-                    />
-                }
-              </div>
-            </VideoInfo>
-            <span style={{fontSize: "small", color: "var(--main-color)"}}>{video.writerNickname}</span>
-          </div>
-        </OneVideoWrapper>
-    )
-  };
-
-
   return (
       <div>
         <Header />
@@ -193,7 +127,7 @@ const AllVideo = () => {
                 <img src={TV} alt="Best Videos" />
                 <VideoList style={{marginTop: "5%"}}>
                   {bestVideos.map((bestVideo) => {
-                    return OneVideo(bestVideo)
+                    return <OneVideo video={bestVideo}/>
                   })}
                 </VideoList>
                 <Line />
@@ -202,13 +136,13 @@ const AllVideo = () => {
           <VideoListWrapper>
             <VideoList>
               {videos1.map((video) => {
-                return OneVideo(video)
+                return <OneVideo video={video}/>
               })}
             </VideoList>
             {videos2 &&
                 <VideoList>
                   {videos2.map((video) => {
-                    return OneVideo(video)
+                    return <OneVideo video={video}/>
                   })}
                 </VideoList>
             }

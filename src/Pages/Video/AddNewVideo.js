@@ -6,7 +6,7 @@ import axios from "axios";
 // Components
 import Header from "../../Components/Header";
 import YoutubeAPI from "../../Components/Video/YoutubeAPI";
-import PlaylistToggle from "../../Components/PlaylistToggle";
+import PlaylistToggle from "../../Components/Playlist/PlaylistToggle";
 // Style
 import {
   AddToPlayList, AddVideoBtn,
@@ -31,8 +31,6 @@ const AddNewVideo = () => {
   const [searchSeries, onChangeSearchSeries, setSearchSeries] = useInput("");
   const [hashTagsList, setHashTagsList] = useState([{id: 0, name: ""}]);
   const [hashTag1, setHashTag1] = useState([]);
-  const [playListList, setPlayListList] = useState([]);
-  const [playList, setPlayList] = useState([]);
   const [seriesToggleDisplay, setSeriesToggleDisplay] = useState(false);
   const [hashTagToggleDisplay, setHashTagToggleDisplay] = useState(false);
   const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
@@ -45,7 +43,6 @@ const AddNewVideo = () => {
   const [episode, onChangeEpisode, setEpisode] = useInput("");  // Int
   const [selectedHashtagId, setSelectedHashtagId] = useState([]);
   const [hashTag2, onChangeHashTag2, setHashTag2] = useInput("");
-  const [selectedPlayListId, setSelectedPlayListId] = useState([]);
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [videoUploader, setVideoUploader] = useState("");
 
@@ -64,19 +61,6 @@ const AddNewVideo = () => {
         })
   }, []);
 
-  // 사용자 플레이리스트 조회
-  useEffect(() => {
-    axios
-        .get(preURL.preURL + `/boards/playlist/user/${1}`)  /*사용자 id*/
-        .then((res) => {
-          setPlayListList(res.data);
-          console.log("👍내 플레이리스트 조회 성공", res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-          console.log("🧨내 플레이리스트 조회 실패", err);
-        })
-  },[]);
 
   // 유튜브 데이터 불러오기
   async function callYoutube() {
@@ -209,7 +193,7 @@ const AddNewVideo = () => {
           episode: episode,
           hashtags: selectedHashtagId,
           keywords: [hashTag2],
-          playlists: selectedPlayListId,
+          playlists: [],
           thumbnailUrl: thumbnailUrl,
           videoUploader: videoUploader,
         })
@@ -331,19 +315,13 @@ const AddNewVideo = () => {
             <AddToPlayList>
               <p>내 플레이리스트에 추가</p>
               <input
-                  type="text"
-                  value={playList}
+                  readOnly
                   onFocus={()=>setPlayListToggleDisplay(true)}
                   onBlur={()=>setPlayListToggleDisplay(false)}
               />
               <PlaylistToggle
                   show={playListToggleDisplay}
                   setShow={setPlayListToggleDisplay}
-                  playListList={playListList}
-                  playList={playList}
-                  setPlayList={setPlayList}
-                  selectedPlayListId={selectedPlayListId}
-                  setSelectedPlayListId={setSelectedPlayListId}
               />
             </AddToPlayList>
             <AddVideoBtn type="submit">
