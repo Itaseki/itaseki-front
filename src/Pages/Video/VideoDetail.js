@@ -145,7 +145,7 @@ const VideoDetail = () => {
               <div id="uploader">{video.videoUploader}</div>
             </TitleUploader>
             <IFrame>
-              <YoutubeIframe url={video.url} />
+              <YoutubeIframe url={video.url} width="720" height="405"/>
             </IFrame>
             <a href={video.url} target="_blank" style={{color: "gray"}}>{video.url}</a>
           </VideoWrapper>
