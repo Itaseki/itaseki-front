@@ -3,9 +3,11 @@ import styled from "styled-components";
 export const TopBtns = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   margin-right: 150px;
-  & > img {
+  & img {
     margin: 0 5px;
+    width: 200px;
   }
 `
 
@@ -29,7 +31,7 @@ export const FourList = styled.div`
 ////////////////////// SubscribedPly ////////////////////////
 export const ListWrapper = styled.div`
   width: 100%;
-  margin-top: 60px;
+  margin-top: 30px;
 `
 
 export const OneAccountWrapper = styled.div`

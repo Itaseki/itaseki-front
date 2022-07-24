@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import Header from "../../Components/Header";
 import {AButton, AdditionalBtns, DetailInfo, DetailTitle, TitleWrapper, Wrapper} from "../../Style/Community";
 import StyledBtn from "../../Style/StyledBtn";
@@ -12,12 +12,14 @@ import CommentList from "../../Components/Comment/CommentList";
 import {
   OneVideoInPly,
   PlaylistWrapper,
-  PlyVideoInfo,
+  PlyVideoInfo, TopBtns,
   VideoContainer,
   VideoNum,
   VideosWrapper
 } from "../../Style/Playlist";
 import Dot3_btn from "../../Assets/Dot3_btn.png";
+import Stored_Ply from "../../Assets/Stored_Ply.png";
+import Add_New_Ply from "../../Assets/Add_New_Ply.png";
 
 const PlaylistDetail = () => {
   const plyId = useParams().id;
@@ -63,6 +65,12 @@ const PlaylistDetail = () => {
   return (
       <div>
         <Header />
+        <TopBtns>
+          <Link to="/playlist/subscribe">
+            <img src={Stored_Ply} alt="구독 플레이리스트 보기" />
+          </Link>
+          <img src={Add_New_Ply} alt="새 플레이리스트 만들기" />
+        </TopBtns>
         <Wrapper>
           <TitleWrapper>
             <DetailTitle>
