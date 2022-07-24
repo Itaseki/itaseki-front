@@ -51,7 +51,7 @@ const GIFBoard = () => {
   const [page, setPage] = useState(0);
   const [pages, setPages] = useState([1, 2, 3, 4, 5]);
   // 정렬 기준
-  const [sort1, setSort1] = useState("likeCount,DESC");
+  const [sort1, setSort1] = useState("id,DESC");
   const [sort2, setSort2] = useState("id,DESC");
 
   // 새 짤 이미지
@@ -111,7 +111,7 @@ const GIFBoard = () => {
               }}
             />
           </StyledBtn>
-          <p style={{ fontSize: "12px", color: "#D9767C" }}>{gifs.heart}</p>
+          <p style={{ fontSize: "12px", color: "#D9767C" }}>{gifs.likeCount}</p>
         </MapList>
       </div>
     );
@@ -161,7 +161,7 @@ const GIFBoard = () => {
             />
           </StyledBtn>
           <p style={{ fontSize: "12px", color: `${mainOrange}` }}>
-            {gifs.heart}
+            {gifs.likeCount}
           </p>
         </MapList>
       </GIFBox>
@@ -193,7 +193,7 @@ const GIFBoard = () => {
             />
           </StyledBtn>
           <p style={{ fontSize: "12px", color: `${mainOrange}` }}>
-            {gifs.heart}
+            {gifs.likeCount}
           </p>
         </MapList>
       </GIFBox>

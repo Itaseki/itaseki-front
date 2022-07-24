@@ -1,7 +1,7 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { WithContext as ReactTags } from "react-tag-input";
 import styled from "styled-components";
 import Header from "../../Components/Header";
@@ -16,6 +16,7 @@ import {
 } from "../../Style/StyledDiv";
 
 import Board_Enter from "../../Assets/Board_Enter.png";
+import "../../Style/NewBoard.css";
 
 const NewBoard = () => {
   let [tags, setTags] = useState([]);
@@ -71,15 +72,33 @@ const NewBoard = () => {
   };
 
   const onAddNewPost = () => {
-    const img = new FormData();
-    img.append("imageUrl", files);
-    console.log("url :", preURL.preURL + `/boards/image`, "보내는 data :", img);
+    const formData = new FormData();
+    formData.append("imageUrl", files);
+    let imageBoardDto = JSON.stringify({
+      imageBoardTitle: title,
+      hashtags: tags,
+    });
+
+    formData.append("imageBoardDto", imageBoardDto);
+    console.log(
+      "url :",
+      preURL.preURL + `/boards/image`,
+      "보내는 data :",
+      formData
+    );
+    let config = {
+      headers: {
+        "Content-Type": `application/x-www-form-urlencoded`,
+      },
+    };
+
+    // 임시
+    alert("새 짤이 등록되었습니다!");
+    document.location.href = "/boards";
     axios
-      .post(preURL.preURL + `/boards/image`, img)
+      .post(preURL.preURL + `/boards/image`, formData, config)
       .then((res) => {
         console.log("❕새 짤 등록❕ ", res.data);
-        alert("새 짤이 등록되었습니다!");
-        document.location.href("/board");
       })
       .catch((err) => {
         console.log("⚠️ 새 짤 등록 ⚠️ ", err);
@@ -98,7 +117,12 @@ const NewBoard = () => {
           placeholder="제목을 입력하세요."
         />
         <StyledDivRow
-          style={{ alignSelf: "flex-start", marginLeft: "6.3%", marginTop: 20 }}
+          style={{
+            alignItems: "center",
+            alignSelf: "flex-start",
+            marginLeft: "6.3%",
+            marginTop: 20,
+          }}
         >
           <ReactTags
             tags={tags}
@@ -107,6 +131,7 @@ const NewBoard = () => {
             handleAddition={handleAddition}
             handleTagClick={handleTagClick}
             inputFieldPosition="inline"
+            placeholder="해시태그 (최대 3개)"
             autocomplete
             style={{
               width: 146,
@@ -114,11 +139,10 @@ const NewBoard = () => {
               opacity: 0.65,
               border: "5px dashed #000000",
               borderRadius: 29,
+              display: "flex",
+              alignItems: "center",
             }}
           />
-          {tags.map((tag, index) => {
-            return <TagBox id={index}>{tag.text}</TagBox>;
-          })}
         </StyledDivRow>
         <div
           style={{
@@ -150,7 +174,7 @@ const NewBoard = () => {
             ) : (
               <div
                 style={{
-                  backgroundColor: "none",
+                  backgroundColor: "white",
                   width: 206,
                   height: 206,
                   border: "5px dashed #000000",
@@ -234,16 +258,4 @@ const InputTitle = styled.input`
   font-size: 32px;
   padding-left: 25px;
   font-weight: bold;
-`;
-
-const TagBox = styled(StyledDiv)`
-  justify-content: center;
-  align-items: center;
-  width: 146px;
-  height: 58px;
-  opacity: 0.65;
-  border: 5px dashed #000000;
-  border-radius: 29px;
-  font-size: 15px;
-  margin: 10px;
 `;
