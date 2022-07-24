@@ -22,6 +22,7 @@ import VideoDetail from "./Pages/Video/VideoDetail";
 import AllPlaylist from "./Pages/Playlist/AllPlaylist";
 import PlaylistDetail from "./Pages/Playlist/PlaylistDetail";
 import SubscribedPly from "./Pages/Playlist/SubscribedPly";
+import NewBoard from "./Pages/Board/NewBoard";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
       <Route path="/oauth/kakao" element={<LoginRedirect />} />
       {/* Board */}
       <Route path="/boards" element={<GIFBoard />} />
+      <Route path="/newboard" element={<NewBoard />} />
       <Route path="/boards/:id" element={<GIFBoardDetail />} />
       <Route path="/community" element={<Community />} />
       <Route path="/community/:id" element={<CommunityDetail />} />
