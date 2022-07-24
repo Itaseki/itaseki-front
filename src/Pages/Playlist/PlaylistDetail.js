@@ -1,12 +1,17 @@
-import React, {useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import axios from "axios";
+import preURL from "../../preURL/preURL";
+// Components
+import Token from "../../Components/Token";
 import Header from "../../Components/Header";
+import CommentList from "../../Components/Comment/CommentList";
+// Style
 import {AButton, AdditionalBtns, DetailInfo, DetailTitle, TitleWrapper, Wrapper} from "../../Style/Community";
 import StyledBtn from "../../Style/StyledBtn";
 import {light} from "../../Style/Color";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart} from "@fortawesome/free-solid-svg-icons";
-import CommentList from "../../Components/Comment/CommentList";
 import {
   OneVideoInPly,
   PlaylistWrapper,
@@ -15,46 +20,116 @@ import {
   VideoNum,
   VideosWrapper
 } from "../../Style/Playlist";
+// Assets
 import Dot3_btn from "../../Assets/Dot3_btn.png";
 import Stored_Ply from "../../Assets/Stored_Ply.png";
 import Add_New_Ply from "../../Assets/Add_New_Ply.png";
 
+
+
 const PlaylistDetail = () => {
+  const token = Token();
+  const navigate = useNavigate();
+
   const plyId = useParams().id;
 
   const [likeCount, setLikeCount] = useState(0);
   const [playlist, setPlaylist] = useState({
     id: 0,
-    title: "플리 제목",
-    createdTime: "3:50",  // localdatetime
+    title: "",
+    createdTime: "",  // localdatetime
     viewCount: 0,
     likeCount: likeCount,
     writerId: 0,
-    writerNickname: "작성자 닉네임",
+    writerNickname: "",
     isThisUserWriter: false,
     commentCount: 0,
     videos: [
-      {id: 1, title: "영상1", videoUploader: "영상 업로더", thumbnailUrl: "url", runtime: "재생 시간"},
-      {id: 2, title: "영상2", videoUploader: "영상 업로더", thumbnailUrl: "url", runtime: "재생 시간"},
-      {id: 3, title: "영상3", videoUploader: "영상 업로더", thumbnailUrl: "url", runtime: "재생 시간"},
+      {id: 0, title: "", videoUploader: "", thumbnailUrl: "", runtime: ""},
+      {id: 0, title: "", videoUploader: "", thumbnailUrl: "", runtime: ""},
+      {id: 0, title: "", videoUploader: "", thumbnailUrl: "", runtime: ""},
 
     ],
     comments: [],
   })
 
+
+  // 상세 플레이리스트 조회
+  useEffect(() => {
+    axios
+        .get(preURL.preURL + `/boards/playlist/${plyId}`, {
+          headers: {
+            'itasekki': token
+          }
+        })
+        .then((res) => {
+          console.log("👍상세 플레이리스트 조회 성공", res.data);
+          setPlaylist(res.data);
+        })
+        .catch((err) => {
+          console.log("🧨상세 플레이리스트 조회 실패", err);
+        })
+  },[]);
+
   // 플리 삭제
   const onClickDelete = () => {
-
+    let del = window.confirm("플레이리스트를 삭제하시겠습니까?");
+    if(del){
+      axios
+          .delete(preURL.preURL + `/boards/playlist/${plyId}`,{
+            headers: {
+              'itasekki': token
+            }
+          })
+          .then(() => {
+            console.log("👍플레이리스트 삭제 성공");
+            alert("플레이리스트를 삭제하였습니다.");
+            navigate("/playlist");
+          })
+          .catch((err) => {
+            console.log("🧨플레이리스트 삭제 실패", err);
+          })
+    }
   }
 
   // 플리 좋아요
   const onClickLike = () => {
-
+    axios
+        .post(preURL.preURL + `/boards/playlist/${plyId}/likes`,[], {
+          headers: {
+            'itasekki': token
+          }
+        })
+        .then((res) => {
+          console.log("👍플리 좋아요 성공");
+          setLikeCount(res.data);
+        })
+        .catch((err) => {
+          console.log("🧨플리 좋아요 실패", err);
+        })
   }
 
   // 플리 신고
   const onClickReport = () => {
-
+    axios
+        .post(preURL.preURL + `/boards/playlist/${plyId}/reports`,[],{
+          headers: {
+            'itasekki': token
+          }
+        })
+        .then((res) => {
+          console.log("👍플리 신고 성공", res.data);
+          const result = res.data;
+          if(result === "플레이리스트 신고 성공") alert("플레이리스트를 신고하였습니다.");
+          else if(result === "해당 사용자가 이미 신고한 플레이리스트") alert("이미 이 플레이리스트를 신고하였습니다.");
+          else if(result === "신고 5번 누적으로 삭제"){
+            alert("해당 영상은 신고 누적으로 삭제되었습니다.");
+            navigate("/playlist");
+          }
+        })
+        .catch((err) => {
+          console.log("🧨플리 신고 실패", err);
+        })
   }
 
   // 영상 번호 카운트
@@ -96,7 +171,7 @@ const PlaylistDetail = () => {
             <VideosWrapper>
               {(playlist.videos).map((video) => {
                 return (
-                    <OneVideoInPly>
+                    <OneVideoInPly onClick={()=>navigate(`/videolist/${video.id}`)}>
                       <VideoNum>{++cnt}</VideoNum>
                       <VideoContainer>
                         <img src={video.thumbnailUrl} alt="썸네일"/>

@@ -70,6 +70,7 @@ export const PlaylistWrapper = styled.div`
   flex-direction: row;
   margin: 20px 0;
   padding: 20px;
+  width: 60%;
   & > #line {
     border-left: 4px dashed black;
   }
@@ -84,6 +85,7 @@ export const OneVideoInPly = styled.div`
   display: flex;
   flex-direction: row;
   margin: 10px;
+  cursor: pointer;
 `
 
 export const VideoNum = styled.div`
