@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 // Components
 import PlaylistToggle from "../Playlist/PlaylistToggle";
 // Style
-import {OneVideoWrapper, VideoContainer, VideoInfo} from "../../Style/Video";
+import styled from "styled-components";
 import StyledBtn from "../../Style/StyledBtn";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart} from "@fortawesome/free-solid-svg-icons";
@@ -30,7 +30,7 @@ const OneVideo = ({video}) => {
   return (
       <OneVideoWrapper>
         <VideoContainer onClick={()=>navigate(`/videolist/${videoId}`)}>
-          <img src={video.thumbnailUrl} alt="썸네일" style={{width: "240px", height: "135px"}}/>
+          <img src={video.thumbnailUrl} alt="썸네일" />
         </VideoContainer>
         <div>
           <VideoInfo>
@@ -44,7 +44,9 @@ const OneVideo = ({video}) => {
                     style={{ fontSize: "80%", color: "#D9767C", marginLeft: "auto" }}
                 />
               </StyledBtn>
-              <span style={{color: "#D9767C"}}>{video.likeCount}</span>
+              <span style={{color: "#D9767C"}}>
+                {video.likeCount}
+              </span>
               <img
                   src={PlayListIcon}
                   alt="플레이리스트에 추가"
@@ -59,10 +61,44 @@ const OneVideo = ({video}) => {
               }
             </div>
           </VideoInfo>
-          <span style={{fontSize: "small", color: "var(--main-color)"}}>{video.writerNickname}</span>
+          <span style={{fontSize: "small", color: "var(--main-color)"}}>
+            {video.writerNickname}
+          </span>
         </div>
       </OneVideoWrapper>
   )
 };
 
 export default OneVideo;
+
+
+const OneVideoWrapper = styled.div`
+  width: 25%;
+`
+
+// 영상 썸네일
+const VideoContainer = styled.div`
+  width: 240px;
+  height: 135px;
+  background: gray;
+  cursor: pointer;
+  & > img{
+    width: 240px;
+    height: 135px;
+  }
+`
+
+// 영상 썸네일 하단 정보
+const VideoInfo = styled.div`
+  width: 240px;
+  margin: 3px 0;
+  display: flex;
+  justify-content: space-between;
+  & > #title {
+    cursor: pointer;
+  }
+  & > #info-right {
+    display: flex;
+    align-items: center;
+  }
+`
