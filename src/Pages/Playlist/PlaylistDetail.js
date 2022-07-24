@@ -6,8 +6,6 @@ import StyledBtn from "../../Style/StyledBtn";
 import {light} from "../../Style/Color";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart} from "@fortawesome/free-solid-svg-icons";
-import {AInfo, IFrame, Infos, TitleUploader, VideoDetailInfo, VideoWrapper} from "../../Style/Video";
-import YoutubeIframe from "../../Components/Video/YoutubeIframe";
 import CommentList from "../../Components/Comment/CommentList";
 import {
   OneVideoInPly,
