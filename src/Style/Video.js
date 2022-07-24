@@ -1,14 +1,18 @@
 import styled from 'styled-components';
 import StyledBtn from "./StyledBtn";
 import "./color.css";
+import {light} from "./Color"
 
 //================================AddNewVideo====================================
 export const PreInform = styled.div`
   width: 65%;
   margin: 2% auto;
-  background-color: #E0BFE6;
+  border: 4px dashed #000000;
+  border-radius: 30px;
+  background-color: white;
   display: flex;
   flex-direction: column;
+  font-weight: bold;
   & > b {
     text-align: center;
     margin-top: 2%;
@@ -17,7 +21,7 @@ export const PreInform = styled.div`
 
 export const PreInformContent = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   margin: 2% 10%;
   & > #agree {
     align-self: self-end;
@@ -35,31 +39,42 @@ export const AddVideoForm = styled.form`
 `
 
 export const NewUrlForm = styled.div`
+  width: 100%;
   & > input {
-    background: var(--tag-select);
-    border-radius: 17px;
-    border: 0;
+    background: rgba(255, 255, 255, 0.65);
+    border: 3px dashed #000000;
+    border-radius: 29px;
     padding: 5px 5px 5px 10px;
-    width: 90%;
+    box-sizing: border-box;
+    width: 93%;
+    height: 50px;
   }
   & > #verify-btn {
-    width: 79px;
-    background: var(--sub-color);
+    width: 60px;
+    height: 35px;
     border-radius: 17px;
     padding: 3px;
-    margin-left: 3px;
+    margin-left: 5px;
     text-align: center;
-    color: white;
+    background: black;
+    color: ${light.colors.mainColor};
   }
+`
+
+export const OneRowWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  margin: 5px 0;
 `
 
 export const Series = styled.div`
   width: 40%;
   & > input {
-    width: 60%;
-    background: var(--tag-select);
-    border: 0;
-    border-radius: 17px;
+    width: 90%;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.65);
+    border: 3px dashed black;
+    border-radius: 29px;
     padding: 5px 5px 5px 10px;
   }
 `
@@ -116,122 +131,59 @@ export const OneSeries = styled(StyledBtn)`
 export const Introduce = styled.div`
   width: 100%;
   & > input {
-    width: 100%;
-    background: var(--sub-color);
-    border-radius: 17px;
-    border: 0;
+    width: 97%;
+    height: 25px;
+    background: white;
+    border: 3px dashed black;
+    border-radius: 29px;
     padding: 5px 5px 5px 10px;
   }
 `
 
 export const Round = styled.div`
-  width: 30%;
+  width: 28%;
   & > input {
-    width: 60%;
-    background: var(--sub-color);
-    border-radius: 17px;
-    border: 0;
+    width: 90%;
+    height: 25px;
+    background: white;
+    border: 4px dashed black;
+    border-radius: 29px;
     padding: 5px 5px 5px 10px;
   }
 `
 
 export const HashTag = styled.div`
-  width: 30%;
-  margin-right: 5%;
+  width: 36%;
+  margin-left: 8px;
   & > input {
-    width: 90%;
-    background: var(--tag-select);
-    border-radius: 17px;
-    border: 0;
+    width: 95%;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.65);
+    border: 3px dashed black;
+    border-radius: 29px;
     padding: 5px 5px 5px 10px;
     margin-bottom: 2px;
   }
 `
 
 export const AddToPlayList = styled.div`
-  width: 30%;
+  width: 28%;
   & > input {
-    width: 60%;
-    background: var(--sub-color);
-    border-radius: 17px;
-    border: 0;
+    width: 90%;
+    height: 25px;
+    background: white;
+    border: 4px dashed black;
+    border-radius: 29px;
     padding: 5px 5px 5px 10px;
   }
 `
 
-// 플레이리스트 공개/비공개 토글 버튼
-export const SwitchBtnLabel = styled.label`
-  width: 60px;
-  height: 25px;
-  display: inline-block;
-  position: relative;
-  border-radius: 71px;
-  background-color: black;
-  cursor: pointer;
-  transition: all 0.2s ease-in;
-  & > span{
-    width: 45px;
-    height: 18px;
-    position: absolute;
-    top: 50%;
-    left: 4px;
-    transform: translateY(-50%);
-    border-radius: 71px;
-    background-color: #E35D12;
-    font-size: small;
-    font-weight: bold;
-    text-align: center;
-    transition: all 0.2s ease-in;
-  }
-  :active{  // 동작X
-    background-color: #E35D12;
-  }
-  & > span.active{
-    background-color: black;
-    color: #E35D12;
-    left: calc(100% - 50px);
-  }
-`
-export const SwitchBtnSpan = styled.span`
-  
-`
-
-export const AddNewPlyBtn = styled(StyledBtn)`
-  box-sizing: border-box;
-  width: 170px;
-  height: 33px;
-  background-color: black;
-  border: 2px dashed #FFFFFF;
-  border-radius: 29px;
-  color: white;
-  align-self: center;
-`
-
-export const NewPlyInput = styled.input`
-  box-sizing: border-box;
-  width: 170px;
-  height: 33px;
-  background: white;
-  border: 2px dashed #000000;
-  border-radius: 29px;
-  display: block;
-  align-self: center;
-  padding: 0 4px;
-`
-
-export const MakeNewPlyBtn = styled(StyledBtn)`
-  box-sizing: border-box;
-  width: 70px;
-  height: 30px;
-  background: black;
-  border: 2px dashed white;
-  border-radius: 29px;
-  color: white;
-`
-
 export const AddVideoBtn = styled(StyledBtn)`
-  font-size: 20px;
   margin-left: auto;
+  align-self: flex-end;
+  & > img{
+    width: 400px;
+  }
 `
 
 //================================AllVideo====================================
@@ -259,35 +211,9 @@ export const VideoList = styled.div`
   margin: 2% 0;
 `
 
-export const OneVideoWrapper = styled.div`
-  width: 25%;
-`
-
-// 영상 썸네일
-export const VideoContainer = styled.div`
-  width: 240px;
-  height: 135px;
-  background: var(--sub-color);
-  cursor: pointer;
-`
-
-// 영상 썸네일 하단 정보
-export const VideoInfo = styled.div`
-  width: 240px;
-  display: flex;
-  justify-content: space-between;
-  & > #title {
-    cursor: pointer;
-  }
-  & > #info-right {
-    display: flex;
-    align-items: center;
-  }
-`
-
 export const Line = styled.div`
   width: 100%;
-  border-bottom: 1px solid #9C9C9C;
+  border-bottom: 3px dashed black;
 `
 
 /*정렬 버튼*/
@@ -300,14 +226,6 @@ export const SortBox = styled.div`
     color: #9E8FA8;
     font-size: 11px;
   }
-`
-
-export const XButton = styled(StyledBtn)`
-  color: #E35D12;
-  display: block;
-  align-self: end;
-  margin-right: 10px;
-  font-size: x-large;
 `
 
 
@@ -379,7 +297,7 @@ export const AInfo = styled.div`
     margin-right: 100px;
     font-size: 18px;
     font-weight: 600;
-    color: var(--main-color);
+    color: ${light.colors.mainColor};
   }
   & > #value{
     margin-right: 100px;

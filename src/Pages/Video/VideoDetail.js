@@ -1,7 +1,8 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import Header from "../../Components/Header";
+import preURL from "../../preURL/preURL";
+// Style
 import {
   AButton,
   AdditionalBtns,
@@ -13,8 +14,10 @@ import {
 import StyledBtn from "../../Style/StyledBtn";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart} from "@fortawesome/free-solid-svg-icons";
-import preURL from "../../preURL/preURL";
 import {AInfo, IFrame, Infos, TitleUploader, VideoDetailInfo, VideoWrapper} from "../../Style/Video";
+import {light} from "../../Style/Color";
+// Components
+import Header from "../../Components/Header";
 import CommentList from "../../Components/Comment/CommentList";
 import YoutubeIframe from "../../Components/Video/YoutubeIframe";
 
@@ -23,18 +26,18 @@ const VideoDetail = () => {
   const navigate = useNavigate();
   const [video, setVideo] = useState({
     id: 0,
-    description: "라스 꿀잼편",
-    videoTitle: "라스 234회",
-    url: "http://라스",
-    videoUploader: "mbc예능",
-    series: "라디오스타",
-    episode: 234,
-    hashtags: ["토크", "유잼"],
-    createdTime: "3:50",
-    viewCount: 15,
-    likeCount: 3,
-    writerId: 9876,
-    writerNickname: "me",
+    description: "",
+    videoTitle: "",
+    url: "",
+    videoUploader: "",
+    series: "",
+    episode: 0,
+    hashtags: [],
+    createdTime: "",
+    viewCount: 0,
+    likeCount: 0,
+    writerId: 0,
+    writerNickname: "",
     isThisUserWriter: false,
     comments: [],
   });
@@ -121,11 +124,11 @@ const VideoDetail = () => {
                   : null}
             </DetailTitle>
             <DetailInfo>
-              <p>{video.writerNickname}</p>
+              <p style={{color: light.colors.mainColor}}>{video.writerNickname}</p>
               <p>|</p>
               <p>{video.createdTime}</p>
               <p>|</p>
-              <p>{"조회 "}{video.viewCount}</p>
+              <p>조회 {video.viewCount}</p>
               <p>|</p>
               <FontAwesomeIcon
                   icon={faHeart}
@@ -142,7 +145,7 @@ const VideoDetail = () => {
               <div id="uploader">{video.videoUploader}</div>
             </TitleUploader>
             <IFrame>
-              <YoutubeIframe url={video.url} />
+              <YoutubeIframe url={video.url} width="720" height="405"/>
             </IFrame>
             <a href={video.url} target="_blank" style={{color: "gray"}}>{video.url}</a>
           </VideoWrapper>
@@ -173,11 +176,11 @@ const VideoDetail = () => {
             </div>
           </VideoDetailInfo>
           <AdditionalBtns>
-            <AButton style={{background: "var(--sub-color)"}}>달리기 예약</AButton>
-            <AButton style={{background: "var(--main-color)"}} onClick={onClickLike}>좋아요</AButton>
-            <AButton style={{background: "var(--sub-color)"}} onClick={onClickReport}>신고하기</AButton>
+            <AButton onClick={() => navigate("/reservation")}>달리기 예약</AButton>
+            <AButton style={{borderWidth: "4px"}} onClick={onClickLike}>좋아요</AButton>
+            <AButton onClick={onClickReport}>신고하기</AButton>
           </AdditionalBtns>
-          <CommentList contentInfo={video} commentList={comments} board={"video"} boardId={videoId} />
+          <CommentList commentCount={video.commentCount} commentList={comments} board={"video"} boardId={videoId} />
         </Wrapper>
       </div>
   )

@@ -1,22 +1,26 @@
 import React, {useCallback, useEffect, useState} from 'react';
+import {useNavigate} from "react-router-dom";
+import useInput from "../../Hooks/useInput";
+import preURL from "../../preURL/preURL";
+import axios from "axios";
+// Components
 import Header from "../../Components/Header";
+import YoutubeAPI from "../../Components/Video/YoutubeAPI";
+import PlaylistToggle from "../../Components/Playlist/PlaylistToggle";
+// Style
 import {
-  AddNewPlyBtn,
   AddToPlayList, AddVideoBtn,
   AddVideoForm,
   AutoFrame, HashTag,
-  Introduce, MakeNewPlyBtn, NewPlyInput,
-  NewUrlForm, OneSelectItemWrapper, OneSeries,
+  Introduce,
+  NewUrlForm, OneRowWrapper, OneSelectItemWrapper, OneSeries,
   PreInform,
   PreInformContent, Round,
-  Series, SwitchBtnLabel, SwitchBtnSpan, ToggleScrollWrapper
+  Series, ToggleScrollWrapper
 } from "../../Style/Video";
 import StyledBtn from "../../Style/StyledBtn";
-import {useNavigate} from "react-router-dom";
-import axios from "axios";
-import preURL from "../../preURL/preURL";
-import useInput from "../../Hooks/useInput";
-import YoutubeAPI from "../../Components/Video/YoutubeAPI";
+// Assets
+import Add_video_submit from "../../Assets/Add_video_submit.png";
 
 const AddNewVideo = () => {
   const navigate = useNavigate();
@@ -27,8 +31,6 @@ const AddNewVideo = () => {
   const [searchSeries, onChangeSearchSeries, setSearchSeries] = useInput("");
   const [hashTagsList, setHashTagsList] = useState([{id: 0, name: ""}]);
   const [hashTag1, setHashTag1] = useState([]);
-  const [playListList, setPlayListList] = useState([]);
-  const [playList, setPlayList] = useState([]);
   const [seriesToggleDisplay, setSeriesToggleDisplay] = useState(false);
   const [hashTagToggleDisplay, setHashTagToggleDisplay] = useState(false);
   const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
@@ -36,18 +38,13 @@ const AddNewVideo = () => {
   const [newUrl, onChangeNewUrl, setNewUrl] = useInput("");
   const [videoTitle, setVideoTitle] = useState("");
   const [runtime, setRuntime] = useState("");
-  const [introduction, onChangeIntroduction,setIntroduction] = useInput("");
+  const [introduction, onChangeIntroduction, setIntroduction] = useInput("");
   const [selectedSeriesId, setSelectedSeriesId] = useState(0);
   const [episode, onChangeEpisode, setEpisode] = useInput("");  // Int
   const [selectedHashtagId, setSelectedHashtagId] = useState([]);
   const [hashTag2, onChangeHashTag2, setHashTag2] = useInput("");
-  const [selectedPlayListId, setSelectedPlayListId] = useState([]);
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [videoUploader, setVideoUploader] = useState("");
-  // 새로운 플레이리스트
-  const [addNewPly, setAddNewPly] = useState(false);
-  const [newPlyName, onChangeNewPlyName, setNewPlyName] = useInput("");
-  const [newPlyPublic, setNewPlyPublic] = useState(false);
 
   // 토글 정보 불러오기
   useEffect(() => {
@@ -64,19 +61,6 @@ const AddNewVideo = () => {
         })
   }, []);
 
-  // 사용자 플레이리스트 조회
-  useEffect(() => {
-    axios
-        .get(preURL.preURL + `/boards/playlist/user/${1}`)  /*사용자 id*/
-        .then((res) => {
-          setPlayListList(res.data);
-          console.log("👍내 플레이리스트 조회 성공", res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-          console.log("🧨내 플레이리스트 조회 실패", err);
-        })
-  },[]);
 
   // 유튜브 데이터 불러오기
   async function callYoutube() {
@@ -174,50 +158,6 @@ const AddNewVideo = () => {
     }
   };
 
-  // 플레이리스트에 추가
-  const selectPlayList = (prop) => {
-    const selected = {id: prop.target.id, name: prop.target.value};
-    const boolChecked = prop.target.checked;
-    console.log(selected, boolChecked);
-
-    let newPlaylist, newPlaylistId;
-    if(boolChecked) {
-      newPlaylist = [...playList, selected.name];
-      newPlaylistId = [...selectedPlayListId, selected.id];
-      setPlayList(newPlaylist);
-      setSelectedPlayListId(newPlaylistId);
-    }
-    else {
-      newPlaylist = playList.filter(playList => playList !== selected.name);
-      newPlaylistId = selectedPlayListId.filter(selectedPlayList => selectedPlayList !== selected.id)
-      setPlayList(newPlaylist);
-      setSelectedPlayListId(newPlaylistId);
-    }
-  }
-
-  // 플레이리스트 공개/비공개
-  const onClickPublic = (prop) => {
-    const Target = prop.target;
-    const id = Target.id;
-    axios
-        .patch(preURL.preURL + `/boards/playlist/${id}`)
-        .then((res) => {
-          console.log("👍플레이리스트 공개/비공개 수정 성공");
-          if(res.status === 200) {
-            prop.target.parentNode.classList.toggle('active');
-            Target.classList.toggle('active');
-            // console.log(prop.target.parentNode.classList)
-            // console.log(Target);
-            if(Target.innerText === "비공개") Target.innerText = "공개";
-            else Target.innerText = "비공개";
-          }
-          else if(res.status === 403) alert("수정 권한이 없습니다.");
-        })
-        .catch((err) => {
-          console.log("🧨플레이리스트 공개/비공개 수정 실패", err);
-        })
-  }
-
   // 영상 등록
   const onSubmitNewVideo = (e) => {
     // 영상 등록 불가능 조건 처리
@@ -253,7 +193,7 @@ const AddNewVideo = () => {
           episode: episode,
           hashtags: selectedHashtagId,
           keywords: [hashTag2],
-          playlists: selectedPlayListId,
+          playlists: [],
           thumbnailUrl: thumbnailUrl,
           videoUploader: videoUploader,
         })
@@ -297,52 +237,6 @@ const AddNewVideo = () => {
     )
   });
 
-  // 플레이리스트 토글 리스트
-  const PlayList = playListList.map((onePlayList) => {
-    return(
-        <OneSelectItemWrapper>
-          <input
-              type="checkbox"
-              id={onePlayList.id} // 해시태그1과 id 중복 발생 -> 수정
-              value={onePlayList.title}
-              onChange={selectPlayList}
-          />
-          <label>
-            {onePlayList.title}
-          </label>
-          <div>
-            {onePlayList.isPublic
-                ?
-                <SwitchBtnLabel>
-                  <span className="active" id={onePlayList.id} onClick={onClickPublic}>공개</span>
-                </SwitchBtnLabel>
-                :
-                <SwitchBtnLabel>
-                  <span id={onePlayList.id} onClick={onClickPublic}>비공개</span>
-                </SwitchBtnLabel>
-            }
-          </div>
-        </OneSelectItemWrapper>
-    )
-  });
-
-  // 새 플레이리스트 생성
-  const onClickMakePly = () => {
-    axios
-        .post(preURL.preURL + '/boards/playlist', {
-          title: newPlyName,
-          isPublic: newPlyPublic
-        })
-        .then((res) => {
-          console.log("👍새 플레이리스트 생성 성공", res.data);
-          setNewPlyName("");
-          setNewPlyPublic(false);
-          setAddNewPly(false);
-        })
-        .catch((err) => {
-          console.log("🧨새 플레이리스트 생성 실패", err);
-        })
-  };
 
   return (
       <div>
@@ -350,25 +244,35 @@ const AddNewVideo = () => {
         <PreInform>
           <b>영상 등록시 유의사항</b>
           <PreInformContent>
-            <span id="content">
-              <p>1. 공지사항입니다</p>
-              <p>2. 공지사항입니다</p>
-            </span>
-            <span id="agree">
-              <input id="agree-check" type="checkbox" onChange={(e) => e.target.checked ? setAgree(true) : setAgree(false)}/>
+            <div id="content">
+              <p>
+              텔레이나 에서는 영상을 업로드할 시, 다음과 같은 가이드라인을
+              따라야 합니다. 이를 위반하는 경우 영상이 삭제될 수 있으며 이용
+              권한이 제한될 수 있습니다. 또한 심각한 경우 임의 탈퇴 처리될 수
+              있습니다.
+            </p>
+            <p>- 옛날 방송국 예능 동영상외의 기타 영상들</p>
+            <p>- 다른 사람들에게 불쾌함을 주는 제목 또는 해시태그 불가</p>
+            <p>- 사기를 목적으로 할 경우</p>
+            <p>- 영상 내용과 그 제목 또는 해시태그 등이 일치하지 않을 경우</p>
+            </div>
+            <div id="agree">
+              <input id="agree-check" type="checkbox"
+                     onChange={(e) =>
+                         e.target.checked ? setAgree(true) : setAgree(false)}/>
               <label for="agree-check">동의합니다</label>
-            </span>
+            </div>
           </PreInformContent>
         </PreInform>
         <AddVideoForm onSubmit={onSubmitNewVideo}>
           <NewUrlForm>
-            <p>URL 입력</p>
+            <p>URL 입력*</p>
             <input type="text" value={newUrl} onChange={onChangeNewUrl}/>
             <StyledBtn id="verify-btn" onClick={onClickUrlCheck}>검증</StyledBtn>
           </NewUrlForm>
-          <div style={{display: "flex"}}>
+          <OneRowWrapper>
             <Series>
-              <p>시리즈</p>
+              <p>시리즈*</p>
               <input
                   type="text"
                   value={searchSeries}
@@ -385,17 +289,17 @@ const AddNewVideo = () => {
               </AutoFrame>
             </Series>
             <Introduce>
-              <p>영상을 간단하게 소개한다면? (20자 이내)</p>
+              <p>영상을 간단하게 소개한다면? (20자 이내)*</p>
               <input type="text" value={introduction} onChange={onChangeIntroduction} maxLength="20"/>
             </Introduce>
-          </div>
-          <div style={{display: "flex"}}>
+          </OneRowWrapper>
+          <OneRowWrapper>
             <Round>
               <p>회차</p>
               <input type="number" value={episode} onChange={onChangeEpisode}/>
             </Round>
             <HashTag>
-              <p>해시태그1 (장르, 상황)</p>
+              <p>해시태그1 (장르, 상황)*</p>
               <input
                   type="text"
                   value={hashTag1}
@@ -414,49 +318,24 @@ const AddNewVideo = () => {
               <p>해시태그2 (키워드)</p>
               <input type="text" value={hashTag2} onChange={onChangeHashTag2}/>
             </HashTag>
-          </div>
-          <AddToPlayList>
-            <p>내 플레이리스트에 추가</p>
-            <input
-                type="text"
-                value={playList}
-                onFocus={()=>setPlayListToggleDisplay(true)}
-                onBlur={()=>setPlayListToggleDisplay(false)}
-            />
-            <AutoFrame display={playListToggleDisplay}>
-              <span>플레이리스트에 담기</span>
-              <hr/>
-              <ToggleScrollWrapper>
-                {PlayList}
-              </ToggleScrollWrapper>
-              <div style={{alignSelf: "center"}}>
-                {addNewPly
-                    ?
-                    <>
-                      <NewPlyInput type="text" placeholder="플레이리스트 이름" value={newPlyName} onChange={onChangeNewPlyName}/>
-                      <div style={{display: "flex", alignItems: "center", justifyContent: "space-evenly", margin: "10px 0"}}>
-                        {newPlyPublic
-                            ?
-                            <SwitchBtnLabel style={{margin: 0}}>
-                              <span className="active" onClick={() => setNewPlyPublic(prev => !prev)}>공개</span>
-                            </SwitchBtnLabel>
-                            :
-                            <SwitchBtnLabel style={{margin: 0}}>
-                              <span onClick={() => setNewPlyPublic(prev => !prev)}>비공개</span>
-                            </SwitchBtnLabel>
-                        }
-                        <MakeNewPlyBtn onClick={onClickMakePly}>만들기</MakeNewPlyBtn>
-                      </div>
-                    </>
-                    :
-                    <AddNewPlyBtn onClick={() => setAddNewPly(prev => !prev)}>
-                      새 플레이리스트 만들기
-                    </AddNewPlyBtn>
-                }
-              </div>
-            </AutoFrame>
-          </AddToPlayList>
-          <AddVideoBtn type="submit">등록하기</AddVideoBtn>
+          </OneRowWrapper>
+          <OneRowWrapper>
+            <AddToPlayList>
+              <p>내 플레이리스트에 추가</p>
+              <input
+                  readOnly
+                  onFocus={()=>setPlayListToggleDisplay(true)}
+                  onBlur={()=>setPlayListToggleDisplay(false)}
+              />
+              <PlaylistToggle
+                  show={playListToggleDisplay}
+                  setShow={setPlayListToggleDisplay}
+              />
+            </AddToPlayList>
+            <AddVideoBtn type="submit">
+              <img src={Add_video_submit} alt="영상 등록"/>
+            </AddVideoBtn>
+          </OneRowWrapper>
         </AddVideoForm>
       </div>
   )
