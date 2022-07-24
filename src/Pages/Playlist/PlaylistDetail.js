@@ -78,7 +78,15 @@ const PlaylistDetail = () => {
 
   // 플리 좋아요
   const onClickLike = () => {
-
+    axios
+        .post(preURL.preURL + `/boards/playlist/${plyId}/likes`)
+        .then((res) => {
+          console.log("👍플리 좋아요 성공");
+          setLikeCount(res.data);
+        })
+        .catch((err) => {
+          console.log("🧨플리 좋아요 실패", err);
+        })
   }
 
   // 플리 신고
