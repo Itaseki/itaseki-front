@@ -73,7 +73,23 @@ const PlaylistDetail = () => {
 
   // 플리 삭제
   const onClickDelete = () => {
-
+    let del = window.confirm("플레이리스트를 삭제하시겠습니까?");
+    if(del){
+      axios
+          .delete(preURL.preURL + `/boards/playlist/${plyId}`,{
+            headers: {
+              'itasekki': token
+            }
+          })
+          .then(() => {
+            console.log("👍플레이리스트 삭제 성공");
+            alert("플레이리스트를 삭제하였습니다.");
+            navigate("/playlist");
+          })
+          .catch((err) => {
+            console.log("🧨플레이리스트 삭제 실패", err);
+          })
+    }
   }
 
   // 플리 좋아요
