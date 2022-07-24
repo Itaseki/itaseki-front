@@ -4,7 +4,7 @@ import styled from "styled-components";
 const WriteBtn = styled.button`
   border: none;
   cursor: pointer;
-  position: fixed;
+  position: absolute;
   top: 6.3%;
   right: 12%;
   background-color: black;

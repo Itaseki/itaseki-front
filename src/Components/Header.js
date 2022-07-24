@@ -119,10 +119,12 @@ const Header = ({ darkMode }) => {
             새 게시글 쓰기
           </p>
         </NewWriting> */}
-        <FontAwesomeIcon
-          icon={faMagnifyingGlass}
-          style={{ fontSize: "150%", color: "9C9C9C" }}
-        />
+        <Link to="/search">
+          <FontAwesomeIcon
+            icon={faMagnifyingGlass}
+            style={{ fontSize: "150%", color: "9C9C9C" }}
+          />
+        </Link>
         <Profile>
           <ProfileImg src={Basic_profile} />
           <StyledBtn on>
