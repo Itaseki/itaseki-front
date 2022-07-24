@@ -77,6 +77,7 @@ const Main = () => {
       .then((res) => {
         console.log("❕인기 영상 조회❕ ", res.data);
         setPopVideos(res.data);
+        console.log(popVideos);
       })
       .catch((err) => {
         console.error("⚠️ 인기 영상 조회 ⚠️ ", err);
@@ -90,6 +91,7 @@ const Main = () => {
       .then((res) => {
         console.log("❕인기 플레이리스트 조회❕ ", res.data);
         setPopPlaylists(res.data);
+        console.log(popPlaylists);
       })
       .catch((err) => {
         console.error("⚠️ 인기 플레이리스트 조회 ⚠️ ", err);
@@ -100,8 +102,12 @@ const Main = () => {
     <>
       <Header />
       <StyledDiv>
-        <Link to="/running">
-          <img src={Go_To_Run} style={{ width: "624px", height: "415px" }} />
+        <Link to="/reservation">
+          <img
+            src={Go_To_Run}
+            alt="running"
+            style={{ width: "624px", height: "415px" }}
+          />
         </Link>
         <FirstBWrapper>
           {/* 인기 게시글  */}
@@ -148,7 +154,6 @@ const Main = () => {
               })}
             </div>
           </PopArticleContainer>
-
           {/* 인기 짤  */}
           <PopGIFContainer>
             <div style={{ paddingTop: 50, paddingLeft: 20 }}>
@@ -166,6 +171,7 @@ const Main = () => {
                         }}
                       >
                         <img
+                          alt="짤"
                           src={i.imageUrl}
                           style={{ width: 74, height: 67 }}
                         />
@@ -195,22 +201,24 @@ const Main = () => {
           </PopGIFContainer>
         </FirstBWrapper>
       </StyledDiv>
-      <PWrapper>
-        <Subheading>지금 가장 인기 있는 영상</Subheading>
-        <StyledDivRow>
-          {popVideos.map((video) => {
-            return <OneVideo video={video} />;
-          })}
-        </StyledDivRow>
-      </PWrapper>
-      <PWrapper style={{ marginTop: "42px" }}>
-        <Subheading>지금 가장 인기 있는 플레이리스트</Subheading>
-        <StyledDivRow>
-          {popPlaylists.map((plylist) => {
-            return <OnePly ply={plylist} />;
-          })}
-        </StyledDivRow>
-      </PWrapper>
+      <StyledDivColumn style={{ marginLeft: 65 }}>
+        <PWrapper>
+          <Subheading>지금 가장 인기 있는 영상</Subheading>
+          <StyledDivRow>
+            {popVideos.map((video) => {
+              return <OneVideo video={video} />;
+            })}
+          </StyledDivRow>
+        </PWrapper>
+        <PWrapper style={{ marginTop: "42px" }}>
+          <Subheading>지금 가장 인기 있는 플레이리스트</Subheading>
+          <StyledDivRow>
+            {popPlaylists.map((plylist) => {
+              return <OnePly ply={plylist} />;
+            })}
+          </StyledDivRow>
+        </PWrapper>
+      </StyledDivColumn>
       <Footer />
     </>
   );
@@ -247,6 +255,7 @@ const Subheading = styled.p`
   font-size: 16px;
   font-weight: bold;
   margin: 0;
+  margin-bottom: 23px;
 `;
 
 const ListWrapper = styled.div`

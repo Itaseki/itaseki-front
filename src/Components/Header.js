@@ -18,7 +18,7 @@ import StyledBtn from "../Style/StyledBtn";
 import { Link } from "react-router-dom";
 import { StyledDivColumn } from "../Style/StyledDiv";
 
-const Header = ({darkMode}) => {
+const Header = ({ darkMode }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [caretOpen, setCaretOpen] = useState(false);
 
@@ -31,10 +31,7 @@ const Header = ({darkMode}) => {
           onClick={() => setMenuOpen(true)}
         />
         <Link to="/">
-          {darkMode
-              ? <Logo src={Main_logo_dark} />
-              : <Logo src={Main_logo} />
-          }
+          {darkMode ? <Logo src={Main_logo_dark} /> : <Logo src={Main_logo} />}
         </Link>
       </LeftWrapper>
       {menuOpen ? (
@@ -85,6 +82,7 @@ const Header = ({darkMode}) => {
             { name: "짤 게시판", url: "/boards" },
             { name: "플레이리스트 게시판", url: "/playlist" },
             { name: "마이페이지", url: "/mypage" },
+            { name: "", url: "" },
             { name: "", url: "" },
           ].map((i, index) => {
             return (
@@ -196,6 +194,7 @@ const MenuWrapper = styled(StyledDivColumn)`
   left: 0px;
   justify-content: space-around;
   align-items: center;
+  z-index: 10;
 `;
 
 const MenuList = styled(StyledBtn)`
