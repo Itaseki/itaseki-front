@@ -21,7 +21,7 @@ export const PreInform = styled.div`
 
 export const PreInformContent = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   margin: 2% 10%;
   & > #agree {
     align-self: self-end;
