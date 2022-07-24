@@ -79,7 +79,11 @@ const PlaylistDetail = () => {
   // 플리 좋아요
   const onClickLike = () => {
     axios
-        .post(preURL.preURL + `/boards/playlist/${plyId}/likes`)
+        .post(preURL.preURL + `/boards/playlist/${plyId}/likes`,[], {
+          headers: {
+            'itasekki': token
+          }
+        })
         .then((res) => {
           console.log("👍플리 좋아요 성공");
           setLikeCount(res.data);
@@ -91,7 +95,25 @@ const PlaylistDetail = () => {
 
   // 플리 신고
   const onClickReport = () => {
-
+    axios
+        .post(preURL.preURL + `/boards/playlist/${plyId}/reports`,[],{
+          headers: {
+            'itasekki': token
+          }
+        })
+        .then((res) => {
+          console.log("👍플리 신고 성공", res.data);
+          const result = res.data;
+          if(result === "플레이리스트 신고 성공") alert("플레이리스트를 신고하였습니다.");
+          else if(result === "해당 사용자가 이미 신고한 플레이리스트") alert("이미 이 플레이리스트를 신고하였습니다.");
+          else if(result === "신고 5번 누적으로 삭제"){
+            alert("해당 영상은 신고 누적으로 삭제되었습니다.");
+            navigate("/playlist");
+          }
+        })
+        .catch((err) => {
+          console.log("🧨플리 신고 실패", err);
+        })
   }
 
   // 영상 번호 카운트
