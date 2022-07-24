@@ -30,7 +30,7 @@ const OneVideo = ({video}) => {
   return (
       <OneVideoWrapper>
         <VideoContainer onClick={()=>navigate(`/videolist/${videoId}`)}>
-          <img src={video.thumbnailUrl} alt="썸네일" style={{width: "240px", height: "135px"}}/>
+          <img src={video.thumbnailUrl} alt="썸네일" />
         </VideoContainer>
         <div>
           <VideoInfo>
@@ -80,8 +80,12 @@ const OneVideoWrapper = styled.div`
 const VideoContainer = styled.div`
   width: 240px;
   height: 135px;
-  background: var(--sub-color);
+  background: gray;
   cursor: pointer;
+  & > img{
+    width: 240px;
+    height: 135px;
+  }
 `
 
 // 영상 썸네일 하단 정보

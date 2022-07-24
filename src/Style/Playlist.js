@@ -61,3 +61,59 @@ export const FourPlysWrapper = styled.div`
   display: flex;
   flex-direction: row;
 `
+
+/////////////////////////// Playlistdetail //////////////////////////
+export const PlaylistWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 20px 0;
+  padding: 20px;
+  & > #line {
+    border-left: 4px dashed black;
+  }
+`
+
+export const VideosWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const OneVideoInPly = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+`
+
+export const VideoNum = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 0 10px 0 5px;
+  align-items: center;
+  font-weight: bold;
+`
+
+// 영상 썸네일
+export const VideoContainer = styled.div`
+  width: 336px;
+  height: 189px;
+  background: gray;
+  cursor: pointer;
+  & > img{
+    width: 336px;
+    height: 189px;
+  }
+`
+
+export const PlyVideoInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+  & > span{
+    font-size: small;
+  }
+  & #title{
+    font-size: large;
+    font-weight: bold;
+    margin-right: 5px;
+  }
+`

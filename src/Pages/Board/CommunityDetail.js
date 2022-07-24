@@ -140,7 +140,7 @@ const CommunityDetail = () => {
             <AButton style={{background: "#9E8FA8"}} onClick={onClickLike}>좋아요</AButton>
             <AButton style={{background: "#C4C4C4"}} onClick={onClickReport}>신고하기</AButton>
           </AdditionalBtns>
-          <CommentList contentInfo={contentInfo} commentList={commentsList} board={"community"} boardId={communityBoardId} />
+          <CommentList commentCount={contentInfo.commentCount} commentList={commentsList} board={"community"} boardId={communityBoardId} />
         </Wrapper>
       </div>
   )
