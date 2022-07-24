@@ -18,7 +18,7 @@ import axios from "axios";
 
 const TimeTable = () => {
   const [year, setYear] = useState("2022");
-  const [month, setMonth] = useState("07");
+  const [month, setMonth] = useState("7");
   const [date, setDate] = useState("24");
   const [todayData, setTodayData] = useState([
     {
@@ -62,9 +62,14 @@ const TimeTable = () => {
       endTime: "16:00",
     },
   ]);
+  const [timeZone, setTimeZone] = useState([1, 2, 3]);
+  const [timeBlocks1, setTimeBlocks1] = useState([]);
+  const [timeBlocks2, setTimeBlocks2] = useState([]);
+  const [timeBlocks3, setTimeBlocks3] = useState([]);
 
   useEffect(() => {
     todayReserv();
+    timeSelect();
     console.log("================[TimeTable]================");
   }, []);
 
@@ -87,6 +92,27 @@ const TimeTable = () => {
       .catch((err) => {
         console.error("⚠️ 오늘의 예약 확정 목록 조회 ⚠️ ", err);
       });
+  };
+
+  // 시간 만들기
+  const timeSelect = () => {
+    let mins = [":00", ":10", ":20", ":30", ":40", ":50"];
+    let times1 = [];
+    let times2 = [];
+    let times3 = [];
+    let time1 = mins.map((t) => {
+      times1.push(`${timeZone[0]}${t}`);
+    });
+    let time2 = mins.map((t) => {
+      times2.push(`${timeZone[1]}${t}`);
+    });
+    let time3 = mins.map((t) => {
+      times3.push(`${timeZone[2]}${t}`);
+    });
+    console.log(times1, times2, times3);
+    setTimeBlocks1(times1);
+    setTimeBlocks2(times2);
+    setTimeBlocks3(times3);
   };
 
   return (
@@ -148,6 +174,41 @@ const TimeTable = () => {
           <ThirdContainer>
             <BoldTitle>예약 대기 목록</BoldTitle>
             <Line style={{ width: 538 }} />
+            <StyledDivRow>
+              <StyledBtn onClick={() => setTimeZone((prev) => prev - 1)}>
+                <FontAwesomeIcon
+                  icon={faCaretLeft}
+                  style={{
+                    fontSize: 15,
+                  }}
+                />
+              </StyledBtn>
+              <StyledDivColumn style={{ margin: 15 }}>
+                <TimeBlocks>
+                  {timeBlocks1.map((b) => {
+                    return <TimeBlock>{b}</TimeBlock>;
+                  })}
+                </TimeBlocks>
+                <TimeBlocks>
+                  {timeBlocks2.map((b) => {
+                    return <TimeBlock>{b}</TimeBlock>;
+                  })}
+                </TimeBlocks>
+                <TimeBlocks>
+                  {timeBlocks3.map((b) => {
+                    return <TimeBlock>{b}</TimeBlock>;
+                  })}
+                </TimeBlocks>
+              </StyledDivColumn>
+              <StyledBtn onClick={() => setTimeZone((prev) => prev - 1)}>
+                <FontAwesomeIcon
+                  icon={faCaretRight}
+                  style={{
+                    fontSize: 15,
+                  }}
+                />
+              </StyledBtn>
+            </StyledDivRow>
           </ThirdContainer>
         </StyledDivRow>
       </Wrapper>
@@ -224,4 +285,18 @@ const ThirdContainer = styled(StyledDivColumn)`
   width: 614px;
   height: 415px;
   align-items: center;
+`;
+
+const TimeBlocks = styled(StyledDivRow)`
+  justify-content: center;
+  align-items: center;
+`;
+
+const TimeBlock = styled(StyledBtn)`
+  justify-content: center;
+  align-items: center;
+  width: 73.42px;
+  height: 41.14px;
+  background: #f5f5f5;
+  margin: 3px;
 `;

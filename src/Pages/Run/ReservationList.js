@@ -24,6 +24,7 @@ import Best_Video from "../../Assets/Best_Video.png";
 import Line4 from "../../Assets/Line4.png";
 import { Link } from "react-router-dom";
 import Nothing from "../../Assets/Nothing.png";
+import TodayPopVids from "./TodayPopVids";
 
 const color = light.colors;
 
@@ -214,6 +215,7 @@ const ReservationListWrapper = () => {
           color: "#532A6B",
         }}
       /> */}
+      <TodayPopVids />
     </Wrapper>
   );
 };
