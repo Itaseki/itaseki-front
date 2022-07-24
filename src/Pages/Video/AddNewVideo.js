@@ -244,16 +244,24 @@ const AddNewVideo = () => {
         <PreInform>
           <b>영상 등록시 유의사항</b>
           <PreInformContent>
-            <span id="content">
-              <p>1. 공지사항입니다</p>
-              <p>2. 공지사항입니다</p>
-            </span>
-            <span id="agree">
+            <div id="content">
+              <p>
+              텔레이나 에서는 영상을 업로드할 시, 다음과 같은 가이드라인을
+              따라야 합니다. 이를 위반하는 경우 영상이 삭제될 수 있으며 이용
+              권한이 제한될 수 있습니다. 또한 심각한 경우 임의 탈퇴 처리될 수
+              있습니다.
+            </p>
+            <p>- 옛날 방송국 예능 동영상외의 기타 영상들</p>
+            <p>- 다른 사람들에게 불쾌함을 주는 제목 또는 해시태그 불가</p>
+            <p>- 사기를 목적으로 할 경우</p>
+            <p>- 영상 내용과 그 제목 또는 해시태그 등이 일치하지 않을 경우</p>
+            </div>
+            <div id="agree">
               <input id="agree-check" type="checkbox"
                      onChange={(e) =>
                          e.target.checked ? setAgree(true) : setAgree(false)}/>
               <label for="agree-check">동의합니다</label>
-            </span>
+            </div>
           </PreInformContent>
         </PreInform>
         <AddVideoForm onSubmit={onSubmitNewVideo}>
