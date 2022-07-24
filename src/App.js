@@ -23,6 +23,7 @@ import AllPlaylist from "./Pages/Playlist/AllPlaylist";
 import PlaylistDetail from "./Pages/Playlist/PlaylistDetail";
 import SubscribedPly from "./Pages/Playlist/SubscribedPly";
 import NewBoard from "./Pages/Board/NewBoard";
+import Search from "./Pages/Search/Search";
 
 const App = () => {
   return (
@@ -42,6 +43,8 @@ const App = () => {
       <Route path="/running" element={<Running />} />
       {/* Member */}
       <Route path="/mypage" element={<MyPage />} />
+      {/* Search */}
+      <Route path="/search" element={<Search />} />
       {/* Video */}
       <Route path="/addvideo" element={<AddNewVideo />} />
       <Route path="/videolist" element={<AllVideo />} />
