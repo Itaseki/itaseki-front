@@ -52,6 +52,20 @@ const Header = ({ darkMode }) => {
         })
   },[]);
 
+  // 로그아웃
+  const onLogout = () => {
+    let logout = window.confirm("로그아웃 하시겠습니까?");
+    if(logout){
+      if(!token) {
+        alert("사용자가 없습니다.");
+        return
+      }
+      localStorage.removeItem("access_token");
+      alert("로그아웃 되었습니다.");
+      window.location.reload();
+    }
+  };
+
 
   return (
     <Wrapper>
@@ -177,7 +191,7 @@ const Header = ({ darkMode }) => {
                   </Link>
                   <ProfileList>플레이리스트</ProfileList>
                   <ProfileList>프로필 설정</ProfileList>
-                  <ProfileList>로그아웃</ProfileList>
+                  <ProfileList onClick={onLogout}>로그아웃</ProfileList>
                 </ProfileUl>
             ) : (
                 <ProfileUl>
