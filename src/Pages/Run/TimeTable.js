@@ -16,7 +16,7 @@ import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import preURL from "../../preURL/preURL";
 import axios from "axios";
 
-const TimeTable = () => {
+const TimeTable = (props) => {
   const [year, setYear] = useState("2022");
   const [month, setMonth] = useState("7");
   const [date, setDate] = useState("24");
@@ -132,6 +132,7 @@ const TimeTable = () => {
                 fontWeight: "bold",
                 marginBottom: 6,
               }}
+              onClick={() => props.setPop(true)}
             >
               달리기 예약하기
             </StyledBtn>
@@ -160,7 +161,13 @@ const TimeTable = () => {
             <Line style={{ width: 182, marginBottom: 5 }} />
             {todayData.map((reserv) => {
               return (
-                <ReservedBox>
+                <ReservedBox
+                  onClick={() => {
+                    props.setConfirmed(true);
+                    props.setReservId(reserv.reservationId);
+                    props.setDetailPop(true);
+                  }}
+                >
                   <p style={{ fontSize: 14, margin: 0 }}>
                     {reserv.startTime}~{reserv.endTime}
                   </p>
@@ -271,7 +278,7 @@ const Line = styled.div`
   border-bottom: 1px solid black;
 `;
 
-const ReservedBox = styled(StyledDivColumn)`
+const ReservedBox = styled(StyledBtn)`
   width: 136px;
   height: 50.04px;
   justify-content: center;
