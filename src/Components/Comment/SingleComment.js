@@ -13,7 +13,6 @@ import {
 import StyledBtn from "../../Style/StyledBtn";
 // Assets
 import Comment_reply from "../../Assets/Comment_reply.png";
-import Placeholder from "../../Assets/New_Comment_Placeholder.png";
 import Enter from "../../Assets/Enter_Comment.png";
 import Exit_reply from "../../Assets/Exit_reply.png";
 
@@ -113,9 +112,12 @@ const SingleComment = ({comment, board, boardId}) => {
                     {"로그인한 사용자"}
                   </p>
                   <NewCommentBox onSubmit={onSubmitReply}>
-                    <NewCommentInput value={newReply} onChange={onChangeNewReply} style={{width: "700px"}}/>
-                    {!newReply &&
-                        <PlaceholderImg src={Placeholder} alt="placeholder"/>}
+                    <NewCommentInput
+                        value={newReply}
+                        onChange={onChangeNewReply}
+                        style={{width: "650px"}}
+                        placeholder="| 댓글 남기기"
+                   />
                     <ExitReplybtn src={Exit_reply} alt="대댓글 창 닫기" onClick={onCloseReplyModal}/>
                     <EnterBtn type="image" src={Enter} alt="댓글 제출"/>
                   </NewCommentBox>

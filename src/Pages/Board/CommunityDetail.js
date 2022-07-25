@@ -63,6 +63,7 @@ const CommunityDetail = () => {
         .then((res) => {
           console.log("👍게시글 좋아요 성공");
           setLikeCount(res.data);
+          alert("게시글을 좋아했습니다.");
         })
         .catch((err) => {
           console.log("🧨게시글 좋아요 에러", err);

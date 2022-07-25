@@ -15,7 +15,6 @@ import {
 } from "../../Style/Community";
 // Assets
 import Enter from "../../Assets/Enter_Comment.png";
-import Placeholder from "../../Assets/New_Comment_Placeholder.png";
 
 
 const CommentList = ({commentCount, commentList, board, boardId}) => {
@@ -55,9 +54,10 @@ const CommentList = ({commentCount, commentList, board, boardId}) => {
             {"로그인한 사용자"}
           </p>
           <NewCommentBox onSubmit={onSubmitComment}>
-            <NewCommentInput value={newComment} onChange={onChangeNewComment}/>
-            {!newComment &&
-                <PlaceholderImg src={Placeholder} alt="placeholder"/>}
+            <NewCommentInput
+                value={newComment}
+                onChange={onChangeNewComment}
+                placeholder="| 댓글 남기기"/>
             <EnterBtn type="image" src={Enter} alt="댓글 제출"/>
           </NewCommentBox>
         </NewCommentWrapper>

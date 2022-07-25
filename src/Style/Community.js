@@ -84,30 +84,33 @@ export const SortBox = styled.div`
 ////////////////////////////////////////////////////////
 // 새 게시물 작성 모달
 
-export const Input = styled.input`
+export const InputTitle = styled.input`
   width: 792px;
-  height: 58px;
-  margin: 10px 0;
-  background: #FFFFFF;
-  border-radius: 14px;
-  font-size: 16px;
-  ::placeholder {
-    font-weight: 600;
-    line-height: 19px;
-    align-items: center;
-    text-align: center;
-    color: #532A6B;
-  }
+  height: 60px;
+  margin: 10px auto;
+  padding: 0 10px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 4px solid;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
 `
 
 export const ImgInput = styled.div`
   display: flex;
+  flex-display: row;
+  align-items: center;
   & > label {
     width: 146px;
     height: 58px;
     margin-left: 3%;
-    background: #9E8FA8;
-    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.65);
+    border: 3px dashed;
+    border-radius: 29px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -123,26 +126,24 @@ export const TextArea = styled.textarea`
   height: 270px;
   margin: 10px 0;
   padding: 10px;
-  background: #FFFFFF;
-  border-radius: 14px;
+  border: 4px dashed;
+  border-radius: 29px;
   resize: none;
   ::placeholder {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 20px;
+    font-weight: bold;
     line-height: 19px;
     align-items: center;
     text-align: center;
-    color: #532A6B;
   }
 `
 
-export const SubmitBtn = styled(StyledBtn)`
-  width: 792px;
-  height: 58px;
+export const SubmitBtn = styled.input`
+  width: 750px;
+  height: 70px;
   margin: 10px 0;
-  background: #6B5F73;
-  border-radius: 14px;
-  color: white;
+  cursor: pointer;
 `
 
 ///////////////////////////////////////////////////////////////
@@ -256,11 +257,10 @@ export const NewCommentInput = styled.textarea`
   resize: none;
   font-size: large;
   font-weight: bold;
-`
-
-export const PlaceholderImg = styled.img`
-  position: absolute;
-  align-self: center;
+  ::placeholder{
+    font-size: xx-large;
+    font-family: 'Work Sans';
+  }
 `
 
 export const ExitReplybtn = styled.img`

@@ -10,8 +10,8 @@ import Pagination from "../../Components/Pagination";
 // Style
 import {
   BestPostsWrapper,
-  BestRankNum, Contents, ImgInput, Info, Input,
-  Line,
+  BestRankNum, Contents, ImgInput, Info, Input, InputTitle,
+  Line, NewPostTitle,
   PostLists,
   PostsWrapper,
   SortBox, SubmitBtn, TextArea,
@@ -25,6 +25,7 @@ import {light} from "../../Style/Color";
 // Assets
 import BestCommu from "../../Assets/Best_Commu.png";
 import AddPost from "../../Assets/Add_Post.png";
+import Enter from "../../Assets/Add_video_submit.png";
 
 const Community = () => {
 
@@ -55,8 +56,8 @@ const Community = () => {
   const [showAddNewPostModal, setShowAddNewPostModal] = useState(false);
   const [newTitle, onChangeNewTitle, setNewTitle] = useInput("");
   const [newContent, onChangeNewContent, setNewContent] = useInput("");
-  // const [newImages, onChangeNewImages, setNewImages] = useInput([]);
   const [newImages, setNewImages] = useState([]);
+  const [showNewImgs, setShowNewImgs] = useState(['선택된 파일 없음']);
 
   // 베스트 게시글 조회
   useEffect(() => {
@@ -110,6 +111,11 @@ const Community = () => {
   const onChangeNewImages = (e) => {
     const file = e.target.files;
     console.log(file);
+    let list = [];
+    for(let i=0; i<file.length; i++){
+      list.push(file[i].name);
+    }
+    setShowNewImgs(list);
     setNewImages(file);
   };
 
@@ -266,16 +272,16 @@ const Community = () => {
           {/*새 게시글 쓰기 모달창*/}
           <Modal show={showAddNewPostModal} onCloseModal={onCloseModal}>
             <form enctype="multipart/form-data" onSubmit={onAddNewPost}>
-              <Input placeholder="제목을 입력하세요." value={newTitle} onChange={onChangeNewTitle}/>
+              <InputTitle value={newTitle} onChange={onChangeNewTitle} placeholder="| 제목을 입력하세요."/>
               <ImgInput>
                 <label for="img-input">
-                  <FontAwesomeIcon for="img-input" icon={faPlus} style={{ fontSize: "150%", color: "white" }} />
+                  <FontAwesomeIcon for="img-input" icon={faPlus} style={{ fontSize: "150%"}} />
                 </label>
                 <input id="img-input" type="file" accept="image/*" multiple onChange={onChangeNewImages} style={{display: "none"}}/>
-                {/*<input value="선택된 파일 없음" disabled="disabled" />*/}
+                <input value={showNewImgs} disabled="disabled"/>
               </ImgInput>
               <TextArea placeholder="내용" value={newContent} onChange={onChangeNewContent}/>
-              <SubmitBtn type="submit">확인</SubmitBtn>
+              <SubmitBtn type="image" src={Enter}/>
             </form>
           </Modal>
           <BestPostsWrapper>
