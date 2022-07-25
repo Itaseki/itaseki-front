@@ -61,8 +61,8 @@ const TodayPopVids = () => {
       .get(preURL.preURL + "/run/reservations/best")
       .then((res) => {
         console.log("❕인기 예약 영상 조회❕ ", res.data);
-        if (res.data.length > 0) {
-          setPopReserv(res.data);
+        if (res.data.length > 0 && res.data !== undefined) {
+          // setPopReserv(res.data);
         }
       })
       .catch((err) => {

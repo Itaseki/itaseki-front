@@ -67,27 +67,34 @@ const TimeTable = (props) => {
   const [timeBlocks2, setTimeBlocks2] = useState([]);
   const [timeBlocks3, setTimeBlocks3] = useState([]);
 
+  const [searchTimezone, setSearchTimezone] = useState("");
+  const [searchStart, setSearchStart] = useState("");
+  const [searchEnd, setSearchEnd] = useState("");
+
   useEffect(() => {
     todayReserv();
-    timeSelect();
     console.log("================[TimeTable]================");
   }, []);
 
+  useEffect(() => {
+    timeSelect();
+  }, [timeZone]);
+
   // 오늘의 예약 확정 목록 조회
   const todayReserv = () => {
-    if (month < 10) {
+    if (parseInt(month) < 10) {
       setMonth(`0${month}`);
     }
     if (date < 10) {
       setDate(`0${date}`);
     }
-    let url = `/run/reservations/confirm?date=${year}-${month}-${date}`;
+    let url = `/run/reservations/confirm?date=${year}-0${month}-${date}`;
     console.log(url);
     axios
       .get(preURL.preURL + url)
       .then((res) => {
         console.log("❕오늘의 예약 확정 목록 조회❕ ", res.data);
-        // setTodayData(res.data);
+        setTodayData(res.data);
       })
       .catch((err) => {
         console.error("⚠️ 오늘의 예약 확정 목록 조회 ⚠️ ", err);
@@ -100,19 +107,74 @@ const TimeTable = (props) => {
     let times1 = [];
     let times2 = [];
     let times3 = [];
-    let time1 = mins.map((t) => {
+    mins.map((t) => {
       times1.push(`${timeZone[0]}${t}`);
     });
-    let time2 = mins.map((t) => {
+    mins.map((t) => {
       times2.push(`${timeZone[1]}${t}`);
     });
-    let time3 = mins.map((t) => {
+    mins.map((t) => {
       times3.push(`${timeZone[2]}${t}`);
     });
     console.log(times1, times2, times3);
     setTimeBlocks1(times1);
     setTimeBlocks2(times2);
     setTimeBlocks3(times3);
+  };
+
+  const ChangeColor = (e) => {
+    console.log(e.target.id); // 블록의 id 값
+    let timevar = e.target.id.replace(":", "+");
+    let arr = [];
+    arr.push(timevar);
+    setSearchTimezone(arr);
+    arr.sort(function(a, b) {
+      return b - a;
+    });
+    setSearchStart(arr[0]);
+    setSearchEnd(arr[arr.length - 1]);
+    document.getElementById(e.target.id).style.backgroundColor = "#E8A284";
+    searchTimetable();
+  };
+
+  // 시간별 예약 내역 조회
+  const searchTimetable = () => {
+    let url =
+      preURL.preURL +
+      `/run/reservations?start=${searchStart}&end=${searchEnd}&select=${searchTimezone.toString()}&date=${year}-${month}-${date}`;
+    console.log(url);
+    axios
+      .get(url)
+      .then((res) => {
+        console.log("❕시간별 예약 내역 조회❕ ", res.data);
+      })
+      .catch((err) => {
+        console.error("⚠️ 시간별 예약 내역 조회 ⚠️ ", err);
+      });
+  };
+
+  // 시간대 당기기
+  const minusTime = () => {
+    let arr = [];
+    {
+      timeZone.map((t) => {
+        t = t - 3;
+        arr.push(t);
+        console.log(arr);
+      });
+    }
+    setTimeZone(arr);
+  };
+
+  // 시간대 늦추기
+  const plusTime = () => {
+    let arr = [];
+    timeZone.map((t) => {
+      t = t + 3;
+      arr.push(t);
+      console.log(arr);
+    });
+    setTimeZone(arr);
   };
 
   return (
@@ -182,7 +244,11 @@ const TimeTable = (props) => {
             <BoldTitle>예약 대기 목록</BoldTitle>
             <Line style={{ width: 538 }} />
             <StyledDivRow>
-              <StyledBtn onClick={() => setTimeZone((prev) => prev - 1)}>
+              <StyledBtn
+                onClick={() => {
+                  minusTime();
+                }}
+              >
                 <FontAwesomeIcon
                   icon={faCaretLeft}
                   style={{
@@ -193,17 +259,29 @@ const TimeTable = (props) => {
               <StyledDivColumn style={{ margin: 15 }}>
                 <TimeBlocks>
                   {timeBlocks1.map((b) => {
-                    return <TimeBlock>{b}</TimeBlock>;
+                    return (
+                      <TimeBlock id={b} onClick={ChangeColor}>
+                        {b}
+                      </TimeBlock>
+                    );
                   })}
                 </TimeBlocks>
                 <TimeBlocks>
                   {timeBlocks2.map((b) => {
-                    return <TimeBlock>{b}</TimeBlock>;
+                    return (
+                      <TimeBlock id={b} onClick={ChangeColor}>
+                        {b}
+                      </TimeBlock>
+                    );
                   })}
                 </TimeBlocks>
                 <TimeBlocks>
                   {timeBlocks3.map((b) => {
-                    return <TimeBlock>{b}</TimeBlock>;
+                    return (
+                      <TimeBlock id={b} onClick={ChangeColor}>
+                        {b}
+                      </TimeBlock>
+                    );
                   })}
                 </TimeBlocks>
               </StyledDivColumn>
@@ -212,6 +290,9 @@ const TimeTable = (props) => {
                   icon={faCaretRight}
                   style={{
                     fontSize: 15,
+                  }}
+                  onClick={() => {
+                    plusTime();
                   }}
                 />
               </StyledBtn>
