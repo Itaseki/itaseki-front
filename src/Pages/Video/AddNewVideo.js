@@ -6,7 +6,7 @@ import axios from "axios";
 // Components
 import Header from "../../Components/Header";
 import YoutubeAPI from "../../Components/Video/YoutubeAPI";
-import PlaylistToggle from "../../Components/Playlist/PlaylistToggle";
+import AddVideoToPlaylistToggle from "../../Components/Playlist/AddVideoToPlaylistToggle";
 // Style
 import {
   AddToPlayList, AddVideoBtn,
@@ -327,7 +327,7 @@ const AddNewVideo = () => {
                   onFocus={()=>setPlayListToggleDisplay(true)}
                   onBlur={()=>setPlayListToggleDisplay(false)}
               />
-              <PlaylistToggle
+              <AddVideoToPlaylistToggle
                   show={playListToggleDisplay}
                   setShow={setPlayListToggleDisplay}
               />

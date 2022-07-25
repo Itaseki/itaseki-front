@@ -20,6 +20,7 @@ import Subscribed_ply from "../../Assets/Subscribed_ply.png";
 import {Link} from "react-router-dom";
 import Stored_Ply from "../../Assets/Stored_Ply.png";
 import Add_New_Ply from "../../Assets/Add_New_Ply.png";
+import {PlaylistHeader} from "./AllPlaylist";
 
 const token = Token();  // 토큰
 
@@ -27,30 +28,30 @@ const SubscribedPly = () => {
 
   const [totalPageCount, setTotalPageCount] = useState(1);
   const [allPlyResponse, setAllPlyResponse] = useState([
-    {userNickname: "IU", playlistsResponses: [
-        {id: 1, title: "IU 플리1", titleImageUrl: "https://i.ytimg.com/vi/-mM-OTwhw7A/maxresdefault.jpg", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
-        {id: 1, title: "IU 플리2", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3}
-      ]},
-    {userNickname: "suzy", playlistsResponses: [
-        {id: 1, title: "suzy 플리1", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
-        {id: 1, title: "suzy 플리2", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
-        {id: 1, title: "suzy 플리3", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
-        {id: 1, title: "suzy 플리4", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
-        {id: 1, title: "suzy 플리5", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
-        {id: 1, title: "suzy 플리6", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
-        {id: 1, title: "suzy 플리7", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
-        {id: 1, title: "suzy 플리8", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
-        {id: 1, title: "suzy 플리9", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
-        // {id: 1, title: "suzy 플리10", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3}
-      ]},
-    {userNickname: "user1", playlistsResponses: [
-        {id: 1, title: "user1 플리1", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
-        {id: 1, title: "user1 플리2", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3}
-      ]},
-    {userNickname: "user2", playlistsResponses: [
-        {id: 1, title: "user2 플리1", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
-        {id: 1, title: "user2 플리2", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3}
-      ]},
+    // {userNickname: "IU", playlistsResponses: [
+    //     {id: 1, title: "IU 플리1", titleImageUrl: "https://i.ytimg.com/vi/-mM-OTwhw7A/maxresdefault.jpg", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+    //     {id: 1, title: "IU 플리2", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3}
+    //   ]},
+    // {userNickname: "suzy", playlistsResponses: [
+    //     {id: 1, title: "suzy 플리1", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+    //     {id: 1, title: "suzy 플리2", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+    //     {id: 1, title: "suzy 플리3", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+    //     {id: 1, title: "suzy 플리4", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+    //     {id: 1, title: "suzy 플리5", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+    //     {id: 1, title: "suzy 플리6", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+    //     {id: 1, title: "suzy 플리7", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+    //     {id: 1, title: "suzy 플리8", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+    //     {id: 1, title: "suzy 플리9", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+    //     // {id: 1, title: "suzy 플리10", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3}
+    //   ]},
+    // {userNickname: "user1", playlistsResponses: [
+    //     {id: 1, title: "user1 플리1", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+    //     {id: 1, title: "user1 플리2", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3}
+    //   ]},
+    // {userNickname: "user2", playlistsResponses: [
+    //     {id: 1, title: "user2 플리1", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3},
+    //     {id: 1, title: "user2 플리2", titleImageUrl: "url", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 3}
+    //   ]},
   ]);
   const [pages, setPages] = useState([1,2,3,4,5]);
   const [page, setPage] = useState(0);  // 현재 페이지
@@ -143,12 +144,7 @@ const SubscribedPly = () => {
   return (
       <div>
         <Header />
-        <TopBtns>
-          <Link to="/playlist/subscribe">
-            <img src={Stored_Ply} alt="구독 플레이리스트 보기" />
-          </Link>
-          <img src={Add_New_Ply} alt="새 플레이리스트 만들기" />
-        </TopBtns>
+          <PlaylistHeader />
         <Wrapper>
           <MainLogo
               src={Subscribed_ply}

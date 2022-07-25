@@ -1,23 +1,23 @@
 import React, {useEffect, useState} from "react";
 import useInput from "../../Hooks/useInput";
-import { AutoFrame, OneSelectItemWrapper, ToggleScrollWrapper} from "../../Style/Video";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
+// Style
+import { AutoFrame, OneSelectItemWrapper, ToggleScrollWrapper} from "../../Style/Video";
 import styled from "styled-components";
 import StyledBtn from "../../Style/StyledBtn";
+import NewPlaylistToggle, {SwitchBtnLabel} from "./NewPlaylistToggle";
 
-const PlaylistToggle = ({show, setShow}) => {
+const AddVideoToPlaylistToggle = ({show, setShow}) => {
 
   const [playListList, setPlayListList] = useState([]); // 받아온 내 플레이리스트 목록
   /* 등록 처리 필요 */
   const [playList, setPlayList] = useState([]);
   const [selectedPlayListId, setSelectedPlayListId] = useState([]);
-  // 새로운 플레이리스트 생성
   const [addNewPly, setAddNewPly] = useState(false);
-  const [newPlyName, onChangeNewPlyName, setNewPlyName] = useInput("");
-  const [newPlyPublic, setNewPlyPublic] = useState(false);
 
-  // 사용자 플레이리스트 조회
+
+    // 사용자 플레이리스트 조회
   useEffect(() => {
     axios
         .get(preURL.preURL + `/boards/playlist/user/${1}`)  /*사용자 id*/
@@ -75,28 +75,9 @@ const PlaylistToggle = ({show, setShow}) => {
         })
   }
 
-  // 새 플레이리스트 생성
-  const onClickMakePly = () => {
-    axios
-        .post(preURL.preURL + '/boards/playlist', {
-          title: newPlyName,
-          isPublic: newPlyPublic
-        })
-        .then((res) => {
-          console.log("👍새 플레이리스트 생성 성공", res.data);
-          setNewPlyName("");
-          setNewPlyPublic(false);
-          setAddNewPly(false);
-        })
-        .catch((err) => {
-          console.log("🧨새 플레이리스트 생성 실패", err);
-        })
-  };
-
   const onCloseToggle = (e) => {
     e.preventDefault();
     setShow(prev => !prev)
-    setAddNewPly(false);
   };
 
   // 토글의 리스트
@@ -139,22 +120,7 @@ const PlaylistToggle = ({show, setShow}) => {
         <div style={{alignSelf: "center"}}>
           {addNewPly
               ?
-              <>
-                <NewPlyInput type="text" placeholder="플레이리스트 이름" value={newPlyName} onChange={onChangeNewPlyName}/>
-                <div style={{display: "flex", alignItems: "center", justifyContent: "space-evenly", margin: "10px 0"}}>
-                  {newPlyPublic
-                      ?
-                      <SwitchBtnLabel style={{margin: 0}}>
-                        <span className="active" onClick={() => setNewPlyPublic(prev => !prev)}>공개</span>
-                      </SwitchBtnLabel>
-                      :
-                      <SwitchBtnLabel style={{margin: 0}}>
-                        <span onClick={() => setNewPlyPublic(prev => !prev)}>비공개</span>
-                      </SwitchBtnLabel>
-                  }
-                  <MakeNewPlyBtn onClick={onClickMakePly}>만들기</MakeNewPlyBtn>
-                </div>
-              </>
+              <NewPlaylistToggle show={addNewPly} setAddNewPly={setAddNewPly}/>
               :
               <AddNewPlyBtn onClick={() => setAddNewPly(prev => !prev)}>
                 새 플레이리스트 만들기
@@ -165,7 +131,7 @@ const PlaylistToggle = ({show, setShow}) => {
   )
 }
 
-export default PlaylistToggle;
+export default AddVideoToPlaylistToggle;
 
 const AddNewPlyBtn = styled(StyledBtn)`
   box-sizing: border-box;
@@ -176,62 +142,6 @@ const AddNewPlyBtn = styled(StyledBtn)`
   border-radius: 29px;
   color: white;
   align-self: center;
-`
-
-const MakeNewPlyBtn = styled(StyledBtn)`
-  box-sizing: border-box;
-  width: 70px;
-  height: 30px;
-  background: black;
-  border: 2px dashed white;
-  border-radius: 29px;
-  color: white;
-`
-
-const NewPlyInput = styled.input`
-  box-sizing: border-box;
-  width: 170px;
-  height: 33px;
-  background: white;
-  border: 2px dashed #000000;
-  border-radius: 29px;
-  display: block;
-  align-self: center;
-  padding: 0 4px;
-`
-
-// 플레이리스트 공개/비공개 토글 버튼
-const SwitchBtnLabel = styled.label`
-  width: 60px;
-  height: 25px;
-  display: inline-block;
-  position: relative;
-  border-radius: 71px;
-  background-color: black;
-  cursor: pointer;
-  transition: all 0.2s ease-in;
-  & > span{
-    width: 45px;
-    height: 18px;
-    position: absolute;
-    top: 50%;
-    left: 4px;
-    transform: translateY(-50%);
-    border-radius: 71px;
-    background-color: #E35D12;
-    font-size: small;
-    font-weight: bold;
-    text-align: center;
-    transition: all 0.2s ease-in;
-  }
-  :active{  // 동작X
-    background-color: #E35D12;
-  }
-  & > span.active{
-    background-color: black;
-    color: #E35D12;
-    left: calc(100% - 50px);
-  }
 `
 
 const XButton = styled(StyledBtn)`
