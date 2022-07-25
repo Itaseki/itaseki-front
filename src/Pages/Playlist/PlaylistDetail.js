@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
 // Components
 import Token from "../../Components/Token";
 import Header from "../../Components/Header";
 import CommentList from "../../Components/Comment/CommentList";
+import PlaylistHeader from "./AllPlaylist";
+import AddVideoToPlaylistToggle from "../../Components/Playlist/AddVideoToPlaylistToggle";
 // Style
 import {AButton, AdditionalBtns, DetailInfo, DetailTitle, TitleWrapper, Wrapper} from "../../Style/Community";
 import StyledBtn from "../../Style/StyledBtn";
@@ -22,9 +24,6 @@ import {
 } from "../../Style/Playlist";
 // Assets
 import Dot3_btn from "../../Assets/Dot3_btn.png";
-import Stored_Ply from "../../Assets/Stored_Ply.png";
-import Add_New_Ply from "../../Assets/Add_New_Ply.png";
-import {PlaylistHeader} from "./AllPlaylist";
 
 
 
@@ -53,6 +52,7 @@ const PlaylistDetail = () => {
     ],
     comments: [],
   })
+  const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
 
 
   // 상세 플레이리스트 조회
@@ -71,6 +71,12 @@ const PlaylistDetail = () => {
           console.log("🧨상세 플레이리스트 조회 실패", err);
         })
   },[]);
+
+  // 플레이리스트에 영상 담기
+  const onClickAddtoPly = () => {
+    console.log("플레이리스트에 영상 담기 버튼 클릭");
+    setPlayListToggleDisplay(prev => !prev);
+  };
 
   // 플리 삭제
   const onClickDelete = () => {
@@ -167,15 +173,28 @@ const PlaylistDetail = () => {
             <VideosWrapper>
               {(playlist.videos).map((video) => {
                 return (
-                    <OneVideoInPly onClick={()=>navigate(`/videolist/${video.id}`)}>
+                    <OneVideoInPly>
                       <VideoNum>{++cnt}</VideoNum>
-                      <VideoContainer>
+                      <VideoContainer onClick={()=>navigate(`/videolist/${video.id}`)}>
                         <img src={video.thumbnailUrl} alt="썸네일"/>
                       </VideoContainer>
                       <PlyVideoInfo>
                         <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-                          <span id="title">{video.title}</span>
-                          <img src={Dot3_btn} alt="플레이리스트에 담기 버튼" />
+                          <span id="title" onClick={()=>navigate(`/videolist/${video.id}`)}>
+                            {video.title}
+                          </span>
+                          <img
+                              src={Dot3_btn}
+                              alt="플레이리스트에 담기 버튼"
+                              onClick={onClickAddtoPly}
+                          />
+                          {playListToggleDisplay &&
+                              <AddVideoToPlaylistToggle
+                                  videoId={video.id}
+                                  show={playListToggleDisplay}
+                                  setShow={setPlayListToggleDisplay}
+                              />
+                          }
                         </div>
                         <span>{video.videoUploader}</span>
                         <span>{video.runtime}</span>
