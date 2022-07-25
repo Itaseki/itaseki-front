@@ -4,6 +4,8 @@ import axios from "axios";
 import preURL from "../../preURL/preURL";
 // Components
 import Header from "../../Components/Header";
+import Token from "../../Components/Token";
+import YoutubeIframe from "../../Components/Video/YoutubeIframe";
 // Style
 import {
   Body,
@@ -12,7 +14,7 @@ import {
   ChatInput,
   Chatting,
   ExitBtn, HeadBtns, ImgBtn,
-  Inform, Information, InformHeader, Switch,
+  Inform, Information, InformHeader, ProfileImg, ProfileImgDefault, Switch,
   TopBar,
   Video,
   Wrapper
@@ -26,9 +28,7 @@ import ChatInformIcon from "../../Assets/Chat_Inform_icon.png";
 import ChatInform from "../../Assets/Chat_Inform.png";
 import ChatInformArrow from "../../Assets/Chat_Inform_Arrow.png";
 import SendingBtn from "../../Assets/Chat_Seding_btn.png";
-import ProfileImg from "../../Assets/Basic_profile.png";
-import Token from "../../Components/Token";
-import YoutubeIframe from "../../Components/Video/YoutubeIframe";
+import Profile_Img from "../../Assets/Basic_profile.png";
 
 /*
 import SockJs from "sockjs-client";
@@ -46,7 +46,7 @@ const Running = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [showInformModal, setShowInformModal] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
-  const [userProfileUrl, setUserProfileUrl] = useState(ProfileImg);
+  const [userProfileUrl, setUserProfileUrl] = useState(Profile_Img);
 
   // 달리기방 영상정보 및 사용자 정보 가져오기
   useEffect(() => {
@@ -133,7 +133,10 @@ const Running = () => {
                 </Inform>
               <ChatBody>{"채팅 내용, 임시 border"}</ChatBody>
               <ChatBottom>
-                <ImgBtn src={userProfileUrl} alt=""/>
+                {userProfileUrl
+                    ? <ProfileImg src={userProfileUrl} alt=""/>
+                    : <ProfileImgDefault />
+                }
                 <ChatInput type="text"/>
                 <ImgBtn src={SendingBtn} alt="전송 버튼"/>
               </ChatBottom>

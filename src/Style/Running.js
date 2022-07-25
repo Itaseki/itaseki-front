@@ -76,6 +76,22 @@ export const ChatBottom = styled.div`
   margin: 3px 0;
 `
 
+export const ProfileImg = styled.img`
+  width: 30px;
+  height: 30px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background-color: gray;
+`
+
+export const ProfileImgDefault = styled.div`
+  width: 40px;
+  height: 30px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background-color: gray;
+`
+
 export const ImgBtn = styled.img`
   width: 30px;
   height: 30px;
