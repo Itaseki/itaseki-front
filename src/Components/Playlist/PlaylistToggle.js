@@ -1,12 +1,17 @@
 import React, {useEffect, useState} from "react";
 import useInput from "../../Hooks/useInput";
-import { AutoFrame, OneSelectItemWrapper, ToggleScrollWrapper} from "../../Style/Video";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
+import Token from "../Token";
+// Style
+import { AutoFrame, OneSelectItemWrapper, ToggleScrollWrapper} from "../../Style/Video";
 import styled from "styled-components";
 import StyledBtn from "../../Style/StyledBtn";
 
-const PlaylistToggle = ({show, setShow}) => {
+
+const token = Token();
+
+const PlaylistToggle = ({videoId, show, setShow}) => {
 
   const [playListList, setPlayListList] = useState([]); // 받아온 내 플레이리스트 목록
   /* 등록 처리 필요 */
@@ -37,6 +42,7 @@ const PlaylistToggle = ({show, setShow}) => {
     const boolChecked = prop.target.checked;
     console.log(selected, boolChecked);
 
+    // 1. 선택 항목을 리스트로 만듦
     let newPlaylist, newPlaylistId;
     if(boolChecked) {
       newPlaylist = [...playList, selected.name];
@@ -50,6 +56,31 @@ const PlaylistToggle = ({show, setShow}) => {
       setPlayList(newPlaylist);
       setSelectedPlayListId(newPlaylistId);
     }
+
+    // 임시 오류 방지 - 수정 필요
+    if(!videoId) return
+
+    // 선택항목 한개씩 바로 추가
+    axios
+        .post(preURL.preURL + `/boards/playlist/${selected.id}`,{
+          videoId: videoId,
+        },{
+          headers: {
+            'itasekki': token
+          }
+        })
+        .then((res) => {
+          console.log("👍플레이리스트에 영상 추가 성공", res);
+          if(res.status === 201)
+            alert(`${selected.name}에 영상을 추가하였습니다.`);
+          else if(res.status === 403)
+            alert("권한이 없습니다.");
+          else if(res.status === 409) /*작동 안됨 수정 필요*/
+            alert(`이미 ${selected.name}에 영상이 있습니다.`);
+        })
+        .catch((err) => {
+          console.log("🧨플레이리스트에 영상 추가 실패", err);
+        })
   }
 
   // 플레이리스트 공개/비공개

@@ -55,6 +55,7 @@ const OneVideo = ({video}) => {
                   style={{marginLeft: "4px", cursor: "pointer"}}/>
               {clickedPlyId === videoId &&   /*클릭한 아이콘과 id가 동일한 모달창에만 적용되도록*/
                   <PlaylistToggle
+                      videoId={videoId}
                       show={playListToggleDisplay}
                       setShow={setPlayListToggleDisplay}
                   />
