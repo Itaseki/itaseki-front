@@ -30,13 +30,15 @@ const CreateModal = styled.div`
   right: 0;
   z-index: 1022;
   & > div {
+    position: relative;
     margin-top: 200px;
     display: inline-block;
     width: 850px;
-    background-color: #ECECEC;
     padding: 30px 40px 0;
+    border: 6px dashed rgba(0, 0, 0, 0.27);
+    border-radius: 50px;
+    background-color: #F4F3EE;
     z-index: 1012;
-    position: relative;
   }
 `
 

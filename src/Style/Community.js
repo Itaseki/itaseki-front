@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import StyledBtn from "./StyledBtn";
+import {light} from "../Style/Color";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -10,8 +11,7 @@ export const Wrapper = styled.div`
 /*Best 잡담 게시글 목록*/
 export const BestPostsWrapper = styled.div`
   display: flex;
-  height: 150px;
-  padding-top: 44px;
+  align-items: center;
   padding-bottom: 27px;
 `
 
@@ -41,6 +41,10 @@ export const Title = styled.div`
   border: none;
   font-size: 13px;
   color: black;
+  & > #comment-cnt {
+    font-weight: bold;
+    color: ${light.colors.mainColor}
+  }
 `
 
 export const Info = styled.div`
@@ -55,7 +59,7 @@ export const Info = styled.div`
 `
 
 export const Line = styled.div`
-  border-bottom: 1px solid #9C9C9C;
+  border-bottom: 2px solid black;
 `
 
 /*게시글 리스트*/
@@ -80,30 +84,33 @@ export const SortBox = styled.div`
 ////////////////////////////////////////////////////////
 // 새 게시물 작성 모달
 
-export const Input = styled.input`
+export const InputTitle = styled.input`
   width: 792px;
-  height: 58px;
-  margin: 10px 0;
-  background: #FFFFFF;
-  border-radius: 14px;
-  font-size: 16px;
-  ::placeholder {
-    font-weight: 600;
-    line-height: 19px;
-    align-items: center;
-    text-align: center;
-    color: #532A6B;
-  }
+  height: 60px;
+  margin: 10px auto;
+  padding: 0 10px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 4px solid;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
 `
 
 export const ImgInput = styled.div`
   display: flex;
+  flex-display: row;
+  align-items: center;
   & > label {
     width: 146px;
     height: 58px;
     margin-left: 3%;
-    background: #9E8FA8;
-    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.65);
+    border: 3px dashed;
+    border-radius: 29px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -119,26 +126,24 @@ export const TextArea = styled.textarea`
   height: 270px;
   margin: 10px 0;
   padding: 10px;
-  background: #FFFFFF;
-  border-radius: 14px;
+  border: 4px dashed;
+  border-radius: 29px;
   resize: none;
   ::placeholder {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 20px;
+    font-weight: bold;
     line-height: 19px;
     align-items: center;
     text-align: center;
-    color: #532A6B;
   }
 `
 
-export const SubmitBtn = styled(StyledBtn)`
-  width: 792px;
-  height: 58px;
+export const SubmitBtn = styled.input`
+  width: 750px;
+  height: 70px;
   margin: 10px 0;
-  background: #6B5F73;
-  border-radius: 14px;
-  color: white;
+  cursor: pointer;
 `
 
 ///////////////////////////////////////////////////////////////
@@ -182,6 +187,10 @@ export const ContentWrapper = styled.div`
   margin: 15px 0;
 `
 
+export const ContentImg = styled.img`
+  max-width: 600px;
+`
+
 export const CommentsWrapper = styled(Wrapper)`
 
 `
@@ -189,6 +198,14 @@ export const CommentsWrapper = styled(Wrapper)`
 export const CommentsListWrapper = styled.div`
   display: flex;
   flex-direction: column;
+`
+
+export const CommentHeader = styled.div`
+  font-weight: bold;
+  font-size: x-large;
+  & > #count {
+    color: ${light.colors.mainColor};
+  }
 `
 
 export const Comment = styled.div`
@@ -199,11 +216,18 @@ export const Comment = styled.div`
   }
 `
 
+export const CommentReplyImg = styled.img`
+  width: 15px;
+  height: 19px;
+  padding: 10px;
+  vertical-align: middle;
+`
+
 export const ReplyBtn = styled(StyledBtn)`
   width: 47px;
   height: 19px;
   margin: 6px 4px;
-  background: #C4C4C4;
+  background: black;
   border-radius: 29px;
   color: white;
 `
@@ -212,27 +236,51 @@ export const NewCommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 70px 0;
+  & #nickname {
+    color: ${light.colors.mainColor};
+    font-weight: bold;
+  }
 `
 
 export const NewCommentBox = styled.form`
   display: flex;
-  flex-direction: column;
-  & > textarea {
-    padding: 10px;
-    width: 807px;
-    height: 101px;
-    background: #ECECEC;
-    border-radius: 17px;
-    resize: none;
+  flex-direction: row;
+  position: relative;
+`
+
+export const NewCommentInput = styled.textarea`
+  padding: 10px 70px 10px 10px;
+  width: 720px;
+  height: 80px;
+  border-radius: 17px;
+  border: 2px solid;
+  resize: none;
+  font-size: large;
+  font-weight: bold;
+  ::placeholder{
+    font-size: xx-large;
+    font-family: 'Work Sans';
   }
-  & > #submit-btn , div > #submit-btn{
-    width: 56px;
-    height: 29px;
-    margin: 5px;
-    border-radius: 29px;
-    color: white;
-    align-self: flex-end;
-  }
+`
+
+export const ExitReplybtn = styled.img`
+  width: 35px;
+  margin: 10px;
+  position: absolute;
+  align-self: center;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+`
+
+export const EnterBtn = styled.input`
+  width: 45px;
+  margin: 10px;
+  position: absolute;
+  align-self: center;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
 `
 
 export const AdditionalBtns = styled.div`
@@ -241,8 +289,8 @@ export const AdditionalBtns = styled.div`
 `
 
 export const AButton = styled(StyledBtn)`
-  width: 146px;
-  height: 58px;
+  width: 120px;
+  height: 45px;
   background: white;
   border: 3px dashed black;
   border-radius: 29px;

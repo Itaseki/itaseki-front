@@ -1,10 +1,20 @@
-import {CommentsListWrapper, CommentsWrapper, Line, NewCommentBox, NewCommentWrapper} from "../../Style/Community";
-import SingleComment from "./SingleComment";
-import StyledBtn from "../../Style/StyledBtn";
-import React, {useCallback} from "react";
+import React, {useCallback, useState} from "react";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
 import useInput from "../../Hooks/useInput";
+// Components
+import SingleComment from "./SingleComment";
+// Style
+import {
+  CommentHeader,
+  CommentsListWrapper,
+  CommentsWrapper, EnterBtn,
+  Line,
+  NewCommentBox, NewCommentInput,
+  NewCommentWrapper, PlaceholderImg
+} from "../../Style/Community";
+// Assets
+import Enter from "../../Assets/Enter_Comment.png";
 
 
 const CommentList = ({commentCount, commentList, board, boardId}) => {
@@ -30,17 +40,25 @@ const CommentList = ({commentCount, commentList, board, boardId}) => {
   return (
       <CommentsWrapper>
         <CommentsListWrapper>
-          <p>댓글 {commentCount}</p>
+          <CommentHeader>
+            <span>댓글</span>&nbsp;
+            <span id="count">{commentCount}</span>
+          </CommentHeader>
           {commentList.map((comment) => (
               <SingleComment comment={comment} board={board} boardId={boardId}/>
           ))}
           <Line style={{width: "805px"}}/>
         </CommentsListWrapper>
         <NewCommentWrapper>
-          {"로그인한 사용자"}
+          <p id="nickname">
+            {"로그인한 사용자"}
+          </p>
           <NewCommentBox onSubmit={onSubmitComment}>
-            <textarea placeholder="댓글 입력" value={newComment} onChange={onChangeNewComment}/>
-            <StyledBtn type="submit" id="submit-btn" style={{background: "#9E8FA8"}}>확인</StyledBtn>
+            <NewCommentInput
+                value={newComment}
+                onChange={onChangeNewComment}
+                placeholder="| 댓글 남기기"/>
+            <EnterBtn type="image" src={Enter} alt="댓글 제출"/>
           </NewCommentBox>
         </NewCommentWrapper>
       </CommentsWrapper>

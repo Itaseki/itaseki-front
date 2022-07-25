@@ -1,26 +1,31 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import preURL from "../../preURL/preURL";
 import axios from "axios";
+import {Link} from "react-router-dom";
+import useInput from "../../Hooks/useInput";
+// Components
+import Header from "../../Components/Header";
+import Modal from "../../Components/Modal";
+import Pagination from "../../Components/Pagination";
+// Style
 import {
   BestPostsWrapper,
-  BestRankNum, Contents, ImgInput, Info, Input,
-  Line,
+  BestRankNum, Contents, ImgInput, Info, Input, InputTitle,
+  Line, NewPostTitle,
   PostLists,
   PostsWrapper,
   SortBox, SubmitBtn, TextArea,
   Title,
   Wrapper
 } from "../../Style/Community";
-import Header from "../../Components/Header";
-import BestCommu from "../../Assets/BEST_Commu.png";
-import AddPost from "../../Assets/Add_Post.png";
 import StyledBtn from "../../Style/StyledBtn";
 import {faHeart, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import Modal from "../../Components/Modal";
-import {Link} from "react-router-dom";
-import useInput from "../../Hooks/useInput";
-import Pagination from "../../Components/Pagination";
+import {light} from "../../Style/Color";
+// Assets
+import BestCommu from "../../Assets/Best_Commu.png";
+import AddPost from "../../Assets/Add_Post.png";
+import Enter from "../../Assets/Add_video_submit.png";
 
 const Community = () => {
 
@@ -51,8 +56,8 @@ const Community = () => {
   const [showAddNewPostModal, setShowAddNewPostModal] = useState(false);
   const [newTitle, onChangeNewTitle, setNewTitle] = useInput("");
   const [newContent, onChangeNewContent, setNewContent] = useInput("");
-  // const [newImages, onChangeNewImages, setNewImages] = useInput([]);
   const [newImages, setNewImages] = useState([]);
+  const [showNewImgs, setShowNewImgs] = useState(['선택된 파일 없음']);
 
   // 베스트 게시글 조회
   useEffect(() => {
@@ -106,6 +111,11 @@ const Community = () => {
   const onChangeNewImages = (e) => {
     const file = e.target.files;
     console.log(file);
+    let list = [];
+    for(let i=0; i<file.length; i++){
+      list.push(file[i].name);
+    }
+    setShowNewImgs(list);
     setNewImages(file);
   };
 
@@ -185,27 +195,31 @@ const Community = () => {
   const bestPostList = bestPosts.map((bestPost) => {
     const url = `/community/${bestPost.id}`;
     return (
-        <div style={{width: "524px"}}>
+        <div style={{width: "450px"}}>
           <Contents>
-            <BestRankNum>{rank++}</BestRankNum>
+            <BestRankNum style={{color: `${light.colors.mainColor}`}}>
+              {rank++}
+            </BestRankNum>
             <Link to={url} style={{textDecorationLine: "none"}}>
-              <Title style={{color: "#532A6B"}}>
-                {bestPost.title}
+              <Title>
+                <span>{bestPost.title}</span>&nbsp;
+                {(bestPost.commentCount !== 0) &&
+                  <span id="comment-cnt">{bestPost.commentCount}</span>}
               </Title>
             </Link>
             <Info>
               <StyledBtn>
                 <FontAwesomeIcon
                     icon={faHeart}
-                    style={{ fontSize: "80%", color: "#D9767C", marginLeft: "auto" }}
+                    style={{ fontSize: "80%", color: `${light.colors.mainColor}`, marginLeft: "auto" }}
                 />
               </StyledBtn>
-              <p style={{color: "#D9767C", width: "20px"}}>
+              <p style={{color: `${light.colors.mainColor}`, width: "20px"}}>
                 {bestPost.likeCount}
               </p>
             </Info>
           </Contents>
-          <Line />
+          <Line style={{borderBottom: "dashed"}}/>
         </div>
     )
   });
@@ -217,7 +231,11 @@ const Community = () => {
         <div style={{width: "805px"}}>
           <Contents>
             <Link to={url} style={{textDecorationLine: "none"}}>
-              <Title>{post.title}</Title>
+              <Title>
+                <span>{post.title}</span>&nbsp;
+                {(post.commentCount !== 0) &&
+                    <span id="comment-cnt">{post.commentCount}</span>}
+              </Title>
             </Link>
             <Info>
               <p style={{marginRight: 10}}>{post.createdTime}</p>
@@ -226,10 +244,12 @@ const Community = () => {
               <StyledBtn>
                 <FontAwesomeIcon
                     icon={faHeart}
-                    style={{ fontSize: "80%", color: "#D9767C", marginLeft: "auto" }}
+                    style={{ fontSize: "80%", color: `${light.colors.mainColor}`, marginLeft: "auto" }}
                 />
               </StyledBtn>
-              <p style={{color: "#D9767C"}}>{post.likeCount}</p>
+              <p style={{color: `${light.colors.mainColor}`}}>
+                {post.likeCount}
+              </p>
             </Info>
           </Contents>
           <Line />
@@ -252,31 +272,33 @@ const Community = () => {
           {/*새 게시글 쓰기 모달창*/}
           <Modal show={showAddNewPostModal} onCloseModal={onCloseModal}>
             <form enctype="multipart/form-data" onSubmit={onAddNewPost}>
-              <Input placeholder="제목을 입력하세요." value={newTitle} onChange={onChangeNewTitle}/>
+              <InputTitle value={newTitle} onChange={onChangeNewTitle} placeholder="| 제목을 입력하세요."/>
               <ImgInput>
                 <label for="img-input">
-                  <FontAwesomeIcon for="img-input" icon={faPlus} style={{ fontSize: "150%", color: "white" }} />
+                  <FontAwesomeIcon for="img-input" icon={faPlus} style={{ fontSize: "150%"}} />
                 </label>
                 <input id="img-input" type="file" accept="image/*" multiple onChange={onChangeNewImages} style={{display: "none"}}/>
-                {/*<input value="선택된 파일 없음" disabled="disabled" />*/}
+                <input value={showNewImgs} disabled="disabled"/>
               </ImgInput>
               <TextArea placeholder="내용" value={newContent} onChange={onChangeNewContent}/>
-              <SubmitBtn type="submit">확인</SubmitBtn>
+              <SubmitBtn type="image" src={Enter}/>
             </form>
           </Modal>
           <BestPostsWrapper>
             <img src={BestCommu} alt="Best 잡담 게시글"/>
-            <PostLists style={{paddingLeft: "25px"}}>
+            <PostLists>
               {bestPostList}
             </PostLists>
           </BestPostsWrapper>
           <PostsWrapper>
-            <PostLists>{postList}</PostLists>
+            <PostLists>
+              {postList}
+            </PostLists>
           </PostsWrapper>
           <SortBox>
             <StyledBtn
                 id="sort-btn"
-                style={{ fontSize: "10px", color: "#9E8FA8", marginRight: 4, left: "876px"}}
+                style={{ fontSize: "10px", marginRight: 4, left: "876px"}}
                 onClick={onClickSortNewest}
             >
               최신순
@@ -284,7 +306,7 @@ const Community = () => {
             <p>|</p>
             <StyledBtn
                 id="sort-btn"
-                style={{ fontSize: "10px", color: "#9E8FA8", marginRight: 4, left: "941px"}}
+                style={{ fontSize: "10px", marginRight: 4, left: "941px"}}
                 onClick={onClickSortLike}
             >
               좋아요순
@@ -292,7 +314,7 @@ const Community = () => {
             <p>|</p>
             <StyledBtn
                 id="sort-btn"
-                style={{ fontSize: "10px", color: "#9E8FA8", marginRight: 4, left: "1010px"}}
+                style={{ fontSize: "10px", marginRight: 4, left: "1010px"}}
                 onClick={onClickSortView}
             >
               조회순
