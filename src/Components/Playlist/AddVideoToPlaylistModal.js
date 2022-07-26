@@ -1,23 +1,25 @@
 import React, {useEffect, useState} from "react";
-import useInput from "../../Hooks/useInput";
-import { AutoFrame, OneSelectItemWrapper, ToggleScrollWrapper} from "../../Style/Video";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
+import Token from "../Token";
+// Style
+import { AutoFrame, OneSelectItemWrapper, ToggleScrollWrapper} from "../../Style/Video";
 import styled from "styled-components";
 import StyledBtn from "../../Style/StyledBtn";
+import NewPlaylistModal, {SwitchBtnLabel} from "./NewPlaylistModal";
 
-const PlaylistToggle = ({show, setShow}) => {
+const token = Token();
+
+const AddVideoToPlaylistModal = ({videoId, show, setShow}) => {
 
   const [playListList, setPlayListList] = useState([]); // 받아온 내 플레이리스트 목록
   /* 등록 처리 필요 */
   const [playList, setPlayList] = useState([]);
   const [selectedPlayListId, setSelectedPlayListId] = useState([]);
-  // 새로운 플레이리스트 생성
   const [addNewPly, setAddNewPly] = useState(false);
-  const [newPlyName, onChangeNewPlyName, setNewPlyName] = useInput("");
-  const [newPlyPublic, setNewPlyPublic] = useState(false);
 
-  // 사용자 플레이리스트 조회
+
+  // 사용자 플레이리스트 조회(코드 중복)
   useEffect(() => {
     axios
         .get(preURL.preURL + `/boards/playlist/user/${1}`)  /*사용자 id*/
@@ -26,7 +28,6 @@ const PlaylistToggle = ({show, setShow}) => {
           console.log("👍내 플레이리스트 조회 성공", res.data);
         })
         .catch((err) => {
-          console.log(err);
           console.log("🧨내 플레이리스트 조회 실패", err);
         })
   },[]);
@@ -37,6 +38,7 @@ const PlaylistToggle = ({show, setShow}) => {
     const boolChecked = prop.target.checked;
     console.log(selected, boolChecked);
 
+    // 1. 선택 항목을 리스트로 만듦
     let newPlaylist, newPlaylistId;
     if(boolChecked) {
       newPlaylist = [...playList, selected.name];
@@ -50,9 +52,34 @@ const PlaylistToggle = ({show, setShow}) => {
       setPlayList(newPlaylist);
       setSelectedPlayListId(newPlaylistId);
     }
+
+    // 임시 오류 방지 - 수정 필요
+    if(!videoId) return
+
+    // 선택항목 한개씩 바로 추가
+    axios
+        .post(preURL.preURL + `/boards/playlist/${selected.id}`,{
+          videoId: videoId,
+        },{
+          headers: {
+            'itasekki': token
+          }
+        })
+        .then((res) => {
+          console.log("👍플레이리스트에 영상 추가 성공", res);
+          if(res.status === 201)
+            alert(`${selected.name}에 영상을 추가하였습니다.`);
+          else if(res.status === 403)
+            alert("권한이 없습니다.");
+          else if(res.status === 409) /*작동 안됨 수정 필요*/
+            alert(`이미 ${selected.name}에 영상이 있습니다.`);
+        })
+        .catch((err) => {
+          console.log("🧨플레이리스트에 영상 추가 실패", err);
+        })
   }
 
-  // 플레이리스트 공개/비공개
+  // 플레이리스트 공개/비공개(코드 중복)
   const onClickPublic = (prop) => {
     const Target = prop.target;
     const id = Target.id;
@@ -75,28 +102,9 @@ const PlaylistToggle = ({show, setShow}) => {
         })
   }
 
-  // 새 플레이리스트 생성
-  const onClickMakePly = () => {
-    axios
-        .post(preURL.preURL + '/boards/playlist', {
-          title: newPlyName,
-          isPublic: newPlyPublic
-        })
-        .then((res) => {
-          console.log("👍새 플레이리스트 생성 성공", res.data);
-          setNewPlyName("");
-          setNewPlyPublic(false);
-          setAddNewPly(false);
-        })
-        .catch((err) => {
-          console.log("🧨새 플레이리스트 생성 실패", err);
-        })
-  };
-
   const onCloseToggle = (e) => {
     e.preventDefault();
     setShow(prev => !prev)
-    setAddNewPly(false);
   };
 
   // 토글의 리스트
@@ -139,22 +147,7 @@ const PlaylistToggle = ({show, setShow}) => {
         <div style={{alignSelf: "center"}}>
           {addNewPly
               ?
-              <>
-                <NewPlyInput type="text" placeholder="플레이리스트 이름" value={newPlyName} onChange={onChangeNewPlyName}/>
-                <div style={{display: "flex", alignItems: "center", justifyContent: "space-evenly", margin: "10px 0"}}>
-                  {newPlyPublic
-                      ?
-                      <SwitchBtnLabel style={{margin: 0}}>
-                        <span className="active" onClick={() => setNewPlyPublic(prev => !prev)}>공개</span>
-                      </SwitchBtnLabel>
-                      :
-                      <SwitchBtnLabel style={{margin: 0}}>
-                        <span onClick={() => setNewPlyPublic(prev => !prev)}>비공개</span>
-                      </SwitchBtnLabel>
-                  }
-                  <MakeNewPlyBtn onClick={onClickMakePly}>만들기</MakeNewPlyBtn>
-                </div>
-              </>
+              <NewPlaylistModal show={addNewPly} setAddNewPly={setAddNewPly}/>
               :
               <AddNewPlyBtn onClick={() => setAddNewPly(prev => !prev)}>
                 새 플레이리스트 만들기
@@ -165,76 +158,20 @@ const PlaylistToggle = ({show, setShow}) => {
   )
 }
 
-export default PlaylistToggle;
+export default AddVideoToPlaylistModal;
 
 const AddNewPlyBtn = styled(StyledBtn)`
   box-sizing: border-box;
   width: 170px;
   height: 33px;
   background-color: black;
-  border: 2px dashed #FFFFFF;
-  border-radius: 29px;
-  color: white;
-  align-self: center;
-`
-
-const MakeNewPlyBtn = styled(StyledBtn)`
-  box-sizing: border-box;
-  width: 70px;
-  height: 30px;
-  background: black;
   border: 2px dashed white;
   border-radius: 29px;
   color: white;
-`
-
-const NewPlyInput = styled.input`
-  box-sizing: border-box;
-  width: 170px;
-  height: 33px;
-  background: white;
-  border: 2px dashed #000000;
-  border-radius: 29px;
-  display: block;
   align-self: center;
-  padding: 0 4px;
 `
 
-// 플레이리스트 공개/비공개 토글 버튼
-const SwitchBtnLabel = styled.label`
-  width: 60px;
-  height: 25px;
-  display: inline-block;
-  position: relative;
-  border-radius: 71px;
-  background-color: black;
-  cursor: pointer;
-  transition: all 0.2s ease-in;
-  & > span{
-    width: 45px;
-    height: 18px;
-    position: absolute;
-    top: 50%;
-    left: 4px;
-    transform: translateY(-50%);
-    border-radius: 71px;
-    background-color: #E35D12;
-    font-size: small;
-    font-weight: bold;
-    text-align: center;
-    transition: all 0.2s ease-in;
-  }
-  :active{  // 동작X
-    background-color: #E35D12;
-  }
-  & > span.active{
-    background-color: black;
-    color: #E35D12;
-    left: calc(100% - 50px);
-  }
-`
-
-const XButton = styled(StyledBtn)`
+export const XButton = styled(StyledBtn)`
   color: #E35D12;
   display: block;
   align-self: end;

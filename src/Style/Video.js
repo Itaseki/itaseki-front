@@ -82,12 +82,12 @@ export const Series = styled.div`
 export const AutoFrame = styled.div`
   display: ${props => props.display? "flex" : "none"};
   flex-direction: column;
-  align-items: flex-start;
+  //align-items: flex-start;
   box-sizing: border-box;
   width: 220px;
   height: 280px;
   background: white;
-  border: 5px dashed rgba(0, 0, 0, 0.8);
+  border: 5px dashed black;
   border-radius: 29px;
   padding: 5px;
   position: absolute;
@@ -110,6 +110,7 @@ export const OneSelectItemWrapper = styled.div`
   margin: 5px 0;
   display: flex;
   align-items: center;
+  justify-content: center;
   & > label{
     width: 100px;
   }

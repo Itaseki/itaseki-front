@@ -1,9 +1,12 @@
 import styled from "styled-components";
 
-export const TopBtns = styled.div`
+export const TopBtnsWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-end;
+`
+
+export const TopBtns = styled.div`
   margin-right: 150px;
   & img {
     margin: 0 5px;
