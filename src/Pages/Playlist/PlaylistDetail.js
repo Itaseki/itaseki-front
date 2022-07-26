@@ -6,7 +6,7 @@ import preURL from "../../preURL/preURL";
 import Token from "../../Components/Token";
 import Header from "../../Components/Header";
 import CommentList from "../../Components/Comment/CommentList";
-import PlaylistHeader from "./AllPlaylist";
+import {PlaylistHeader} from "./AllPlaylist";
 import AddVideoToPlaylistToggle from "../../Components/Playlist/AddVideoToPlaylistToggle";
 // Style
 import {AButton, AdditionalBtns, DetailInfo, DetailTitle, TitleWrapper, Wrapper} from "../../Style/Community";
@@ -17,7 +17,7 @@ import {faHeart} from "@fortawesome/free-solid-svg-icons";
 import {
   OneVideoInPly,
   PlaylistWrapper,
-  PlyVideoInfo, TopBtns,
+  PlyVideoInfo,
   VideoContainer,
   VideoNum,
   VideosWrapper

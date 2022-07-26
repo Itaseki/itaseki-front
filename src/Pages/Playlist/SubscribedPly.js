@@ -6,6 +6,7 @@ import Header from "../../Components/Header";
 import OnePly from "../../Components/Playlist/Oneply";
 import Pagination from "../../Components/Pagination";
 import Token from "../../Components/Token";
+import {PlaylistHeader} from "./AllPlaylist";
 // Style
 import {Line, SortBox, Wrapper} from "../../Style/Video";
 import {
@@ -17,10 +18,7 @@ import {
 import StyledBtn from "../../Style/StyledBtn";
 // Assets
 import Subscribed_ply from "../../Assets/Subscribed_ply.png";
-import {Link} from "react-router-dom";
-import Stored_Ply from "../../Assets/Stored_Ply.png";
-import Add_New_Ply from "../../Assets/Add_New_Ply.png";
-import {PlaylistHeader} from "./AllPlaylist";
+
 
 const token = Token();  // 토큰
 
