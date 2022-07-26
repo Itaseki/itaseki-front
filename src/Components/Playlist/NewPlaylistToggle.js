@@ -58,6 +58,7 @@ export default NewPlaylistToggle;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  position: fixed;
   width: 220px;
   box-sizing: border-box;
   border: 3px dashed black;
@@ -65,6 +66,8 @@ const Wrapper = styled.div`
   margin-right: 140px;
   padding: 20px;
   background-color: white;
+  z-index: 3;
+  margin-top: 35px;
 `
 
 const NewPlyInput = styled.input`
