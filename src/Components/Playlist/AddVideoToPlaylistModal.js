@@ -6,11 +6,11 @@ import Token from "../Token";
 import { AutoFrame, OneSelectItemWrapper, ToggleScrollWrapper} from "../../Style/Video";
 import styled from "styled-components";
 import StyledBtn from "../../Style/StyledBtn";
-import NewPlaylistToggle, {SwitchBtnLabel} from "./NewPlaylistToggle";
+import NewPlaylistModal, {SwitchBtnLabel} from "./NewPlaylistModal";
 
 const token = Token();
 
-const AddVideoToPlaylistToggle = ({videoId, show, setShow}) => {
+const AddVideoToPlaylistModal = ({videoId, show, setShow}) => {
 
   const [playListList, setPlayListList] = useState([]); // 받아온 내 플레이리스트 목록
   /* 등록 처리 필요 */
@@ -19,7 +19,7 @@ const AddVideoToPlaylistToggle = ({videoId, show, setShow}) => {
   const [addNewPly, setAddNewPly] = useState(false);
 
 
-    // 사용자 플레이리스트 조회
+  // 사용자 플레이리스트 조회(코드 중복)
   useEffect(() => {
     axios
         .get(preURL.preURL + `/boards/playlist/user/${1}`)  /*사용자 id*/
@@ -28,7 +28,6 @@ const AddVideoToPlaylistToggle = ({videoId, show, setShow}) => {
           console.log("👍내 플레이리스트 조회 성공", res.data);
         })
         .catch((err) => {
-          console.log(err);
           console.log("🧨내 플레이리스트 조회 실패", err);
         })
   },[]);
@@ -80,7 +79,7 @@ const AddVideoToPlaylistToggle = ({videoId, show, setShow}) => {
         })
   }
 
-  // 플레이리스트 공개/비공개
+  // 플레이리스트 공개/비공개(코드 중복)
   const onClickPublic = (prop) => {
     const Target = prop.target;
     const id = Target.id;
@@ -148,7 +147,7 @@ const AddVideoToPlaylistToggle = ({videoId, show, setShow}) => {
         <div style={{alignSelf: "center"}}>
           {addNewPly
               ?
-              <NewPlaylistToggle show={addNewPly} setAddNewPly={setAddNewPly}/>
+              <NewPlaylistModal show={addNewPly} setAddNewPly={setAddNewPly}/>
               :
               <AddNewPlyBtn onClick={() => setAddNewPly(prev => !prev)}>
                 새 플레이리스트 만들기
@@ -159,20 +158,20 @@ const AddVideoToPlaylistToggle = ({videoId, show, setShow}) => {
   )
 }
 
-export default AddVideoToPlaylistToggle;
+export default AddVideoToPlaylistModal;
 
 const AddNewPlyBtn = styled(StyledBtn)`
   box-sizing: border-box;
   width: 170px;
   height: 33px;
   background-color: black;
-  border: 2px dashed #FFFFFF;
+  border: 2px dashed white;
   border-radius: 29px;
   color: white;
   align-self: center;
 `
 
-const XButton = styled(StyledBtn)`
+export const XButton = styled(StyledBtn)`
   color: #E35D12;
   display: block;
   align-self: end;

@@ -5,7 +5,7 @@ import axios from "axios";
 import preURL from "../../preURL/preURL";
 import StyledBtn from "../../Style/StyledBtn";
 
-const NewPlaylistToggle = ({show, setAddNewPly}) => {
+const NewPlaylistModal = ({show, setAddNewPly}) => {
     // 새로운 플레이리스트 생성
     const [newPlyName, onChangeNewPlyName, setNewPlyName] = useInput("");
     const [newPlyPublic, setNewPlyPublic] = useState(false);
@@ -53,7 +53,7 @@ const NewPlaylistToggle = ({show, setAddNewPly}) => {
     )
 }
 
-export default NewPlaylistToggle;
+export default NewPlaylistModal;
 
 const Wrapper = styled.div`
   display: flex;

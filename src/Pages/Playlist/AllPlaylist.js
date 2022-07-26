@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import Header from "../../Components/Header";
 import Pagination from "../../Components/Pagination";
 import OnePly from "../../Components/Playlist/Oneply";
-import NewPlaylistToggle from "../../Components/Playlist/NewPlaylistToggle";
+import NewPlaylistModal from "../../Components/Playlist/NewPlaylistModal";
 // Style
 import {Line, SortBox, Wrapper} from "../../Style/Video";
 import {FourListWrapper, FourList, TopBtns, MainLogo, TopBtnsWrapper} from "../../Style/Playlist";
@@ -35,7 +35,7 @@ export const PlaylistHeader = () => {
                     style={{cursor: "pointer"}}
                 />
             </TopBtns>
-            <NewPlaylistToggle show={showModal}/>
+            <NewPlaylistModal show={showModal}/>
         </TopBtnsWrapper>
     )
 }

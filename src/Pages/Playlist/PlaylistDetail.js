@@ -7,7 +7,8 @@ import Token from "../../Components/Token";
 import Header from "../../Components/Header";
 import CommentList from "../../Components/Comment/CommentList";
 import {PlaylistHeader} from "./AllPlaylist";
-import AddVideoToPlaylistToggle from "../../Components/Playlist/AddVideoToPlaylistToggle";
+import AddVideoToPlaylistModal from "../../Components/Playlist/AddVideoToPlaylistModal";
+import SavePlyModal from "../../Components/Playlist/SavePlyModal";
 // Style
 import {AButton, AdditionalBtns, DetailInfo, DetailTitle, TitleWrapper, Wrapper} from "../../Style/Community";
 import StyledBtn from "../../Style/StyledBtn";
@@ -52,7 +53,7 @@ const PlaylistDetail = () => {
     ],
     comments: [],
   })
-  const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
+  const [savePlyModalDisplay, setSavePlyModalDisplay] = useState(false);
 
 
   // 상세 플레이리스트 조회
@@ -72,11 +73,6 @@ const PlaylistDetail = () => {
         })
   },[]);
 
-  // 플레이리스트에 영상 담기
-  const onClickAddtoPly = () => {
-    console.log("플레이리스트에 영상 담기 버튼 클릭");
-    setPlayListToggleDisplay(prev => !prev);
-  };
 
   // 플리 삭제
   const onClickDelete = () => {
@@ -97,6 +93,12 @@ const PlaylistDetail = () => {
             console.log("🧨플레이리스트 삭제 실패", err);
           })
     }
+  }
+
+  // 플리 저장하기
+  const onClickSave = () => {
+    console.log("플레이리스트 저장하기 모달창");
+    setSavePlyModalDisplay(prev => !prev);
   }
 
   // 플리 좋아요
@@ -127,6 +129,7 @@ const PlaylistDetail = () => {
         .then((res) => {
           console.log("👍플리 신고 성공", res.data);
           const result = res.data;
+          // 응답처리 수정 필요
           if(result === "플레이리스트 신고 성공") alert("플레이리스트를 신고하였습니다.");
           else if(result === "해당 사용자가 이미 신고한 플레이리스트") alert("이미 이 플레이리스트를 신고하였습니다.");
           else if(result === "신고 5번 누적으로 삭제"){
@@ -142,10 +145,52 @@ const PlaylistDetail = () => {
   // 영상 번호 카운트
   let cnt = 0;
 
+  // 영상 리스트
+  const Videos = (playlist.videos).map((video) => {
+    const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
+
+    // 플레이리스트에 영상 담기
+    const onClickAddtoPly = () => {
+      console.log("플레이리스트에 영상 담기 버튼 클릭");
+      setPlayListToggleDisplay(prev => !prev);
+    };
+
+    return (
+        <OneVideoInPly>
+          <VideoNum>{++cnt}</VideoNum>
+          <VideoContainer onClick={()=>navigate(`/videolist/${video.id}`)}>
+            <img src={video.thumbnailUrl} alt="썸네일"/>
+          </VideoContainer>
+          <PlyVideoInfo>
+            <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+                          <span id="title" onClick={()=>navigate(`/videolist/${video.id}`)}>
+                            {video.title}
+                          </span>
+              <img
+                  src={Dot3_btn}
+                  alt="플레이리스트에 담기 버튼"
+                  onClick={onClickAddtoPly}
+              />
+              {playListToggleDisplay &&
+                  <AddVideoToPlaylistModal
+                      videoId={video.id}
+                      show={playListToggleDisplay}
+                      setShow={setPlayListToggleDisplay}
+                  />
+              }
+            </div>
+            <span>{video.videoUploader}</span>
+            <span>{video.runtime}</span>
+          </PlyVideoInfo>
+        </OneVideoInPly>
+    )
+  })
+
+
   return (
       <div>
         <Header />
-          <PlaylistHeader />
+        <PlaylistHeader />
         <Wrapper>
           <TitleWrapper>
             <DetailTitle>
@@ -171,41 +216,12 @@ const PlaylistDetail = () => {
           <PlaylistWrapper>
             <div id="line" />
             <VideosWrapper>
-              {(playlist.videos).map((video) => {
-                return (
-                    <OneVideoInPly>
-                      <VideoNum>{++cnt}</VideoNum>
-                      <VideoContainer onClick={()=>navigate(`/videolist/${video.id}`)}>
-                        <img src={video.thumbnailUrl} alt="썸네일"/>
-                      </VideoContainer>
-                      <PlyVideoInfo>
-                        <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-                          <span id="title" onClick={()=>navigate(`/videolist/${video.id}`)}>
-                            {video.title}
-                          </span>
-                          <img
-                              src={Dot3_btn}
-                              alt="플레이리스트에 담기 버튼"
-                              onClick={onClickAddtoPly}
-                          />
-                          {playListToggleDisplay &&
-                              <AddVideoToPlaylistToggle
-                                  videoId={video.id}
-                                  show={playListToggleDisplay}
-                                  setShow={setPlayListToggleDisplay}
-                              />
-                          }
-                        </div>
-                        <span>{video.videoUploader}</span>
-                        <span>{video.runtime}</span>
-                      </PlyVideoInfo>
-                    </OneVideoInPly>
-                )
-              })}
+              {Videos}
             </VideosWrapper>
           </PlaylistWrapper>
-          <AdditionalBtns>
-            <AButton>저장하기</AButton>
+          <AdditionalBtns style={{alignItems: "flex-end"}}>
+            <SavePlyModal plyId={plyId} show={savePlyModalDisplay} setShow={setSavePlyModalDisplay} />
+            <AButton onClick={onClickSave}>저장하기</AButton>
             <AButton style={{borderWidth: "4px"}} onClick={onClickLike}>좋아요</AButton>
             <AButton onClick={onClickReport}>신고하기</AButton>
           </AdditionalBtns>
