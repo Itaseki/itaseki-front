@@ -1,10 +1,20 @@
-import React, {useCallback, useEffect, useState} from "react";
-import {Comment, DetailInfo, Line, NewCommentBox, ReplyBtn} from "../../Style/Community";
-import StyledBtn from "../../Style/StyledBtn";
+import React, {useCallback, useState} from "react";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
-import Comment_reply from "../../Assets/Comment_reply.png";
 import useInput from "../../Hooks/useInput";
+// STyle
+import {
+  Comment, CommentReplyImg,
+  DetailInfo, EnterBtn, ExitReplybtn,
+  Line,
+  NewCommentBox, NewCommentInput, NewCommentWrapper, PlaceholderImg,
+  ReplyBtn
+} from "../../Style/Community";
+import StyledBtn from "../../Style/StyledBtn";
+// Assets
+import Comment_reply from "../../Assets/Comment_reply.png";
+import Enter from "../../Assets/Enter_Comment.png";
+import Exit_reply from "../../Assets/Exit_reply.png";
 
 const SingleComment = ({comment, board, boardId}) => {
   const [showReplyModal, setShowReplyModal] = useState(false);
@@ -75,7 +85,7 @@ const SingleComment = ({comment, board, boardId}) => {
         <Comment>
           <Line/>
           <DetailInfo>
-            <p style={{fontWeight: 600, color: "#6A3E85"}}>{comment.writerNickname}</p>
+            <p style={{fontWeight: "bold"}}>{comment.writerNickname}</p>
             <p>|</p>
             <p>{comment.createdTime}</p>
             <p>|</p>
@@ -95,15 +105,24 @@ const SingleComment = ({comment, board, boardId}) => {
         {showReplyModal &&
             <div>
               <Line/>
-              <img src={Comment_reply} style={{width: "15px", height: "19px", padding: "10px", verticalAlign: "middle"}} alt="대댓글"/>
-              <span>로그인한 사용자</span>
-              <NewCommentBox onSubmit={onSubmitReply}>
-                <textarea placeholder="댓글 입력" style={{width: "761px", marginLeft: "20px"}} value={newReply} onChange={onChangeNewReply}/>
-                <div style={{flexDirection: "row", alignSelf: "self-end"}}>
-                  <StyledBtn type="submit" id="submit-btn" style={{background: "#9E8FA8"}}>확인</StyledBtn>
-                  <StyledBtn id="submit-btn" style={{background: "#C4C4C4"}} onClick={onCloseReplyModal}>취소</StyledBtn>
+              <NewCommentWrapper style={{margin: "10px", flexDirection: "row"}}>
+                <CommentReplyImg src={Comment_reply} alt="대댓글"/>
+                <div>
+                  <p id="nickname">
+                    {"로그인한 사용자"}
+                  </p>
+                  <NewCommentBox onSubmit={onSubmitReply}>
+                    <NewCommentInput
+                        value={newReply}
+                        onChange={onChangeNewReply}
+                        style={{width: "650px"}}
+                        placeholder="| 댓글 남기기"
+                   />
+                    <ExitReplybtn src={Exit_reply} alt="대댓글 창 닫기" onClick={onCloseReplyModal}/>
+                    <EnterBtn type="image" src={Enter} alt="댓글 제출"/>
+                  </NewCommentBox>
                 </div>
-              </NewCommentBox>
+              </NewCommentWrapper>
             </div>
         }
         {/*대댓글*/}
@@ -112,9 +131,9 @@ const SingleComment = ({comment, board, boardId}) => {
                 <Comment>
                   <Line/>
                   <div style={{display: "flex", flexDirection: "row"}}>
-                  <img src={Comment_reply} style={{width: "15px", height: "19px", padding: "10px", verticalAlign: "middle"}} alt="대댓글"/>
+                  <CommentReplyImg src={Comment_reply} alt="대댓글"/>
                   <DetailInfo style={{marginTop: 0}}>
-                    <p style={{fontWeight: 600, color: "#6A3E85"}}>{nestedComment.writerNickname}</p>
+                    <p style={{fontWeight: "bold"}}>{nestedComment.writerNickname}</p>
                     <p>|</p>
                     <p>{nestedComment.createdTime}</p>
                     <p>|</p>

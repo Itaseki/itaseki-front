@@ -1,41 +1,41 @@
 import React, {useCallback, useEffect, useState} from 'react';
+import {useParams} from "react-router-dom";
+import axios from "axios";
+import preURL from "../../preURL/preURL";
+// Components
+import Header from "../../Components/Header";
+import CommentList from "../../Components/Comment/CommentList";
+// Style
 import {
   AButton,
-  AdditionalBtns, Comment, CommentsListWrapper,
-  CommentsWrapper,
+  AdditionalBtns, ContentImg,
   ContentWrapper,
   DetailInfo,
-  DetailTitle, Line, NewCommentBox, NewCommentWrapper, ReplyBtn,
+  DetailTitle,
   TitleWrapper,
   Wrapper
 } from "../../Style/Community";
-import Header from "../../Components/Header";
 import StyledBtn from "../../Style/StyledBtn";
 import {faHeart} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import axios from "axios";
-import preURL from "../../preURL/preURL";
-import {useParams} from "react-router-dom";
-import useInput from "../../Hooks/useInput";
-import SingleComment from "../../Components/Comment/SingleComment";
-import CommentList from "../../Components/Comment/CommentList";
+import {light} from "../../Style/Color";
+
 
 const CommunityDetail = () => {
 
   const [contentInfo, setContentInfo] = useState({
-      id: 1, title: "제목이당", content: "내용이당", imageUrls: ["/1", "/2"], createdTime: "2:48", viewCount: 15, likeCount: 30,
-    writerId: 10, writerNickname: "배고파",
+      id: 0,
+    title: "",
+    content: "",
+    imageUrls: [],
+    createdTime: "",
+    viewCount: 0,
+    likeCount: 0,
+    writerId: 0,
+    writerNickname: "",
     isThisUserWriter: true,
-    commentCount: 3, comments: [
-      /*{id: 12345, content: "댓글이당", createdTime: "4:16", writerId: 10, writerNickName: "배고파22", isThisUserWriter: true, isThisBoardWriterCommentWriter: false,
-        nestedComments: [
-          {id: 23456, content: "대댓글이얌", createdTime: "4:20", writerId: 11, writerNickName: "배고파23", isThisUserWriter: false, isThisBoardWriterCommentWriter: true}
-        ]},
-      {id: 23456, content: "댓글2당", createdTime: "4:20", writerId: 11, writerNickName: "배고파23", isThisUserWriter: false, isThisBoardWriterCommentWriter: true,
-        nestedComments: null},
-      {id: 98765, content: "댓글3임", createdTime: "4:20", writerId: 11, writerNickName: "배고파23", isThisUserWriter: false, isThisBoardWriterCommentWriter: true,
-        nestedComments: null},*/
-    ]
+    commentCount: 0,
+    comments: []
   });
   const [likeCount, setLikeCount] = useState();
   const commentsList = contentInfo.comments;
@@ -63,14 +63,11 @@ const CommunityDetail = () => {
         .then((res) => {
           console.log("👍게시글 좋아요 성공");
           setLikeCount(res.data);
+          alert("게시글을 좋아했습니다.");
         })
         .catch((err) => {
           console.log("🧨게시글 좋아요 에러", err);
         })
-  }, []);
-
-  const onClickShare = useCallback(() => {
-    console.log("공유 버튼 클릭");
   }, []);
 
   // 게시글 신고
@@ -102,7 +99,7 @@ const CommunityDetail = () => {
   // 게시글 이미지
   const imgs = contentInfo.imageUrls.map((imgUrl) => {
     return (
-        <img src={imgUrl} alt="사진"/>
+        <ContentImg src={imgUrl} alt="사진"/>
     )
   });
 
@@ -119,17 +116,19 @@ const CommunityDetail = () => {
                   : null}
             </DetailTitle>
             <DetailInfo>
-              <p>{contentInfo.writerNickname}</p>
+              <p style={{fontWeight: "bold", color: `${light.colors.mainColor}`}}>
+                {contentInfo.writerNickname}
+              </p>
               <p>|</p>
               <p>{contentInfo.createdTime}</p>
               <p>|</p>
-              <p>{contentInfo.viewCount}</p>
+              <p>조회 {contentInfo.viewCount}</p>
               <p>|</p>
               <FontAwesomeIcon
                   icon={faHeart}
-                  style={{color: "#D9767C"}}
+                  style={{color: `${light.colors.mainColor}`}}
               />
-              <p style={{color: "#D9767C"}}>{likeCount}</p>
+              <p style={{color: `${light.colors.mainColor}`}}>{likeCount}</p>
             </DetailInfo>
           </TitleWrapper>
           <ContentWrapper>
@@ -137,8 +136,8 @@ const CommunityDetail = () => {
             <div>{contentInfo.content}</div>
           </ContentWrapper>
           <AdditionalBtns>
-            <AButton style={{background: "#9E8FA8"}} onClick={onClickLike}>좋아요</AButton>
-            <AButton style={{background: "#C4C4C4"}} onClick={onClickReport}>신고하기</AButton>
+            <AButton onClick={onClickLike}>좋아요</AButton>
+            <AButton onClick={onClickReport}>신고하기</AButton>
           </AdditionalBtns>
           <CommentList commentCount={contentInfo.commentCount} commentList={commentsList} board={"community"} boardId={communityBoardId} />
         </Wrapper>

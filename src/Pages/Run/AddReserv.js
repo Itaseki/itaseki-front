@@ -428,7 +428,7 @@ export default AddReserv;
 
 const Modal = styled.div`
   background-image: url(${Add_Reserv});
-  position: sticky;
+  position: fixed;
   top: 15%;
   bottom: 0;
   height: auto;
