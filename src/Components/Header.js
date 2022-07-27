@@ -32,6 +32,7 @@ const Header = ({ darkMode }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [caretOpen, setCaretOpen] = useState(false);
   const [userId, setUserId] = useState(0);
+  const [userNickname, setUserNickname] = useState("");
   const [userProfileImg, setUserProfileImg] = useState('');
 
   // 사용자 프로필 이미지 받아오기
@@ -47,6 +48,7 @@ const Header = ({ darkMode }) => {
           console.log("👍헤더 사용자 프로필 이미지 가져오기 성공 ", res);
           setUserId(res.data['id']);
           setUserProfileImg(res.data['profileUrl']);
+          setUserNickname(res.data['nickname']);
         })
         .catch((err) => {
           console.log("🧨헤더 사용자 프로필 이미지 가져오기 실패", err);
@@ -117,7 +119,7 @@ const Header = ({ darkMode }) => {
             <Logo src={Main_logo} style={{ width: 177, height: 70 }} />
           </Link>
           {/* 달리기 방(페이지)으로 이동 */}
-          <Link to="/running">
+          <a href="/running">
             <StyledBtn
               style={{
                 width: 157,
@@ -133,7 +135,7 @@ const Header = ({ darkMode }) => {
             >
               입장하기
             </StyledBtn>
-          </Link>
+          </a>
           <div
             style={{
               width: 277,
@@ -194,7 +196,7 @@ const Header = ({ darkMode }) => {
           />
         </Link>
         <Profile>
-          {userProfileImg
+          {userProfileImg // 수정 필요
               ? <ProfileImg src={userProfileImg} />
               : <ProfileImgDefault />
           }
@@ -207,7 +209,7 @@ const Header = ({ darkMode }) => {
           </StyledBtn>
         </Profile>
         {caretOpen ? (
-            userProfileImg ? (
+            userProfileImg ? (  // 수정 필요
                 <ProfileUl>
                   <Link to="/mypage">
                     <ProfileList>마이페이지</ProfileList>
