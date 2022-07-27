@@ -128,7 +128,8 @@ const Running = () => {
                        onClick={() => setShowInformModal(prev => !prev)}/>
                   </InformHeader>
                   <Information show={showInformModal}>
-                    {"공지사항 모달"}
+                    <p>'텔레이나' 회원은 신고 기능을 통해 스팸 또는 악성 채팅을 신고할 수 있습니다. 충분한 수의 사용자가 채팅을 신고하면, 해당 사용자는 회원 정지 이후 탈퇴 처리가 됩니다.</p>
+                    <p>단, 이를 악용할 시 신고자 또한 텔레이나의 이용이 제한될 수 있습니다.</p>
                   </Information>
                 </Inform>
               <ChatBody>{"채팅 내용, 임시 border"}</ChatBody>

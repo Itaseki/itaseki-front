@@ -61,6 +61,10 @@ export const Information = styled.div`
   position: absolute;
   display: ${props => props.show? "contents" : "none"};
   background-color: #E8E8E8;
+  & > p{
+    padding: 0 10px;
+    font-weight: bold;
+  }
 `
 
 export const ChatBody = styled.div`
