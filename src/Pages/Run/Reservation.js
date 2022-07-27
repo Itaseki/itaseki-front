@@ -7,6 +7,7 @@ import StyledBtn from "../../Style/StyledBtn";
 
 import AddReserv from "./AddReserv";
 import Detail from "./Detail";
+import Guide from "./Guide";
 import ReservationListWrapper from "./ReservationList";
 import TimeTable from "./TimeTable";
 
@@ -14,6 +15,7 @@ const Reservation = () => {
   // 예약 추가 팝업
   const [pop, setPop] = useState(false);
   const [detailPop, setDetailPop] = useState(false);
+  const [guidePop, setGuidePop] = useState(false);
   const [reservId, setReservId] = useState(0);
   const [confirmed, setConfirmed] = useState(false);
 
@@ -24,7 +26,7 @@ const Reservation = () => {
   return (
     <div style={{ height: 1505, width: "100%" }}>
       <Header />
-      <ReservationListWrapper />
+      <ReservationListWrapper guidePop={guidePop} setGuidePop={setGuidePop} />
       <TimeTable
         setPop={setPop}
         setDetailPop={setDetailPop}
@@ -41,6 +43,11 @@ const Reservation = () => {
           confirmed={confirmed}
           setConfirmed={setConfirmed}
         />
+      ) : (
+        <></>
+      )}
+      {guidePop ? (
+        <Guide guidePop={guidePop} setGuidePop={setGuidePop} />
       ) : (
         <></>
       )}

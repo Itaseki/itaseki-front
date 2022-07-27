@@ -28,7 +28,7 @@ import TodayPopVids from "./TodayPopVids";
 
 const color = light.colors;
 
-const ReservationListWrapper = () => {
+const ReservationListWrapper = (props) => {
   const [next, setNext] = useState(true);
   const [nextData, setNextData] = useState({
     reservationId: 3,
@@ -132,17 +132,19 @@ const ReservationListWrapper = () => {
 
   return (
     <Wrapper>
-      <img
-        src={Guide}
-        alt="guide"
-        style={{
-          height: 85,
-          width: 98,
-          position: "absolute",
-          left: 297,
-          top: 214,
-        }}
-      />
+      <StyledBtn onClick={() => props.setGuidePop(true)}>
+        <img
+          src={Guide}
+          alt="guide"
+          style={{
+            height: 85,
+            width: 98,
+            position: "absolute",
+            left: 297,
+            top: 214,
+          }}
+        />
+      </StyledBtn>
       <img
         src={Line1}
         alt="line1"
