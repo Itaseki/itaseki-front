@@ -67,6 +67,7 @@ const PlaylistDetail = () => {
         .then((res) => {
           console.log("👍상세 플레이리스트 조회 성공", res.data);
           setPlaylist(res.data);
+          setLikeCount(res.data.likeCount);
         })
         .catch((err) => {
           console.log("🧨상세 플레이리스트 조회 실패", err);
