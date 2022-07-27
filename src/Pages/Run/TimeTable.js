@@ -12,56 +12,39 @@ import Main_logo from "../../Assets/Main_logo.png";
 import { light } from "../../Style/Color";
 import StyledBtn from "../../Style/StyledBtn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCaretLeft,
+  faCaretRight,
+  faCheck,
+} from "@fortawesome/free-solid-svg-icons";
 import preURL from "../../preURL/preURL";
 import axios from "axios";
 
 const TimeTable = (props) => {
   const [year, setYear] = useState("2022");
   const [month, setMonth] = useState("7");
-  const [date, setDate] = useState("24");
+  const [date, setDate] = useState("28");
   const [todayData, setTodayData] = useState([
     {
       reservationId: 3,
       videoId: 1,
-      title: "정형돈 특집",
-      reservationDate: "2022-05-24",
-      startTime: "15:00",
-      endTime: "16:00",
+      title: "테스트 영상 등록",
+      reservationDate: "2022-05-27",
+      startTime: "12:20",
+      endTime: "12:40",
     },
     {
       reservationId: 3,
       videoId: 1,
       title: "정형돈 특집",
-      reservationDate: "2022-05-24",
+      reservationDate: "2022-05-27",
       startTime: "15:00",
-      endTime: "16:00",
-    },
-    {
-      reservationId: 3,
-      videoId: 1,
-      title: "정형돈 특집",
-      reservationDate: "2022-05-24",
-      startTime: "15:00",
-      endTime: "16:00",
-    },
-    {
-      reservationId: 3,
-      videoId: 1,
-      title: "정형돈 특집",
-      reservationDate: "2022-05-24",
-      startTime: "15:00",
-      endTime: "16:00",
-    },
-    {
-      reservationId: 3,
-      videoId: 1,
-      title: "정형돈 특집",
-      reservationDate: "2022-05-24",
-      startTime: "15:00",
-      endTime: "16:00",
+      endTime: "15:30",
     },
   ]);
+
+  let arr = [];
+
   const [timeZone, setTimeZone] = useState([1, 2, 3]);
   const [timeBlocks1, setTimeBlocks1] = useState([]);
   const [timeBlocks2, setTimeBlocks2] = useState([]);
@@ -70,6 +53,9 @@ const TimeTable = (props) => {
   const [searchTimezone, setSearchTimezone] = useState("");
   const [searchStart, setSearchStart] = useState("");
   const [searchEnd, setSearchEnd] = useState("");
+
+  const [timeData, setTimeData] = useState([]);
+  const [isTimeData, setisTimeData] = useState(false);
 
   useEffect(() => {
     todayReserv();
@@ -88,13 +74,12 @@ const TimeTable = (props) => {
     if (date < 10) {
       setDate(`0${date}`);
     }
-    let url = `/run/reservations/confirm?date=${year}-0${month}-${date}`;
-    console.log(url);
+    let url = `/run/reservations/confirm?date=${year}-0${month}-27`;
     axios
       .get(preURL.preURL + url)
       .then((res) => {
         console.log("❕오늘의 예약 확정 목록 조회❕ ", res.data);
-        setTodayData(res.data);
+        // setTodayData(res.data);
       })
       .catch((err) => {
         console.error("⚠️ 오늘의 예약 확정 목록 조회 ⚠️ ", err);
@@ -124,13 +109,18 @@ const TimeTable = (props) => {
 
   const ChangeColor = (e) => {
     console.log(e.target.id); // 블록의 id 값
-    let timevar = e.target.id.replace(":", "+");
-    let arr = [];
-    arr.push(timevar);
+    let time = e.target.id;
+    let timeSplit = time.split("");
+    if ((timeSplit[1] = ":")) {
+      time = `0${time}`;
+    }
+    let timevar = time.replace(":", "+");
+    arr = searchTimezone.concat(timevar);
+    console.log("선택된 시간대 :", arr);
     setSearchTimezone(arr);
-    arr.sort(function(a, b) {
-      return b - a;
-    });
+    // arr.sort(function(a, b) {
+    //   return b - a;
+    // });
     setSearchStart(arr[0]);
     setSearchEnd(arr[arr.length - 1]);
     document.getElementById(e.target.id).style.backgroundColor = "#E8A284";
@@ -139,6 +129,18 @@ const TimeTable = (props) => {
 
   // 시간별 예약 내역 조회
   const searchTimetable = () => {
+    setTimeData([
+      {
+        id: 1,
+        title: "[런닝맨] 흔한 반응 | RunningMan EP.170",
+        reservationDate: "2022-07-27",
+        startTime: "1:10",
+        endTime: "1:20",
+        runTime: "00:13:04",
+        count: 3,
+      },
+    ]);
+    setisTimeData(true);
     let url =
       preURL.preURL +
       `/run/reservations?start=${searchStart}&end=${searchEnd}&select=${searchTimezone.toString()}&date=${year}-${month}-${date}`;
@@ -147,6 +149,8 @@ const TimeTable = (props) => {
       .get(url)
       .then((res) => {
         console.log("❕시간별 예약 내역 조회❕ ", res.data);
+        // setTimeData(res.data)
+        // setisTimeData(true);
       })
       .catch((err) => {
         console.error("⚠️ 시간별 예약 내역 조회 ⚠️ ", err);
@@ -297,6 +301,40 @@ const TimeTable = (props) => {
                 />
               </StyledBtn>
             </StyledDivRow>
+            {isTimeData ? (
+              <StyledDivColumn>
+                {timeData.map((d) => {
+                  return (
+                    <StyledDivRow>
+                      <p style={{ fontWeight: "bold" }}>
+                        {d.startTime} - {d.endTime}
+                      </p>
+                      <FontAwesomeIcon
+                        icon={faCheck}
+                        style={{
+                          color: `${light.colors.mainColor}`,
+                          marginLeft: 15,
+                          marginRight: 15,
+                        }}
+                      />
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          backgroundColor: "white",
+                          padding: 7,
+                          paddingRight: 30,
+                          borderRadius: 8,
+                        }}
+                      >
+                        {d.title}
+                      </p>
+                    </StyledDivRow>
+                  );
+                })}
+              </StyledDivColumn>
+            ) : (
+              <></>
+            )}
           </ThirdContainer>
         </StyledDivRow>
       </Wrapper>
