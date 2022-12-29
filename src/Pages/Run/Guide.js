@@ -1,12 +1,8 @@
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import {
-  StyledDiv,
-  StyledDivColumn,
-  StyledDivRow,
-} from "../../Style/StyledDiv";
+import { StyledDivColumn } from "../../Style/StyledDiv";
 import StyledBtn from "../../Style/StyledBtn";
 
 const Guide = (props) => {

@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import Header from "../../Components/Header";
-import WriteWord from "../../Style/WriteWord";
-
 import Search_Vanner from "../../Assets/Search_Vanner.png";
-import styled from "styled-components";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
 import OneVideo from "../../Components/Video/OneVideo";
 import { StyledDivColumn, StyledDivRow } from "../../Style/StyledDiv";
 import OnePly from "../../Components/Playlist/Oneply";
+import { WriteInput } from "../../Style/Search";
+import { Wrapper } from "../../Style/Video";
 
 const Search = () => {
   const [keyword, setKeyword] = useState("");
@@ -153,22 +152,3 @@ const Search = () => {
 };
 
 export default Search;
-
-const Wrapper = styled.div`
-  width: 983px;
-`;
-
-const WriteInput = styled.input`
-  height: 25.64px;
-  border: none;
-  cursor: pointer;
-  position: absolute;
-  top: 6.3%;
-  right: 12%;
-  background-color: black;
-  padding: 5px;
-  padding-left: 40px;
-  padding-right: 40px;
-  border-radius: 71px;
-  color: white;
-`;

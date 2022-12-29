@@ -34,8 +34,8 @@ const Reservation = () => {
         confirmed={confirmed}
         setConfirmed={setConfirmed}
       />
-      {pop ? <AddReserv setPop={setPop} /> : <></>}
-      {detailPop ? (
+      {pop && <AddReserv setPop={setPop} />}
+      {detailPop && (
         <Detail
           setDetailPop={setDetailPop}
           reservId={reservId}
@@ -43,14 +43,8 @@ const Reservation = () => {
           confirmed={confirmed}
           setConfirmed={setConfirmed}
         />
-      ) : (
-        <></>
       )}
-      {guidePop ? (
-        <Guide guidePop={guidePop} setGuidePop={setGuidePop} />
-      ) : (
-        <></>
-      )}
+      {guidePop && <Guide guidePop={guidePop} setGuidePop={setGuidePop} />}
     </div>
   );
 };

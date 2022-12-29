@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import preURL from "../../preURL/preURL";
 import axios from "axios";
 import StyledBtn from "../../Style/StyledBtn";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-
-import {
-  StyledDiv,
-  StyledDivColumn,
-  StyledDivRow,
-} from "../../Style/StyledDiv";
 import { light } from "../../Style/Color";
+import TodayPopVids from "./TodayPopVids";
+import {
+  NothingContainer,
+  NextVideoContainer,
+  WhiteText,
+  Wrapper,
+} from "../../Style/ReservationList";
 
 // assets
 import Temp from "../../Assets/Temp_gif.png";
@@ -23,8 +23,6 @@ import Line3 from "../../Assets/Line3.png";
 import Best_Video from "../../Assets/Best_Video.png";
 import Line4 from "../../Assets/Line4.png";
 import { Link } from "react-router-dom";
-import Nothing from "../../Assets/Nothing.png";
-import TodayPopVids from "./TodayPopVids";
 
 const color = light.colors;
 
@@ -223,38 +221,3 @@ const ReservationListWrapper = (props) => {
 };
 
 export default ReservationListWrapper;
-
-const Wrapper = styled(StyledDivRow)`
-  margin-left: 20%;
-  overflow-y: scroll;
-  overflow-x: hidden;
-`;
-
-const NothingContainer = styled(StyledDiv)`
-  background-image: url(${Nothing});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 435px;
-  height: 288px;
-  position: absolute;
-  left: 297px;
-  top: 316px;
-  border-radius: 10px;
-`;
-
-const NextVideoContainer = styled(StyledDivColumn)`
-  background-color: black;
-  width: 435px;
-  height: 288px;
-  position: absolute;
-  left: 297px;
-  top: 316px;
-  border-radius: 10px;
-`;
-
-const WhiteText = styled.p`
-  color: white;
-  font-size: 14;
-  font-weight: bold;
-`;

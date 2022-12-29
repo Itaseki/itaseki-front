@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
-import styled from "styled-components";
 import Header from "../../Components/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Pagination from "../../Components/Pagination";
 
 // style
@@ -18,7 +16,17 @@ import { light } from "../../Style/Color";
 import Best_GIF from "../../Assets/Best_GIF.png";
 import Temp_gif from "../../Assets/Temp_gif.png";
 import { Link } from "react-router-dom";
-import { StyledDiv, StyledDivColumn } from "../../Style/StyledDiv";
+import { StyledDivColumn } from "../../Style/StyledDiv";
+import {
+  BestGIF,
+  BestGIFWrapper,
+  GIFBox,
+  Line,
+  ListWrapper,
+  MapList,
+  Sort2Box,
+  Wrapper,
+} from "../../Style/GIFBoard";
 
 const GIFBoard = () => {
   const mainOrange = light.colors.mainColor;
@@ -248,57 +256,3 @@ const GIFBoard = () => {
 };
 
 export default GIFBoard;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const BestGIFWrapper = styled.div`
-  width: 846px;
-  height: 114px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  padding-top: 44px;
-  padding-bottom: 27px;
-  border-bottom: 3px dashed #000000;
-`;
-
-const BestGIF = styled.img`
-  width: 242.2px;
-  height: 239.4px;
-  position: relative;
-  top: -27px;
-`;
-
-const ListWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const MapList = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-`;
-
-const GIFBox = styled.div`
-  margin: 31px 40px 12px 40px;
-`;
-
-const Line = styled.div`
-  width: 843px;
-  border-bottom: 3px dashed #000000;
-`;
-
-const Sort2Box = styled.div`
-  width: 843.5px;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-`;

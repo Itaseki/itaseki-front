@@ -2,10 +2,10 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import preURL from "../../preURL/preURL";
 import { StyledDivColumn, StyledDivRow } from "../../Style/StyledDiv";
 import StyledBtn from "../../Style/StyledBtn";
+import { Bold, MainContainer, RestPop, TopPop } from "../../Style/TodayPopVids";
 
 const TodayPopVids = () => {
   const [popReserv, setPopReserv] = useState([
@@ -164,29 +164,3 @@ const TodayPopVids = () => {
 };
 
 export default TodayPopVids;
-
-const MainContainer = styled.div`
-  width: 395px;
-  height: 460px;
-  z-index: 2;
-  position: relative;
-  top: 130px;
-  left: 515px;
-`;
-
-const TopPop = styled(StyledDivRow)`
-  width: 380px;
-  margin-bottom: 83px;
-  justify-content: space-around;
-  align-items: center;
-`;
-
-const Bold = styled.p`
-  font-weight: bold;
-  margin: 0px;
-`;
-
-const RestPop = styled(StyledDivRow)`
-  justify-content: space-between;
-  padding-left: 37px;
-`;
