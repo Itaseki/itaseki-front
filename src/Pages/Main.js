@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import preURL from "../preURL/preURL";
-import styled from "styled-components";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import OneVideo from "../Components/Video/OneVideo";
@@ -9,8 +8,6 @@ import OneVideo from "../Components/Video/OneVideo";
 // Assets
 import Temp_gif from "../Assets/Temp_gif.png";
 import Go_To_Run from "../Assets/Go_To_Run.png";
-import Main_Article from "../Assets/Main_Article.png";
-import Main_GIF from "../Assets/Main_GIF.png";
 import { StyledDiv, StyledDivColumn, StyledDivRow } from "../Style/StyledDiv";
 import StyledBtn from "../Style/StyledBtn";
 
@@ -19,6 +16,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { light } from "../Style/Color";
 import { Link } from "react-router-dom";
 import OnePly from "../Components/Playlist/Oneply";
+import {
+  ArticleBtn,
+  FirstBWrapper,
+  PopArticleContainer,
+  PopGIFContainer,
+  PWrapper,
+  Subheading,
+} from "../Style/Main";
 
 const Main = () => {
   const [popCommus, setpopCommus] = useState([]);
@@ -117,16 +122,7 @@ const Main = () => {
                 let url = `/community/${i.id}`;
                 return (
                   <Link to={url} style={{ textDecoration: "none" }}>
-                    <StyledBtn
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        height: 26,
-                        width: 460,
-                      }}
-                    >
+                    <ArticleBtn>
                       <p style={{ fontSize: 13 }}>
                         {i.title}
                         {i.commentCount}
@@ -148,7 +144,7 @@ const Main = () => {
                           {i.likeCount}
                         </p>
                       </StyledDivRow>
-                    </StyledBtn>
+                    </ArticleBtn>
                   </Link>
                 );
               })}
@@ -225,58 +221,3 @@ const Main = () => {
 };
 
 export default Main;
-
-const FirstBWrapper = styled(StyledDivColumn)`
-  margin-left: 15px;
-  margin-bottom: 15px;
-`;
-
-const TagBox = styled.div`
-  width: 161px;
-  height: 31px;
-  background-color: #f3e1ec;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 71px;
-`;
-
-const Tag = styled.p`
-  font-size: 16px;
-  font-weight: bold;
-  color: #532a6b;
-`;
-
-const PWrapper = styled.div`
-  margin: 0px 70px 0px 70px;
-`;
-
-const Subheading = styled.p`
-  font-size: 16px;
-  font-weight: bold;
-  margin: 0;
-  margin-bottom: 23px;
-`;
-
-const ListWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const PopArticleContainer = styled.div`
-  background-image: url(${Main_Article});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 521px;
-  height: 169px;
-`;
-
-const PopGIFContainer = styled.div`
-  background-image: url(${Main_GIF});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 521px;
-  height: 170px;
-`;

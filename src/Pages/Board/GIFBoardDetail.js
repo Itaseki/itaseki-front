@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import styled from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -8,11 +7,21 @@ import Header from "../../Components/Header";
 
 // temp data
 import Temp_gif from "../../Assets/Temp_gif.png";
-import StyledBtn from "../../Style/StyledBtn";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
 import { light } from "../../Style/Color";
 import { StyledDivRow } from "../../Style/StyledDiv";
+import {
+  DeleteBtn,
+  Detail,
+  Tag,
+  TagWrapper,
+  Wrapper,
+  Info,
+  InfoDetail,
+  BottomWrapper,
+  Btns,
+} from "../../Style/GIFBoardDetail";
 
 const GIFBoardDetail = ({ match }) => {
   const Id = useParams().id.substring(1);
@@ -109,24 +118,8 @@ const GIFBoardDetail = ({ match }) => {
           <InfoDetail
             style={{ justifyContent: "space-between", alignItems: "center" }}
           >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontSize: 40,
-                  fontWeight: "bold",
-                  color: "white",
-                  margin: 0,
-                  marginRight: 15,
-                }}
-              >
-                {detailInfo.imageBoardTitle}
-              </p>
+            <div>
+              <p>{detailInfo.imageBoardTitle}</p>
             </div>
           </InfoDetail>
           <InfoDetail>
@@ -158,58 +151,29 @@ const GIFBoardDetail = ({ match }) => {
             src={detailInfo.imageUrl}
             style={{ width: 292.3, height: 266.88, borderRadius: 14 }}
           />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              marginTop: 30,
-              marginBottom: 30,
-            }}
-          >
+          <TagWrapper>
             <Tag>#{detailInfo.hashtags[0]}</Tag>
-            {detailInfo.hashtags.length > 1 ? (
+            {detailInfo.hashtags.length > 1 && (
               <Tag>#{detailInfo.hashtags[1]}</Tag>
-            ) : (
-              <></>
             )}
-            {detailInfo.hashtags.length > 2 ? (
+            {detailInfo.hashtags.length > 2 && (
               <Tag>#{detailInfo.hashtags[2]}</Tag>
-            ) : (
-              <></>
             )}
-          </div>
+          </TagWrapper>
           <div>
-            <StyledBtnWhite onClick={() => like()}>좋아요</StyledBtnWhite>
-            <StyledBtnRed onClick={() => report()}>신고</StyledBtnRed>
+            <Btns onClick={() => like()} bgColor="#ffffff">
+              좋아요
+            </Btns>
+            <Btns onClick={() => report()} bgColor="#d9767c">
+              신고
+            </Btns>
           </div>
           {detailInfo.isThisUserWriter ? (
             <Link to="/boards">
-              <StyledBtn
-                style={{
-                  backgroundColor: "none",
-                  color: "white",
-                  fontSize: 16,
-                  position: "relative",
-                  right: -320,
-                }}
-                onClick={() => deleteImg()}
-              >
-                삭제
-              </StyledBtn>
+              <DeleteBtn onClick={() => deleteImg()}>삭제</DeleteBtn>
             </Link>
           ) : (
-            <StyledBtn
-              style={{
-                backgroundColor: "none",
-                color: "white",
-                fontSize: 16,
-                position: "relative",
-                right: -320,
-              }}
-              onClick={() => deleteImg()}
-            >
-              삭제
-            </StyledBtn>
+            <DeleteBtn onClick={() => deleteImg()}>삭제</DeleteBtn>
           )}
         </BottomWrapper>
       </Wrapper>
@@ -218,76 +182,3 @@ const GIFBoardDetail = ({ match }) => {
 };
 
 export default GIFBoardDetail;
-
-const Wrapper = styled.div`
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #000000;
-  padding: 3%;
-  width: 55%;
-  height: 80%;
-
-  box-sizing: border-box;
-  border: 6px dashed #ffffff;
-  border-radius: 50px;
-`;
-
-const Info = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const InfoDetail = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const Detail = styled.p`
-  color: #9c9c9c;
-  font-size: 14;
-  margin-right: 10px;
-`;
-
-const BottomWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Tag = styled.p`
-  color: white;
-  font-size: 24;
-  font-weight: bold;
-  margin: 0px 5px 0px 5px;
-`;
-
-const StyledBtnWhite = styled(StyledBtn)`
-  width: 146px;
-  height: 58px;
-  background-color: #ffffff;
-  border-radius: 29px;
-  margin: 10px;
-  margin-right: 50px;
-  padding-left: 25px;
-  padding-right: 25px;
-  background: #ffffff;
-  border: 5px dashed #000000;
-  border-radius: 29px;
-`;
-
-const StyledBtnRed = styled(StyledBtn)`
-  width: 146px;
-  height: 58px;
-  background-color: #d9767c;
-  border-radius: 29px;
-  margin: 10px;
-  margin-left: 50px;
-  padding-left: 25px;
-  padding-right: 25px;
-  background: #ffffff;
-  border: 3px dashed #000000;
-  border-radius: 29px;
-`;

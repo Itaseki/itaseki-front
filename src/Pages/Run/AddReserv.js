@@ -1,16 +1,25 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import Add_Reserv from "../../Assets/Add_Reserv.png";
 import preURL from "../../preURL/preURL";
 import StyledBtn from "../../Style/StyledBtn";
 import { StyledDiv, StyledDivRow } from "../../Style/StyledDiv";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 
 import Pre_Thumbnail from "../../Assets/Pre_Thumbnail.png";
+import {
+  AddCat,
+  AddCatWrapper,
+  Modal,
+  Sign,
+  TimeInput,
+  TimeWBox,
+  VideoDescription,
+  VideoList,
+  WhiteBoxBtn,
+} from "../../Style/AddReserv";
 
 const AddReserv = (props) => {
   const [title, setTitle] = useState("");
@@ -251,23 +260,7 @@ const AddReserv = (props) => {
                   value={rItem.title}
                   style={WhiteBoxStyle}
                 />
-                {sResult ? (
-                  <ul
-                    style={{
-                      width: 393,
-                      textAlign: "start",
-                      paddingLeft: 10,
-                      zIndex: 10,
-                      backgroundColor: "white",
-                      margin: 0,
-                      position: "absolute",
-                    }}
-                  >
-                    {ArrayData}
-                  </ul>
-                ) : (
-                  <></>
-                )}
+                {sResult && <VideoList>{ArrayData}</VideoList>}
                 <p>영상 URL</p>
                 <p style={WhiteBoxStyle}>{rItem.url}</p>
                 <div>
@@ -402,20 +395,7 @@ const AddReserv = (props) => {
               style={{ flexDirection: "column", alignItems: "flex-start" }}
             >
               <p style={{ marginBottom: 0 }}>영상을 간단하게 소개해주세요!</p>
-              <p
-                style={{
-                  borderStyle: "none",
-                  backgroundColor: "white",
-                  width: 674,
-                  height: 33,
-                  borderRadius: 8,
-                  display: "flex",
-                  alignItems: "center",
-                  paddingLeft: 10,
-                }}
-              >
-                {rItem.description}
-              </p>
+              <VideoDescription>{rItem.description}</VideoDescription>
             </StyledDiv>
           </StyledDiv>
         </Modal>
@@ -425,80 +405,3 @@ const AddReserv = (props) => {
 };
 
 export default AddReserv;
-
-const Modal = styled.div`
-  background-image: url(${Add_Reserv});
-  position: fixed;
-  top: 15%;
-  bottom: 0;
-  height: auto;
-  width: 75%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  z-index: 5;
-  display: flex;
-  padding-top: 2%;
-  flex-direction: column;
-  align-items: center;
-  margin-left: auto;
-  margin-right: auto;
-`;
-
-const WhiteBoxBtn = styled(StyledBtn)`
-  background-color: white;
-  width: 125px;
-  height: 33px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &:hover {
-    background-color: #e37958;
-    color: white;
-  }
-`;
-
-const AddCatWrapper = styled.div`
-  flex-direction: row;
-  position: relative;
-  top: 0px;
-  left: -320px;
-`;
-
-const AddCat = styled(StyledBtn)`
-  font-size: 25px;
-  padding: 10px 20px 10px 20px;
-  border-radius: 10px;
-  font-weight: bold;
-  background-color: ${(props) => (props.default ? "#EFE8CC" : "#E37958")};
-`;
-
-const TimeInput = styled.input`
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  height: 33px;
-  width: 31px;
-  border-radius: 8px;
-  font-weight: bold;
-  outline: none;
-  border: 0 solid black;
-`;
-
-const TimeWBox = styled(StyledDiv)`
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  height: 33px;
-  width: 31px;
-  border-style: none;
-  border-radius: 8px;
-  font-weight: bold;
-`;
-
-const Sign = styled.span`
-  font-size: 35px;
-  font-weight: bold;
-`;

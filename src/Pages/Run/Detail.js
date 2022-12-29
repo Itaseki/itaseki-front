@@ -2,7 +2,6 @@ import { faCheck, faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import preURL from "../../preURL/preURL";
 import {
   StyledDiv,
@@ -10,8 +9,8 @@ import {
   StyledDivRow,
 } from "../../Style/StyledDiv";
 import { light } from "../../Style/Color";
-import StyledBtn from "../../Style/StyledBtn";
 import { Link } from "react-router-dom";
+import { CloseBtn, FirstRow, IMG, Modal, ReservBtn } from "../../Style/Detail";
 
 const Detail = (props) => {
   const [confirmedData, setConfirmedData] = useState({});
@@ -54,21 +53,14 @@ const Detail = (props) => {
 
   return (
     <Modal>
-      <StyledBtn
-        style={{
-          alignSelf: "flex-end",
-          marginRight: 30,
-          marginBottom: 25,
-        }}
-        onClick={() => props.setDetailPop(false)}
-      >
+      <CloseBtn onClick={() => props.setDetailPop(false)}>
         <FontAwesomeIcon
           icon={faClose}
           style={{
             fontSize: "150%",
           }}
         />
-      </StyledBtn>
+      </CloseBtn>
       {props.confirmed ? (
         // 확정 목록 영상 클릭 시
         <StyledDivColumn>
@@ -100,19 +92,7 @@ const Detail = (props) => {
             <StyledDiv
               style={{ justifyContent: "center", alignItems: "center" }}
             >
-              <StyledBtn
-                style={{
-                  width: 182.39,
-                  height: 33,
-                  borderRadius: 71,
-                  backgroundColor: `${light.colors.mainColor}`,
-                  fontWeight: "bold",
-                  fontSize: 16,
-                  marginTop: 14,
-                }}
-              >
-                영상 달리기
-              </StyledBtn>
+              <ReservBtn bgColor="#E37958">영상 달리기</ReservBtn>
             </StyledDiv>
           </Link>
         </StyledDivColumn>
@@ -143,20 +123,7 @@ const Detail = (props) => {
           <p style={{ margin: 3, color: "#505050" }}>
             {preReservData.writerNickname}
           </p>
-          <StyledBtn
-            style={{
-              width: 182.39,
-              height: 33,
-              borderRadius: 71,
-              backgroundColor: "black",
-              fontWeight: "bold",
-              fontSize: 16,
-              alignSelf: "center",
-              marginTop: 14,
-            }}
-          >
-            나도 예약하기
-          </StyledBtn>
+          <ReservBtn bgColor="black">나도 예약하기</ReservBtn>
         </StyledDivColumn>
       )}
     </Modal>
@@ -164,28 +131,3 @@ const Detail = (props) => {
 };
 
 export default Detail;
-
-const Modal = styled.div`
-  position: fixed;
-  width: 621px;
-  height: 458px;
-  left: 410px;
-  top: 147px;
-  z-index: 2;
-  display: flex;
-  padding-top: 2%;
-  flex-direction: column;
-  align-items: center;
-  background: #f4f3ee;
-  border: 6px dashed #000000;
-  border-radius: 30px;
-`;
-
-const IMG = styled.img`
-  width: 423px;
-  height: 224px;
-`;
-
-const FirstRow = styled(StyledDivRow)`
-  justify-content: space-between;
-`;
