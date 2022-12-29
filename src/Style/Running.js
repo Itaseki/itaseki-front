@@ -61,8 +61,17 @@ export const Information = styled.div`
   display: ${(props) => (props.show ? "contents" : "none")};
   background-color: #e8e8e8;
 `;
-
-export const ChatBody = styled.div`
+  // 수정 필요(임시)
+  width: 27.65%;
+  visibility: ${props => props.show? "visible" : "hidden"};
+  // display: ${props => props.show? "contents" : "none"};  // 원래 의도
+  background-color: #E8E8E8;
+  & > p{
+    padding: 0 10px;
+    font-weight: bold;
+  }
+`
+export const Chat = styled.div`
   height: 100%;
   padding: 5px;
   border: 1px solid;
@@ -75,6 +84,22 @@ export const ChatBottom = styled.div`
   margin: 3px 0;
 `;
 
+export const ProfileImg = styled.img`
+  width: 30px;
+  height: 30px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background-color: gray;
+`
+
+export const ProfileImgDefault = styled.div`
+  width: 40px;
+  height: 30px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background-color: gray;
+`
+
 export const ImgBtn = styled.img`
   width: 30px;
   height: 30px;
@@ -85,7 +110,7 @@ export const ChatInput = styled.input`
   background-color: #f9dca7;
   border: none;
   border-radius: 71px;
-  width: 100%;
+  width: 70%;
   height: 0;
   padding: 4%;
   margin: 0 5px;
