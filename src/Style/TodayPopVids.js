@@ -20,6 +20,7 @@ export const TopPop = styled(StyledDivRow)`
 export const Bold = styled.p`
   font-weight: bold;
   margin: 0px;
+  color: ${(props) => props.fColor};
 `;
 
 export const RestPop = styled(StyledDivRow)`

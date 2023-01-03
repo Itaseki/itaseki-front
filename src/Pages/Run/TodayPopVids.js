@@ -84,7 +84,7 @@ const TodayPopVids = () => {
   return (
     <MainContainer>
       <TopPop>
-        <Bold style={{ fontSize: 50, margin: 0 }}>1</Bold>
+        <Bold style={{ fontSize: 50 }}>1</Bold>
         <StyledDivColumn>
           <img
             src={popReserv[0].thumbnailUrl}
@@ -93,12 +93,12 @@ const TodayPopVids = () => {
           <StyledDivRow style={{ justifyContent: "space-between" }}>
             <Bold>{popReserv[0].title}</Bold>
             <StyledDivRow>
-              <Bold style={{ color: "#9C9C9C", fontSize: 14 }}>
+              <Bold style={{ fontSize: 14 }} fColor="#9C9C9C">
                 {popReserv[0].runTime.slice(4)}
               </Bold>
               <StyledBtn onClick={() => reservPop(0)}>
                 <StyledDivRow>
-                  <Bold style={{ color: "#C31212", fontSize: 14 }}>
+                  <Bold style={{ fontSize: 14 }} fColor="#C31212">
                     예약하기
                   </Bold>
                   <FontAwesomeIcon
@@ -110,23 +110,27 @@ const TodayPopVids = () => {
                   />
                 </StyledDivRow>
               </StyledBtn>
-              <Bold style={{ color: "#C31212", fontSize: 14 }}>{like1}</Bold>
+              <Bold style={{ fontSize: 14 }} fColor="#C31212">
+                {like1}
+              </Bold>
             </StyledDivRow>
           </StyledDivRow>
         </StyledDivColumn>
       </TopPop>
       <RestPop>
         <StyledDivRow>
-          <Bold style={{ fontSize: 30, margin: 0, marginRight: 10 }}>2</Bold>
+          <Bold style={{ fontSize: 30, marginRight: 10 }}>2</Bold>
           <Bold style={{ marginRight: 90 }}>{popReserv[1].title}</Bold>
         </StyledDivRow>
         <StyledDivRow>
           <Bold style={{ color: "#9C9C9C", fontSize: 14 }}>
             {popReserv[1].runTime.slice(4)}
           </Bold>
-          <Bold style={{ color: "#C31212", fontSize: 14, marginLeft: 10 }}>
-            예약하기
-          </Bold>
+          <StyledBtn onClick={() => reservPop(1)}>
+            <Bold style={{ fontSize: 14, marginLeft: 10 }} fColor="#C31212">
+              예약하기
+            </Bold>
+          </StyledBtn>
           <FontAwesomeIcon
             icon={faCheck}
             style={{
@@ -134,21 +138,25 @@ const TodayPopVids = () => {
               fontSize: 14,
             }}
           />
-          <Bold style={{ color: "#C31212", fontSize: 14 }}>{like2}</Bold>
+          <Bold style={{ fontSize: 14 }} fColor="#C31212">
+            {like2}
+          </Bold>
         </StyledDivRow>
       </RestPop>
       <RestPop>
         <StyledDivRow>
-          <Bold style={{ fontSize: 30, margin: 0, marginRight: 10 }}>3</Bold>
+          <Bold style={{ fontSize: 30, marginRight: 10 }}>3</Bold>
           <Bold style={{ marginRight: 100 }}>{popReserv[2].title}</Bold>
         </StyledDivRow>
         <StyledDivRow>
-          <Bold style={{ color: "#9C9C9C", fontSize: 14 }}>
+          <Bold style={{ fontSize: 14 }} fColor="#9C9C9C">
             {popReserv[2].runTime.slice(4)}
           </Bold>
-          <Bold style={{ color: "#C31212", fontSize: 14, marginLeft: 10 }}>
-            예약하기
-          </Bold>
+          <StyledBtn onClick={() => reservPop(2)}>
+            <Bold style={{ fontSize: 14, marginLeft: 10 }} fColor="#C31212">
+              예약하기
+            </Bold>
+          </StyledBtn>
           <FontAwesomeIcon
             icon={faCheck}
             style={{
@@ -156,7 +164,9 @@ const TodayPopVids = () => {
               fontSize: 14,
             }}
           />
-          <Bold style={{ color: "#C31212", fontSize: 14 }}>{like3}</Bold>
+          <Bold style={{ fontSize: 14 }} fColor="#C31212">
+            {like3}
+          </Bold>
         </StyledDivRow>
       </RestPop>
     </MainContainer>
