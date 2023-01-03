@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyledDiv,
-  StyledDivColumn,
-  StyledDivRow,
-} from "../../Style/StyledDiv";
-
+import { StyledDivColumn, StyledDivRow } from "../../Style/StyledDiv";
 import Main_logo from "../../Assets/Main_logo.png";
-
 import { light } from "../../Style/Color";
 import StyledBtn from "../../Style/StyledBtn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -32,29 +26,13 @@ import {
   TitleBlock,
   Wrapper,
 } from "../../Style/TimeTable";
+import { TodayReservTest } from "../../TestData/ReservTest";
 
 const TimeTable = (props) => {
   const [year, setYear] = useState("2022");
   const [month, setMonth] = useState("7");
   const [date, setDate] = useState("28");
-  const [todayData, setTodayData] = useState([
-    {
-      reservationId: 3,
-      videoId: 1,
-      title: "테스트 영상 등록",
-      reservationDate: "2022-05-27",
-      startTime: "12:20",
-      endTime: "12:40",
-    },
-    {
-      reservationId: 3,
-      videoId: 1,
-      title: "정형돈 특집",
-      reservationDate: "2022-05-27",
-      startTime: "15:00",
-      endTime: "15:30",
-    },
-  ]);
+  const [todayData, setTodayData] = useState(TodayReservTest);
 
   let arr = [];
 
