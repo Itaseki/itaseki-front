@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ed7e87e-4cec-47fa-8681-4ead74525659" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Components/Playlist/PlaylistToggle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Playlist/PlaylistToggle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Style/Community.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Style/Community.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Style/Running.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Style/Running.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Style/Video.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Style/Video.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Style/color.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Style/color.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,16 +33,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/hyowon/Documents/Projects/itaseki/itaseki-front/itaseki-front",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\USER\itaseki\itaseki-front\src\preURL" />
@@ -52,6 +61,7 @@
       <updated>1658666982608</updated>
       <workItem from="1658666987596" duration="8043000" />
       <workItem from="1658679970113" duration="110000" />
+      <workItem from="1673031288823" duration="2357000" />
     </task>
     <servers />
   </component>

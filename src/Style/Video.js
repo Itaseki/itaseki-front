@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import StyledBtn from "./StyledBtn";
-import "./color.css";
 import {light} from "./Color"
 
 //================================AddNewVideo====================================
@@ -261,7 +260,7 @@ export const TitleUploader = styled.div`
 export const IFrame = styled.div`
   width: 720px;
   height: 405px;
-  background-color: var(--sub-color);
+  background-color: #c4c4c4;
 `
 
 export const VideoDetailInfo = styled.div`

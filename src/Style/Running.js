@@ -58,14 +58,12 @@ export const InformHeader = styled.div`
 
 export const Information = styled.div`
   position: absolute;
-  display: ${(props) => (props.show ? "contents" : "none")};
   background-color: #e8e8e8;
-`;
-  // 수정 필요(임시)
+
+  // TODO
   width: 27.65%;
   visibility: ${props => props.show? "visible" : "hidden"};
   // display: ${props => props.show? "contents" : "none"};  // 원래 의도
-  background-color: #E8E8E8;
   & > p{
     padding: 0 10px;
     font-weight: bold;

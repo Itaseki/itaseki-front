@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import StyledBtn from "./StyledBtn";
-import {light} from "../Style/Color";
+import {light} from "./Color";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -132,7 +132,6 @@ export const TextArea = styled.textarea`
   ::placeholder {
     font-weight: 600;
     font-size: 20px;
-    font-weight: bold;
     line-height: 19px;
     align-items: center;
     text-align: center;
@@ -259,7 +258,7 @@ export const NewCommentInput = styled.textarea`
   font-weight: bold;
   ::placeholder{
     font-size: xx-large;
-    font-family: 'Work Sans';
+    //font-family: 'Work Sans';
   }
 `
 

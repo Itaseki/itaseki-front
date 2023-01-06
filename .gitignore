@@ -3,6 +3,7 @@
 src/preURL/
 .preURL
 /src/preURL
+.env
 
 # dependencies
 /node_modules
