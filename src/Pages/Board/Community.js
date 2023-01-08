@@ -197,7 +197,7 @@ const Community = () => {
     return (
         <div style={{width: "450px"}}>
           <Contents>
-            <BestRankNum style={{color: `${light.colors.mainColor}`}}>
+            <BestRankNum>
               {rank++}
             </BestRankNum>
             <Link to={url} style={{textDecorationLine: "none"}}>
