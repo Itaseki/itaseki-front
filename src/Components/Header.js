@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import axios from "axios";
 import preURL from "../preURL/preURL";
 import Token from "./Token";
@@ -37,7 +37,7 @@ const Header = ({ darkMode }) => {
 
   // 사용자 프로필 이미지 받아오기
   useEffect(() => {
-    if(!token) return;  // 임시 처리 - 수정 필요
+    if(!token) return;  // TODO 임시 처리 - 조건 수정 필요
     axios
         .get(preURL.preURL + '/main/user',{
           headers: {
@@ -196,20 +196,28 @@ const Header = ({ darkMode }) => {
           />
         </Link>
         <Profile>
-          {userProfileImg // 수정 필요
-              ? <ProfileImg src={userProfileImg} />
-              : <ProfileImgDefault />
+          {userProfileImg // TODO - 조건 수정 필요
+              ? (
+                  <>
+                    <ProfileImg src={userProfileImg} />
+                    <StyledBtn>
+                      <FontAwesomeIcon
+                          icon={faCaretDown}
+                          style={{ fontSize: "150%", color: "9C9C9C" }}
+                          onClick={() => setCaretOpen(!caretOpen)}
+                      />
+                    </StyledBtn>
+                  </>
+              )
+              : (
+                  <a href={KAKAO_AUTH_URL}>
+                    <LoginBtn>로그인</LoginBtn>
+                  </a>
+              )
           }
-          <StyledBtn on>
-            <FontAwesomeIcon
-              icon={faCaretDown}
-              style={{ fontSize: "150%", color: "9C9C9C" }}
-              onClick={() => setCaretOpen(!caretOpen)}
-            />
-          </StyledBtn>
         </Profile>
-        {caretOpen ? (
-            userProfileImg ? (  // 수정 필요
+        {caretOpen
+            ? (
                 <ProfileUl>
                   <Link to="/mypage">
                     <ProfileList>마이페이지</ProfileList>
@@ -219,16 +227,8 @@ const Header = ({ darkMode }) => {
                   <ProfileList onClick={onLogout}>로그아웃</ProfileList>
                   <ProfileList onClick={onLeave}>탈퇴하기</ProfileList>
                 </ProfileUl>
-            ) : (
-                <ProfileUl>
-                  <a href={KAKAO_AUTH_URL}>
-                    <ProfileList>로그인</ProfileList>
-                  </a>
-                </ProfileUl>
             )
-        ) : (
-          <></>
-        )}
+            : <></>}
       </RightWrapper>
     </Wrapper>
   );
@@ -240,11 +240,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   // Header 아래 여백은 23px
   padding: 2%;
-  padding-left: 2%;
-  padding-right: 2%;
   margin: 0;
 `;
 
@@ -306,14 +304,6 @@ const Profile = styled.div`
   margin-left: 21px;
 `;
 
-const ProfileImgDefault = styled.div`
-  width: 41px;
-  height: 41px;
-  margin-right: 6px;
-  border-radius: 50%;
-  background-color: gray;
-`
-
 const ProfileImg = styled.img`
   width: 41px;
   height: 41px;
@@ -334,6 +324,14 @@ const ProfileUl = styled.ul`
   border: 5px dashed black;
   border-radius: 30px;
 `;
+
+const LoginBtn = styled.button`
+  background-color: rgba(0,0,0,0);
+  border: none;
+  color: ${light.colors.mainColor};
+  font: 16px bold;
+  cursor: pointer;
+`
 
 const ProfileList = styled.button`
   background-color: white;
