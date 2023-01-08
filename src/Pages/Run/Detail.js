@@ -10,7 +10,14 @@ import {
 } from "../../Style/StyledDiv";
 import { light } from "../../Style/Color";
 import { Link } from "react-router-dom";
-import { CloseBtn, FirstRow, IMG, Modal, ReservBtn } from "../../Style/Detail";
+import {
+  CloseBtn,
+  FirstRow,
+  IMG,
+  Modal,
+  P,
+  ReservBtn,
+} from "../../Style/Detail";
 
 const Detail = (props) => {
   const [confirmedData, setConfirmedData] = useState({});
@@ -74,20 +81,17 @@ const Detail = (props) => {
                   color: `${light.colors.mainColor}`,
                 }}
               />
-              <p
+              <P
                 style={{
                   color: `${light.colors.mainColor}`,
-                  margin: 3,
                 }}
               >
                 {confirmedData.count}
-              </p>
+              </P>
             </StyledDivRow>
           </FirstRow>
-          <p style={{ margin: 3 }}>{confirmedData.url}</p>
-          <p style={{ margin: 3, color: "#505050" }}>
-            {confirmedData.writerNickname}
-          </p>
+          <P>{confirmedData.url}</P>
+          <P style={{ color: "#505050" }}>{confirmedData.writerNickname}</P>
           <Link to="/running" style={{ textDecoration: "none" }}>
             <StyledDiv
               style={{ justifyContent: "center", alignItems: "center" }}
@@ -101,7 +105,7 @@ const Detail = (props) => {
         <StyledDivColumn>
           <IMG src={preReservData.thumbnailUrl} />
           <FirstRow>
-            <p style={{ margin: 3 }}>{preReservData.description}</p>
+            <P>{preReservData.description}</P>
             <StyledDivRow>
               <FontAwesomeIcon
                 icon={faCheck}
@@ -109,20 +113,19 @@ const Detail = (props) => {
                   color: `${light.colors.mainColor}`,
                 }}
               />
-              <p
+              <P
                 style={{
                   color: `${light.colors.mainColor}`,
-                  margin: 3,
                 }}
               >
                 {preReservData.count}
-              </p>
+              </P>
             </StyledDivRow>
           </FirstRow>
-          <p style={{ margin: 3 }}>{preReservData.url}</p>
-          <p style={{ margin: 3, color: "#505050" }}>
+          <P>{preReservData.url}</P>
+          <P style={{ margin: 3, color: "#505050" }}>
             {preReservData.writerNickname}
-          </p>
+          </P>
           <ReservBtn bgColor="black">나도 예약하기</ReservBtn>
         </StyledDivColumn>
       )}
