@@ -7,6 +7,7 @@ import styled from "styled-components";
 import StyledBtn from "../../Style/StyledBtn";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart} from "@fortawesome/free-solid-svg-icons";
+import {light} from "../../Style/Color";
 // Assets
 import PlayListIcon from "../../Assets/Playlist_mini.png";
 
@@ -41,10 +42,10 @@ const OneVideo = ({video}) => {
               <StyledBtn>
                 <FontAwesomeIcon
                     icon={faHeart}
-                    style={{ fontSize: "80%", color: "#D9767C", marginLeft: "auto" }}
+                    style={{ fontSize: "80%", color: light.colors.mainColor, marginLeft: "auto" }}
                 />
               </StyledBtn>
-              <span style={{color: "#D9767C"}}>
+              <span style={{color: light.colors.mainColor}}>
                 {video.likeCount}
               </span>
               <img
@@ -62,7 +63,7 @@ const OneVideo = ({video}) => {
               }
             </div>
           </VideoInfo>
-          <span style={{fontSize: "small", color: "var(--main-color)"}}>
+          <span style={{fontSize: "small", color: light.colors.lightGray}}>
             {video.writerNickname}
           </span>
         </div>

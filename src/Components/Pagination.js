@@ -80,7 +80,6 @@ const Pagination = ({pages, setPages, setPage, totalPageCount}) => {
                   icon={faCaretRight}
                   style={{
                     fontSize: "20px",
-                    color: "#9C9C9C",
                     marginLeft: "10.5px",
                   }}
               />

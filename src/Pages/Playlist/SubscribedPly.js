@@ -154,7 +154,7 @@ const SubscribedPly = () => {
           <SortBox>
             <StyledBtn
                 id="sort-btn"
-                style={{ fontSize: "10px", color: "#9E8FA8", marginRight: 4, left: "876px"}}
+                style={{ fontSize: "10px", marginRight: 4, left: "876px"}}
                 onClick={onClickSortNewest}
             >
               최신순
@@ -162,7 +162,7 @@ const SubscribedPly = () => {
             <p>|</p>
             <StyledBtn
                 id="sort-btn"
-                style={{ fontSize: "10px", color: "#9E8FA8", marginRight: 4, left: "941px"}}
+                style={{ fontSize: "10px", marginRight: 4, left: "941px"}}
                 onClick={onClickSortLike}
             >
               좋아요순

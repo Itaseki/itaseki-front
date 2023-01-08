@@ -17,7 +17,7 @@ export const BestPostsWrapper = styled.div`
 
 export const BestRankNum = styled.p`
   margin: 0;
-  color: #532A6B;
+  color: ${light.colors.mainColor};
   font-size: 13px;
   padding: 5px 10px;
 `
@@ -43,7 +43,7 @@ export const Title = styled.div`
   color: black;
   & > #comment-cnt {
     font-weight: bold;
-    color: ${light.colors.mainColor}
+    color: ${light.colors.mainColor};
   }
 `
 
@@ -75,7 +75,7 @@ export const SortBox = styled.div`
   justify-content: flex-end;
   & p{
     margin-right: 4px;
-    color: #9E8FA8;
+    //color: #9E8FA8;
     font-size: 11px;
   }
 `
@@ -165,7 +165,7 @@ export const DetailTitle = styled.div`
   justify-content: space-between;
   & > #del{
     padding: 2%;
-    color: #505050;
+    //color: #505050;
   }
 `
 
@@ -258,7 +258,6 @@ export const NewCommentInput = styled.textarea`
   font-weight: bold;
   ::placeholder{
     font-size: xx-large;
-    //font-family: 'Work Sans';
   }
 `
 
