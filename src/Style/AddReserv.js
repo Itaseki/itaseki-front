@@ -35,15 +35,15 @@ export const VideoList = styled.ul`
 `;
 
 export const WhiteBoxBtn = styled(StyledBtn)`
-  background-color: white;
   width: 125px;
   height: 33px;
   border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white;
 
-  &:hover {
+  &.select {
     background-color: #e37958;
     color: white;
   }
