@@ -42,6 +42,8 @@ const AddReserv = (props) => {
   let [rMin1, setRMin1] = useState(0);
   const [rMin2, setRMin2] = useState(0);
 
+  const [select, setSelect] = useState("");
+
   useEffect(() => {
     console.log(
       "==============================[AddReserv]=============================="
@@ -220,6 +222,12 @@ const AddReserv = (props) => {
       });
   };
 
+  const handleClick = (num, type) => {
+    setDate(todayDate + num);
+    setSelect(type);
+    console.log(date, select);
+  };
+
   return (
     <>
       <StyledDiv>
@@ -270,26 +278,26 @@ const AddReserv = (props) => {
                   >
                     <WhiteBoxBtn
                       onClick={() => {
-                        setDate((date) => todayDate);
-                        console.log(date);
+                        handleClick(0, "today");
                       }}
+                      className={`${select == "today" ? "select" : ""}`}
                     >
                       오늘 ({todayMonth}/{todayDate})
                     </WhiteBoxBtn>
                     {/* 다음달로 넘어가는 경우 처리 필요 */}
                     <WhiteBoxBtn
                       onClick={() => {
-                        setDate((date) => todayDate + 1);
-                        console.log(date);
+                        handleClick(1, "tomorrow");
                       }}
+                      className={`${select == "tomorrow" ? "select" : ""}`}
                     >
                       내일 ({todayMonth}/{todayDate + 1})
                     </WhiteBoxBtn>
                     <WhiteBoxBtn
                       onClick={() => {
-                        setDate((date) => todayDate + 2);
-                        console.log(date);
+                        handleClick(2, "ttomorrow");
                       }}
+                      className={`${select == "ttomorrow" ? "select" : ""}`}
                     >
                       모레 ({todayMonth}/{todayDate + 2})
                     </WhiteBoxBtn>
