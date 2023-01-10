@@ -102,12 +102,14 @@ export const InputTitle = styled.input`
 
 export const ImgInput = styled.div`
   display: flex;
-  flex-display: row;
+  flex-direction: row;
   align-items: center;
+  flex-wrap: wrap;
+  height: 60px;
+  padding: 0 20px;
   & > label {
     width: 146px;
-    height: 58px;
-    margin-left: 3%;
+    height: 90%;
     background: rgba(255, 255, 255, 0.65);
     border: 3px dashed;
     border-radius: 29px;
