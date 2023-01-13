@@ -17,7 +17,7 @@ import {light} from "../Style/Color";
 import Menu_bar from "../Assets/Menu_bar.png";
 import Main_logo from "../Assets/Main_logo.png";
 import Main_logo_dark from "../Assets/Main_logo_dark.png";
-import Basic_profile from "../Assets/Basic_profile.png";
+import User_default_img from "../Assets/User_default_img.png";
 import Menu_Home from "../Assets/Menu_Home.png";
 
 const client_id = process.env.REACT_APP_KAKAO_REST_API_KEY;
@@ -33,7 +33,7 @@ const Header = ({ darkMode }) => {
   const [caretOpen, setCaretOpen] = useState(false);
   const [userId, setUserId] = useState(0);
   const [userNickname, setUserNickname] = useState("");
-  const [userProfileImg, setUserProfileImg] = useState('');
+  const [userProfileImg, setUserProfileImg] = useState(User_default_img);
 
   // 사용자 프로필 이미지 받아오기
   useEffect(() => {
@@ -47,7 +47,7 @@ const Header = ({ darkMode }) => {
         .then((res) => {
           console.log("👍헤더 사용자 프로필 이미지 가져오기 성공 ", res);
           setUserId(res.data['id']);
-          setUserProfileImg(res.data['profileUrl']);
+          res.data['profileUrl'] && setUserProfileImg(res.data['profileUrl']);
           setUserNickname(res.data['nickname']);
         })
         .catch((err) => {
