@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ed7e87e-4cec-47fa-8681-4ead74525659" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Assets/User_default_img.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Modal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Board/Community.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Board/Community.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Style/Community.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Style/Community.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Run/Running.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Run/Running.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,11 +44,13 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "yarn",
     "settings.editor.selected.configurable": "preferences.toDoOptions",
+    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Assets" />
       <recent name="C:\Users\USER\itaseki\itaseki-front\src\preURL" />
     </key>
   </component>
@@ -65,6 +67,7 @@
       <workItem from="1673031288823" duration="2576000" />
       <workItem from="1673039676149" duration="25000" />
       <workItem from="1673039720302" duration="15987000" />
+      <workItem from="1673627830291" duration="1579000" />
     </task>
     <servers />
   </component>
