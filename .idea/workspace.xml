@@ -5,7 +5,14 @@
       <change afterPath="$PROJECT_DIR$/src/Assets/User_default_img.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Playlist/Oneply.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Playlist/Oneply.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Video/OneVideo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Video/OneVideo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Playlist/AllPlaylist.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Playlist/AllPlaylist.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Playlist/SubscribedPly.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Playlist/SubscribedPly.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/Run/Running.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Run/Running.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Video/AllVideo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Video/AllVideo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Style/Playlist.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Style/Playlist.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Style/Video.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Style/Video.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,21 +40,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "TODO_SCOPE": "All Places",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/hyowon/Documents/Projects/itaseki/itaseki-front/itaseki-front",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "settings.editor.selected.configurable": "preferences.toDoOptions",
-    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/hyowon/Documents/Projects/itaseki/itaseki-front/itaseki-front&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.toDoOptions&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/Assets" />
