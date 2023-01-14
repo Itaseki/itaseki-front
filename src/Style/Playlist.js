@@ -14,23 +14,6 @@ export const TopBtns = styled.div`
   }
 `
 
-export const MainLogo = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-`
-
-export const FourListWrapper = styled.div`
-  width: 100%;
-`
-
-export const FourList = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin: 2% 0;
-`
-
 ////////////////////// SubscribedPly ////////////////////////
 export const ListWrapper = styled.div`
   width: 100%;
@@ -54,17 +37,6 @@ export const AccountName = styled.div`
   line-height: 25px;
   font-size: small;
   font-weight: bold;
-`
-
-export const OneAccountPlysWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2%;
-`
-
-export const FourPlysWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
 `
 
 /////////////////////////// Playlistdetail //////////////////////////
