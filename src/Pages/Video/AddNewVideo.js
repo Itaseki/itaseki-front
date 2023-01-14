@@ -176,7 +176,7 @@ const AddNewVideo = () => {
       e.preventDefault();
       return;
     }
-    else if(!hashTag1 || !hashTag2){
+    else if(!hashTag1){
       alert("해시태그를 입력해주세요.");
       e.preventDefault();
       return;
