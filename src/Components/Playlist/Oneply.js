@@ -65,7 +65,7 @@ export default OnePly;
 
 
 const OnePlyWrapper = styled.div`
-  width: 25%;
+  padding: 0 5px 5px;
 `
 
 const PlyContainer = styled.div`

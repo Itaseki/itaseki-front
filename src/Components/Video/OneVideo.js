@@ -20,7 +20,7 @@ const OneVideo = ({video}) => {
   const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);  // 플레이리스트 모달창 보이기
   const [clickedPlyId, setClickedPlyId] = useState(-1); // 클릭한 플레이리스트 아이콘 id
 
-// 플레이리스트에 추가하기 아이콘 클릭
+  // 플레이리스트에 추가하기 아이콘 클릭
   const onClickAddToPlaylist = (e) => {
     console.log("플레이리스트에 추가", e);
     const clicked = parseInt(e.target.id);
@@ -63,7 +63,7 @@ const OneVideo = ({video}) => {
               }
             </div>
           </VideoInfo>
-          <span style={{fontSize: "small", color: light.colors.lightGray}}>
+          <span style={{fontSize: "small", color: "gray"}}>
             {video.writerNickname}
           </span>
         </div>
@@ -75,7 +75,7 @@ export default OneVideo;
 
 
 const OneVideoWrapper = styled.div`
-  width: 25%;
+  padding: 0 5px 5px;
 `
 
 // 영상 썸네일
