@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import StyledBtn from "./StyledBtn";
-import "./color.css";
 import {light} from "./Color"
 
 //================================AddNewVideo====================================
@@ -224,7 +223,6 @@ export const SortBox = styled.div`
   justify-content: flex-end;
   & p{
     margin-right: 4px;
-    color: #9E8FA8;
     font-size: 11px;
   }
 `
@@ -254,21 +252,20 @@ export const TitleUploader = styled.div`
   }
   & > #uploader{
     font-size: 12px;
-    color: #505050;
+    //color: #505050;
   }
 `
 
 export const IFrame = styled.div`
   width: 720px;
   height: 405px;
-  background-color: var(--sub-color);
+  background-color: gray;
 `
 
 export const VideoDetailInfo = styled.div`
   width: 45%;
   margin: 2% 0;
   & #head{
-    //font-family: 'Work Sans';
     font-style: normal;
     font-weight: 600;
     font-size: 32px;

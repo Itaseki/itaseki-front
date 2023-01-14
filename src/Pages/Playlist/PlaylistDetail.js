@@ -209,9 +209,9 @@ const PlaylistDetail = () => {
               <p>|</p>
               <FontAwesomeIcon
                   icon={faHeart}
-                  style={{color: "#D9767C"}}
+                  style={{color: light.colors.mainColor}}
               />
-              <p style={{color: "#D9767C"}}>{likeCount}</p>
+              <p style={{color: light.colors.mainColor}}>{likeCount}</p>
             </DetailInfo>
           </TitleWrapper>
           <PlaylistWrapper>

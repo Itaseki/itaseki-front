@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {light} from "./Color";
 
 export const Wrapper = styled.div`
   margin: 20px;
@@ -40,13 +41,13 @@ export const Chatting = styled.div`
 `;
 
 export const TopBar = styled.div`
-  background-color: #f9dca7;
+  background-color: ${light.colors.lightOrange};
   height: 22px;
 `;
 
 export const Inform = styled.div`
   margin: 5px;
-  background-color: #e8e8e8;
+  background-color: ${light.colors.lightGray};
 `;
 
 export const InformHeader = styled.div`
@@ -58,14 +59,12 @@ export const InformHeader = styled.div`
 
 export const Information = styled.div`
   position: absolute;
-  display: ${(props) => (props.show ? "contents" : "none")};
-  background-color: #e8e8e8;
-`;
-  // 수정 필요(임시)
+  background-color: ${light.colors.lightGray};
+
+  // TODO
   width: 27.65%;
   visibility: ${props => props.show? "visible" : "hidden"};
   // display: ${props => props.show? "contents" : "none"};  // 원래 의도
-  background-color: #E8E8E8;
   & > p{
     padding: 0 10px;
     font-weight: bold;
@@ -107,7 +106,7 @@ export const ImgBtn = styled.img`
 `;
 
 export const ChatInput = styled.input`
-  background-color: #f9dca7;
+  background-color: ${light.colors.lightOrange};
   border: none;
   border-radius: 71px;
   width: 70%;

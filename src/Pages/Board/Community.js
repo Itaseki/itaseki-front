@@ -30,23 +30,23 @@ import Enter from "../../Assets/Add_video_submit.png";
 const Community = () => {
 
   const [bestPosts, setBestPosts] = useState([
-    {id: 1, title: "best1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
-    {id: 2, title: "best1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
-    {id: 3, title: "best1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
-    {id: 4, title: "best1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
-    {id: 5, title: "best1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    // {id: 1, title: "best1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    // {id: 2, title: "best1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    // {id: 3, title: "best1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    // {id: 4, title: "best1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    // {id: 5, title: "best1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
   ]);
   const [posts, setPosts] = useState([
-    {id: 1, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
-    {id: 2, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
-    {id: 3, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
-    {id: 4, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
-    {id: 5, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
-    {id: 6, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
-    {id: 7, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
-    {id: 8, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
-    {id: 9, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
-    {id: 10, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    // {id: 1, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    // {id: 2, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    // {id: 3, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    // {id: 4, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    // {id: 5, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    // {id: 6, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    // {id: 7, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    // {id: 8, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    // {id: 9, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
+    // {id: 10, title: "post1", writerNickname: "배고파", createdTime: "1:05", viewCount: 2, likeCount: 1, commentCount: 3},
   ]);
   const [totalPage, setTotalPage] = useState(6);
   const [page, setPage] = useState(0);
@@ -57,7 +57,7 @@ const Community = () => {
   const [newTitle, onChangeNewTitle, setNewTitle] = useInput("");
   const [newContent, onChangeNewContent, setNewContent] = useInput("");
   const [newImages, setNewImages] = useState([]);
-  const [showNewImgs, setShowNewImgs] = useState(['선택된 파일 없음']);
+  const [showNewImgs, setShowNewImgs] = useState([]);
 
   // 베스트 게시글 조회
   useEffect(() => {
@@ -107,16 +107,19 @@ const Community = () => {
     console.log("새 게시물 쓰기 모달창 닫기");
   }, []);
 
-  // 이미지 인풋
+  // 이미지 인풋 onChange
   const onChangeNewImages = (e) => {
-    const file = e.target.files;
-    console.log(file);
+    const files = e.target.files;
+    // console.log(files);
     let list = [];
-    for(let i=0; i<file.length; i++){
-      list.push(file[i].name);
+    for(let i=0; i<files.length; i++){
+      let reader = new FileReader();
+      reader.onload = () => {
+        list[i] = reader.result;
+        setShowNewImgs([...list]);
+      }
+      reader.readAsDataURL(files[i]);
     }
-    setShowNewImgs(list);
-    setNewImages(file);
   };
 
   // 새 게시물 작성 submit
@@ -197,7 +200,7 @@ const Community = () => {
     return (
         <div style={{width: "450px"}}>
           <Contents>
-            <BestRankNum style={{color: `${light.colors.mainColor}`}}>
+            <BestRankNum>
               {rank++}
             </BestRankNum>
             <Link to={url} style={{textDecorationLine: "none"}}>
@@ -271,14 +274,16 @@ const Community = () => {
           </StyledBtn>
           {/*새 게시글 쓰기 모달창*/}
           <Modal show={showAddNewPostModal} onCloseModal={onCloseModal}>
-            <form enctype="multipart/form-data" onSubmit={onAddNewPost}>
+            <form encType="multipart/form-data" onSubmit={onAddNewPost}>
               <InputTitle value={newTitle} onChange={onChangeNewTitle} placeholder="| 제목을 입력하세요."/>
               <ImgInput>
-                <label for="img-input">
+                <label htmlFor="img-input">
                   <FontAwesomeIcon for="img-input" icon={faPlus} style={{ fontSize: "150%"}} />
                 </label>
                 <input id="img-input" type="file" accept="image/*" multiple onChange={onChangeNewImages} style={{display: "none"}}/>
-                <input value={showNewImgs} disabled="disabled"/>
+                {showNewImgs && showNewImgs.map((imgUrl) => {
+                  return <img src={imgUrl} alt="이미지 미리보기" style={{height: "90%"}}/>
+                })}
               </ImgInput>
               <TextArea placeholder="내용" value={newContent} onChange={onChangeNewContent}/>
               <SubmitBtn type="image" src={Enter}/>
