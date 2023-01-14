@@ -20,10 +20,10 @@ import Main_logo_dark from "../Assets/Main_logo_dark.png";
 import Basic_profile from "../Assets/Basic_profile.png";
 import Menu_Home from "../Assets/Menu_Home.png";
 
-const client_id = process.env.REACT_APP_KAKAO_REST_API_KEY;
-const redirect_uri = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 
-const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code`;
+const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
 
 const Header = ({ darkMode }) => {

@@ -12,18 +12,17 @@ const LoginRedirect = () => {
 
   useEffect(() => {
     axios
-        .get(preURL.preURL + `/oauth/kakao?code=${code}`)
+        .get(preURL.preURL + `/oauth/kakao?accessCode=${code}`)
         .then((res) => {
           // console.log(res);
-          const ACCESS_TOKEN = res.headers["itasekki"];
-          localStorage.setItem("access_token", ACCESS_TOKEN);
+          window.sessionStorage.setItem('access-token', res.data);
           window.alert("환영합니다!");
           navigate('/');
         })
         .catch((err) => {
           console.log("소셜 로그인 에러", err);
           window.alert("로그인에 실패하였습니다.");
-          navigate('/login');
+          navigate('/');
         })
   }, );
 
