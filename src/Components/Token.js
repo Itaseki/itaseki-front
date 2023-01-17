@@ -1,8 +1,8 @@
 import React from "react";
 
-const Token = () => {   // TODO 토큰 처리 방법 변경
+const Token = () => {
 
-  return localStorage.getItem('access_token');
+  return sessionStorage.getItem('access-token');
 
 }
 

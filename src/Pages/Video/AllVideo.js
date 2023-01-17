@@ -20,8 +20,9 @@ import StyledBtn from "../../Style/StyledBtn";
 import TV from '../../Assets/Best_Video_TV.png';
 import Add_New_Video from "../../Assets/Add_new_video.png";
 
+const navigate = useNavigate();
+
 const AllVideo = () => {
-  const navigate = useNavigate();
 
   const [bestVideos, setBestVideos] = useState([
     {id: 1, title: "베스트 영상 1", writerNickname: "닉네임1", likeCount: 5, thumbnailUrl: ""},
