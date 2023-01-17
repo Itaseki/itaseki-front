@@ -26,12 +26,10 @@ import {
 // Assets
 import Dot3_btn from "../../Assets/Dot3_btn.png";
 
-const navigate = useNavigate();
-const token = Token();
-
 const PlaylistDetail = () => {
-
   const plyId = useParams().id;
+  const navigate = useNavigate();
+  const token = Token();
 
   const [likeCount, setLikeCount] = useState(0);
   const [playlist, setPlaylist] = useState({

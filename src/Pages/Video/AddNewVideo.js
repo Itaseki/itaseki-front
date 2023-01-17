@@ -23,10 +23,9 @@ import StyledBtn from "../../Style/StyledBtn";
 // Assets
 import Add_video_submit from "../../Assets/Add_video_submit.png";
 
-const navigate = useNavigate();
-const token = Token();
-
 const AddNewVideo = () => {
+  const navigate = useNavigate();
+  const token = Token();
 
   const [agree, setAgree] = useState(false);
   const [verified, setVerified] = useState(false);

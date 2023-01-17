@@ -17,9 +17,8 @@ import Comment_reply from "../../Assets/Comment_reply.png";
 import Enter from "../../Assets/Enter_Comment.png";
 import Exit_reply from "../../Assets/Exit_reply.png";
 
-const token = Token();
-
 const SingleComment = ({comment, board, boardId}) => {
+  const token = Token();
 
   const [showReplyModal, setShowReplyModal] = useState(false);
   const [newReply, onChangeNewReply, setNewReply] = useInput("");

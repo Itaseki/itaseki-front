@@ -8,9 +8,8 @@ import styled from "styled-components";
 import StyledBtn from "../../Style/StyledBtn";
 import NewPlaylistModal, {SwitchBtnLabel} from "./NewPlaylistModal";
 
-const token = Token();
-
 const AddVideoToPlaylistModal = ({videoId, show, setShow}) => {
+  const token = Token();
 
   const [playListList, setPlayListList] = useState([]); // 받아온 내 플레이리스트 목록
   /* TODO 등록 처리 필요 */

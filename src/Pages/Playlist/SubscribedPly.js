@@ -17,10 +17,8 @@ import StyledBtn from "../../Style/StyledBtn";
 // Assets
 import Subscribed_ply from "../../Assets/Subscribed_ply.png";
 
-
-const token = Token();  // 토큰
-
 const SubscribedPly = () => {
+  const token = Token();
 
   const [totalPageCount, setTotalPageCount] = useState(1);
   const [allPlyResponse, setAllPlyResponse] = useState([

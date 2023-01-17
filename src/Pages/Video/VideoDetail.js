@@ -22,11 +22,10 @@ import {faHeart} from "@fortawesome/free-solid-svg-icons";
 import {AInfo, IFrame, Infos, TitleUploader, VideoDetailInfo, VideoWrapper} from "../../Style/Video";
 import {light} from "../../Style/Color";
 
-const navigate = useNavigate();
-const token = Token();
-
 const VideoDetail = () => {
   const videoId = useParams().id;
+  const navigate = useNavigate();
+  const token = Token();
 
   const [video, setVideo] = useState({
     id: 0,
