@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 // Components
 import AddVideoToPlaylistModal from "../Playlist/AddVideoToPlaylistModal";
+import Token from "../Token";
 // Style
 import styled from "styled-components";
 import StyledBtn from "../../Style/StyledBtn";
@@ -11,6 +12,7 @@ import {light} from "../../Style/Color";
 // Assets
 import PlayListIcon from "../../Assets/Playlist_mini.png";
 
+const token = Token();
 
 const OneVideo = ({video}) => {
 
@@ -22,6 +24,10 @@ const OneVideo = ({video}) => {
 
   // 플레이리스트에 추가하기 아이콘 클릭
   const onClickAddToPlaylist = (e) => {
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     console.log("플레이리스트에 추가", e);
     const clicked = parseInt(e.target.id);
     setClickedPlyId(clicked);

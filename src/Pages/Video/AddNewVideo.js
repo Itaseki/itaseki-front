@@ -4,6 +4,7 @@ import useInput from "../../Hooks/useInput";
 import preURL from "../../preURL/preURL";
 import axios from "axios";
 // Components
+import Token from "../../Components/Token";
 import Header from "../../Components/Header";
 import YoutubeAPI from "../../Components/Video/YoutubeAPI";
 import AddVideoToPlaylistModal from "../../Components/Playlist/AddVideoToPlaylistModal";
@@ -22,8 +23,10 @@ import StyledBtn from "../../Style/StyledBtn";
 // Assets
 import Add_video_submit from "../../Assets/Add_video_submit.png";
 
+const navigate = useNavigate();
+const token = Token();
+
 const AddNewVideo = () => {
-  const navigate = useNavigate();
 
   const [agree, setAgree] = useState(false);
   const [verified, setVerified] = useState(false);
@@ -49,7 +52,12 @@ const AddNewVideo = () => {
   // 토글 정보 불러오기
   useEffect(() => {
     axios
-        .get(preURL.preURL + `/boards/video/info/${1}`) /*{userId}*/
+        // TODO {userId}
+        .get(preURL.preURL + `/boards/video/info/${1}`, {
+          headers: {
+            'ITTASEKKI': token
+          }
+        })
         .then((res) => {
           console.log("👍시리즈, 해시태그, 플레이리스트 조회 성공", res.data);
           setSeriesList(res.data['series']);
@@ -160,6 +168,10 @@ const AddNewVideo = () => {
 
   // 영상 등록
   const onSubmitNewVideo = (e) => {
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     // 영상 등록 불가능 조건 처리
     if(!agree){
       alert("유의사항에 동의해주세요.");
@@ -196,6 +208,10 @@ const AddNewVideo = () => {
           playlists: [],
           thumbnailUrl: thumbnailUrl,
           videoUploader: videoUploader,
+        },{
+          headers: {
+            'ITTASEKKI': token
+          }
         })
         .then((res) => {
           console.log("👍영상 등록 성공");

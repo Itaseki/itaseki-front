@@ -1,7 +1,8 @@
 import React, {useCallback, useState} from "react";
+import useInput from "../../Hooks/useInput";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
-import useInput from "../../Hooks/useInput";
+import Token from "../Token";
 // STyle
 import {
   Comment, CommentReplyImg,
@@ -16,7 +17,10 @@ import Comment_reply from "../../Assets/Comment_reply.png";
 import Enter from "../../Assets/Enter_Comment.png";
 import Exit_reply from "../../Assets/Exit_reply.png";
 
+const token = Token();
+
 const SingleComment = ({comment, board, boardId}) => {
+
   const [showReplyModal, setShowReplyModal] = useState(false);
   const [newReply, onChangeNewReply, setNewReply] = useInput("");
   const nestedComments = comment.nestedComments;
@@ -26,7 +30,11 @@ const SingleComment = ({comment, board, boardId}) => {
     const commentId = e.target.getAttribute("id");
     console.log("삭제할 댓글 id:" + commentId);
     axios
-        .delete(preURL.preURL + `/boards/${board}/${boardId}/comments/${commentId}`)
+        .delete(preURL.preURL + `/boards/${board}/${boardId}/comments/${commentId}`,{
+          headers: {
+            'ITTASEKKI': token
+          }
+        })
         .then((res) => {
           console.log("👍댓글 삭제 성공");
           window.location.reload();
@@ -38,10 +46,18 @@ const SingleComment = ({comment, board, boardId}) => {
 
   // 댓글 신고
   const onClickCommentReport = (e) => {
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     const commentId = e.target.getAttribute("id");
     console.log("신고할 댓글 id: " + commentId);
     axios
-        .post(preURL.preURL + `/boards/${board}/${boardId}/comments/${commentId}/reports`)
+        .post(preURL.preURL + `/boards/${board}/${boardId}/comments/${commentId}/reports`,{},{
+          headers: {
+            'ITTASEKKI': token
+          }
+        })
         .then((res) => {
           console.log("👍댓글 신고 성공");
           alert("댓글을 신고하였습니다.");
@@ -63,13 +79,21 @@ const SingleComment = ({comment, board, boardId}) => {
     console.log("대댓글 모달 창 닫기: " + showReplyModal);
   };
 
-  // 코드 중복 => 어떻게 해결?
+  // TODO 코드 중복 => 어떻게 해결?
   // 대댓글 등록
   const onSubmitReply = useCallback((e) => {
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     axios
         .post(preURL.preURL + `/boards/${board}/${boardId}/comments`, {
           content: newReply,
           parentCommentId: comment.id,
+        },{
+          headers: {
+            'ITTASEKKI': token
+          }
         })
         .then((res) => {
           console.log("👍대댓글 등록 성공");

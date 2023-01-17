@@ -62,8 +62,6 @@ const AllPlaylist = () => {
   const [pages, setPages] = useState([1,2,3,4,5]);
   const [page, setPage] = useState(0);  // 현재 페이지
   const [sort, setSort] = useState(""); // 좋아요 순이면 -> likeCount,DESC
-  const [search, setSearch] = useState("");
-  const [nickname, setNickname] = useState("");
 
   // 베스트 플리 조회
   useEffect(() => {
@@ -81,7 +79,7 @@ const AllPlaylist = () => {
   // 전체 플레이리스트 조회
   useEffect(() => {
     axios
-        .get(preURL.preURL + `/boards/playlist?page=${page}&sort=${sort}&sort=id,DESC&q=${search}`) /*&nickname=${nickname}*/
+        .get(preURL.preURL + `/boards/playlist?page=${page}&sort=${sort}&sort=id,DESC`)
         .then((res) => {
           console.log("👍전체 플레이리스트 조회 성공", res.data);
           const totalPage = res.data['totalPageCount'];

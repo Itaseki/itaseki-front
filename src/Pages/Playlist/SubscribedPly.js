@@ -59,7 +59,7 @@ const SubscribedPly = () => {
     axios
         .get(preURL.preURL + `/boards/playlist/subscribe?page=${page}&sort=${sort}`, {
           headers: {
-            'itasekki' : token
+            'ITTASEKKI' : token
           }
         })
         .then((res) => {

@@ -20,8 +20,9 @@ import StyledBtn from "../../Style/StyledBtn";
 import TV from '../../Assets/Best_Video_TV.png';
 import Add_New_Video from "../../Assets/Add_new_video.png";
 
+const navigate = useNavigate();
+
 const AllVideo = () => {
-  const navigate = useNavigate();
 
   const [bestVideos, setBestVideos] = useState([
     {id: 1, title: "베스트 영상 1", writerNickname: "닉네임1", likeCount: 5, thumbnailUrl: ""},
@@ -44,13 +45,6 @@ const AllVideo = () => {
   const [pages, setPages] = useState([1,2,3,4,5]);
   const [page, setPage] = useState(0);  // 현재 페이지
   const [sort, setSort] = useState(""); // 좋아요 순이면 -> likeCount,DESC
-  const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);  // 플레이리스트 모달창 보이기
-  const [clickedPlyId, setClickedPlyId] = useState(-1); // 클릭한 플레이리스트 아이콘 id
-  // 검색
-  const [searchHashtag1, setSearchHashtag1] = useState("");
-  const [searchHashtag2, setSearchHashtag2] = useState("");
-  const [searchNickname, setSearchNickname] = useState("");
-  const [searchKeyword, setSearchKeyword] = useState("");
 
   // 베스트 영상 조회
   useEffect(() => {
@@ -69,7 +63,7 @@ const AllVideo = () => {
   useEffect(() => {
     axios
         .get(preURL.preURL +
-            `/boards/video?page=${page}&sort=${sort}&sort=id,DESC`) /*검색 - &tag=${searchHashtag1}%2C${searchHashtag2}&nickname=${searchNickname}&q=${searchKeyword}*/
+            `/boards/video?page=${page}&sort=${sort}&sort=id,DESC`)
         .then((res) => {
           console.log("👍전체 영상 조회 성공", res.data);
           const data = res.data;
@@ -89,15 +83,6 @@ const AllVideo = () => {
         })
   }, [sort, page]);
 
-
-
-  // 플레이리스트에 추가하기 아이콘 클릭
-  const onClickAddToPlaylist = (e) => {
-    console.log("플레이리스트에 추가", e);
-    const clicked = parseInt(e.target.id);
-    setClickedPlyId(clicked);
-    setPlayListToggleDisplay(prev => !prev);
-  };
 
   // 최신순 정렬
   const onClickSortNewest = () => {
