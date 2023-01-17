@@ -1,7 +1,12 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
+// Components
+import Header from "../../Components/Header";
+import CommentList from "../../Components/Comment/CommentList";
+import YoutubeIframe from "../../Components/Video/YoutubeIframe";
+import Token from "../../Components/Token";
 // Style
 import {
   AButton,
@@ -16,14 +21,13 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart} from "@fortawesome/free-solid-svg-icons";
 import {AInfo, IFrame, Infos, TitleUploader, VideoDetailInfo, VideoWrapper} from "../../Style/Video";
 import {light} from "../../Style/Color";
-// Components
-import Header from "../../Components/Header";
-import CommentList from "../../Components/Comment/CommentList";
-import YoutubeIframe from "../../Components/Video/YoutubeIframe";
+
+const navigate = useNavigate();
+const token = Token();
 
 const VideoDetail = () => {
   const videoId = useParams().id;
-  const navigate = useNavigate();
+
   const [video, setVideo] = useState({
     id: 0,
     description: "",
@@ -47,7 +51,11 @@ const VideoDetail = () => {
   // 상세 영상글 조회
   useEffect(() => {
     axios
-        .get(preURL.preURL + `/boards/video/${videoId}`)
+        .get(preURL.preURL + `/boards/video/${videoId}`,{
+          headers: {
+            'ITTASEKKI': token
+          }
+        })
         .then((res) => {
           console.log("👍상세 영상글 조회 성공", res.data);
           setVideo(res.data);
@@ -60,8 +68,16 @@ const VideoDetail = () => {
 
   // 좋아요 버튼 클릭
   const onClickLike = () => {
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     axios
-        .post(preURL.preURL + `/boards/video/${videoId}/likes`)
+        .post(preURL.preURL + `/boards/video/${videoId}/likes`,{},{
+          headers: {
+            'ITTASEKKI': token
+          }
+        })
         .then((res) => {
           console.log("👍영상글 좋아요 성공");
           setLikeCount(res.data);
@@ -73,8 +89,16 @@ const VideoDetail = () => {
 
   // 영상글 신고
   const onClickReport = () => {
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     axios
-        .post(preURL.preURL + `/boards/video/${videoId}/reports`)
+        .post(preURL.preURL + `/boards/video/${videoId}/reports`,{},{
+          headers: {
+            'ITTASEKKI': token
+          }
+        })
         .then((res) => {
           const result = res.data
           console.log("👍영상글 신고 성공", result);
@@ -94,12 +118,16 @@ const VideoDetail = () => {
         })
   };
 
-  // 게시글 삭제
+  // 영상글 삭제
   const onClickDelete = () => {
     let del = window.confirm("영상을 삭제하시겠습니까?");
     if(del){
       axios
-          .delete(preURL.preURL + `/boards/video/${videoId}`)
+          .delete(preURL.preURL + `/boards/video/${videoId}`,{
+            headers: {
+              'ITTASEKKI': token
+            }
+          })
           .then(() => {
             console.log("👍영상글 삭제 성공");
             alert("영상을 삭제하였습니다.");

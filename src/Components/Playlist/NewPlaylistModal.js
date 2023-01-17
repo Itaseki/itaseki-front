@@ -3,7 +3,10 @@ import styled from "styled-components";
 import useInput from "../../Hooks/useInput";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
+import Token from "../Token";
 import StyledBtn from "../../Style/StyledBtn";
+
+const token = Token();
 
 const NewPlaylistModal = ({show, setAddNewPly}) => {
     // 새로운 플레이리스트 생성
@@ -13,10 +16,18 @@ const NewPlaylistModal = ({show, setAddNewPly}) => {
 
     // 새 플레이리스트 생성
     const onClickMakePly = () => {
+      if(!token) {
+        alert('로그인 후 이용해 주세요.');
+        return;
+      }
         axios
             .post(preURL.preURL + '/boards/playlist', {
                 title: newPlyName,
                 isPublic: newPlyPublic
+            },{
+              headers: {
+                'ITTASEKKI': token
+              }
             })
             .then((res) => {
                 console.log("👍새 플레이리스트 생성 성공", res.data);

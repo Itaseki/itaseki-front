@@ -26,11 +26,10 @@ import {
 // Assets
 import Dot3_btn from "../../Assets/Dot3_btn.png";
 
-
+const navigate = useNavigate();
+const token = Token();
 
 const PlaylistDetail = () => {
-  const token = Token();
-  const navigate = useNavigate();
 
   const plyId = useParams().id;
 
@@ -56,12 +55,12 @@ const PlaylistDetail = () => {
   const [savePlyModalDisplay, setSavePlyModalDisplay] = useState(false);
 
 
-  // 상세 플레이리스트 조회
+  // 상세 플레이리스트 조회 TODO 토큰
   useEffect(() => {
     axios
         .get(preURL.preURL + `/boards/playlist/${plyId}`, {
           headers: {
-            'itasekki': token
+            'ITTASEKKI': token
           }
         })
         .then((res) => {
@@ -82,7 +81,7 @@ const PlaylistDetail = () => {
       axios
           .delete(preURL.preURL + `/boards/playlist/${plyId}`,{
             headers: {
-              'itasekki': token
+              'ITTASEKKI': token
             }
           })
           .then(() => {
@@ -98,16 +97,24 @@ const PlaylistDetail = () => {
 
   // 플리 저장하기
   const onClickSave = () => {
-    console.log("플레이리스트 저장하기 모달창");
+    // console.log("플레이리스트 저장하기 모달창");
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     setSavePlyModalDisplay(prev => !prev);
   }
 
   // 플리 좋아요
   const onClickLike = () => {
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     axios
         .post(preURL.preURL + `/boards/playlist/${plyId}/likes`,[], {
           headers: {
-            'itasekki': token
+            'ITTASEKKI': token
           }
         })
         .then((res) => {
@@ -121,10 +128,14 @@ const PlaylistDetail = () => {
 
   // 플리 신고
   const onClickReport = () => {
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     axios
         .post(preURL.preURL + `/boards/playlist/${plyId}/reports`,[],{
           headers: {
-            'itasekki': token
+            'ITTASEKKI': token
           }
         })
         .then((res) => {
@@ -152,7 +163,11 @@ const PlaylistDetail = () => {
 
     // 플레이리스트에 영상 담기
     const onClickAddtoPly = () => {
-      console.log("플레이리스트에 영상 담기 버튼 클릭");
+      // console.log("플레이리스트에 영상 담기 버튼 클릭");
+      if(!token) {
+        alert('로그인 후 이용해 주세요.');
+        return;
+      }
       setPlayListToggleDisplay(prev => !prev);
     };
 

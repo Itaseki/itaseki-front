@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import preURL from "../preURL/preURL";
 import Token from "./Token";
+// Style
 import styled from "styled-components";
 import {
   faMagnifyingGlass,
@@ -13,12 +14,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import StyledBtn from "../Style/StyledBtn";
 import { StyledDivColumn } from "../Style/StyledDiv";
 import {light} from "../Style/Color";
-// assets
+// Assets
 import Menu_bar from "../Assets/Menu_bar.png";
 import Main_logo from "../Assets/Main_logo.png";
 import Main_logo_dark from "../Assets/Main_logo_dark.png";
 import User_default_img from "../Assets/User_default_img.png";
 import Menu_Home from "../Assets/Menu_Home.png";
+
+const token = Token();
 
 const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
 const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
@@ -27,7 +30,6 @@ const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST
 
 
 const Header = ({ darkMode }) => {
-  const token = Token();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [caretOpen, setCaretOpen] = useState(false);
@@ -37,11 +39,11 @@ const Header = ({ darkMode }) => {
 
   // 사용자 프로필 이미지 받아오기
   useEffect(() => {
-    if(!token) return;  // TODO 임시 처리 - 조건 수정 필요
+    if(!token) return;
     axios
         .get(preURL.preURL + '/main/user',{
           headers: {
-            'itasekki': token
+            'ITTASEKKI': token
           }
         })
         .then((res) => {
@@ -196,7 +198,7 @@ const Header = ({ darkMode }) => {
           />
         </Link>
         <Profile>
-          {userProfileImg // TODO - 조건 수정 필요
+          {token
               ? (
                   <>
                     <ProfileImg src={userProfileImg} />
