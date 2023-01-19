@@ -3,6 +3,7 @@ import useInput from "../../Hooks/useInput";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
 import Token from "../Token";
+import {timeStamp} from "../TimeStamp";
 // STyle
 import {
   Comment, CommentReplyImg,
@@ -17,9 +18,8 @@ import Comment_reply from "../../Assets/Comment_reply.png";
 import Enter from "../../Assets/Enter_Comment.png";
 import Exit_reply from "../../Assets/Exit_reply.png";
 
-const token = Token();
-
 const SingleComment = ({comment, board, boardId}) => {
+  const token = Token();
 
   const [showReplyModal, setShowReplyModal] = useState(false);
   const [newReply, onChangeNewReply, setNewReply] = useInput("");
@@ -111,7 +111,7 @@ const SingleComment = ({comment, board, boardId}) => {
           <DetailInfo>
             <p style={{fontWeight: "bold"}}>{comment.writerNickname}</p>
             <p>|</p>
-            <p>{comment.createdTime}</p>
+            <p>{timeStamp(comment.createdTime)}</p>
             <p>|</p>
             {comment.isThisUserWriter
                 ? <StyledBtn id={comment.id} onClick={onClickDeleteComment}>삭제</StyledBtn>

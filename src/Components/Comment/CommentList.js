@@ -17,9 +17,8 @@ import {
 // Assets
 import Enter from "../../Assets/Enter_Comment.png";
 
-const token = Token();
-
 const CommentList = ({commentCount, commentList, board, boardId}) => {
+  const token = Token();
 
   const [newComment, onChangeNewComment, setNewComment] = useInput("");
 

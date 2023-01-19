@@ -12,12 +12,10 @@ import {light} from "../../Style/Color";
 // Assets
 import PlayListIcon from "../../Assets/Playlist_mini.png";
 
-const token = Token();
-
 const OneVideo = ({video}) => {
-
   const videoId = video.id;
   const navigate = useNavigate();
+  const token = Token();
 
   const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);  // 플레이리스트 모달창 보이기
   const [clickedPlyId, setClickedPlyId] = useState(-1); // 클릭한 플레이리스트 아이콘 id

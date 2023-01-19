@@ -21,8 +21,6 @@ import Main_logo_dark from "../Assets/Main_logo_dark.png";
 import User_default_img from "../Assets/User_default_img.png";
 import Menu_Home from "../Assets/Menu_Home.png";
 
-const token = Token();
-
 const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
 const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 
@@ -30,6 +28,7 @@ const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST
 
 
 const Header = ({ darkMode }) => {
+  const token = Token();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [caretOpen, setCaretOpen] = useState(false);

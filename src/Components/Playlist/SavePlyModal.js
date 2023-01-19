@@ -9,10 +9,9 @@ import {AutoFrame, OneSelectItemWrapper, ToggleScrollWrapper} from "../../Style/
 import {XButton} from "./AddVideoToPlaylistModal";
 import {SwitchBtnLabel} from "./NewPlaylistModal";
 
-
-const token = Token();
-
 const SavePlyModal = ({plyId, show, setShow}) => {
+  const token = Token();
+
   const [myPlayListResponse, setMyPlayListResponse] = useState([]); // 내 플레이리스트 목록
   const [storedResponse, setStoredResponse] = useState([]); // 저장한 플레이리스트 목록
 
