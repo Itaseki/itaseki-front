@@ -7,6 +7,7 @@ import Header from "../../Components/Header";
 import CommentList from "../../Components/Comment/CommentList";
 import YoutubeIframe from "../../Components/Video/YoutubeIframe";
 import Token from "../../Components/Token";
+import {timeStamp} from "../../Components/TimeStamp";
 // Style
 import {
   AButton,
@@ -153,7 +154,8 @@ const VideoDetail = () => {
             <DetailInfo>
               <p style={{color: light.colors.mainColor}}>{video.writerNickname}</p>
               <p>|</p>
-              <p>{video.createdTime}</p>
+              {/*<p>{video.createdTime}</p>*/}
+              <p>{timeStamp(video.createdTime)}</p>
               <p>|</p>
               <p>조회 {video.viewCount}</p>
               <p>|</p>

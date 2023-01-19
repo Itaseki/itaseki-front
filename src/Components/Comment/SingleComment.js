@@ -3,6 +3,7 @@ import useInput from "../../Hooks/useInput";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
 import Token from "../Token";
+import {timeStamp} from "../TimeStamp";
 // STyle
 import {
   Comment, CommentReplyImg,
@@ -110,7 +111,7 @@ const SingleComment = ({comment, board, boardId}) => {
           <DetailInfo>
             <p style={{fontWeight: "bold"}}>{comment.writerNickname}</p>
             <p>|</p>
-            <p>{comment.createdTime}</p>
+            <p>{timeStamp(comment.createdTime)}</p>
             <p>|</p>
             {comment.isThisUserWriter
                 ? <StyledBtn id={comment.id} onClick={onClickDeleteComment}>삭제</StyledBtn>

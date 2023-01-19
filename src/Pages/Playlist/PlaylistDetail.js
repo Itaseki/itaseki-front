@@ -9,6 +9,7 @@ import CommentList from "../../Components/Comment/CommentList";
 import {PlaylistHeader} from "./AllPlaylist";
 import AddVideoToPlaylistModal from "../../Components/Playlist/AddVideoToPlaylistModal";
 import SavePlyModal from "../../Components/Playlist/SavePlyModal";
+import {timeStamp} from "../../Components/TimeStamp";
 // Style
 import {AButton, AdditionalBtns, DetailInfo, DetailTitle, TitleWrapper, Wrapper} from "../../Style/Community";
 import StyledBtn from "../../Style/StyledBtn";
@@ -216,7 +217,7 @@ const PlaylistDetail = () => {
             <DetailInfo>
               <p style={{color: light.colors.mainColor}}>{playlist.writerNickname}</p>
               <p>|</p>
-              <p>{playlist.createdTime}</p>
+              <p>{timeStamp(playlist.createdTime)}</p>
               <p>|</p>
               <p>조회 {playlist.viewCount}</p>
               <p>|</p>
