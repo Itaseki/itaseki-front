@@ -61,7 +61,6 @@ const AddNewVideo = () => {
           console.log("👍시리즈, 해시태그, 플레이리스트 조회 성공", res.data);
           setSeriesList(res.data['series']);
           setHashTagsList(res.data['hashtags']);
-          // setPlayListList(res.data['playlists']);
         })
         .catch((err) => {
           console.log("🧨시리즈, 해시태그, 플레이리스트 조회 실패", err);

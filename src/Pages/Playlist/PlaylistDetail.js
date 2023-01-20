@@ -131,6 +131,8 @@ const PlaylistDetail = () => {
       alert('로그인 후 이용해 주세요.');
       return;
     }
+    const report = window.confirm('이 플레이리스트를 신고하시겠습니까?');
+    if(!report) return;
     axios
         .post(preURL.preURL + `/boards/playlist/${plyId}/reports`,[],{
           headers: {
