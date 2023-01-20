@@ -3,11 +3,11 @@ import { StyledDivRow } from "./StyledDiv";
 
 export const MainContainer = styled.div`
   width: 395px;
-  height: 460px;
+  height: 350px;
   z-index: 2;
   position: relative;
-  top: 130px;
   left: 515px;
+  margin-top: 105px;
 `;
 
 export const TopPop = styled(StyledDivRow)`
@@ -20,6 +20,7 @@ export const TopPop = styled(StyledDivRow)`
 export const Bold = styled.p`
   font-weight: bold;
   margin: 0px;
+  color: ${(props) => props.fColor};
 `;
 
 export const RestPop = styled(StyledDivRow)`

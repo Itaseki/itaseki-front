@@ -29,6 +29,10 @@ export const IMG = styled.img`
   height: 224px;
 `;
 
+export const P = styled.p`
+  margin: 3;
+`;
+
 export const FirstRow = styled(StyledDivRow)`
   justify-content: space-between;
 `;

@@ -84,6 +84,9 @@ export const ThirdContainer = styled(StyledDivColumn)`
 export const TimeBlocks = styled(StyledDivRow)`
   justify-content: center;
   align-items: center;
+  width: 506px;
+  margin: 15px;
+  flex-wrap: wrap;
 `;
 
 export const TimeBlock = styled(StyledBtn)`
@@ -97,8 +100,12 @@ export const TimeBlock = styled(StyledBtn)`
 
 export const TitleBlock = styled.p`
   font-weight: bold;
-  background-color: white;
-  padding: 7;
-  padding-right: 30;
-  border-radius: 8;
+  background-color: ${(props) => props.bgColor};
+  padding: 5px;
+  padding-right: 30px;
+  border-radius: 8px;
+  width: ${(props) => props.blockWidth};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

@@ -6,7 +6,6 @@ import Footer from "../Components/Footer";
 import OneVideo from "../Components/Video/OneVideo";
 
 // Assets
-import Temp_gif from "../Assets/Temp_gif.png";
 import Go_To_Run from "../Assets/Go_To_Run.png";
 import { StyledDiv, StyledDivColumn, StyledDivRow } from "../Style/StyledDiv";
 import StyledBtn from "../Style/StyledBtn";
@@ -24,16 +23,11 @@ import {
   PWrapper,
   Subheading,
 } from "../Style/Main";
+import { PopGifTest } from "../TestData/MainTest";
 
 const Main = () => {
   const [popCommus, setpopCommus] = useState([]);
-  const [popGIFs, setPopGIFs] = useState([
-    { id: 0, imageUrl: `${Temp_gif}`, likeCount: 100 },
-    { id: 0, imageUrl: `${Temp_gif}`, likeCount: 100 },
-    { id: 0, imageUrl: `${Temp_gif}`, likeCount: 100 },
-    { id: 0, imageUrl: `${Temp_gif}`, likeCount: 100 },
-    { id: 0, imageUrl: `${Temp_gif}`, likeCount: 100 },
-  ]);
+  const [popGIFs, setPopGIFs] = useState(PopGifTest);
   const [popVideos, setPopVideos] = useState([]);
   const [popPlaylists, setPopPlaylists] = useState([]);
 
