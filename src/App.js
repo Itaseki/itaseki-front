@@ -32,12 +32,6 @@ const App = () => {
       {/* Start */}
       <Route path="/login" element={<Login />} />
       <Route path="/oauth/kakao" element={<LoginRedirect />} />
-      {/* Board */}
-      <Route path="/boards" element={<GIFBoard />} />
-      <Route path="/newboard" element={<NewBoard />} />
-      <Route path="/boards/:id" element={<GIFBoardDetail />} />
-      <Route path="/community" element={<Community />} />
-      <Route path="/community/:id" element={<CommunityDetail />} />
       {/* Run */}
       <Route path="/reservation" element={<Reservation />} />
       <Route path="/running" element={<Running />} />
@@ -53,6 +47,12 @@ const App = () => {
       <Route path="/playlist" element={<AllPlaylist />} />
       <Route path="/playlist/:id" element={<PlaylistDetail />} />
       <Route path="/playlist/subscribe" element={<SubscribedPly />} />
+      {/* 없어진 게시판 */}
+      {/* <Route path="/boards" element={<GIFBoard />} />
+      <Route path="/newboard" element={<NewBoard />} />
+      <Route path="/boards/:id" element={<GIFBoardDetail />} />
+      <Route path="/community" element={<Community />} />
+      <Route path="/community/:id" element={<CommunityDetail />} /> */}
     </Routes>
   );
 };
