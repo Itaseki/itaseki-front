@@ -9,6 +9,7 @@ import CommentList from "../../Components/Comment/CommentList";
 import {PlaylistHeader} from "./AllPlaylist";
 import AddVideoToPlaylistModal from "../../Components/Playlist/AddVideoToPlaylistModal";
 import SavePlyModal from "../../Components/Playlist/SavePlyModal";
+import {timeStamp} from "../../Components/TimeStamp";
 // Style
 import {AButton, AdditionalBtns, DetailInfo, DetailTitle, TitleWrapper, Wrapper} from "../../Style/Community";
 import StyledBtn from "../../Style/StyledBtn";
@@ -26,13 +27,10 @@ import {
 // Assets
 import Dot3_btn from "../../Assets/Dot3_btn.png";
 
-
-
 const PlaylistDetail = () => {
-  const token = Token();
-  const navigate = useNavigate();
-
   const plyId = useParams().id;
+  const navigate = useNavigate();
+  const token = Token();
 
   const [likeCount, setLikeCount] = useState(0);
   const [playlist, setPlaylist] = useState({
@@ -56,12 +54,12 @@ const PlaylistDetail = () => {
   const [savePlyModalDisplay, setSavePlyModalDisplay] = useState(false);
 
 
-  // 상세 플레이리스트 조회
+  // 상세 플레이리스트 조회 TODO 토큰
   useEffect(() => {
     axios
         .get(preURL.preURL + `/boards/playlist/${plyId}`, {
           headers: {
-            'itasekki': token
+            'ITTASEKKI': token
           }
         })
         .then((res) => {
@@ -82,7 +80,7 @@ const PlaylistDetail = () => {
       axios
           .delete(preURL.preURL + `/boards/playlist/${plyId}`,{
             headers: {
-              'itasekki': token
+              'ITTASEKKI': token
             }
           })
           .then(() => {
@@ -98,16 +96,24 @@ const PlaylistDetail = () => {
 
   // 플리 저장하기
   const onClickSave = () => {
-    console.log("플레이리스트 저장하기 모달창");
+    // console.log("플레이리스트 저장하기 모달창");
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     setSavePlyModalDisplay(prev => !prev);
   }
 
   // 플리 좋아요
   const onClickLike = () => {
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     axios
         .post(preURL.preURL + `/boards/playlist/${plyId}/likes`,[], {
           headers: {
-            'itasekki': token
+            'ITTASEKKI': token
           }
         })
         .then((res) => {
@@ -121,10 +127,16 @@ const PlaylistDetail = () => {
 
   // 플리 신고
   const onClickReport = () => {
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
+    const report = window.confirm('이 플레이리스트를 신고하시겠습니까?');
+    if(!report) return;
     axios
         .post(preURL.preURL + `/boards/playlist/${plyId}/reports`,[],{
           headers: {
-            'itasekki': token
+            'ITTASEKKI': token
           }
         })
         .then((res) => {
@@ -147,12 +159,18 @@ const PlaylistDetail = () => {
   let cnt = 0;
 
   // 영상 리스트
-  const Videos = (playlist.videos).map((video) => {
-    const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
+  const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
+  const [clickedVideoId, setClickedVideoId] = useState(-1);
+  const Videos = (playlist.videos).map((video, id) => {
 
     // 플레이리스트에 영상 담기
     const onClickAddtoPly = () => {
-      console.log("플레이리스트에 영상 담기 버튼 클릭");
+      // console.log("플레이리스트에 영상 담기 버튼 클릭");
+      if(!token) {
+        alert('로그인 후 이용해 주세요.');
+        return;
+      }
+      setClickedVideoId(id);
       setPlayListToggleDisplay(prev => !prev);
     };
 
@@ -172,7 +190,7 @@ const PlaylistDetail = () => {
                   alt="플레이리스트에 담기 버튼"
                   onClick={onClickAddtoPly}
               />
-              {playListToggleDisplay &&
+              {clickedVideoId === id &&
                   <AddVideoToPlaylistModal
                       videoId={video.id}
                       show={playListToggleDisplay}
@@ -203,15 +221,15 @@ const PlaylistDetail = () => {
             <DetailInfo>
               <p style={{color: light.colors.mainColor}}>{playlist.writerNickname}</p>
               <p>|</p>
-              <p>{playlist.createdTime}</p>
+              <p>{timeStamp(playlist.createdTime)}</p>
               <p>|</p>
               <p>조회 {playlist.viewCount}</p>
               <p>|</p>
               <FontAwesomeIcon
                   icon={faHeart}
-                  style={{color: "#D9767C"}}
+                  style={{color: light.colors.mainColor}}
               />
-              <p style={{color: "#D9767C"}}>{likeCount}</p>
+              <p style={{color: light.colors.mainColor}}>{likeCount}</p>
             </DetailInfo>
           </TitleWrapper>
           <PlaylistWrapper>

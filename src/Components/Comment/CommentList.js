@@ -4,6 +4,7 @@ import preURL from "../../preURL/preURL";
 import useInput from "../../Hooks/useInput";
 // Components
 import SingleComment from "./SingleComment";
+import Token from "../Token";
 // Style
 import {
   CommentHeader,
@@ -16,20 +17,29 @@ import {
 // Assets
 import Enter from "../../Assets/Enter_Comment.png";
 
-
 const CommentList = ({commentCount, commentList, board, boardId}) => {
+  const token = Token();
+
   const [newComment, onChangeNewComment, setNewComment] = useInput("");
 
   // 댓글 등록
   const onSubmitComment = useCallback(() => {
-    console.log("새로운 댓글: " + newComment);
+    // console.log("새로운 댓글: " + newComment);
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     axios
         .post(preURL.preURL + `/boards/${board}/${boardId}/comments`, {
           content: newComment,
           parentCommentId: 0,
+        },{
+          headers: {
+            'ITTASEKKI': token
+          }
         })
         .then((res) => {
-          console.log("👍댓글 등록 성공");
+          console.log("👍댓글 등록 성공", res);
           setNewComment("");  // 댓글 내용 초기화
         })
         .catch((err) => {
@@ -51,7 +61,7 @@ const CommentList = ({commentCount, commentList, board, boardId}) => {
         </CommentsListWrapper>
         <NewCommentWrapper>
           <p id="nickname">
-            {"로그인한 사용자"}
+            {"로그인한 사용자"} // TODO
           </p>
           <NewCommentBox onSubmit={onSubmitComment}>
             <NewCommentInput

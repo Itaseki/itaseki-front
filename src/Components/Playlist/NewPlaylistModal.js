@@ -1,56 +1,68 @@
 import React, {useState} from "react";
-import styled from "styled-components";
 import useInput from "../../Hooks/useInput";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
+import Token from "../Token";
+// Style
+import styled from "styled-components";
 import StyledBtn from "../../Style/StyledBtn";
 
 const NewPlaylistModal = ({show, setAddNewPly}) => {
-    // 새로운 플레이리스트 생성
-    const [newPlyName, onChangeNewPlyName, setNewPlyName] = useInput("");
-    const [newPlyPublic, setNewPlyPublic] = useState(false);
+  const token = Token();
+
+  // 새로운 플레이리스트 생성
+  const [newPlyName, onChangeNewPlyName, setNewPlyName] = useInput("");
+  const [newPlyPublic, setNewPlyPublic] = useState(false);
 
 
-    // 새 플레이리스트 생성
-    const onClickMakePly = () => {
-        axios
-            .post(preURL.preURL + '/boards/playlist', {
-                title: newPlyName,
-                isPublic: newPlyPublic
-            })
-            .then((res) => {
-                console.log("👍새 플레이리스트 생성 성공", res.data);
-                setNewPlyName("");
-                setNewPlyPublic(false);
-                setAddNewPly && setAddNewPly(false);
-                alert(`${newPlyName}을 생성하였습니다.`);
-            })
-            .catch((err) => {
-                console.log("🧨새 플레이리스트 생성 실패", err);
-            })
-    };
+  // 새 플레이리스트 생성
+  const onClickMakePly = () => {
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
+      axios
+          .post(preURL.preURL + '/boards/playlist', {
+              title: newPlyName,
+              isPublic: newPlyPublic
+          },{
+            headers: {
+              'ITTASEKKI': token
+            }
+          })
+          .then((res) => {
+              console.log("👍새 플레이리스트 생성 성공", res.data);
+              setNewPlyName("");
+              setNewPlyPublic(false);
+              setAddNewPly && setAddNewPly(false);
+              alert(`${newPlyName}을 생성하였습니다.`);
+          })
+          .catch((err) => {
+              console.log("🧨새 플레이리스트 생성 실패", err);
+          })
+  };
 
 
-    if(!show) return
+  if(!show) return
 
-    return (
-        <Wrapper>
-            <NewPlyInput type="text" placeholder="플레이리스트 이름" value={newPlyName} onChange={onChangeNewPlyName}/>
-            <div style={{display: "flex", alignItems: "center", justifyContent: "space-evenly", margin: "10px 0"}}>
-                {newPlyPublic
-                    ?
-                    <SwitchBtnLabel style={{margin: 0}}>
-                        <span className="active" onClick={() => setNewPlyPublic(prev => !prev)}>공개</span>
-                    </SwitchBtnLabel>
-                    :
-                    <SwitchBtnLabel style={{margin: 0}}>
-                        <span onClick={() => setNewPlyPublic(prev => !prev)}>비공개</span>
-                    </SwitchBtnLabel>
-                }
-                <MakeNewPlyBtn onClick={onClickMakePly}>만들기</MakeNewPlyBtn>
-            </div>
-        </Wrapper>
-    )
+  return (
+      <Wrapper>
+          <NewPlyInput type="text" placeholder="플레이리스트 이름" value={newPlyName} onChange={onChangeNewPlyName}/>
+          <div style={{display: "flex", alignItems: "center", justifyContent: "space-evenly", margin: "10px 0"}}>
+              {newPlyPublic
+                  ?
+                  <SwitchBtnLabel style={{margin: 0}}>
+                      <span className="active" onClick={() => setNewPlyPublic(prev => !prev)}>공개</span>
+                  </SwitchBtnLabel>
+                  :
+                  <SwitchBtnLabel style={{margin: 0}}>
+                      <span onClick={() => setNewPlyPublic(prev => !prev)}>비공개</span>
+                  </SwitchBtnLabel>
+              }
+              <MakeNewPlyBtn onClick={onClickMakePly}>만들기</MakeNewPlyBtn>
+          </div>
+      </Wrapper>
+  )
 }
 
 export default NewPlaylistModal;

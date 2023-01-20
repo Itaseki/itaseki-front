@@ -31,7 +31,7 @@ const CreateModal = styled.div`
   z-index: 1022;
   & > div {
     position: relative;
-    margin-top: 200px;
+    margin: 200px 0;
     display: inline-block;
     width: 850px;
     padding: 30px 40px 0;

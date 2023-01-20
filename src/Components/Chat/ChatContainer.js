@@ -3,12 +3,12 @@ import preURL from "../../preURL/preURL";
 import axios from "axios";
 // Components
 import ChatPresenter from "./ChatPresenter";
+import Token from "../Token";
 // Style
 import {ChatBottom, ChatInput, ImgBtn, ProfileImg, ProfileImgDefault} from "../../Style/Running";
 import styled from "styled-components";
 // Assets
 import SendingBtn from "../../Assets/Chat_Seding_btn.png";
-
 
 // chat
 import SockJs from "sockjs-client";
@@ -19,8 +19,10 @@ const client = StompJs.over(sock);
 // client.debug = () => {};
 
 const ChatContainer = ({userProfileUrl}) => {
+  const token = Token();
+
   const [contents, setContents] = useState([]);
-  const [writer, setWriter] = useState("");   // 로그인된 사용자 닉네임으로
+  const [writer, setWriter] = useState("");   // TODO 로그인된 사용자 닉네임으로
   const [message, setMessage] = useState("");
 
   // 채팅방 개설
@@ -47,7 +49,7 @@ const ChatContainer = ({userProfileUrl}) => {
         })
   },[])*/
 
-  const roomId = "a223e2c3-e843-4d9b-af62-8421df63a3ea";  // id값 고정
+  const roomId = "a223e2c3-e843-4d9b-af62-8421df63a3ea";  // TODO id값 고정
   useEffect(() => {
     /* connection 맺어짐 */
     client.connect({}, () => {
@@ -78,6 +80,10 @@ const ChatContainer = ({userProfileUrl}) => {
 
   // 메세지 전송
   const onSendMsg = () => {
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     if(!message) return
     handleEnter(writer, message)
   }
@@ -96,7 +102,7 @@ const ChatContainer = ({userProfileUrl}) => {
           <ChatPresenter contents={contents} writer={writer} writerImg={userProfileUrl}/>
         </ChatBody>
         <ChatBottom>
-          {userProfileUrl
+          {userProfileUrl // TODO 조건 변경
               ? <ProfileImg src={userProfileUrl} alt=""/>
               : <ProfileImgDefault />
           }

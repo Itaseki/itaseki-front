@@ -1,29 +1,30 @@
 import React, {useEffect, useState} from "react";
-import {AutoFrame, OneSelectItemWrapper, ToggleScrollWrapper} from "../../Style/Video";
-import {XButton} from "./AddVideoToPlaylistModal";
-import styled from "styled-components";
-import StyledBtn from "../../Style/StyledBtn";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
-import {SwitchBtnLabel} from "./NewPlaylistModal";
 import Token from "../Token";
-
-
-const token = Token();
+// Style
+import styled from "styled-components";
+import StyledBtn from "../../Style/StyledBtn";
+import {AutoFrame, OneSelectItemWrapper, ToggleScrollWrapper} from "../../Style/Video";
+import {XButton} from "./AddVideoToPlaylistModal";
+import {SwitchBtnLabel} from "./NewPlaylistModal";
 
 const SavePlyModal = ({plyId, show, setShow}) => {
+  const token = Token();
+
   const [myPlayListResponse, setMyPlayListResponse] = useState([]); // 내 플레이리스트 목록
   const [storedResponse, setStoredResponse] = useState([]); // 저장한 플레이리스트 목록
 
 
-  // 사용자 플레이리스트 조회(코드 중복)
+  // 사용자 플레이리스트 조회(TODO 코드 중복)
   useEffect(() => {
     axios
+        // TODO 사용자 id
         .get(preURL.preURL + `/boards/playlist/user/${1}`, {
           headers: {
-            'itasekki': token
+            'ITTASEKKI': token
           }
-        })  /*사용자 id*/
+        })
         .then((res) => {
           setMyPlayListResponse(res.data);
           console.log("👍내 플레이리스트 조회 성공", res.data);
@@ -38,7 +39,7 @@ const SavePlyModal = ({plyId, show, setShow}) => {
     axios
         .get(preURL.preURL + '/boards/playlist/saved', {
           headers: {
-            'itasekki': token
+            'ITTASEKKI': token
           }
         })
         .then((res) => {
@@ -57,7 +58,7 @@ const SavePlyModal = ({plyId, show, setShow}) => {
           playlistId: plyId
         },{
           headers: {
-            'itasekki': token
+            'ITTASEKKI': token
           }
         })
         .then((res) => {
@@ -78,12 +79,16 @@ const SavePlyModal = ({plyId, show, setShow}) => {
       setShow(prev => !prev)
   };
 
-  // 플레이리스트 공개/비공개(코드 중복)
+  // 플레이리스트 공개/비공개(TODO 코드 중복)
   const onClickPublic = (prop) => {
     const Target = prop.target;
     const id = Target.id;
     axios
-        .patch(preURL.preURL + `/boards/playlist/${id}`)
+        .patch(preURL.preURL + `/boards/playlist/${id}`,{},{
+          headers: {
+            'ITTASEKKI': token
+          }
+        })
         .then((res) => {
           console.log("👍플레이리스트 공개/비공개 수정 성공");
           if(res.status === 200) {
@@ -94,7 +99,7 @@ const SavePlyModal = ({plyId, show, setShow}) => {
             if(Target.innerText === "비공개") Target.innerText = "공개";
             else Target.innerText = "비공개";
           }
-          else if(res.status === 403) alert("수정 권한이 없습니다.");
+          else if(res.status === 403) alert("수정 권한이 없습니다.");  // TODO
         })
         .catch((err) => {
           console.log("🧨플레이리스트 공개/비공개 수정 실패", err);

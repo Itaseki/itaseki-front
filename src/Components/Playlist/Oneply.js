@@ -33,12 +33,12 @@ const OnePly = ({ply}) => {
                 icon={faHeart}
                 style={{
                   fontSize: "80%",
-                  color: "#D9767C",
+                  color: light.colors.mainColor,
                   marginLeft: "auto",
                 }}
               />
             </StyledBtn>
-            <span style={{ color: "#D9767C" }}>
+            <span style={{ color: light.colors.mainColor }}>
               {ply.likeCount}
             </span>
             <img
@@ -65,7 +65,7 @@ export default OnePly;
 
 
 const OnePlyWrapper = styled.div`
-  width: 25%;
+  padding: 0 5px 5px;
 `
 
 const PlyContainer = styled.div`
