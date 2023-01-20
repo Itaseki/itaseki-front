@@ -159,8 +159,9 @@ const PlaylistDetail = () => {
   let cnt = 0;
 
   // 영상 리스트
-  const Videos = (playlist.videos).map((video) => {
-    const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
+  const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
+  const [clickedVideoId, setClickedVideoId] = useState(-1);
+  const Videos = (playlist.videos).map((video, id) => {
 
     // 플레이리스트에 영상 담기
     const onClickAddtoPly = () => {
@@ -169,6 +170,7 @@ const PlaylistDetail = () => {
         alert('로그인 후 이용해 주세요.');
         return;
       }
+      setClickedVideoId(id);
       setPlayListToggleDisplay(prev => !prev);
     };
 
@@ -188,7 +190,7 @@ const PlaylistDetail = () => {
                   alt="플레이리스트에 담기 버튼"
                   onClick={onClickAddtoPly}
               />
-              {playListToggleDisplay &&
+              {clickedVideoId === id &&
                   <AddVideoToPlaylistModal
                       videoId={video.id}
                       show={playListToggleDisplay}
