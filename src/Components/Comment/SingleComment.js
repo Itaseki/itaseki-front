@@ -29,6 +29,8 @@ const SingleComment = ({comment, board, boardId}) => {
   const onClickDeleteComment = (e) => {
     const commentId = e.target.getAttribute("id");
     console.log("삭제할 댓글 id:" + commentId);
+    const del = window.confirm('이 댓글을 삭제하시겠습니까?');
+    if(!del) return;
     axios
         .delete(preURL.preURL + `/boards/${board}/${boardId}/comments/${commentId}`,{
           headers: {
@@ -52,6 +54,8 @@ const SingleComment = ({comment, board, boardId}) => {
     }
     const commentId = e.target.getAttribute("id");
     console.log("신고할 댓글 id: " + commentId);
+    const report = window.confirm('이 댓글을 신고하시겠습니까?');
+    if(!report) return;
     axios
         .post(preURL.preURL + `/boards/${board}/${boardId}/comments/${commentId}/reports`,{},{
           headers: {
