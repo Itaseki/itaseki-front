@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import Header from "../../Components/Header";
-
-// temp data
-import Temp_gif from "../../Assets/Temp_gif.png";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
 import { light } from "../../Style/Color";
@@ -22,6 +18,7 @@ import {
   BottomWrapper,
   Btns,
 } from "../../Style/GIFBoardDetail";
+import { GifDetailTest } from "../../TestData/BoardTestData";
 
 const GIFBoardDetail = ({ match }) => {
   const Id = useParams().id.substring(1);
@@ -29,19 +26,7 @@ const GIFBoardDetail = ({ match }) => {
 
   const mainOrange = light.colors.mainColor;
 
-  const [detailInfo, setDetailInfo] = useState({
-    id: 0,
-    imageBoardTitle: "제목",
-    imageUrl: Temp_gif,
-    createdTime: 1,
-    LocalDateTime: 1,
-    viewCount: 0,
-    likeCount: 0,
-    writerId: 0,
-    writerNickname: "me",
-    isThisUserWriter: false,
-    hashtags: ["1", "2", "3"],
-  });
+  const [detailInfo, setDetailInfo] = useState(GifDetailTest);
   let [likeCount, setLikeCount] = useState(detailInfo.likeCount);
   let [Ltime, setLtime] = useState(detailInfo.LocalDateTime);
 

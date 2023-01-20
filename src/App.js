@@ -2,7 +2,6 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Main from "./Pages/Main";
 // Start
-import Login from "./Pages/Start/Login";
 import LoginRedirect from "./Pages/Start/LoginRedirect";
 // Board
 import GIFBoard from "./Pages/Board/GIFBoard";
@@ -30,7 +29,6 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Main />} />
       {/* Start */}
-      <Route path="/login" element={<Login />} />
       <Route path="/oauth/kakao" element={<LoginRedirect />} />
       {/* Run */}
       <Route path="/reservation" element={<Reservation />} />

@@ -2,7 +2,7 @@ import React from "react";
 
 const Token = () => {
 
-  return localStorage.getItem('access_token');
+  return sessionStorage.getItem('access-token');
 
 }
 

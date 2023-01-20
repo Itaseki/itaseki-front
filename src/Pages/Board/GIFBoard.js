@@ -14,7 +14,7 @@ import { light } from "../../Style/Color";
 
 // assets
 import Best_GIF from "../../Assets/Best_GIF.png";
-import Temp_gif from "../../Assets/Temp_gif.png";
+
 import { Link } from "react-router-dom";
 import { StyledDivColumn } from "../../Style/StyledDiv";
 import {
@@ -27,34 +27,17 @@ import {
   Sort2Box,
   Wrapper,
 } from "../../Style/GIFBoard";
+import { GifTest } from "../../TestData/BoardTestData";
 
 const GIFBoard = () => {
   const mainOrange = light.colors.mainColor;
 
   // 베스트 짤 리스트
-  const [bestGIFs, setBestGIFs] = useState([
-    { id: 1, imageUrl: Temp_gif, heart: 1 },
-    { id: 1, imageUrl: Temp_gif, heart: 1 },
-    { id: 1, imageUrl: Temp_gif, heart: 3 },
-    { id: 1, imageUrl: Temp_gif, heart: 2 },
-    { id: 1, imageUrl: Temp_gif, heart: 5 },
-    { id: 1, imageUrl: Temp_gif, heart: 9 },
-  ]);
+  const [bestGIFs, setBestGIFs] = useState(GifTest);
   // 전체 짤 (2줄로 나눔)
-  const [gifs1, setGIFs1] = useState([
-    { id: 1, imageUrl: Temp_gif, heart: 1 },
-    { id: 1, imageUrl: Temp_gif, heart: 1 },
-    { id: 1, imageUrl: Temp_gif, heart: 3 },
-    { id: 1, imageUrl: Temp_gif, heart: 2 },
-    { id: 1, imageUrl: Temp_gif, heart: 5 },
-  ]);
-  const [gifs2, setGIFs2] = useState([
-    { id: 1, imageUrl: Temp_gif, heart: 1 },
-    { id: 1, imageUrl: Temp_gif, heart: 1 },
-    { id: 1, imageUrl: Temp_gif, heart: 3 },
-    { id: 1, imageUrl: Temp_gif, heart: 2 },
-    { id: 1, imageUrl: Temp_gif, heart: 5 },
-  ]);
+  const [gifs1, setGIFs1] = useState(GifTest);
+  const [gifs2, setGIFs2] = useState(GifTest);
+
   const [totalPage, setTotalPage] = useState(0);
   const [page, setPage] = useState(0);
   const [pages, setPages] = useState([1, 2, 3, 4, 5]);

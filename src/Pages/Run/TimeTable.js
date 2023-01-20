@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyledDiv,
-  StyledDivColumn,
-  StyledDivRow,
-} from "../../Style/StyledDiv";
-
+import { StyledDivColumn, StyledDivRow } from "../../Style/StyledDiv";
 import Main_logo from "../../Assets/Main_logo.png";
-
 import { light } from "../../Style/Color";
-import StyledBtn from "../../Style/StyledBtn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCaretLeft,
@@ -32,48 +25,74 @@ import {
   TitleBlock,
   Wrapper,
 } from "../../Style/TimeTable";
+import { TodayReservTest } from "../../TestData/ReservTest";
 
 const TimeTable = (props) => {
-  const [year, setYear] = useState("2022");
-  const [month, setMonth] = useState("7");
-  const [date, setDate] = useState("28");
-  const [todayData, setTodayData] = useState([
-    {
-      reservationId: 3,
-      videoId: 1,
-      title: "테스트 영상 등록",
-      reservationDate: "2022-05-27",
-      startTime: "12:20",
-      endTime: "12:40",
-    },
-    {
-      reservationId: 3,
-      videoId: 1,
-      title: "정형돈 특집",
-      reservationDate: "2022-05-27",
-      startTime: "15:00",
-      endTime: "15:30",
-    },
-  ]);
+  let d = new Date();
 
-  let arr = [];
+  const [year, setYear] = useState(d.getFullYear());
+  const [month, setMonth] = useState(d.getMonth() + 1);
+  const [date, setDate] = useState(d.getDate());
+  const [dateDiff, setDateDiff] = useState(1);
+  const [todayData, setTodayData] = useState(TodayReservTest);
 
-  const [timeZone, setTimeZone] = useState([1, 2, 3]);
-  const [timeBlocks1, setTimeBlocks1] = useState([]);
-  const [timeBlocks2, setTimeBlocks2] = useState([]);
-  const [timeBlocks3, setTimeBlocks3] = useState([]);
+  const [timeZone, setTimeZone] = useState([0, 1, 2]);
+  const [timeBlocks, setTimeBlocks] = useState([]);
 
-  const [searchTimezone, setSearchTimezone] = useState("");
-  const [searchStart, setSearchStart] = useState("");
-  const [searchEnd, setSearchEnd] = useState("");
+  const [searchTimezone, setSearchTimezone] = useState([]);
 
   const [timeData, setTimeData] = useState([]);
   const [isTimeData, setisTimeData] = useState(false);
 
   useEffect(() => {
     todayReserv();
+    calTimeZone();
     console.log("================[TimeTable]================");
   }, []);
+
+  // 현재 날짜 -> 타임존
+  let hour = d.getHours();
+
+  const calTimeZone = () => {
+    console.log(hour);
+    if (hour % 3 == 0) {
+      setTimeZone([hour, hour + 1, hour + 2]);
+    } else if (hour % 3 == 1) {
+      setTimeZone([hour - 1, hour, hour + 1]);
+    } else {
+      setTimeZone([hour - 2, hour - 1, hour]);
+    }
+  };
+
+  // 날짜 더하고 빼기
+  function calDays(date, days) {
+    const clone = new Date(date);
+    clone.setDate(date.getDate() + days);
+    return clone;
+  }
+
+  const today = new Date();
+
+  const addDays = () => {
+    setDateDiff((prev) => prev + 1);
+    let addedDate = calDays(today, dateDiff);
+    addedDate.getDate() < 10
+      ? setDate(`0${addedDate.getDate()}`)
+      : setDate(addedDate.getDate());
+    addedDate.getMonth() + 1 < 10
+      ? setMonth(`0${addedDate.getMonth() + 1}`)
+      : setMonth(addedDate.getMonth() + 1);
+
+    setYear(addedDate.getFullYear());
+    let t = addedDate.getHours();
+    if (t % 3 == 0) {
+      setTimeZone([t, t + 1, t + 2]);
+    } else if (t % 3 == 1) {
+      setTimeZone([t - 1, t, t + 1]);
+    } else {
+      setTimeZone([t - 2, t - 1, t]);
+    }
+  };
 
   useEffect(() => {
     timeSelect();
@@ -87,7 +106,7 @@ const TimeTable = (props) => {
     if (date < 10) {
       setDate(`0${date}`);
     }
-    let url = `/run/reservations/confirm?date=${year}-0${month}-27`;
+    let url = `/run/reservations/confirm?date=${year}-${month}-${date}`;
     axios
       .get(preURL.preURL + url)
       .then((res) => {
@@ -102,46 +121,66 @@ const TimeTable = (props) => {
   // 시간 만들기
   const timeSelect = () => {
     let mins = [":00", ":10", ":20", ":30", ":40", ":50"];
-    let times1 = [];
-    let times2 = [];
-    let times3 = [];
+    let times = [];
     mins.map((t) => {
-      times1.push(`${timeZone[0]}${t}`);
+      times.push(`${timeZone[0]}${t}`);
     });
     mins.map((t) => {
-      times2.push(`${timeZone[1]}${t}`);
+      times.push(`${timeZone[1]}${t}`);
     });
     mins.map((t) => {
-      times3.push(`${timeZone[2]}${t}`);
+      times.push(`${timeZone[2]}${t}`);
     });
-    console.log(times1, times2, times3);
-    setTimeBlocks1(times1);
-    setTimeBlocks2(times2);
-    setTimeBlocks3(times3);
+    setTimeBlocks(times);
+    console.log("times", times);
   };
 
   const ChangeColor = (e) => {
-    console.log(e.target.id); // 블록의 id 값
-    let time = e.target.id;
+    let id = e.target.id;
+    let element = document.getElementById(id);
+
+    let time = id;
     let timeSplit = time.split("");
     if ((timeSplit[1] = ":")) {
       time = `0${time}`;
     }
     let timevar = time.replace(":", "+");
-    arr = searchTimezone.concat(timevar);
-    console.log("선택된 시간대 :", arr);
+
+    if (element.style.backgroundColor == "rgb(245, 245, 245)") {
+      ColorToOrange(timevar, id);
+    } else {
+      element.style.backgroundColor = "#F5F5F5";
+      console.log("취소-searchTimezone: ", searchTimezone);
+      let newTimeZone = searchTimezone.filter((s) => s !== timevar);
+      console.log("취소-newTimeZone: ", newTimeZone);
+      setSearchTimezone(newTimeZone);
+    }
+  };
+
+  const ColorToOrange = (timevar, id) => {
+    console.log("선택 전-searchTimezone: ", searchTimezone);
+    console.log("선택된 시간:", timevar);
+    let arr = [...searchTimezone, timevar];
     setSearchTimezone(arr);
-    // arr.sort(function(a, b) {
-    //   return b - a;
-    // });
-    setSearchStart(arr[0]);
-    setSearchEnd(arr[arr.length - 1]);
-    document.getElementById(e.target.id).style.backgroundColor = "#E8A284";
-    searchTimetable();
+    // setSearchTimezone(() => [...searchTimezone, timevar]);
+    console.log("선택-newTimeZone: ", arr);
+
+    let newArr = arr.sort((a, b) => {
+      if (a > b) {
+        return 1;
+      } else if (a < b) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+    console.log("선택-sortedTimeZone: ", newArr);
+    document.getElementById(id).style.backgroundColor = "#E8A284";
+    searchTimetable(newArr);
   };
 
   // 시간별 예약 내역 조회
-  const searchTimetable = () => {
+  const searchTimetable = (newArr) => {
     setTimeData([
       {
         id: 1,
@@ -153,10 +192,13 @@ const TimeTable = (props) => {
         count: 3,
       },
     ]);
+
     setisTimeData(true);
     let url =
       preURL.preURL +
-      `/run/reservations?start=${searchStart}&end=${searchEnd}&select=${searchTimezone.toString()}&date=${year}-${month}-${date}`;
+      `/run/reservations?start=${newArr[0]}&end=${
+        newArr[newArr.length - 1]
+      }&select=${newArr.toString()}&date=${year}-${month}-${date}`;
     console.log(url);
     axios
       .get(url)
@@ -168,6 +210,17 @@ const TimeTable = (props) => {
       .catch((err) => {
         console.error("⚠️ 시간별 예약 내역 조회 ⚠️ ", err);
       });
+  };
+
+  // runTime 계산하기
+  let runSecs = 0;
+
+  const runTimeToNum = (s) => {
+    let hour = parseInt(s.slice(0, 2));
+    let min = parseInt(s.slice(3, 5));
+    let sec = parseInt(s.slice(-2));
+    let runSecs = hour * 360 + min * 60 + sec;
+    return runSecs;
   };
 
   // 시간대 당기기
@@ -186,12 +239,22 @@ const TimeTable = (props) => {
   // 시간대 늦추기
   const plusTime = () => {
     let arr = [];
-    timeZone.map((t) => {
-      t = t + 3;
-      arr.push(t);
-      console.log(arr);
-    });
-    setTimeZone(arr);
+    console.log("originalTimeZone: ", timeZone);
+    if (timeZone[0] == 21) {
+      console.log("하루가 지났어요!");
+      setTimeZone([0, 1, 2]);
+      console.log(timeZone);
+      addDays();
+    } else {
+      timeZone &&
+        timeZone.map((t) => {
+          t = t + 3;
+          arr.push(t);
+          console.log(arr);
+          setTimeZone(arr);
+        });
+    }
+    console.log("newTimeZone: ", timeZone);
   };
 
   return (
@@ -222,6 +285,9 @@ const TimeTable = (props) => {
                 icon={faCaretRight}
                 style={{
                   fontSize: 15,
+                }}
+                onClick={() => {
+                  addDays();
                 }}
               />
             </StyledDivRow>
@@ -256,62 +322,47 @@ const TimeTable = (props) => {
             <BoldTitle>예약 대기 목록</BoldTitle>
             <Line style={{ width: 538 }} />
             <StyledDivRow>
-              <StyledBtn
-                onClick={() => {
-                  minusTime();
+              <FontAwesomeIcon
+                icon={faCaretLeft}
+                style={{
+                  fontSize: 15,
                 }}
-              >
-                <FontAwesomeIcon
-                  icon={faCaretLeft}
-                  style={{
-                    fontSize: 15,
-                  }}
-                />
-              </StyledBtn>
-              <StyledDivColumn style={{ margin: 15 }}>
-                <TimeBlocks>
-                  {timeBlocks1.map((b) => {
-                    return (
-                      <TimeBlock id={b} onClick={ChangeColor}>
-                        {b}
-                      </TimeBlock>
-                    );
-                  })}
-                </TimeBlocks>
-                <TimeBlocks>
-                  {timeBlocks2.map((b) => {
-                    return (
-                      <TimeBlock id={b} onClick={ChangeColor}>
-                        {b}
-                      </TimeBlock>
-                    );
-                  })}
-                </TimeBlocks>
-                <TimeBlocks>
-                  {timeBlocks3.map((b) => {
-                    return (
-                      <TimeBlock id={b} onClick={ChangeColor}>
-                        {b}
-                      </TimeBlock>
-                    );
-                  })}
-                </TimeBlocks>
-              </StyledDivColumn>
-              <StyledBtn onClick={() => setTimeZone((prev) => prev - 1)}>
-                <FontAwesomeIcon
-                  icon={faCaretRight}
-                  style={{
-                    fontSize: 15,
-                  }}
-                  onClick={() => {
-                    plusTime();
-                  }}
-                />
-              </StyledBtn>
+              />
+              <TimeBlocks>
+                {timeBlocks.map((b) => {
+                  return (
+                    <TimeBlock id={b} onClick={ChangeColor}>
+                      {b}
+                    </TimeBlock>
+                  );
+                })}
+              </TimeBlocks>
+              <FontAwesomeIcon
+                icon={faCaretRight}
+                style={{
+                  fontSize: 15,
+                }}
+                onClick={() => {
+                  plusTime();
+                }}
+              />
             </StyledDivRow>
             {isTimeData && (
               <StyledDivColumn>
                 {timeData.map((d) => {
+                  runTimeToNum(d.runTime);
+                  let blockWidth = "";
+                  let bgColor = "";
+                  if (runSecs < 600) {
+                    blockWidth = "79.92px";
+                    bgColor = "#FFFCF2";
+                  } else if (runSecs < 1800) {
+                    blockWidth = "131.04px";
+                    bgColor = "#FCF6E0";
+                  } else {
+                    blockWidth = "199.81px";
+                    bgColor = "#FFF7D8";
+                  }
                   return (
                     <StyledDivRow>
                       <p style={{ fontWeight: "bold" }}>
@@ -326,7 +377,9 @@ const TimeTable = (props) => {
                         }}
                       />
                       {/* 영상 길이 적용 필요 */}
-                      <TitleBlock>{d.title}</TitleBlock>
+                      <TitleBlock blockWidth={blockWidth} bgColor={bgColor}>
+                        {d.title}
+                      </TitleBlock>
                     </StyledDivRow>
                   );
                 })}

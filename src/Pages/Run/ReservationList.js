@@ -14,7 +14,6 @@ import {
 } from "../../Style/ReservationList";
 
 // assets
-import Temp from "../../Assets/Temp_gif.png";
 import Guide from "../../Assets/Guide.png";
 import Line1 from "../../Assets/Line1.png";
 import Enter from "../../Assets/Enter.png";
@@ -23,26 +22,14 @@ import Line3 from "../../Assets/Line3.png";
 import Best_Video from "../../Assets/Best_Video.png";
 import Line4 from "../../Assets/Line4.png";
 import { Link } from "react-router-dom";
+import { NextVidTest, PopVidsTest } from "../../TestData/ReservTest";
 
 const color = light.colors;
 
 const ReservationListWrapper = (props) => {
   const [next, setNext] = useState(true);
-  const [nextData, setNextData] = useState({
-    reservationId: 3,
-    videoId: 1,
-    title: "정형돈 특집",
-    runTime: "00:13:04",
-    videoUrl: "",
-    Long: 3,
-    reservationDate: "2022-05-24",
-    startTime: "20:45",
-  });
-  const [popVids, setPopVids] = useState([
-    { image: Temp, title: "런닝맨 유재석", length: "13:22", reservation: 3 },
-    { title: "런닝맨 송지효", length: "13:22", reservation: 2 },
-    { title: "런닝맨 김종국", length: "13:22", reservation: 1 },
-  ]);
+  const [nextData, setNextData] = useState(NextVidTest);
+  const [popVids, setPopVids] = useState(PopVidsTest);
 
   const [hourLeft, setHourLeft] = useState(false);
   const [doInterval, setDoInterval] = useState(false);

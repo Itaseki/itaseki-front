@@ -20,6 +20,7 @@ import {
   Wrapper
 } from "../../Style/Running";
 // Assetes
+import User_default_img from "../../Assets/User_default_img.png";
 import Exit_Light from "../../Assets/Exit_Light.png";
 import Exit_Dark from "../../Assets/Exit_Dark.png";
 import Switch_Light from "../../Assets/Switch_Light.png";
@@ -31,8 +32,6 @@ import SendingBtn from "../../Assets/Chat_Seding_btn.png";
 import Profile_Img from "../../Assets/Basic_profile.png";
 import ChatContainer from "../../Components/Chat/ChatContainer";
 
-
-
 const Running = () => {
   const navigate = useNavigate();
   const token = Token();
@@ -40,21 +39,21 @@ const Running = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [showInformModal, setShowInformModal] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
-  const [userProfileUrl, setUserProfileUrl] = useState('');
+  const [userProfileUrl, setUserProfileUrl] = useState(User_default_img);
 
   // 달리기방 영상정보 및 사용자 정보 가져오기
   useEffect(() => {
     axios
         .get(preURL.preURL + '/running', {
           headers: {
-            'itasekki': token,
+            'ITTASEKKI': token,
           }
         })
         .then((res) => {
           console.log("👍달리기방 데이터 로드 성공", res);
           const data = res.data;
           setVideoUrl(data['videoUrl']);
-          setUserProfileUrl(data['userProfileUrl']);
+          data['profileUrl'] && setUserProfileUrl(res.data['profileUrl']);
         })
         .catch((err) => {
           console.log("🧨달리기방 데이터 로드 실패", err);
