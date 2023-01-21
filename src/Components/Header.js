@@ -91,7 +91,7 @@ const Header = ({ darkMode }) => {
   };
 
   return (
-    <Wrapper style={{ heigth: 96, padding: "3%" }}>
+    <Wrapper>
       <LeftWrapper>
         <Link to="/">
           {darkMode ? <Logo src={Main_logo_dark} /> : <Logo src={Main_logo} />}
@@ -163,10 +163,15 @@ const Wrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 2%;
-  padding-left: 2%;
-  padding-right: 2%;
+  padding: 2% 3% 2% 3%;
   margin: 0;
+  height: 6%;
+  width: 94%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #f6e8d6;
+  z-index: 10;
 `;
 
 const LeftWrapper = styled.div`
