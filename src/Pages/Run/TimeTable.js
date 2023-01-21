@@ -7,11 +7,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCaretLeft,
   faCaretRight,
+  faCarrot,
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   BoldTitle,
   Day,
+  Dot,
   FirstContainer,
   Line,
   ReservedBox,
@@ -271,44 +273,29 @@ const TimeTable = (props) => {
 
   return (
     <TimeTableWrapper>
-      <Wrapper style={{ border: `4px solid ${light.colors.mainColor}` }}>
-        <FirstContainer
-          style={{ borderBottom: `4px solid ${light.colors.mainColor}` }}
-        >
-          <img src={Main_logo} alt="로고" style={{ width: 182, height: 61 }} />
-          <StyledDivColumn style={{ alignItems: "center" }}>
-            <ReservedBtn
+      <Wrapper>
+        <FirstContainer>
+          <StyledDivRow
+            style={{
+              alignItems: "center",
+              width: 124,
+              justifyContent: "space-between",
+            }}
+          >
+            {/* <ReservedBtn
               style={{ color: light.colors.mainColor }}
               onClick={() => props.setPop(true)}
             >
               달리기 예약하기
             </ReservedBtn>
-            <StyledDivRow>
-              <FontAwesomeIcon
-                icon={faCaretLeft}
-                style={{
-                  fontSize: 15,
-                }}
-              />
-              <Day>
-                {year} / {month} / {date}
-              </Day>
-              <FontAwesomeIcon
-                icon={faCaretRight}
-                style={{
-                  fontSize: 15,
-                }}
-                onClick={() => {
-                  addDays();
-                }}
-              />
-            </StyledDivRow>
-          </StyledDivColumn>
+             */}
+            <Dot />
+            <Dot />
+            <Dot />
+          </StyledDivRow>
         </FirstContainer>
-        <StyledDivRow style={{ width: 820 }}>
-          <SecondContainer
-            style={{ borderRight: `4px solid ${light.colors.mainColor}` }}
-          >
+        <StyledDivRow>
+          <SecondContainer>
             <BoldTitle>예약 확정 목록</BoldTitle>
             <Line style={{ width: 182, marginBottom: 5 }} />
             {todayData.map((reserv) => {
@@ -320,24 +307,53 @@ const TimeTable = (props) => {
                     props.setDetailPop(true);
                   }}
                 >
-                  <p style={{ fontSize: 14, margin: 0 }}>
+                  <p style={{ fontFamily: "Pretendard300" }}>
                     {reserv.startTime}~{reserv.endTime}
                   </p>
-                  <p style={{ fontSize: 14, fontWeight: "bold", margin: 0 }}>
-                    {reserv.title}
-                  </p>
+                  <p>{reserv.title}</p>
                 </ReservedBox>
               );
             })}
           </SecondContainer>
           <ThirdContainer>
-            <BoldTitle>예약 대기 목록</BoldTitle>
-            <Line style={{ width: 538 }} />
+            <StyledDivRow
+              style={{
+                width: "100%",
+                justifyContent: "flex-end",
+                paddingTop: "3%",
+                paddingRight: "7%",
+              }}
+            >
+              <FontAwesomeIcon
+                icon={faCaretLeft}
+                style={{
+                  fontSize: 15,
+                  color: "white",
+                }}
+              />
+              <Day>
+                {year} / {month} / {date}
+              </Day>
+              <FontAwesomeIcon
+                icon={faCaretRight}
+                style={{
+                  fontSize: 15,
+                  color: "white",
+                }}
+                onClick={() => {
+                  addDays();
+                }}
+              />
+            </StyledDivRow>
+            <BoldTitle style={{ width: 469.42, textAlign: "left" }}>
+              예약 대기 목록
+            </BoldTitle>
             <StyledDivRow>
               <FontAwesomeIcon
                 icon={faCaretLeft}
                 style={{
                   fontSize: 15,
+                  color: "white",
                 }}
                 onClick={() => minusTime()}
               />
@@ -354,6 +370,7 @@ const TimeTable = (props) => {
                 icon={faCaretRight}
                 style={{
                   fontSize: 15,
+                  color: "white",
                 }}
                 onClick={() => plusTime()}
               />
@@ -376,18 +393,23 @@ const TimeTable = (props) => {
                   }
                   return (
                     <StyledDivRow>
-                      <p style={{ fontWeight: "bold" }}>
+                      <p
+                        style={{
+                          fontFamily: "Pretendard400",
+                          fontSize: 14,
+                          color: "white",
+                        }}
+                      >
                         {d.startTime} - {d.endTime}
                       </p>
                       <FontAwesomeIcon
-                        icon={faCheck}
+                        icon={faCarrot}
                         style={{
                           color: `${light.colors.mainColor}`,
                           marginLeft: 15,
                           marginRight: 15,
                         }}
                       />
-                      {/* 영상 길이 적용 필요 */}
                       <TitleBlock blockWidth={blockWidth} bgColor={bgColor}>
                         {d.title}
                       </TitleBlock>
