@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 import Header from "../../Components/Header";
+import { Wrapper } from "../../Style/Reservation";
 import StyledBtn from "../../Style/StyledBtn";
 
 import AddReserv from "./AddReserv";
@@ -10,6 +11,7 @@ import Detail from "./Detail";
 import Guide from "./Guide";
 import ReservationListWrapper from "./ReservationList";
 import TimeTable from "./TimeTable";
+import TodayPopVids from "./TodayPopVids";
 
 const Reservation = () => {
   // 예약 추가 팝업
@@ -24,9 +26,10 @@ const Reservation = () => {
   }, []);
 
   return (
-    <div style={{ height: 1505, width: "100%" }}>
+    <Wrapper>
       <Header />
       <ReservationListWrapper guidePop={guidePop} setGuidePop={setGuidePop} />
+      <TodayPopVids />
       <TimeTable
         setPop={setPop}
         setDetailPop={setDetailPop}
@@ -45,7 +48,7 @@ const Reservation = () => {
         />
       )}
       {guidePop && <Guide guidePop={guidePop} setGuidePop={setGuidePop} />}
-    </div>
+    </Wrapper>
   );
 };
 
