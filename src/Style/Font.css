@@ -1,0 +1,84 @@
+/* 프리텐다드체(기본) */
+
+@font-face {
+	font-family: 'Pretendard Variable';
+	font-weight: 45 920;
+	font-style: normal;
+	font-display: swap;
+	src: local('Pretendard Variable'), url('../Assets/Font/PretendardVariable.woff2') format('woff2-variations');
+}
+
+@font-face {
+    font-family: 'Pretendard100';
+    src: url('../Assets/Font/Pretendard-Thin.woff') format('woff');
+    font-weight: 100;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Pretendard200';
+    src: url('../Assets/Font/Pretendard-ExtraLight.woff') format('woff');
+    font-weight: 200;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Pretendard300';
+    src: url('../Assets/Font/Pretendard-Light.woff') format('woff');
+    font-weight: 300;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Pretendard400';
+    src: url('../Assets/Font/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Pretendard500';
+    src: url('../Assets/Font/Pretendard-Medium.woff') format('woff');
+    font-weight: 500;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Pretendard600';
+    src: url('../Assets/Font/Pretendard-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Pretendard700';
+    src: url('../Assets/Font/Pretendard-Bold.woff') format('woff');
+    font-weight: 700;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Pretendard800';
+    src: url('../Assets/Font/Pretendard-ExtraBold.woff') format('woff');
+    font-weight: 800;
+    font-display: swap;
+}
+
+/* 다이어리체(포인트) */
+
+@font-face {
+    font-family: 'EF_Diary';
+    font-weight: normal;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/earlyfont/EF_Diary.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/earlyfont/EF_Diary.eot?#iefix') format('embedded-opentype'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/earlyfont/EF_Diary.woff2') format('woff2'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/earlyfont/EF_Diary.woff') format('woff'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/earlyfont/EF_Diary.ttf') format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EF_Diary_bold';
+    font-weight: bold;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/earlyfont/EF_Diary.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/earlyfont/EF_Diary.eot?#iefix') format('embedded-opentype'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/earlyfont/EF_Diary.woff2') format('woff2'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/earlyfont/EF_Diary.woff') format('woff'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/earlyfont/EF_Diary.ttf') format("truetype");
+    font-display: swap;
+}

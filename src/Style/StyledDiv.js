@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 export const StyledDiv = styled.div`
@@ -7,11 +6,13 @@ export const StyledDiv = styled.div`
   align-items: center;
 `;
 export const StyledDivRow = styled.div`
+  flex-direction: row;
   display: flex;
   align-items: center;
 `;
 
 export const StyledDivColumn = styled.div`
+  flex-direction: column;
   display: flex;
   flex-direction: column;
 `;

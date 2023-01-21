@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import preURL from "../../preURL/preURL";
+
 import { StyledDivColumn, StyledDivRow } from "../../Style/StyledDiv";
-import Main_logo from "../../Assets/Main_logo.png";
-import { light } from "../../Style/Color";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCaretLeft,
   faCaretRight,
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
-import preURL from "../../preURL/preURL";
-import axios from "axios";
 import {
   BoldTitle,
   Day,
@@ -26,6 +25,10 @@ import {
   Wrapper,
 } from "../../Style/TimeTable";
 import { TodayReservTest } from "../../TestData/ReservTest";
+import { light } from "../../Style/Color";
+
+// Assets
+import Main_logo from "../../Assets/Main_logo.png";
 
 const TimeTable = (props) => {
   let d = new Date();
@@ -140,13 +143,14 @@ const TimeTable = (props) => {
     let element = document.getElementById(id);
 
     let time = id;
-    let timeSplit = time.split("");
-    if ((timeSplit[1] = ":")) {
+    if (time.length == 4) {
       time = `0${time}`;
     }
     let timevar = time.replace(":", "+");
 
-    if (element.style.backgroundColor == "rgb(245, 245, 245)") {
+    if (
+      window.getComputedStyle(element).backgroundColor == "rgb(245, 245, 245)"
+    ) {
       ColorToOrange(timevar, id);
     } else {
       element.style.backgroundColor = "#F5F5F5";
@@ -226,14 +230,22 @@ const TimeTable = (props) => {
   // 시간대 당기기
   const minusTime = () => {
     let arr = [];
-    {
-      timeZone.map((t) => {
-        t = t - 3;
-        arr.push(t);
-        console.log(arr);
-      });
+    console.log("originalTimeZone: ", timeZone);
+    if (timeZone[0] == 0) {
+      console.log("하루가 지났어요!");
+      setTimeZone([21, 22, 23]);
+      console.log(timeZone);
+      addDays();
+    } else {
+      timeZone &&
+        timeZone.map((t) => {
+          t = t - 3;
+          arr.push(t);
+          console.log(arr);
+          setTimeZone(arr);
+        });
     }
-    setTimeZone(arr);
+    console.log("newTimeZone: ", timeZone);
   };
 
   // 시간대 늦추기
@@ -327,6 +339,7 @@ const TimeTable = (props) => {
                 style={{
                   fontSize: 15,
                 }}
+                onClick={() => minusTime()}
               />
               <TimeBlocks>
                 {timeBlocks.map((b) => {
@@ -342,9 +355,7 @@ const TimeTable = (props) => {
                 style={{
                   fontSize: 15,
                 }}
-                onClick={() => {
-                  plusTime();
-                }}
+                onClick={() => plusTime()}
               />
             </StyledDivRow>
             {isTimeData && (

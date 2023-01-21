@@ -18,9 +18,9 @@ const sock = new SockJs(preURL.preURL + '/stomp/chat');
 const client = StompJs.over(sock);
 // client.debug = () => {};
 
-const token = Token();
-
 const ChatContainer = ({userProfileUrl}) => {
+  const token = Token();
+
   const [contents, setContents] = useState([]);
   const [writer, setWriter] = useState("");   // TODO 로그인된 사용자 닉네임으로
   const [message, setMessage] = useState("");

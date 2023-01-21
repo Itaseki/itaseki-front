@@ -8,13 +8,6 @@ import { StyledDiv, StyledDivColumn, StyledDivRow } from "./StyledDiv";
 export const TimeTableWrapper = styled(StyledDiv)`
   width: 1102px;
   height: 628px;
-  background-image: url(${Ticket});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  position: absolute;
-  left: 169px;
-  top: 721px;
   overflow-y: scroll;
   overflow-x: hidden;
 `;

@@ -1,12 +1,20 @@
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import preURL from "../../preURL/preURL";
-import { StyledDivColumn, StyledDivRow } from "../../Style/StyledDiv";
-import StyledBtn from "../../Style/StyledBtn";
-import { Bold, MainContainer, RestPop, TopPop } from "../../Style/TodayPopVids";
+import {
+  IconCarrot,
+  MainContainer,
+  Num,
+  PopVidContainer,
+  PopVidImg,
+  PopVidInfo,
+  PopVidInfoContainer,
+  PopVidTime,
+  ReservBtn,
+  ReservBtnContainer,
+} from "../../Style/TodayPopVids";
 import { TodayPopVidsTest } from "../../TestData/ReservTest";
+import { faCarrot } from "@fortawesome/free-solid-svg-icons";
 
 const TodayPopVids = () => {
   const [popReserv, setPopReserv] = useState(TodayPopVidsTest);
@@ -49,92 +57,48 @@ const TodayPopVids = () => {
 
   return (
     <MainContainer>
-      <TopPop>
-        <Bold style={{ fontSize: 50 }}>1</Bold>
-        <StyledDivColumn>
-          <img
-            src={popReserv[0].thumbnailUrl}
-            style={{ width: 274, height: 136, marginBottom: 10 }}
-          />
-          <StyledDivRow style={{ justifyContent: "space-between" }}>
-            <Bold>{popReserv[0].title}</Bold>
-            <StyledDivRow>
-              <Bold style={{ fontSize: 14 }} fColor="#9C9C9C">
-                {popReserv[0].runTime.slice(4)}
-              </Bold>
-              <StyledBtn onClick={() => reservPop(0)}>
-                <StyledDivRow>
-                  <Bold style={{ fontSize: 14 }} fColor="#C31212">
-                    예약하기
-                  </Bold>
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    style={{
-                      color: "#C31212",
-                      fontSize: 14,
-                    }}
-                  />
-                </StyledDivRow>
-              </StyledBtn>
-              <Bold style={{ fontSize: 14 }} fColor="#C31212">
-                {like1}
-              </Bold>
-            </StyledDivRow>
-          </StyledDivRow>
-        </StyledDivColumn>
-      </TopPop>
-      <RestPop>
-        <StyledDivRow>
-          <Bold style={{ fontSize: 30, marginRight: 10 }}>2</Bold>
-          <Bold style={{ marginRight: 90 }}>{popReserv[1].title}</Bold>
-        </StyledDivRow>
-        <StyledDivRow>
-          <Bold style={{ color: "#9C9C9C", fontSize: 14 }}>
-            {popReserv[1].runTime.slice(4)}
-          </Bold>
-          <StyledBtn onClick={() => reservPop(1)}>
-            <Bold style={{ fontSize: 14, marginLeft: 10 }} fColor="#C31212">
-              예약하기
-            </Bold>
-          </StyledBtn>
-          <FontAwesomeIcon
-            icon={faCheck}
-            style={{
-              color: "#C31212",
-              fontSize: 14,
-            }}
-          />
-          <Bold style={{ fontSize: 14 }} fColor="#C31212">
-            {like2}
-          </Bold>
-        </StyledDivRow>
-      </RestPop>
-      <RestPop>
-        <StyledDivRow>
-          <Bold style={{ fontSize: 30, marginRight: 10 }}>3</Bold>
-          <Bold style={{ marginRight: 100 }}>{popReserv[2].title}</Bold>
-        </StyledDivRow>
-        <StyledDivRow>
-          <Bold style={{ fontSize: 14 }} fColor="#9C9C9C">
-            {popReserv[2].runTime.slice(4)}
-          </Bold>
-          <StyledBtn onClick={() => reservPop(2)}>
-            <Bold style={{ fontSize: 14, marginLeft: 10 }} fColor="#C31212">
-              예약하기
-            </Bold>
-          </StyledBtn>
-          <FontAwesomeIcon
-            icon={faCheck}
-            style={{
-              color: "#C31212",
-              fontSize: 14,
-            }}
-          />
-          <Bold style={{ fontSize: 14 }} fColor="#C31212">
-            {like3}
-          </Bold>
-        </StyledDivRow>
-      </RestPop>
+      <Num>1</Num>
+      <PopVidContainer>
+        <PopVidImg />
+        <PopVidInfoContainer>
+          <PopVidInfo></PopVidInfo>
+          <PopVidTime></PopVidTime>
+        </PopVidInfoContainer>
+        <ReservBtnContainer>
+          <ReservBtn>
+            예약
+            <IconCarrot icon={faCarrot} />5
+          </ReservBtn>
+        </ReservBtnContainer>
+      </PopVidContainer>
+      <Num>2</Num>
+      <PopVidContainer>
+        <PopVidImg />
+        <PopVidInfoContainer>
+          <PopVidInfo></PopVidInfo>
+          <PopVidTime></PopVidTime>
+        </PopVidInfoContainer>
+        <ReservBtnContainer>
+          <ReservBtn>
+            예약
+            <IconCarrot icon={faCarrot} />5
+          </ReservBtn>
+        </ReservBtnContainer>
+      </PopVidContainer>
+      <Num>3</Num>
+      <PopVidContainer>
+        <PopVidImg />
+        <PopVidInfoContainer>
+          <PopVidInfo></PopVidInfo>
+          <PopVidTime></PopVidTime>
+        </PopVidInfoContainer>
+        <ReservBtnContainer>
+          <ReservBtn>
+            예약
+            <IconCarrot icon={faCarrot} />5
+          </ReservBtn>
+        </ReservBtnContainer>
+      </PopVidContainer>
     </MainContainer>
   );
 };

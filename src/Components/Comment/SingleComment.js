@@ -3,6 +3,7 @@ import useInput from "../../Hooks/useInput";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
 import Token from "../Token";
+import {timeStamp} from "../TimeStamp";
 // STyle
 import {
   Comment, CommentReplyImg,
@@ -17,9 +18,8 @@ import Comment_reply from "../../Assets/Comment_reply.png";
 import Enter from "../../Assets/Enter_Comment.png";
 import Exit_reply from "../../Assets/Exit_reply.png";
 
-const token = Token();
-
 const SingleComment = ({comment, board, boardId}) => {
+  const token = Token();
 
   const [showReplyModal, setShowReplyModal] = useState(false);
   const [newReply, onChangeNewReply, setNewReply] = useInput("");
@@ -29,6 +29,8 @@ const SingleComment = ({comment, board, boardId}) => {
   const onClickDeleteComment = (e) => {
     const commentId = e.target.getAttribute("id");
     console.log("삭제할 댓글 id:" + commentId);
+    const del = window.confirm('이 댓글을 삭제하시겠습니까?');
+    if(!del) return;
     axios
         .delete(preURL.preURL + `/boards/${board}/${boardId}/comments/${commentId}`,{
           headers: {
@@ -52,6 +54,8 @@ const SingleComment = ({comment, board, boardId}) => {
     }
     const commentId = e.target.getAttribute("id");
     console.log("신고할 댓글 id: " + commentId);
+    const report = window.confirm('이 댓글을 신고하시겠습니까?');
+    if(!report) return;
     axios
         .post(preURL.preURL + `/boards/${board}/${boardId}/comments/${commentId}/reports`,{},{
           headers: {
@@ -111,7 +115,7 @@ const SingleComment = ({comment, board, boardId}) => {
           <DetailInfo>
             <p style={{fontWeight: "bold"}}>{comment.writerNickname}</p>
             <p>|</p>
-            <p>{comment.createdTime}</p>
+            <p>{timeStamp(comment.createdTime)}</p>
             <p>|</p>
             {comment.isThisUserWriter
                 ? <StyledBtn id={comment.id} onClick={onClickDeleteComment}>삭제</StyledBtn>

@@ -7,6 +7,7 @@ import Header from "../../Components/Header";
 import CommentList from "../../Components/Comment/CommentList";
 import YoutubeIframe from "../../Components/Video/YoutubeIframe";
 import Token from "../../Components/Token";
+import {timeStamp} from "../../Components/TimeStamp";
 // Style
 import {
   AButton,
@@ -22,11 +23,10 @@ import {faHeart} from "@fortawesome/free-solid-svg-icons";
 import {AInfo, IFrame, Infos, TitleUploader, VideoDetailInfo, VideoWrapper} from "../../Style/Video";
 import {light} from "../../Style/Color";
 
-const navigate = useNavigate();
-const token = Token();
-
 const VideoDetail = () => {
   const videoId = useParams().id;
+  const navigate = useNavigate();
+  const token = Token();
 
   const [video, setVideo] = useState({
     id: 0,
@@ -93,6 +93,8 @@ const VideoDetail = () => {
       alert('로그인 후 이용해 주세요.');
       return;
     }
+    const report = window.confirm('이 영상을 신고하시겠습니까?');
+    if(!report) return;
     axios
         .post(preURL.preURL + `/boards/video/${videoId}/reports`,{},{
           headers: {
@@ -154,7 +156,8 @@ const VideoDetail = () => {
             <DetailInfo>
               <p style={{color: light.colors.mainColor}}>{video.writerNickname}</p>
               <p>|</p>
-              <p>{video.createdTime}</p>
+              {/*<p>{video.createdTime}</p>*/}
+              <p>{timeStamp(video.createdTime)}</p>
               <p>|</p>
               <p>조회 {video.viewCount}</p>
               <p>|</p>

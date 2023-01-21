@@ -23,10 +23,9 @@ import StyledBtn from "../../Style/StyledBtn";
 // Assets
 import Add_video_submit from "../../Assets/Add_video_submit.png";
 
-const navigate = useNavigate();
-const token = Token();
-
 const AddNewVideo = () => {
+  const navigate = useNavigate();
+  const token = Token();
 
   const [agree, setAgree] = useState(false);
   const [verified, setVerified] = useState(false);
@@ -62,7 +61,6 @@ const AddNewVideo = () => {
           console.log("👍시리즈, 해시태그, 플레이리스트 조회 성공", res.data);
           setSeriesList(res.data['series']);
           setHashTagsList(res.data['hashtags']);
-          // setPlayListList(res.data['playlists']);
         })
         .catch((err) => {
           console.log("🧨시리즈, 해시태그, 플레이리스트 조회 실패", err);

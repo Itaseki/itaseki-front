@@ -9,6 +9,7 @@ import CommentList from "../../Components/Comment/CommentList";
 import {PlaylistHeader} from "./AllPlaylist";
 import AddVideoToPlaylistModal from "../../Components/Playlist/AddVideoToPlaylistModal";
 import SavePlyModal from "../../Components/Playlist/SavePlyModal";
+import {timeStamp} from "../../Components/TimeStamp";
 // Style
 import {AButton, AdditionalBtns, DetailInfo, DetailTitle, TitleWrapper, Wrapper} from "../../Style/Community";
 import StyledBtn from "../../Style/StyledBtn";
@@ -26,12 +27,10 @@ import {
 // Assets
 import Dot3_btn from "../../Assets/Dot3_btn.png";
 
-const navigate = useNavigate();
-const token = Token();
-
 const PlaylistDetail = () => {
-
   const plyId = useParams().id;
+  const navigate = useNavigate();
+  const token = Token();
 
   const [likeCount, setLikeCount] = useState(0);
   const [playlist, setPlaylist] = useState({
@@ -132,6 +131,8 @@ const PlaylistDetail = () => {
       alert('로그인 후 이용해 주세요.');
       return;
     }
+    const report = window.confirm('이 플레이리스트를 신고하시겠습니까?');
+    if(!report) return;
     axios
         .post(preURL.preURL + `/boards/playlist/${plyId}/reports`,[],{
           headers: {
@@ -158,8 +159,9 @@ const PlaylistDetail = () => {
   let cnt = 0;
 
   // 영상 리스트
-  const Videos = (playlist.videos).map((video) => {
-    const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
+  const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
+  const [clickedVideoId, setClickedVideoId] = useState(-1);
+  const Videos = (playlist.videos).map((video, id) => {
 
     // 플레이리스트에 영상 담기
     const onClickAddtoPly = () => {
@@ -168,6 +170,7 @@ const PlaylistDetail = () => {
         alert('로그인 후 이용해 주세요.');
         return;
       }
+      setClickedVideoId(id);
       setPlayListToggleDisplay(prev => !prev);
     };
 
@@ -187,7 +190,7 @@ const PlaylistDetail = () => {
                   alt="플레이리스트에 담기 버튼"
                   onClick={onClickAddtoPly}
               />
-              {playListToggleDisplay &&
+              {clickedVideoId === id &&
                   <AddVideoToPlaylistModal
                       videoId={video.id}
                       show={playListToggleDisplay}
@@ -218,7 +221,7 @@ const PlaylistDetail = () => {
             <DetailInfo>
               <p style={{color: light.colors.mainColor}}>{playlist.writerNickname}</p>
               <p>|</p>
-              <p>{playlist.createdTime}</p>
+              <p>{timeStamp(playlist.createdTime)}</p>
               <p>|</p>
               <p>조회 {playlist.viewCount}</p>
               <p>|</p>
