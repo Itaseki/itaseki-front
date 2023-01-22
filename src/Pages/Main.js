@@ -89,7 +89,7 @@ const Main = () => {
       .get(preURL.preURL + "/main/playlist")
       .then((res) => {
         console.log("❕인기 플레이리스트 조회❕ ", res.data);
-        setPopPlaylists(res.data);
+        // setPopPlaylists(res.data);
         console.log(popPlaylists);
       })
       .catch((err) => {
