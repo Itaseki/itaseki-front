@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-
 import preURL from "../preURL/preURL";
 import Token from "./Token";
-
 // Style
 import "../Style/Font.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,6 +27,7 @@ const redirect_uri = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code`;
 
 const Header = ({ darkMode }) => {
+  const navigate = useNavigate();
   const token = Token();
 
   const [caretOpen, setCaretOpen] = useState(false);
@@ -64,9 +63,9 @@ const Header = ({ darkMode }) => {
         alert("사용자가 없습니다.");
         return;
       }
-      localStorage.removeItem("access_token");
+      sessionStorage.removeItem("access-token");
+      window.location.replace("/");
       alert("로그아웃 되었습니다.");
-      window.location.reload();
     }
   };
 
