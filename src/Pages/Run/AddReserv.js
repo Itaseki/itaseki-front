@@ -119,7 +119,7 @@ const AddReserv = (props) => {
 
   // 예약 시간 input 관리
   const onChangeTime = (e) => {
-    if (title == "") {
+    if (rItem == {}) {
       alert("영상을 먼저 선택해주세요!");
     } else {
       if (e.target.name === "hour1") {

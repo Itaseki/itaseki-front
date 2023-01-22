@@ -1,37 +1,38 @@
 import styled from "styled-components";
 
 // Assets
-import Ticket from "../Assets/Ticket.png";
 import StyledBtn from "./StyledBtn";
 import { StyledDiv, StyledDivColumn, StyledDivRow } from "./StyledDiv";
 
 export const TimeTableWrapper = styled(StyledDiv)`
-  width: 1102px;
-  height: 628px;
-  background-image: url(${Ticket});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  position: absolute;
-  left: 169px;
-  top: 721px;
+  width: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
+  margin-top: 225px;
 `;
 
 export const Wrapper = styled(StyledDivColumn)`
-  width: 820px;
-  height: 535px;
+  width: 1028px;
+  height: 678px;
   border-radius: 17px;
 `;
 
+export const Dot = styled.div`
+  width: 24px;
+  height: 24px;
+  background-color: #f6e8d6;
+  border-radius: 50px;
+`;
+
 export const FirstContainer = styled(StyledDivRow)`
-  width: 795px;
-  height: 103px;
-  justify-content: space-between;
-  padding-left: 10px;
-  padding-right: 15px;
-  padding-top: 15px;
+  width: 998px;
+  height: 108px;
+  justify-content: flex-end;
+  padding-right: 30px;
+  background-color: #201e1b;
+  border-bottom: 4px solid #f6e8d6;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
 `;
 
 export const ReservedBtn = styled(StyledBtn)`
@@ -45,20 +46,25 @@ export const ReservedBtn = styled(StyledBtn)`
 `;
 
 export const Day = styled.p`
-  font-size: 16px;
-  font-weight: bold;
   margin: 0px 5px 0px 5px;
+  font-family: EF_Diary;
+  font-size: 14px;
+  color: white;
 `;
 
 export const SecondContainer = styled(StyledDivColumn)`
-  width: 203px;
-  height: 415px;
+  width: 300px;
+  height: 565px;
   align-items: center;
+  background-color: #201e1b;
+  border-right: 4px solid #f6e8d6;
+  border-bottom-left-radius: 50px;
 `;
 
 export const BoldTitle = styled.p`
-  font-size: 18px;
-  font-weight: bold;
+  font-family: EF_Diary_bold;
+  font-size: 30px;
+  color: white;
 `;
 
 export const Line = styled.div`
@@ -66,19 +72,27 @@ export const Line = styled.div`
 `;
 
 export const ReservedBox = styled(StyledBtn)`
-  width: 136px;
-  height: 50.04px;
+  width: 236px;
+  height: 55px;
   justify-content: center;
   align-items: center;
   background-color: #e37958;
   border-radius: 21px;
   margin: 5px;
+  & p {
+    font-family: Pretendard700;
+    font-size: 17px;
+
+    margin: 0;
+  }
 `;
 
 export const ThirdContainer = styled(StyledDivColumn)`
-  width: 614px;
-  height: 415px;
+  width: 728px;
+  height: 565px;
   align-items: center;
+  background-color: #201e1b;
+  border-bottom-right-radius: 50px;
 `;
 
 export const TimeBlocks = styled(StyledDivRow)`
@@ -99,7 +113,8 @@ export const TimeBlock = styled(StyledBtn)`
 `;
 
 export const TitleBlock = styled.p`
-  font-weight: bold;
+  font-family: Pretendard400;
+  font-size: 14px;
   background-color: ${(props) => props.bgColor};
   padding: 5px;
   padding-right: 30px;
