@@ -17,7 +17,7 @@ const LoginRedirect = () => {
           // console.log(res);
           window.sessionStorage.setItem('access-token', res.data);
           window.alert("환영합니다!");
-          navigate('/');
+          window.location.replace("/");
         })
         .catch((err) => {
           console.log("소셜 로그인 에러", err);
