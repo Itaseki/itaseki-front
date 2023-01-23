@@ -22,7 +22,6 @@ import User_default_img from "../Assets/User_default_img.png";
 // 카카오 소셜 로그인
 const client_id = process.env.REACT_APP_KAKAO_REST_API_KEY;
 const redirect_uri = process.env.REACT_APP_KAKAO_REDIRECT_URI;
-
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code`;
 
 const Header = ({ darkMode }) => {
