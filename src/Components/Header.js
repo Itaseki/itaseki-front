@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Token from "./Token";
 import { UserContext } from "../_contextAPI/UserContext";
@@ -32,29 +32,11 @@ const Header = ({ darkMode }) => {
 
   const [user, setUser] = useContext(UserContext);
   const [caretOpen, setCaretOpen] = useState(false);
-  const [userId, setUserId] = useState(0);
-  const [userNickname, setUserNickname] = useState("");
-  const [userProfileImg, setUserProfileImg] = useState(User_default_img);
 
-  // 사용자 프로필 이미지 받아오기
-  useEffect(() => {
-    if (!token) return; // 임시 처리 - 수정 필요
-    axios
-      .get(preURL.preURL + "/main/user", {
-        headers: {
-          ITTASEKKI: token,
-        },
-      })
-      .then((res) => {
-        console.log("👍헤더 사용자 프로필 이미지 가져오기 성공 ", res);
-        setUserId(res.data["id"]);
-        res.data["profileUrl"] && setUserProfileImg(res.data["profileUrl"]);
-        setUserNickname(res.data["nickname"]);
-      })
-      .catch((err) => {
-        console.log("🧨헤더 사용자 프로필 이미지 가져오기 실패", err);
-      });
-  }, []);
+  // 유저 정보 확인
+  // useEffect(() => {
+  //   console.log("user: ", user);
+  // },[user]);
 
   // 로그아웃
   const onLogout = () => {
@@ -121,22 +103,25 @@ const Header = ({ darkMode }) => {
           />
         </Link>
         <Profile>
-          {token ? (
-            <>
-              <ProfileImg src={userProfileImg} />
-              <StyledBtn>
-                <FontAwesomeIcon
-                  icon={faCaretDown}
-                  style={{ fontSize: "150%", color: "9C9C9C" }}
-                  onClick={() => setCaretOpen(!caretOpen)}
-                />
-              </StyledBtn>
-            </>
-          ) : (
-            <a href={KAKAO_AUTH_URL}>
-              <LoginBtn>로그인</LoginBtn>
-            </a>
-          )}
+          {token
+              ? (
+                  <>
+                    <ProfileImg src={user.profileUrl ? user.profileUrl : User_default_img} />
+                    <StyledBtn>
+                      <FontAwesomeIcon
+                          icon={faCaretDown}
+                          style={{ fontSize: "150%", color: "9C9C9C" }}
+                          onClick={() => setCaretOpen(!caretOpen)}
+                      />
+                    </StyledBtn>
+                  </>
+              )
+              : (
+                  <a href={KAKAO_AUTH_URL}>
+                    <LoginBtn>로그인</LoginBtn>
+                  </a>
+              )
+          }
         </Profile>
         {caretOpen ? (
           <ProfileUl>
@@ -228,6 +213,7 @@ const ProfileUl = styled.ul`
 const LoginBtn = styled.button`
   background-color: rgba(0, 0, 0, 0);
   border: none;
+  color: ${light.colors.mainColor};
   font-family: EF_Diary;
   font: 16px bold;
   cursor: pointer;
