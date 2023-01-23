@@ -19,11 +19,11 @@ function Store({children}) {
           },
         })
         .then((res) => {
-          console.log("👍헤더 사용자 프로필 이미지 가져오기 성공 ", res);
+          console.log("👍사용자 정보 가져오기 성공 ", res);
           setUser(res.data);
         })
         .catch((err) => {
-          console.log("🧨헤더 사용자 프로필 이미지 가져오기 실패", err);
+          console.log("🧨사용자 정보 가져오기 실패", err);
         });
   }, []);
 

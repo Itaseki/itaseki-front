@@ -54,7 +54,7 @@ const PlaylistDetail = () => {
   const [savePlyModalDisplay, setSavePlyModalDisplay] = useState(false);
 
 
-  // 상세 플레이리스트 조회 TODO 토큰
+  // 상세 플레이리스트 조회
   useEffect(() => {
     axios
         .get(preURL.preURL + `/boards/playlist/${plyId}`, {
