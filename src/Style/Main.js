@@ -1,14 +1,88 @@
 import styled from "styled-components";
-import { StyledDivColumn } from "./StyledDiv";
+import { StyledDiv, StyledDivColumn, StyledDivRow } from "./StyledDiv";
 
 // Assets
-import Main_Article from "../Assets/Main_Article.png";
-import Main_GIF from "../Assets/Main_GIF.png";
 import StyledBtn from "./StyledBtn";
+import Main_bg from "../Assets/Main_bg.png";
 
-export const FirstBWrapper = styled(StyledDivColumn)`
-  margin-left: 15px;
-  margin-bottom: 15px;
+export const Wrapper = styled(StyledDiv)`
+  width: 100vw;
+  background-image: url(${Main_bg});
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+  min-width: 100%;
+  min-height: 4325px;
+  align-items: center;
+  margin-top: 9%;
+`;
+
+export const First = styled(StyledDiv)`
+  min-height: 850px;
+  min-width: 100%;
+`;
+
+export const RunningBtn = styled(StyledBtn)`
+  width: 394px;
+  height: 65px;
+  background: #f7e9ee;
+  border: 2px solid #000000;
+  box-shadow: 4px -8px 0px #000000;
+  border-radius: 32.5px;
+  margin-top: 10%;
+`;
+
+export const Second = styled(StyledDivRow)`
+  min-height: 850px;
+  min-width: 100%;
+`;
+
+export const PopVidsContainer = styled.div`
+  width: 808px;
+  height: 528px;
+`;
+
+export const ElevatorContainer = styled(StyledDivColumn)`
+  width: 83.17px;
+  height: 260px;
+`;
+
+export const Num = styled(StyledDiv)`
+  width: 74.66px;
+  height: 74.66px;
+  font-family: EF_Diary;
+  font-size: 31px;
+  filter: drop-shadow(4px -4px 0px #000000);
+  background-color: #e3eded;
+`;
+
+export const UpBtn = styled(StyledBtn)`
+  width: 83.17px;
+  height: 83.17px;
+  background: #e3eded;
+  border: 8px solid #000000;
+  box-shadow: 5px 3px 0px #000000;
+  border-radius: 12px;
+`;
+
+export const DownBtn = styled(StyledBtn)`
+  width: 83.17px;
+  height: 83.17px;
+  background: #e3eded;
+  border: 8px solid #000000;
+  box-shadow: 5px 3px 0px #000000;
+  border-radius: 12px;
+  transform: rotate(-180deg);
+`;
+
+export const Third = styled(StyledDivRow)`
+  min-height: 900px;
+  min-width: 100%;
+`;
+
+export const Fourth = styled(StyledDivRow)`
+  min-height: 900px;
+  min-width: 100%;
 `;
 
 export const TagBox = styled.div`
@@ -19,53 +93,4 @@ export const TagBox = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 71px;
-`;
-
-export const Tag = styled.p`
-  font-size: 16px;
-  font-weight: bold;
-  color: #532a6b;
-`;
-
-export const PWrapper = styled.div`
-  margin: 0px 70px 0px 70px;
-`;
-
-export const Subheading = styled.p`
-  font-size: 16px;
-  font-weight: bold;
-  margin: 0;
-  margin-bottom: 23px;
-`;
-
-export const ListWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const ArticleBtn = styled(StyledBtn)`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  height: 26px;
-  width: 460px;
-`;
-
-export const PopArticleContainer = styled.div`
-  background-image: url(${Main_Article});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 521px;
-  height: 169px;
-`;
-
-export const PopGIFContainer = styled.div`
-  background-image: url(${Main_GIF});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 521px;
-  height: 170px;
 `;

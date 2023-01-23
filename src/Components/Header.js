@@ -1,8 +1,8 @@
-import React, {useContext, useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Token from "./Token";
-import {UserContext} from "../_contextAPI/UserContext";
+import { UserContext } from "../_contextAPI/UserContext";
 // Style
 import "../Style/Font.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,6 +18,8 @@ import Main_logo from "../Assets/Main_logo.png";
 import Main_logo_dark from "../Assets/Main_logo_dark.png";
 import { StyledLink } from "../Style/StyledLink";
 import User_default_img from "../Assets/User_default_img.png";
+import axios from "axios";
+import preURL from "../preURL/preURL";
 
 // 카카오 소셜 로그인
 const client_id = process.env.REACT_APP_KAKAO_REST_API_KEY;
@@ -30,12 +32,29 @@ const Header = ({ darkMode }) => {
 
   const [user, setUser] = useContext(UserContext);
   const [caretOpen, setCaretOpen] = useState(false);
+  const [userId, setUserId] = useState(0);
+  const [userNickname, setUserNickname] = useState("");
+  const [userProfileImg, setUserProfileImg] = useState(User_default_img);
 
-
-  // 유저 정보 확인
-  // useEffect(() => {
-  //   console.log("user: ", user);
-  // },[user]);
+  // 사용자 프로필 이미지 받아오기
+  useEffect(() => {
+    if (!token) return; // 임시 처리 - 수정 필요
+    axios
+      .get(preURL.preURL + "/main/user", {
+        headers: {
+          ITTASEKKI: token,
+        },
+      })
+      .then((res) => {
+        console.log("👍헤더 사용자 프로필 이미지 가져오기 성공 ", res);
+        setUserId(res.data["id"]);
+        res.data["profileUrl"] && setUserProfileImg(res.data["profileUrl"]);
+        setUserNickname(res.data["nickname"]);
+      })
+      .catch((err) => {
+        console.log("🧨헤더 사용자 프로필 이미지 가져오기 실패", err);
+      });
+  }, []);
 
   // 로그아웃
   const onLogout = () => {
@@ -102,39 +121,36 @@ const Header = ({ darkMode }) => {
           />
         </Link>
         <Profile>
-          {token
-              ? (
-                  <>
-                    <ProfileImg src={user.profileUrl ? user.profileUrl : User_default_img} />
-                    <StyledBtn>
-                      <FontAwesomeIcon
-                          icon={faCaretDown}
-                          style={{ fontSize: "150%", color: "9C9C9C" }}
-                          onClick={() => setCaretOpen(!caretOpen)}
-                      />
-                    </StyledBtn>
-                  </>
-              )
-              : (
-                  <a href={KAKAO_AUTH_URL}>
-                    <LoginBtn>로그인</LoginBtn>
-                  </a>
-              )
-          }
+          {token ? (
+            <>
+              <ProfileImg src={userProfileImg} />
+              <StyledBtn>
+                <FontAwesomeIcon
+                  icon={faCaretDown}
+                  style={{ fontSize: "150%", color: "9C9C9C" }}
+                  onClick={() => setCaretOpen(!caretOpen)}
+                />
+              </StyledBtn>
+            </>
+          ) : (
+            <a href={KAKAO_AUTH_URL}>
+              <LoginBtn>로그인</LoginBtn>
+            </a>
+          )}
         </Profile>
-        {caretOpen
-            ? (
-                <ProfileUl>
-                  <Link to="/mypage">
-                    <ProfileList>마이페이지</ProfileList>
-                  </Link>
-                  <ProfileList>플레이리스트</ProfileList>
-                  <ProfileList>프로필 설정</ProfileList>
-                  <ProfileList onClick={onLogout}>로그아웃</ProfileList>
-                  <ProfileList onClick={onLeave}>탈퇴하기</ProfileList>
-                </ProfileUl>
-            )
-            : <></>}
+        {caretOpen ? (
+          <ProfileUl>
+            <Link to="/mypage">
+              <ProfileList>마이페이지</ProfileList>
+            </Link>
+            <ProfileList>플레이리스트</ProfileList>
+            <ProfileList>프로필 설정</ProfileList>
+            <ProfileList onClick={onLogout}>로그아웃</ProfileList>
+            <ProfileList onClick={onLeave}>탈퇴하기</ProfileList>
+          </ProfileUl>
+        ) : (
+          <></>
+        )}
       </RightWrapper>
     </Wrapper>
   );
@@ -154,7 +170,6 @@ const Wrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #f6e8d6;
   z-index: 10;
 `;
 
@@ -178,7 +193,7 @@ const RightWrapper = styled.div`
 
 const Category = styled.span`
   font-family: EF_Diary;
-  font-size: 25;
+  font-size: 25px;
 `;
 
 const Profile = styled.div`
@@ -211,12 +226,12 @@ const ProfileUl = styled.ul`
 `;
 
 const LoginBtn = styled.button`
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   border: none;
-  color: ${light.colors.mainColor};
+  font-family: EF_Diary;
   font: 16px bold;
   cursor: pointer;
-`
+`;
 
 const ProfileList = styled.button`
   background-color: white;
