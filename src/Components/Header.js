@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
-import preURL from "../preURL/preURL";
 import Token from "./Token";
-
+import { UserContext } from "../_contextAPI/UserContext";
 // Style
 import "../Style/Font.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,6 +28,7 @@ const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${clie
 const Header = ({ darkMode }) => {
   const token = Token();
 
+  const [user, setUser] = useContext(UserContext);
   const [caretOpen, setCaretOpen] = useState(false);
   const [userId, setUserId] = useState(0);
   const [userNickname, setUserNickname] = useState("");
@@ -64,9 +62,9 @@ const Header = ({ darkMode }) => {
         alert("사용자가 없습니다.");
         return;
       }
-      localStorage.removeItem("access_token");
+      sessionStorage.removeItem("access-token");
+      window.location.replace("/");
       alert("로그아웃 되었습니다.");
-      window.location.reload();
     }
   };
 
