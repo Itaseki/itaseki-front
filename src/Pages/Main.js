@@ -9,7 +9,14 @@ import {
   ElevatorContainer,
   First,
   Fourth,
+  ImgBtn,
+  MainImg,
   Num,
+  PlyBox,
+  PlyList,
+  PopPly,
+  PopPlyTitle,
+  PopThumbnail,
   PopVidsContainer,
   RunningBtn,
   Second,
@@ -18,6 +25,15 @@ import {
   Wrapper,
 } from "../Style/Main";
 import { PopGifTest } from "../TestData/MainTest";
+import { StyledDivColumn } from "../Style/StyledDiv";
+
+// Assets
+import MainPage_Logo from "../Assets/MainPage_Logo.png";
+import PopPlaylist from "../Assets/PopPlaylist.png";
+import Temp from "../Assets/Temp_gif.png";
+import Guideline_Btn from "../Assets/Guideline_Btn.png";
+import Video_Btn from "../Assets/Video_Btn.png";
+import Run_Btn from "../Assets/Run_Btn.png";
 
 const Main = () => {
   const [popCommus, setpopCommus] = useState([]);
@@ -95,7 +111,10 @@ const Main = () => {
     <Wrapper>
       <Header />
       <First>
-        <RunningBtn>예능 영상 달리러 가기</RunningBtn>
+        <MainImg src={MainPage_Logo} />
+        <Link to="/running">
+          <RunningBtn>예능 영상 달리러 가기</RunningBtn>
+        </Link>
       </First>
       <Second>
         <PopVidsContainer></PopVidsContainer>
@@ -105,8 +124,30 @@ const Main = () => {
           <DownBtn />
         </ElevatorContainer>
       </Second>
-      <Third></Third>
-      <Fourth></Fourth>
+      <Third style={{ paddingTop: "12%", paddingBottom: "12%" }}>
+        <StyledDivColumn style={{ alignItems: "flex-end", width: "45%" }}>
+          <PopPly src={PopPlaylist} />
+          <PopThumbnail src={Temp} />
+        </StyledDivColumn>
+        <StyledDivColumn style={{ alignItems: "flex-start", width: "45%" }}>
+          <PopPlyTitle>알쓸인잡 달리기</PopPlyTitle>
+          <PlyBox>
+            <PlyList>안녕</PlyList>
+            <PlyList>안녕</PlyList>
+          </PlyBox>
+        </StyledDivColumn>
+      </Third>
+      <Fourth>
+        <Link to="/guide">
+          <ImgBtn src={Guideline_Btn} />
+        </Link>
+        <Link to="/videolist">
+          <ImgBtn src={Video_Btn} />
+        </Link>
+        <Link to="/running">
+          <ImgBtn src={Run_Btn} />
+        </Link>
+      </Fourth>
       <Footer />
     </Wrapper>
   );
