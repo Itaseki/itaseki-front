@@ -3,12 +3,11 @@ import { StyledDiv, StyledDivColumn, StyledDivRow } from "./StyledDiv";
 
 // Assets
 import StyledBtn from "./StyledBtn";
-import Main_bg from "../Assets/Main_bg.png";
 
 export const Wrapper = styled(StyledDivColumn)`
   width: 100vw;
   min-width: 100%;
-  min-height: 4325px;
+  min-height: 3700px;
   align-items: center;
   margin-top: 9%;
 `;
@@ -84,12 +83,60 @@ export const Third = styled(StyledDivRow)`
   height: 100%;
   min-width: 100%;
   background-color: #d7e0e4;
+  justify-content: space-around;
+`;
+
+export const PopPly = styled.img`
+  width: 60%;
+`;
+
+export const PopThumbnail = styled.img`
+  width: 57%;
+  height: auto;
+  border-radius: 45px;
+`;
+
+export const PopPlyTitle = styled(StyledDiv)`
+  width: 437.24px;
+  height: 76.27px;
+  background: #000000;
+  border: 4px solid #000000;
+  box-shadow: 10px -10px 0px #faede2, 10px -10px 0px 4px #000000;
+  border-radius: 5px;
+  transform: rotate(-2.8deg);
+
+  font-family: EF_Diary;
+  font-size: 28px;
+  color: white;
+`;
+
+export const PlyBox = styled.ul`
+  width: 307.24px;
+  height: 202.59px;
+  background: #faede2;
+  border: 4px solid #000000;
+  filter: drop-shadow(10px -10px 0px #000000);
+  padding: 65px;
+  margin-top: 8%;
+`;
+
+export const PlyList = styled.li`
+  list-style-type: circle;
+  margin-bottom: 30px;
+  font-family: EF_Diary;
+  font-size: 14px;
 `;
 
 export const Fourth = styled(StyledDivRow)`
   height: 100%;
-  min-width: 100%;
+  width: 80%;
   background-color: #d7e0e4;
+  justify-content: space-around;
+  padding: 20% 10% 20% 10%;
+`;
+
+export const ImgBtn = styled.img`
+  width: 90%;
 `;
 
 export const TagBox = styled.div`
