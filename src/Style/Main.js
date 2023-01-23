@@ -5,12 +5,8 @@ import { StyledDiv, StyledDivColumn, StyledDivRow } from "./StyledDiv";
 import StyledBtn from "./StyledBtn";
 import Main_bg from "../Assets/Main_bg.png";
 
-export const Wrapper = styled(StyledDiv)`
+export const Wrapper = styled(StyledDivColumn)`
   width: 100vw;
-  background-image: url(${Main_bg});
-  background-repeat: no-repeat;
-  background-position: top;
-  background-size: cover;
   min-width: 100%;
   min-height: 4325px;
   align-items: center;
