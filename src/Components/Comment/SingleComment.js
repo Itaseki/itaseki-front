@@ -1,7 +1,8 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useContext, useState} from "react";
 import useInput from "../../Hooks/useInput";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
+import {UserContext} from "../../_contextAPI/UserContext";
 import Token from "../Token";
 import {timeStamp} from "../TimeStamp";
 // STyle
@@ -21,6 +22,7 @@ import Exit_reply from "../../Assets/Exit_reply.png";
 const SingleComment = ({comment, board, boardId}) => {
   const token = Token();
 
+  const [user, setUser] = useContext(UserContext);
   const [showReplyModal, setShowReplyModal] = useState(false);
   const [newReply, onChangeNewReply, setNewReply] = useInput("");
   const nestedComments = comment.nestedComments;
@@ -137,7 +139,7 @@ const SingleComment = ({comment, board, boardId}) => {
                 <CommentReplyImg src={Comment_reply} alt="대댓글"/>
                 <div>
                   <p id="nickname">
-                    {"로그인한 사용자"}
+                    {user.nickname}
                   </p>
                   <NewCommentBox onSubmit={onSubmitReply}>
                     <NewCommentInput

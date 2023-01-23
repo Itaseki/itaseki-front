@@ -1,7 +1,8 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useContext, useState} from "react";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
 import useInput from "../../Hooks/useInput";
+import {UserContext} from "../../_contextAPI/UserContext";
 // Components
 import SingleComment from "./SingleComment";
 import Token from "../Token";
@@ -20,6 +21,7 @@ import Enter from "../../Assets/Enter_Comment.png";
 const CommentList = ({commentCount, commentList, board, boardId}) => {
   const token = Token();
 
+  const [user, setUser] = useContext(UserContext);
   const [newComment, onChangeNewComment, setNewComment] = useInput("");
 
   // 댓글 등록
@@ -61,7 +63,7 @@ const CommentList = ({commentCount, commentList, board, boardId}) => {
         </CommentsListWrapper>
         <NewCommentWrapper>
           <p id="nickname">
-            {"로그인한 사용자"} // TODO
+            {user.nickname}
           </p>
           <NewCommentBox onSubmit={onSubmitComment}>
             <NewCommentInput

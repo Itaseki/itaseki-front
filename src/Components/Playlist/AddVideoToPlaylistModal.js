@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
+import {UserContext} from "../../_contextAPI/UserContext";
 import Token from "../Token";
 // Style
 import { AutoFrame, OneSelectItemWrapper, ToggleScrollWrapper} from "../../Style/Video";
@@ -11,6 +12,7 @@ import NewPlaylistModal, {SwitchBtnLabel} from "./NewPlaylistModal";
 const AddVideoToPlaylistModal = ({videoId, show, setShow}) => {
   const token = Token();
 
+  const [user, setUser] = useContext(UserContext);
   const [playListList, setPlayListList] = useState([]); // 받아온 내 플레이리스트 목록
   /* TODO 등록 처리 필요 */
   const [playList, setPlayList] = useState([]);
@@ -21,8 +23,7 @@ const AddVideoToPlaylistModal = ({videoId, show, setShow}) => {
   // 사용자 플레이리스트 조회(TODO 코드 중복)
   useEffect(() => {
     axios
-        /*TODO 사용자 id*/
-        .get(preURL.preURL + `/boards/playlist/user/${1}`,{
+        .get(preURL.preURL + `/boards/playlist/user/${user.id}`,{
           headers: {
             'ITTASEKKI': token
           }

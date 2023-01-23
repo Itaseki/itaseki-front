@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
+import {UserContext} from "../../_contextAPI/UserContext";
 import Token from "../Token";
 // Style
 import styled from "styled-components";
@@ -12,6 +13,7 @@ import {SwitchBtnLabel} from "./NewPlaylistModal";
 const SavePlyModal = ({plyId, show, setShow}) => {
   const token = Token();
 
+  const [user, setUser] = useContext(UserContext);
   const [myPlayListResponse, setMyPlayListResponse] = useState([]); // 내 플레이리스트 목록
   const [storedResponse, setStoredResponse] = useState([]); // 저장한 플레이리스트 목록
 
@@ -19,8 +21,7 @@ const SavePlyModal = ({plyId, show, setShow}) => {
   // 사용자 플레이리스트 조회(TODO 코드 중복)
   useEffect(() => {
     axios
-        // TODO 사용자 id
-        .get(preURL.preURL + `/boards/playlist/user/${1}`, {
+        .get(preURL.preURL + `/boards/playlist/user/${user.id}`, {
           headers: {
             'ITTASEKKI': token
           }
@@ -65,7 +66,7 @@ const SavePlyModal = ({plyId, show, setShow}) => {
           console.log("👍플레이리스트 저장 성공", res);
           if(res.status === 201)
             alert("플레이리스트를 저장하였습니다.");
-          else alert("이미 저장한 플레이리스트입니다.");
+          else alert("이미 저장한 플레이리스트입니다.");  // TODO
         })
         .catch((err) => {
           console.log("🧨플레이리스트 저장 실패", err);
