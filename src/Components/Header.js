@@ -18,6 +18,8 @@ import Main_logo from "../Assets/Main_logo.png";
 import Main_logo_dark from "../Assets/Main_logo_dark.png";
 import { StyledLink } from "../Style/StyledLink";
 import User_default_img from "../Assets/User_default_img.png";
+import axios from "axios";
+import preURL from "../preURL/preURL";
 
 // 카카오 소셜 로그인
 const client_id = process.env.REACT_APP_KAKAO_REST_API_KEY;
