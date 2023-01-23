@@ -1,8 +1,9 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import useInput from "../../Hooks/useInput";
 import preURL from "../../preURL/preURL";
 import axios from "axios";
+import {UserContext} from "../../_contextAPI/UserContext";
 // Components
 import Token from "../../Components/Token";
 import Header from "../../Components/Header";
@@ -27,6 +28,7 @@ const AddNewVideo = () => {
   const navigate = useNavigate();
   const token = Token();
 
+  const [user, setUser] = useContext(UserContext);
   const [agree, setAgree] = useState(false);
   const [verified, setVerified] = useState(false);
   const [seriesList, setSeriesList] = useState([{id: 0, name: ""}]);
@@ -51,8 +53,7 @@ const AddNewVideo = () => {
   // 토글 정보 불러오기
   useEffect(() => {
     axios
-        // TODO {userId}
-        .get(preURL.preURL + `/boards/video/info/${1}`, {
+        .get(preURL.preURL + `/boards/video/info/${user.id}`, {
           headers: {
             'ITTASEKKI': token
           }
