@@ -13,9 +13,14 @@ export const Wrapper = styled(StyledDivColumn)`
   margin-top: 9%;
 `;
 
-export const First = styled(StyledDiv)`
-  min-height: 850px;
+export const First = styled(StyledDivColumn)`
+  height: 100%;
   min-width: 100%;
+  align-items: center;
+`;
+
+export const MainImg = styled.img`
+  width: 100%;
 `;
 
 export const RunningBtn = styled(StyledBtn)`
@@ -25,11 +30,13 @@ export const RunningBtn = styled(StyledBtn)`
   border: 2px solid #000000;
   box-shadow: 4px -8px 0px #000000;
   border-radius: 32.5px;
-  margin-top: 10%;
+
+  font-family: EF_Diary;
+  font-size: 23px;
 `;
 
 export const Second = styled(StyledDivRow)`
-  min-height: 850px;
+  height: 100%;
   min-width: 100%;
 `;
 
@@ -46,10 +53,12 @@ export const ElevatorContainer = styled(StyledDivColumn)`
 export const Num = styled(StyledDiv)`
   width: 74.66px;
   height: 74.66px;
-  font-family: EF_Diary;
+  font-family: EF_Diary_bold;
   font-size: 31px;
   filter: drop-shadow(4px -4px 0px #000000);
   background-color: #e3eded;
+  border: 6px solid #000000;
+  border-radius: 10px;
 `;
 
 export const UpBtn = styled(StyledBtn)`
@@ -72,13 +81,15 @@ export const DownBtn = styled(StyledBtn)`
 `;
 
 export const Third = styled(StyledDivRow)`
-  min-height: 900px;
+  height: 100%;
   min-width: 100%;
+  background-color: #d7e0e4;
 `;
 
 export const Fourth = styled(StyledDivRow)`
-  min-height: 900px;
+  height: 100%;
   min-width: 100%;
+  background-color: #d7e0e4;
 `;
 
 export const TagBox = styled.div`

@@ -9,6 +9,7 @@ import {
   ElevatorContainer,
   First,
   Fourth,
+  MainImg,
   Num,
   PopVidsContainer,
   RunningBtn,
@@ -18,6 +19,7 @@ import {
   Wrapper,
 } from "../Style/Main";
 import { PopGifTest } from "../TestData/MainTest";
+import MainPage_Logo from "../Assets/MainPage_Logo.png";
 
 const Main = () => {
   const [popCommus, setpopCommus] = useState([]);
@@ -95,7 +97,10 @@ const Main = () => {
     <Wrapper>
       <Header />
       <First>
-        <RunningBtn>예능 영상 달리러 가기</RunningBtn>
+        <MainImg src={MainPage_Logo} />
+        <Link to="/running">
+          <RunningBtn>예능 영상 달리러 가기</RunningBtn>
+        </Link>
       </First>
       <Second>
         <PopVidsContainer></PopVidsContainer>

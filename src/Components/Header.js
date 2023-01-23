@@ -107,7 +107,7 @@ const Header = ({ darkMode }) => {
           <StyledLink to="/playlist">
             <Category>플레이리스트</Category>
           </StyledLink>
-          <StyledLink to="/running">
+          <StyledLink to="/reservation">
             <Category>달리기</Category>
           </StyledLink>
           <StyledLink to="/">
