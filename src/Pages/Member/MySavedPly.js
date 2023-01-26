@@ -1,16 +1,23 @@
 import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
+// Component
 import Header from "../../Components/Header";
+import MyPly from "../../Components/Mypage/MyPly";
+import Pagination from "../../Components/Mypage/Pagination";
+// Style
 import {BGdiv, GotoPlyDiv, Title, Wrapper} from "../../Style/MyPage";
 import StyledBtn from "../../Style/StyledBtn";
-import {useNavigate} from "react-router-dom";
+import {VideoList} from "../../Style/Video";
+// Assets
 import GoSetting from "../../Assets/Mypage_GotoSetting.png";
 import Eye from "../../Assets/Mypage_eye2.png";
-import MyPly from "../../Components/Mypage/MyPly";
-import {VideoList} from "../../Style/Video";
+
 
 const MySavedPly = () => {
   const navigate = useNavigate();
 
+  const [totalPage, setTotalPage] = useState(2);
+  const [page, setPage] = useState(0);
   const [playlist, setPlaylist] = useState([
     {id: 1, title: "플리1", titleImageUrl: "https://i.ytimg.com/vi/xhyWDLWanHE/hqdefault.jpg?s…AFwAcABBg==&rs=AOn4CLDNC541Gll7yxMs9Vcc8MWtC9gzLg", likeCount: 3, isPublic: null},
     {id: 2, title: "플리2", titleImageUrl: "https://i.ytimg.com/vi/MRaAcIQOIIw/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLDMAXcYHT37gxseIf6CA94ICpnTuQ", likeCount: 25, isPublic: null},
@@ -40,6 +47,7 @@ const MySavedPly = () => {
                 })}
               </VideoList>
             </div>
+            <Pagination page={page} setPage={setPage} totalPageCount={totalPage} />
           </BGdiv>
         </Wrapper>
       </>

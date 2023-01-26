@@ -2,6 +2,9 @@ import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 // Component
 import Header from "../../Components/Header";
+import MyVideo from "../../Components/Mypage/MyVideo";
+import MyPly from "../../Components/Mypage/MyPly";
+import Pagination from "../../Components/Mypage/Pagination";
 // Style
 import {
   BGdiv,
@@ -15,15 +18,12 @@ import {
   Title,
   Wrapper
 } from "../../Style/MyPage";
-// Assets
-import GotoPly from "../../Assets/Mypage_GotoSavedply.png";
-import Eye from "../../Assets/Mypage_eye1.png";
 import {StyledDivRow} from "../../Style/StyledDiv";
 import StyledBtn from "../../Style/StyledBtn";
 import {VideoList} from "../../Style/Video";
-import MyVideo from "../../Components/Mypage/MyVideo";
-import MyPly from "../../Components/Mypage/MyPly";
-
+// Assets
+import GotoPly from "../../Assets/Mypage_GotoSavedply.png";
+import Eye from "../../Assets/Mypage_eye1.png";
 
 
 const MyPage = () => {
@@ -42,6 +42,8 @@ const MyPage = () => {
     {id: 3, title: "영상 3", likeCount: 5, thumbnailUrl: "", isPublic: null},
     {id: 4, title: "영상 4", likeCount: 5, thumbnailUrl: "", isPublic: null}
   ]);
+  const [totalVPage, setTotalVPage] = useState(3);
+  const [videosPage, setVideosPage] = useState(0);
   const [playlist, setPlaylist] = useState([
     {id: 1, title: "플리1", titleImageUrl: "https://i.ytimg.com/vi/xhyWDLWanHE/hqdefault.jpg?s…AFwAcABBg==&rs=AOn4CLDNC541Gll7yxMs9Vcc8MWtC9gzLg", likeCount: 3, isPublic: true},
     {id: 2, title: "플리2", titleImageUrl: "https://i.ytimg.com/vi/MRaAcIQOIIw/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLDMAXcYHT37gxseIf6CA94ICpnTuQ", likeCount: 25, isPublic: true},
@@ -52,6 +54,8 @@ const MyPage = () => {
     {id: 7, title: "플리7", titleImageUrl: "https://i.ytimg.com/vi/UfBxMDp7VTo/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLCJF-TybRxbbgYlWXiz2ARY6e-aHw", likeCount: 3, isPublic: false},
     {id: 8, title: "플리8", titleImageUrl: "https://i.ytimg.com/vi/MzVRL5W4b1I/hqdefault.jpg?s…AFwAcABBg==&rs=AOn4CLDJ-2oHWJdsOn-YBOi9t52n0qepNw", likeCount: 3, isPublic: true}
   ]);
+  const [totalPPage, setTotalPPage] = useState(1);
+  const [plysPage, setPlysPage] = useState(0);
   const [comments1, setComments1] = useState([
     {boardId: 1, boardType: "video", content: "댓글 내용 asdfawerjwaiefjad, vndsvasdfwefsafdafdfdaf", boardTitle: "게시글 제목", createdTime: [2023,1,14,23,50,12,323453]},
     {boardId: 1, boardType: "video", content: "댓글 내용", boardTitle: "게시글 제목", createdTime: [2023,1,14,23,50,12,323453]},
@@ -59,6 +63,8 @@ const MyPage = () => {
     {boardId: 1, boardType: "video", content: "댓글 내용", boardTitle: "게시글 제목", createdTime: [2023,1,14,23,50,12,323453]},
     {boardId: 1, boardType: "video", content: "댓글 내용", boardTitle: "게시글 제목", createdTime: [2023,1,14,23,50,12,323453]},
   ]);
+  const [totalCPage, setTotalCPage] = useState(3);
+  const [commentsPage, setcommentsPage] = useState(0);
   const [comments2, setComments2] = useState([
     {boardId: 1, boardType: "video", content: "댓글 내용", boardTitle: "게시글 제목", createdTime: [2023,1,14,23,50,12,323453]},
     {boardId: 1, boardType: "video", content: "댓글 내용", boardTitle: "게시글 제목", createdTime: [2023,1,14,23,50,12,323453]},
@@ -96,6 +102,7 @@ const MyPage = () => {
                   return <MyVideo video={video}/>
                 })}
               </VideoList>
+              <Pagination page={videosPage} setPage={setVideosPage} totalPageCount={totalVPage}/>
             </div>
             {/*나의 플레이리스트*/}
             <div>
@@ -105,6 +112,7 @@ const MyPage = () => {
                   return <MyPly ply={ply} />
                 })}
               </VideoList>
+              <Pagination page={plysPage} setPage={setPlysPage} totalPageCount={totalPPage} />
             </div>
             {/*게시한 댓글*/}
             <div>
@@ -121,6 +129,7 @@ const MyPage = () => {
                   })}
                 </Comments>
               </StyledDivRow>
+              <Pagination page={commentsPage} setPage={setcommentsPage} totalPageCount={totalCPage} />
             </div>
             {/*탈퇴하기*/}
             <div>
