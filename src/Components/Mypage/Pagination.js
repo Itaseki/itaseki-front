@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import StyledBtn from "../../Style/StyledBtn";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretLeft, faCaretRight} from "@fortawesome/free-solid-svg-icons";
@@ -8,7 +8,12 @@ import {light} from "../../Style/Color";
 const Pagination = ({page, setPage, totalPageCount}) => {
 
   const [showGoLeftPages, setShowGoLeftPages] = useState(false);
-  const [showGoRightPages, setShowGoRightPages] = useState(totalPageCount !== 1);
+  const [showGoRightPages, setShowGoRightPages] = useState(true);
+
+  useEffect(() => {
+    setShowGoRightPages(totalPageCount > 1);
+    // console.log(totalPageCount);
+  },[totalPageCount]);
 
 
   // 페이지 넘기기
