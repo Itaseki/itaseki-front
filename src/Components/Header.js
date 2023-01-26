@@ -1,9 +1,12 @@
 import React, { useContext, useState } from "react";
 import {Link, useNavigate} from "react-router-dom";
-import styled from "styled-components";
-import Token from "./Token";
+import axios from "axios";
+import {preURL} from "../preURL/preURL";
 import { UserContext } from "../_contextAPI/UserContext";
+// Component
+import Token from "./Token";
 // Style
+import styled from "styled-components";
 import "../Style/Font.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,6 +21,7 @@ import { light } from "../Style/Color";
 import Main_logo from "../Assets/Main_logo.png";
 import Main_logo_dark from "../Assets/Main_logo_dark.png";
 import User_default_img from "../Assets/User_default_img.png";
+
 
 // 카카오 소셜 로그인
 const client_id = process.env.REACT_APP_KAKAO_REST_API_KEY;
@@ -40,13 +44,22 @@ const Header = ({ darkMode }) => {
   const onLogout = () => {
     let logout = window.confirm("로그아웃 하시겠습니까?");
     if (logout) {
-      if (!token) {
-        alert("사용자가 없습니다.");
-        return;
-      }
-      sessionStorage.removeItem("access-token");
-      window.location.replace("/");
-      alert("로그아웃 되었습니다.");
+      axios
+          .patch(preURL + `/user/${user.id}/edit`,[],{
+            headers: {
+              ITTASEKKI: token
+            }
+          })
+          .then((res) => {
+            console.log("👍로그아웃 성공", res);
+            sessionStorage.removeItem("access-token");
+            window.location.replace("/");
+            alert("로그아웃 되었습니다.");
+          })
+          .catch((err) => {
+            console.log("🧨로그아웃 실패", err);
+            alert('로그아웃 실패');
+          })
     }
   };
 
