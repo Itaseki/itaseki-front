@@ -17,7 +17,7 @@ export const GotoPlyDiv = styled(StyledDivRow)`
   padding: 30px;
   & > button {
     font-family: 'EF_Diary';
-    font-size: 20px;
+    font-size: 22px;
     line-height: 35px;
     letter-spacing: -0.02em;
   }
@@ -111,3 +111,6 @@ export const Delete = styled(StyledBtn)`
   letter-spacing: -0.02em;
   color: #FFFFFF;
 `
+
+/////////////////// MySavedPly ///////////////////
+

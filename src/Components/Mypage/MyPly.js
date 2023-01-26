@@ -24,7 +24,7 @@ const MyPly = ({ply}) => {
             <span id="title" onClick={() => navigate(`/playlist/${ply.id}`)}>
               {ply.title}
             </span>
-            <SwitchBtn>{ply.isPublic === true ? "공개" : "비공개"}</SwitchBtn>
+            {ply.isPublic !== null && <SwitchBtn>{ply.isPublic === true ? "공개" : "비공개"}</SwitchBtn>}
             <div id="info-right">
               <StyledBtn>
                 <FontAwesomeIcon

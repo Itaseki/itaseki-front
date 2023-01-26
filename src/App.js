@@ -14,7 +14,7 @@ import Reservation from "./Pages/Run/Reservation";
 import Running from "./Pages/Run/Running";
 // Member
 import MyPage from "./Pages/Member/MyPage";
-import SavedPly from "./Pages/Member/SavedPly";
+import MySavedPly from "./Pages/Member/MySavedPly";
 // Video
 import AddNewVideo from "./Pages/Video/AddNewVideo";
 import AllVideo from "./Pages/Video/AllVideo";
@@ -41,7 +41,7 @@ const App = () => {
         <Route path="/running" element={<Running />} />
         {/* Member */}
         <Route path="/mypage" element={<MyPage />} />
-        <Route path="/mypage/savedPly" element={<SavedPly />} />
+        <Route path="/mypage/savedPly" element={<MySavedPly />} />
         <Route path="/center" element={<Center />} />
         <Route path="/guide" element={<Guide />} />
         {/* Search */}
