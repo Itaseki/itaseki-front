@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import Store from "./_contextAPI/Store";
 import Main from "./Pages/Main";
 // Start
 import LoginRedirect from "./Pages/Start/LoginRedirect";
@@ -13,6 +14,7 @@ import Reservation from "./Pages/Run/Reservation";
 import Running from "./Pages/Run/Running";
 // Member
 import MyPage from "./Pages/Member/MyPage";
+import MySavedPly from "./Pages/Member/MySavedPly";
 // Video
 import AddNewVideo from "./Pages/Video/AddNewVideo";
 import AllVideo from "./Pages/Video/AllVideo";
@@ -24,7 +26,6 @@ import SubscribedPly from "./Pages/Playlist/SubscribedPly";
 import NewBoard from "./Pages/Board/NewBoard";
 import Search from "./Pages/Search/Search";
 
-import Store from "./_contextAPI/Store";
 import Center from "./Pages/Member/Center";
 import Guide from "./Pages/Member/Guide";
 
@@ -40,6 +41,7 @@ const App = () => {
         <Route path="/running" element={<Running />} />
         {/* Member */}
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypage/savedPly" element={<MySavedPly />} />
         <Route path="/center" element={<Center />} />
         <Route path="/guide" element={<Guide />} />
         {/* Search */}
