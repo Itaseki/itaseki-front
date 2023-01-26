@@ -59,7 +59,7 @@ export const BGdiv = styled.div`
 // 프로필 이미지
 export const ImgWrapper = styled.div`
   width: 18%;
-  padding-bottom: 18%;
+  padding-top: 18%;
   margin-left: 25%;
   position: relative;
   
@@ -72,6 +72,23 @@ export const ImgWrapper = styled.div`
     
     object-fit: cover;
     border-radius: 50%;
+  }
+  & > #camera {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  & > label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    :hover {
+      cursor: pointer;
+      background-color: rgb(225, 225, 225, 0.2);
+    }
   }
 `
 

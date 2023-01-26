@@ -8,6 +8,7 @@ import Token from "../../Components/Token";
 import Header from "../../Components/Header";
 import MyVideo from "../../Components/Mypage/MyVideo";
 import MyPly from "../../Components/Mypage/MyPly";
+import MyComment from "../../Components/Mypage/MyComment";
 import Pagination from "../../Components/Mypage/Pagination";
 // Style
 import {
@@ -25,10 +26,10 @@ import {
 import {StyledDivRow} from "../../Style/StyledDiv";
 import StyledBtn from "../../Style/StyledBtn";
 import {VideoList} from "../../Style/Video";
+import {BiPencil, IoCameraReverse} from "react-icons/all";
 // Assets
 import GotoPly from "../../Assets/Mypage_GotoSavedply.png";
 import Eye from "../../Assets/Mypage_eye1.png";
-import MyComment from "../../Components/Mypage/MyComment";
 
 
 const MyPage = () => {
@@ -193,10 +194,18 @@ const MyPage = () => {
             <StyledDivRow>
               <ImgWrapper>
                 <img src={profileImg} alt="사용자 프로필 이미지" />
+                <IoCameraReverse id="camera" size="1.8em"/>
+                <label htmlFor="img-edit" title="프로필 이미지 변경"/>
+                <input id="img-edit" type="file" accept="image/*" style={{display: "none"}}/>
               </ImgWrapper>
               <RightWrapper>
-                <Nickname>{profileName}</Nickname>
-                <Email>{profileEmail}</Email>
+                <Nickname>
+                  <span>{profileName}</span>
+                  <BiPencil size="0.6em"/>
+                </Nickname>
+                <Email>
+                  {profileEmail}
+                </Email>
               </RightWrapper>
             </StyledDivRow>
             {/*게시한 영상*/}
