@@ -81,7 +81,7 @@ const Header = ({ darkMode }) => {
       <RightWrapper>
         {/* 카테고리 링크 */}
         <StyledDivRow style={{ width: 540, justifyContent: "space-between" }}>
-          <StyledLink to="/videolist">
+          <StyledLink to="/video">
             <Category>영상</Category>
           </StyledLink>
           <StyledLink to="/playlist">
