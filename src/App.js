@@ -48,8 +48,8 @@ const App = () => {
         <Route path="/search" element={<Search />} />
         {/* Video */}
         <Route path="/addvideo" element={<AddNewVideo />} />
-        <Route path="/videolist" element={<AllVideo />} />
-        <Route path="/videolist/:id" element={<VideoDetail />} />
+        <Route path="/video" element={<AllVideo />} />
+        <Route path="/video/:id" element={<VideoDetail />} />
         {/* Playlist */}
         <Route path="/playlist" element={<AllPlaylist />} />
         <Route path="/playlist/:id" element={<PlaylistDetail />} />

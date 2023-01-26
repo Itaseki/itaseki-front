@@ -34,12 +34,12 @@ const OneVideo = ({video}) => {
 
   return (
       <OneVideoWrapper>
-        <VideoContainer onClick={()=>navigate(`/videolist/${videoId}`)}>
+        <VideoContainer onClick={()=>navigate(`/video/${videoId}`)}>
           <img src={video.thumbnailUrl} alt="썸네일" />
         </VideoContainer>
         <div>
           <VideoInfo>
-              <span id="title" onClick={()=>navigate(`/videolist/${videoId}`)}>
+              <span id="title" onClick={()=>navigate(`/video/${videoId}`)}>
                 {video.title}
               </span>
             <div id="info-right">
