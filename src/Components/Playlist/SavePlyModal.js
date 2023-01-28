@@ -54,6 +54,10 @@ const SavePlyModal = ({plyId, show, setShow}) => {
 
   // 플레이리스트 저장하기
   const onClickSavePly = () => {
+    if(!token) {
+      alert('로그인 후 이용해주세요.');
+      return;
+    }
     axios
         .post(preURL.preURL + '/boards/playlist/saved', {
           playlistId: plyId
@@ -64,12 +68,12 @@ const SavePlyModal = ({plyId, show, setShow}) => {
         })
         .then((res) => {
           console.log("👍플레이리스트 저장 성공", res);
-          if(res.status === 201)
-            alert("플레이리스트를 저장하였습니다.");
-          else alert("이미 저장한 플레이리스트입니다.");  // TODO
+          alert("플레이리스트를 저장하였습니다.");
+          window.location.reload();
         })
         .catch((err) => {
           console.log("🧨플레이리스트 저장 실패", err);
+          if(err.status === 409) alert("이미 저장한 플레이리스트입니다.");
         })
   }
 
@@ -92,18 +96,16 @@ const SavePlyModal = ({plyId, show, setShow}) => {
         })
         .then((res) => {
           console.log("👍플레이리스트 공개/비공개 수정 성공");
-          if(res.status === 200) {
-            prop.target.parentNode.classList.toggle('active');
-            Target.classList.toggle('active');
-            // console.log(prop.target.parentNode.classList)
-            // console.log(Target);
-            if(Target.innerText === "비공개") Target.innerText = "공개";
-            else Target.innerText = "비공개";
-          }
-          else if(res.status === 403) alert("수정 권한이 없습니다.");  // TODO
+          prop.target.parentNode.classList.toggle('active');
+          Target.classList.toggle('active');
+          // console.log(prop.target.parentNode.classList)
+          // console.log(Target);
+          if(Target.innerText === "비공개") Target.innerText = "공개";
+          else Target.innerText = "비공개";
         })
         .catch((err) => {
           console.log("🧨플레이리스트 공개/비공개 수정 실패", err);
+          if(err.status === 403) alert("수정 권한이 없습니다.");
         })
   }
 
