@@ -1,9 +1,12 @@
 import React, { useContext, useState } from "react";
 import {Link, useNavigate} from "react-router-dom";
-import styled from "styled-components";
-import Token from "./Token";
+import axios from "axios";
+import {preURL} from "../preURL/preURL";
 import { UserContext } from "../_contextAPI/UserContext";
+// Component
+import Token from "./Token";
 // Style
+import styled from "styled-components";
 import "../Style/Font.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,6 +21,7 @@ import { light } from "../Style/Color";
 import Main_logo from "../Assets/Main_logo.png";
 import Main_logo_dark from "../Assets/Main_logo_dark.png";
 import User_default_img from "../Assets/User_default_img.png";
+
 
 // 카카오 소셜 로그인
 const client_id = process.env.REACT_APP_KAKAO_REST_API_KEY;
@@ -40,36 +44,25 @@ const Header = ({ darkMode }) => {
   const onLogout = () => {
     let logout = window.confirm("로그아웃 하시겠습니까?");
     if (logout) {
-      if (!token) {
-        alert("사용자가 없습니다.");
-        return;
-      }
-      sessionStorage.removeItem("access-token");
-      window.location.replace("/");
-      alert("로그아웃 되었습니다.");
+      axios
+          .patch(preURL + `/user/${user.id}/edit`,[],{
+            headers: {
+              ITTASEKKI: token
+            }
+          })
+          .then((res) => {
+            console.log("👍로그아웃 성공", res);
+            sessionStorage.removeItem("access-token");
+            window.location.replace("/");
+            alert("로그아웃 되었습니다.");
+          })
+          .catch((err) => {
+            console.log("🧨로그아웃 실패", err);
+            alert('로그아웃 실패');
+          })
     }
   };
 
-  // 탈퇴하기 TODO 마이페이지로 이동
-  // const onLeave = () => {
-  //   const content =
-  //     "[회원 탈퇴]\n " +
-  //     "탈퇴 시 유의사항을 확인 바랍니다.\n\n " +
-  //     "- 계정 연동 시 연동이 해제됩니다.\n" +
-  //     "- 사이트 내에 작성한 게시글, 댓글 등은 삭제되지 않으며, ‘알 수 없음’으로 회원 정보가 수정되어 작성 내용이 유지됩니다.\n" +
-  //     "- 회원 탈퇴 시 사이트 내 등록된 대부분의 게시글 확인·수정·삭제 등이 일체 불가하며 이를 유의하시어 탈퇴 바랍니다.\n\n" +
-  //     "위 탈퇴 유의사항을 확인하고 이에 동의한다면 '확인'을, 동의하지 않는다면 '취소'를 눌러주세요.";
-  //
-  //   let leave = window.confirm(content);
-  //   if (leave) {
-  //     localStorage.removeItem("access_token");
-  //     alert("탈퇴가 완료되었습니다.\n함께 달리며 즐거웠습니다:)");
-  //     window.location.reload();
-  //   } else {
-  //     alert("탈퇴하기를 취소하였습니다.");
-  //     window.location.reload();
-  //   }
-  // };
 
   return (
     <Wrapper>

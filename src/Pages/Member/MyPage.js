@@ -8,6 +8,7 @@ import Token from "../../Components/Token";
 import Header from "../../Components/Header";
 import MyVideo from "../../Components/Mypage/MyVideo";
 import MyPly from "../../Components/Mypage/MyPly";
+import MyComment from "../../Components/Mypage/MyComment";
 import Pagination from "../../Components/Mypage/Pagination";
 // Style
 import {
@@ -25,10 +26,10 @@ import {
 import {StyledDivRow} from "../../Style/StyledDiv";
 import StyledBtn from "../../Style/StyledBtn";
 import {VideoList} from "../../Style/Video";
+import {BiPencil, IoCameraReverse} from "react-icons/all";
 // Assets
 import GotoPly from "../../Assets/Mypage_GotoSavedply.png";
 import Eye from "../../Assets/Mypage_eye1.png";
-import MyComment from "../../Components/Mypage/MyComment";
 
 
 const MyPage = () => {
@@ -80,6 +81,25 @@ const MyPage = () => {
   const [totalCPage, setTotalCPage] = useState(0);
   const [commentsPage, setcommentsPage] = useState(0);
 
+
+  // 상단 프로필 조회
+  useEffect(() => {
+    axios
+        .get(preURL + `/user/${user.id}/info`,{
+          headers: {
+            ITTASEKKI: token
+          }
+        })
+        .then((res) => {
+          console.log("👍상단 프로필 조회 성공", res);
+          setProfileName(res.data['nickname']);
+          setProfileImg(res.data['profileUrl']);
+          setProfileEmail(res.data['email']);
+        })
+        .catch((err) => {
+          console.log("🧨상단 프로필 조회 실패", err);
+        })
+  },[user])
 
   // 게시한 영상 목록 불러오기
   useEffect(() => {
@@ -148,6 +168,49 @@ const MyPage = () => {
   },[user, videosPage]);
 
 
+  // 프로필 이미지 바꾸기
+  const onChangeProfileImg = (e) => {
+    const newImg = e.target.files[0];
+    // console.log(newImg);
+    const reader = new FileReader();
+    reader.readAsDataURL(newImg);
+    reader.onload = () => {
+      setProfileImg(reader.result);
+    }
+  };
+
+  // 탈퇴하기
+  const onDelete = () => {
+    const content =
+        "[회원 탈퇴]\n " +
+        "탈퇴 시 유의사항을 확인 바랍니다.\n\n " +
+        "- 계정 연동 시 연동이 해제됩니다.\n" +
+        "- 사이트 내에 작성한 게시글, 댓글 등은 삭제되지 않으며, ‘알 수 없음’으로 회원 정보가 수정되어 작성 내용이 유지됩니다.\n" +
+        "- 회원 탈퇴 시 사이트 내 등록된 대부분의 게시글 확인·수정·삭제 등이 일체 불가하며 이를 유의하시어 탈퇴 바랍니다.\n\n" +
+        "위 탈퇴 유의사항을 확인하고 이에 동의한다면 '확인'을, 동의하지 않는다면 '취소'를 눌러주세요.";
+
+    let leave = window.confirm(content);
+    if (leave) {
+      axios
+          .delete(preURL + `/user/${user.id}/edit`,{
+            headers: {
+              ITTASEKKI: token
+            }
+          })
+          .then((res) => {
+            console.log("👍탈퇴 성공", res.data);
+            sessionStorage.removeItem("access-token");
+            window.location.replace("/");
+            alert("탈퇴가 완료되었습니다.\n함께 달리며 즐거웠습니다:)");
+          })
+          .catch((err) => {
+            console.log("🧨탈퇴 실패", err);
+            alert('오류! 고객센터에 문의하세요.');
+          })
+    }
+  };
+
+
   return (
       <>
         <Header />
@@ -162,10 +225,18 @@ const MyPage = () => {
             <StyledDivRow>
               <ImgWrapper>
                 <img src={profileImg} alt="사용자 프로필 이미지" />
+                <IoCameraReverse id="camera" size="1.8em"/>
+                <label htmlFor="img-edit" title="프로필 이미지 변경"/>
+                <input id="img-edit" type="file" accept="image/*" onChange={onChangeProfileImg} style={{display: "none"}}/>
               </ImgWrapper>
               <RightWrapper>
-                <Nickname>{profileName}</Nickname>
-                <Email>{profileEmail}</Email>
+                <Nickname>
+                  <span>{profileName}</span>
+                  <BiPencil size="0.6em"/>
+                </Nickname>
+                <Email>
+                  {profileEmail}
+                </Email>
               </RightWrapper>
             </StyledDivRow>
             {/*게시한 영상*/}
@@ -207,7 +278,7 @@ const MyPage = () => {
             </div>
             {/*탈퇴하기*/}
             <div>
-              <Delete>탈퇴하기</Delete>
+              <Delete onClick={onDelete}>탈퇴하기</Delete>
             </div>
           </BGdiv>
         </Wrapper>
