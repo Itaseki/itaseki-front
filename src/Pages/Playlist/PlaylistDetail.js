@@ -162,7 +162,6 @@ const PlaylistDetail = () => {
   const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
   const [clickedVideoId, setClickedVideoId] = useState(-1);
   const Videos = (playlist.videos).map((video, id) => {
-
     // 플레이리스트에 영상 담기
     const onClickAddtoPly = () => {
       // console.log("플레이리스트에 영상 담기 버튼 클릭");
@@ -244,7 +243,7 @@ const PlaylistDetail = () => {
             <AButton style={{borderWidth: "4px"}} onClick={onClickLike}>좋아요</AButton>
             <AButton onClick={onClickReport}>신고하기</AButton>
           </AdditionalBtns>
-          <CommentList commentCount={playlist.commentCount} commentList={playlist.comments} board={"video"} boardId={plyId} />
+          <CommentList commentCount={playlist.commentCount} commentList={playlist.comments} board="playlist" boardId={plyId} />
         </Wrapper>
       </div>
   )
