@@ -82,6 +82,25 @@ const MyPage = () => {
   const [commentsPage, setcommentsPage] = useState(0);
 
 
+  // 상단 프로필 조회
+  useEffect(() => {
+    axios
+        .get(preURL + `/user/${user.id}/info`,{
+          headers: {
+            ITTASEKKI: token
+          }
+        })
+        .then((res) => {
+          console.log("👍상단 프로필 조회 성공", res);
+          setProfileName(res.data['nickname']);
+          setProfileImg(res.data['profileUrl']);
+          setProfileEmail(res.data['email']);
+        })
+        .catch((err) => {
+          console.log("🧨상단 프로필 조회 실패", err);
+        })
+  },[user])
+
   // 게시한 영상 목록 불러오기
   useEffect(() => {
     axios
@@ -148,6 +167,18 @@ const MyPage = () => {
         })
   },[user, videosPage]);
 
+
+  // 프로필 이미지 바꾸기
+  const onChangeProfileImg = (e) => {
+    const newImg = e.target.files[0];
+    // console.log(newImg);
+    const reader = new FileReader();
+    reader.readAsDataURL(newImg);
+    reader.onload = () => {
+      setProfileImg(reader.result);
+    }
+  };
+
   // 탈퇴하기
   const onDelete = () => {
     const content =
@@ -196,7 +227,7 @@ const MyPage = () => {
                 <img src={profileImg} alt="사용자 프로필 이미지" />
                 <IoCameraReverse id="camera" size="1.8em"/>
                 <label htmlFor="img-edit" title="프로필 이미지 변경"/>
-                <input id="img-edit" type="file" accept="image/*" style={{display: "none"}}/>
+                <input id="img-edit" type="file" accept="image/*" onChange={onChangeProfileImg} style={{display: "none"}}/>
               </ImgWrapper>
               <RightWrapper>
                 <Nickname>
