@@ -17,7 +17,7 @@ const AddVideoToPlaylistModal = ({videoId, show, setShow}) => {
   /* TODO 등록 처리 필요 */
   const [playList, setPlayList] = useState([]);
   const [selectedPlayListId, setSelectedPlayListId] = useState([]);
-  const [addNewPly, setAddNewPly] = useState(false);
+  const [showAddNewPly, setShowAddNewPly] = useState(false);
 
 
   // 사용자 플레이리스트 조회(TODO 코드 중복)
@@ -72,15 +72,14 @@ const AddVideoToPlaylistModal = ({videoId, show, setShow}) => {
         })
         .then((res) => {
           console.log("👍플레이리스트에 영상 추가 성공", res);
-          if(res.status === 201)
-            alert(`${selected.name}에 영상을 추가하였습니다.`);
-          else if(res.status === 403)
-            alert("권한이 없습니다.");
-          else if(res.status === 409) /* TODO 작동 안됨 수정 필요*/
-            alert(`이미 ${selected.name}에 영상이 있습니다.`);
+          alert(`${selected.name}에 영상을 추가하였습니다.`);
         })
         .catch((err) => {
           console.log("🧨플레이리스트에 영상 추가 실패", err);
+          if(err.status === 403)
+            alert("권한이 없습니다.");
+          else if(err.status === 409)
+            alert(`이미 ${selected.name}에 영상이 있습니다.`);
         })
   }
 
@@ -96,18 +95,16 @@ const AddVideoToPlaylistModal = ({videoId, show, setShow}) => {
         })
         .then((res) => {
           console.log("👍플레이리스트 공개/비공개 수정 성공");
-          if(res.status === 200) {
-            prop.target.parentNode.classList.toggle('active');
-            Target.classList.toggle('active');
-            // console.log(prop.target.parentNode.classList)
-            // console.log(Target);
-            if(Target.innerText === "비공개") Target.innerText = "공개";
-            else Target.innerText = "비공개";
-          }
-          else if(res.status === 403) alert("수정 권한이 없습니다.");  // TODO
+          prop.target.parentNode.classList.toggle('active');
+          Target.classList.toggle('active');
+          // console.log(prop.target.parentNode.classList)
+          // console.log(Target);
+          if(Target.innerText === "비공개") Target.innerText = "공개";
+          else Target.innerText = "비공개";
         })
         .catch((err) => {
           console.log("🧨플레이리스트 공개/비공개 수정 실패", err);
+          if(err.status === 403) alert("수정 권한이 없습니다.");
         })
   }
 
@@ -154,11 +151,11 @@ const AddVideoToPlaylistModal = ({videoId, show, setShow}) => {
           {PlayList}
         </ToggleScrollWrapper>
         <div style={{alignSelf: "center"}}>
-          {addNewPly
+          {showAddNewPly
               ?
-              <NewPlaylistModal show={addNewPly} setAddNewPly={setAddNewPly}/>
+              <NewPlaylistModal show={showAddNewPly} setShow={setShowAddNewPly}/>
               :
-              <AddNewPlyBtn onClick={() => setAddNewPly(prev => !prev)}>
+              <AddNewPlyBtn onClick={() => setShowAddNewPly(prev => !prev)}>
                 새 플레이리스트 만들기
               </AddNewPlyBtn>
           }
