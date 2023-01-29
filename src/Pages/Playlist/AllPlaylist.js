@@ -103,7 +103,9 @@ const AllPlaylist = () => {
         <Wrapper>
           <TopWrapper>
             <MainLogo src={Ply_main} alt="플레이리스트 게시판"/>
-            <NewPost onClick={() => setShowAddNewPlyModal(prev => !prev)}>새 플레이리스트 만들기</NewPost>
+            <NewPost onClick={() => setShowAddNewPlyModal(prev => !prev)} baord="playlist">
+              새 플레이리스트 만들기
+            </NewPost>
             {showAddNewPlyModal &&
               <NewPlaylistModal show={showAddNewPlyModal} setShow={setShowAddNewPlyModal}/>
             }
@@ -112,7 +114,7 @@ const AllPlaylist = () => {
             {(page===0) &&
                 <>
                   <HOT>HOT</HOT>
-                  <VideoList >
+                  <VideoList>
                     {bestPlaylist.map((bestPly, idx) => {
                       return <OnePly ply={bestPly} best={idx+1}/>;
                     })}

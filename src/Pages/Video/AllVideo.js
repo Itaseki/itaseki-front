@@ -13,12 +13,11 @@ import {
   SortBox,
   VideoList,
   VideoListWrapper,
-  Wrapper,
+  Wrapper, TopWrapper, NewPost, MainBox, HOT,
 } from "../../Style/Video";
 import StyledBtn from "../../Style/StyledBtn";
 // Aseets
-import TV from '../../Assets/Best_Video_TV.png';
-import Add_New_Video from "../../Assets/Add_new_video.png";
+import Video_main from "../../Assets/Video_main.png"
 
 const AllVideo = () => {
 
@@ -100,51 +99,51 @@ const AllVideo = () => {
   return (
       <div>
         <Header />
-        <img
-            src={Add_New_Video}
-            alt="새 영상글 쓰기"
-            style={{display: "block", marginLeft: "auto", marginRight: "200px", cursor: "pointer"}}
-            onClick={() => navigate("/addvideo")}
-        />
         <Wrapper>
-          {(page===0) &&
-              <VideoListWrapper>
-                <MainLogo src={TV} alt="Best Videos" />
-                <VideoList style={{marginTop: "5%"}}>
-                  {bestVideos.map((bestVideo) => {
-                    return <OneVideo video={bestVideo}/>
-                  })}
-                </VideoList>
-                <Line />
-              </VideoListWrapper>
-          }
-          <VideoListWrapper>
+          <TopWrapper>
+            <MainLogo src={Video_main} alt="영상 게시판" />
+            <NewPost onClick={() => navigate("/addvideo")} board="video">
+              새 영상 올리기
+            </NewPost>
+          </TopWrapper>
+          <MainBox>
+            {(page===0) &&
+                <>
+                  <HOT>HOT</HOT>
+                  <VideoList>
+                    {bestVideos.map((bestVideo, idx) => {
+                      return <OneVideo video={bestVideo} best={idx+1}/>
+                    })}
+                  </VideoList>
+                  <Line />
+                </>
+            }
             <VideoList>
               {videos.map((video) => {
-                return <OneVideo video={video}/>
+                return <OneVideo video={video} best={false}/>
               })}
             </VideoList>
-          </VideoListWrapper>
-          <SortBox>
-            <StyledBtn
-                id="sort-btn"
-                style={{ fontSize: "10px", marginRight: 4, left: "876px"}}
-                onClick={onClickSortNewest}
-            >
-              최신순
-            </StyledBtn>
-            <p>|</p>
-            <StyledBtn
-                id="sort-btn"
-                style={{ fontSize: "10px", marginRight: 4, left: "941px"}}
-                onClick={onClickSortLike}
-            >
-              좋아요순
-            </StyledBtn>
-          </SortBox>
-          {/*페이지네이션*/}
-          <Pagination pages={pages} setPages={setPages} setPage={setPage} totalPageCount={totalPageCount} />
-        </Wrapper>
+            <SortBox>
+              <StyledBtn
+                  id="sort-btn"
+                  style={{ fontSize: "10px", marginRight: 4, left: "876px"}}
+                  onClick={onClickSortNewest}
+              >
+                최신순
+              </StyledBtn>
+              <p>|</p>
+              <StyledBtn
+                  id="sort-btn"
+                  style={{ fontSize: "10px", marginRight: 4, left: "941px"}}
+                  onClick={onClickSortLike}
+              >
+                좋아요순
+              </StyledBtn>
+            </SortBox>
+            {/*페이지네이션*/}
+            <Pagination pages={pages} setPages={setPages} page={page} setPage={setPage} totalPageCount={totalPageCount} />
+          </MainBox>
+          </Wrapper>
       </div>
   )
 }

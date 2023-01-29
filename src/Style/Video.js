@@ -5,7 +5,7 @@ import {light} from "./Color"
 //================================AddNewVideo====================================
 export const PreInform = styled.div`
   width: 65%;
-  margin: 2% auto;
+  margin: 100px auto 0;
   border: 4px dashed #000000;
   border-radius: 30px;
   background-color: white;
@@ -221,7 +221,7 @@ export const NewPost = styled(StyledBtn)`
   width: 230px;
   height: 50px;
   
-  background: #E8CDCD;
+  background: ${props => props.board === "video" ? "#D7E0E4" : "#E8CDCD"};
   border: 2px solid #000000;
   box-shadow: 5px -5px 0px #000000;
 
@@ -229,6 +229,10 @@ export const NewPost = styled(StyledBtn)`
   font-size: 18px;
   line-height: 23px;
   letter-spacing: -0.02em;
+  
+  :active, :hover {
+    background: ${props => props.board === "video" ? "#82AFC8" : "#E4AFAF"};
+  }
 `
 
 export const MainBox = styled.div`
@@ -286,7 +290,7 @@ export const VideoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 2% 0;
+  margin: 20px 0;
 `
 
 export const TitleUploader = styled.div`
@@ -296,16 +300,27 @@ export const TitleUploader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 2px 0;
+  
   & > #title{
-    font-weight: 600;
-    font-size: 18px;
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.02em;
+    
     :hover{
       cursor: default;
     }
   }
   & > #uploader{
-    font-size: 12px;
-    //color: #505050;
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.02em;
+    color: #505050;
   }
 `
 
@@ -316,21 +331,26 @@ export const IFrame = styled.div`
 `
 
 export const VideoDetailInfo = styled.div`
-  width: 45%;
+  width: 720px;
   margin: 2% 0;
+  
+  font-family: 'EF_Diary';
+  letter-spacing: -0.02em;
+
   & #head{
-    font-style: normal;
-    font-weight: 600;
     font-size: 32px;
     line-height: 38px;
   }
-  & #line1{
+`
+
+export const InfoContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  height: 140px;
+  
+  & > #left-line {
     border-left: thick dashed black;
-    height: 140px;
-  }
-  & #line2{
-    border: solid black;
-    border-width: medium 0 0 0;
+    height: 100%;
   }
 `
 
@@ -339,6 +359,11 @@ export const Infos = styled.div`
   flex-direction: column;
   justify-content: space-around;
   margin-left: 10px;
+  
+  & > #line {
+    border: solid black;
+    border-width: medium 0 0 0;
+  }
 `
 
 export const AInfo = styled.div`
@@ -347,7 +372,6 @@ export const AInfo = styled.div`
     width: 75px;
     margin-right: 100px;
     font-size: 18px;
-    font-weight: 600;
     color: ${light.colors.mainColor};
   }
   & > #value{

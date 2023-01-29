@@ -20,8 +20,9 @@ import {
 import StyledBtn from "../../Style/StyledBtn";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart} from "@fortawesome/free-solid-svg-icons";
-import {AInfo, IFrame, Infos, TitleUploader, VideoDetailInfo, VideoWrapper} from "../../Style/Video";
+import {AInfo, IFrame, InfoContent, Infos, TitleUploader, VideoDetailInfo, VideoWrapper} from "../../Style/Video";
 import {light} from "../../Style/Color";
+import {StyledDivRow} from "../../Style/StyledDiv";
 
 const VideoDetail = () => {
   const videoId = useParams().id;
@@ -173,28 +174,34 @@ const VideoDetail = () => {
               <div id="title" title={video.videoTitle}>
                 {(video.videoTitle.length < 15) ? video.videoTitle : video.videoTitle.substring(0, 15)+" .."}
               </div>
-              <div id="uploader">{video.videoUploader}</div>
+              <div id="uploader">
+                {video.videoUploader}
+              </div>
             </TitleUploader>
             <IFrame>
               <YoutubeIframe url={video.url} width="720" height="405"/>
             </IFrame>
-            <a href={video.url} target="_blank" style={{color: "gray"}}>{video.url}</a>
+            <a href={video.url} target="_blank" style={{color: "gray"}}>
+              {video.url}
+            </a>
           </VideoWrapper>
           <VideoDetailInfo>
-            <p id="head">영상 정보</p>
-            <div style={{display: "flex", flexDirection: "row"}}>
-              <div id="line1"/>
+            <p id="head">
+              영상 정보
+            </p>
+            <InfoContent>
+              <div id="left-line"/>
               <Infos>
                 <AInfo>
                   <div id="key">시리즈</div>
                   <div id="value">{video.series}</div>
                 </AInfo>
-                <div id="line2"/>
+                <div id="line"/>
                 <AInfo>
                   <div id="key">회차</div>
                   <div id="value">{video.episode}{video.episode? "회" : ""}</div>
                 </AInfo>
-                <div id="line2"/>
+                <div id="line"/>
                 <AInfo>
                   <div id="key">해시태그</div>
                   {video.hashtags.map((tag) => {
@@ -204,11 +211,11 @@ const VideoDetail = () => {
                   })}
                 </AInfo>
               </Infos>
-            </div>
+            </InfoContent>
           </VideoDetailInfo>
           <AdditionalBtns>
             <AButton onClick={() => navigate("/reservation")}>달리기 예약</AButton>
-            <AButton style={{borderWidth: "4px"}} onClick={onClickLike}>좋아요</AButton>
+            <AButton onClick={onClickLike}>좋아요</AButton>
             <AButton onClick={onClickReport}>신고하기</AButton>
           </AdditionalBtns>
           <CommentList commentCount={video.commentCount} commentList={comments} board={"video"} boardId={videoId} />
