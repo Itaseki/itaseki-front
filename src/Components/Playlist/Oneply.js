@@ -15,7 +15,6 @@ import Ply_preview from "../../Assets/Ply_preview.png";
 
 // 플레이리스트 한개
 const OnePly = ({ply, best}) => {
-  const colors = light.colors;
   const navigate = useNavigate();
 
 
@@ -111,7 +110,6 @@ const Rank = styled.p`
   margin: 0 5px;
 
   color: ${light.colors.mainColor};
-
 `
 
 const PlyInfo = styled.div`
@@ -137,6 +135,7 @@ const TopInfo = styled.div`
 const BottomInfo = styled.div`
   font-size: small;
   font-family: 'EF_Diary';
+  color: #858585;
   & > #line {
     margin: 0 10px;
   }
