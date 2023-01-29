@@ -15,7 +15,7 @@ export const Modal = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  z-index: 5;
+  z-index: 2;
   display: flex;
   padding-top: 2%;
   flex-direction: column;
@@ -28,7 +28,7 @@ export const VideoList = styled.ul`
   width: 393px;
   text-align: start;
   padding-left: 10px;
-  z-index: 10px;
+  z-index: 2;
   background-color: white;
   margin: 0;
   position: absolute;

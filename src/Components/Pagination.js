@@ -3,8 +3,9 @@ import StyledBtn from "../Style/StyledBtn";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretLeft, faCaretRight} from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+import {light} from "../Style/Color";
 
-const Pagination = ({pages, setPages, setPage, totalPageCount}) => {
+const Pagination = ({pages, setPages, page, setPage, totalPageCount}) => {
 
   const [showGoLeftPages, setShowGoLeftPages] = useState(false);
   const [showGoRightPages, setShowGoRightPages] = useState(true);
@@ -52,11 +53,19 @@ const Pagination = ({pages, setPages, setPage, totalPageCount}) => {
   };
 
   // 페이지 번호
-  const showPages = pages.map((page) => {
+  const showPages = pages.map((p) => {
     return (
-        <PageNum onClick={onClickPage}>
-          {page}
-        </PageNum>
+        <>
+          {page === p-1 ? (
+              <PageNum onClick={onClickPage} style={{color: light.colors.mainColor}}>
+                {p}
+              </PageNum>
+          ) : (
+              <PageNum onClick={onClickPage}>
+                {p}
+              </PageNum>
+          )}
+        </>
     )
   });
 
@@ -96,6 +105,7 @@ export const PaginationWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 `
 
 export const Pages = styled.div`

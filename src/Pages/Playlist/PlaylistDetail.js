@@ -6,9 +6,9 @@ import preURL from "../../preURL/preURL";
 import Token from "../../Components/Token";
 import Header from "../../Components/Header";
 import CommentList from "../../Components/Comment/CommentList";
-import {PlaylistHeader} from "./AllPlaylist";
 import AddVideoToPlaylistModal from "../../Components/Playlist/AddVideoToPlaylistModal";
 import SavePlyModal from "../../Components/Playlist/SavePlyModal";
+import {timeStamp} from "../../Components/TimeStamp";
 // Style
 import {AButton, AdditionalBtns, DetailInfo, DetailTitle, TitleWrapper, Wrapper} from "../../Style/Community";
 import StyledBtn from "../../Style/StyledBtn";
@@ -25,14 +25,12 @@ import {
 } from "../../Style/Playlist";
 // Assets
 import Dot3_btn from "../../Assets/Dot3_btn.png";
-
-
+import {StyledDivRow} from "../../Style/StyledDiv";
 
 const PlaylistDetail = () => {
-  const token = Token();
-  const navigate = useNavigate();
-
   const plyId = useParams().id;
+  const navigate = useNavigate();
+  const token = Token();
 
   const [likeCount, setLikeCount] = useState(0);
   const [playlist, setPlaylist] = useState({
@@ -61,7 +59,7 @@ const PlaylistDetail = () => {
     axios
         .get(preURL.preURL + `/boards/playlist/${plyId}`, {
           headers: {
-            'itasekki': token
+            'ITTASEKKI': token
           }
         })
         .then((res) => {
@@ -82,7 +80,7 @@ const PlaylistDetail = () => {
       axios
           .delete(preURL.preURL + `/boards/playlist/${plyId}`,{
             headers: {
-              'itasekki': token
+              'ITTASEKKI': token
             }
           })
           .then(() => {
@@ -98,16 +96,24 @@ const PlaylistDetail = () => {
 
   // 플리 저장하기
   const onClickSave = () => {
-    console.log("플레이리스트 저장하기 모달창");
+    // console.log("플레이리스트 저장하기 모달창");
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     setSavePlyModalDisplay(prev => !prev);
   }
 
   // 플리 좋아요
   const onClickLike = () => {
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     axios
         .post(preURL.preURL + `/boards/playlist/${plyId}/likes`,[], {
           headers: {
-            'itasekki': token
+            'ITTASEKKI': token
           }
         })
         .then((res) => {
@@ -121,10 +127,16 @@ const PlaylistDetail = () => {
 
   // 플리 신고
   const onClickReport = () => {
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
+    const report = window.confirm('이 플레이리스트를 신고하시겠습니까?');
+    if(!report) return;
     axios
         .post(preURL.preURL + `/boards/playlist/${plyId}/reports`,[],{
           headers: {
-            'itasekki': token
+            'ITTASEKKI': token
           }
         })
         .then((res) => {
@@ -147,12 +159,17 @@ const PlaylistDetail = () => {
   let cnt = 0;
 
   // 영상 리스트
-  const Videos = (playlist.videos).map((video) => {
-    const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
-
+  const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);
+  const [clickedVideoId, setClickedVideoId] = useState(-1);
+  const Videos = (playlist.videos).map((video, id) => {
     // 플레이리스트에 영상 담기
     const onClickAddtoPly = () => {
-      console.log("플레이리스트에 영상 담기 버튼 클릭");
+      // console.log("플레이리스트에 영상 담기 버튼 클릭");
+      if(!token) {
+        alert('로그인 후 이용해 주세요.');
+        return;
+      }
+      setClickedVideoId(id);
       setPlayListToggleDisplay(prev => !prev);
     };
 
@@ -163,23 +180,23 @@ const PlaylistDetail = () => {
             <img src={video.thumbnailUrl} alt="썸네일"/>
           </VideoContainer>
           <PlyVideoInfo>
-            <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-                          <span id="title" onClick={()=>navigate(`/videolist/${video.id}`)}>
-                            {video.title}
-                          </span>
+            <StyledDivRow>
+              <span id="title" onClick={()=>navigate(`/videolist/${video.id}`)}>
+                {video.title}
+              </span>
               <img
                   src={Dot3_btn}
                   alt="플레이리스트에 담기 버튼"
                   onClick={onClickAddtoPly}
               />
-              {playListToggleDisplay &&
+              {clickedVideoId === id &&
                   <AddVideoToPlaylistModal
                       videoId={video.id}
                       show={playListToggleDisplay}
                       setShow={setPlayListToggleDisplay}
                   />
               }
-            </div>
+            </StyledDivRow>
             <span>{video.videoUploader}</span>
             <span>{video.runtime}</span>
           </PlyVideoInfo>
@@ -189,9 +206,8 @@ const PlaylistDetail = () => {
 
 
   return (
-      <div>
+      <>
         <Header />
-        <PlaylistHeader />
         <Wrapper>
           <TitleWrapper>
             <DetailTitle>
@@ -203,7 +219,7 @@ const PlaylistDetail = () => {
             <DetailInfo>
               <p style={{color: light.colors.mainColor}}>{playlist.writerNickname}</p>
               <p>|</p>
-              <p>{playlist.createdTime}</p>
+              <p>{timeStamp(playlist.createdTime)}</p>
               <p>|</p>
               <p>조회 {playlist.viewCount}</p>
               <p>|</p>
@@ -220,15 +236,15 @@ const PlaylistDetail = () => {
               {Videos}
             </VideosWrapper>
           </PlaylistWrapper>
-          <AdditionalBtns style={{alignItems: "flex-end"}}>
+          <AdditionalBtns>
             <SavePlyModal plyId={plyId} show={savePlyModalDisplay} setShow={setSavePlyModalDisplay} />
             <AButton onClick={onClickSave}>저장하기</AButton>
-            <AButton style={{borderWidth: "4px"}} onClick={onClickLike}>좋아요</AButton>
+            <AButton onClick={onClickLike}>좋아요</AButton>
             <AButton onClick={onClickReport}>신고하기</AButton>
           </AdditionalBtns>
-          <CommentList commentCount={playlist.commentCount} commentList={playlist.comments} board={"video"} boardId={plyId} />
+          <CommentList commentCount={playlist.commentCount} commentList={playlist.comments} board="playlist" boardId={plyId} />
         </Wrapper>
-      </div>
+      </>
   )
 
 }

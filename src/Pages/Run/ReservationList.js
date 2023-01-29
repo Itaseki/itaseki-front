@@ -2,29 +2,23 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import preURL from "../../preURL/preURL";
 import axios from "axios";
-import StyledBtn from "../../Style/StyledBtn";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { light } from "../../Style/Color";
-import TodayPopVids from "./TodayPopVids";
+import { faCarrot, faCheck } from "@fortawesome/free-solid-svg-icons";
 import {
-  NothingContainer,
-  NextVideoContainer,
+  GuideBtn,
+  NextVideo,
+  NextVidTimeBox,
+  NextVidTitleBox,
+  ReservBtn,
   WhiteText,
   Wrapper,
 } from "../../Style/ReservationList";
 
 // assets
-import Guide from "../../Assets/Guide.png";
-import Line1 from "../../Assets/Line1.png";
-import Enter from "../../Assets/Enter.png";
-import Line2 from "../../Assets/Line2.png";
-import Line3 from "../../Assets/Line3.png";
-import Best_Video from "../../Assets/Best_Video.png";
-import Line4 from "../../Assets/Line4.png";
+import Temp from "../../Assets/Temp_gif.png";
+
 import { Link } from "react-router-dom";
 import { NextVidTest, PopVidsTest } from "../../TestData/ReservTest";
-
-const color = light.colors;
+import { StyledDivColumn, StyledDivRow } from "../../Style/StyledDiv";
 
 const ReservationListWrapper = (props) => {
   const [next, setNext] = useState(true);
@@ -39,13 +33,13 @@ const ReservationListWrapper = (props) => {
   // }
 
   useEffect(() => {
-    nextVideo();
+    getNextVideo();
     // NextVideo();
     console.log("================[ReservationList]================");
   }, []);
 
   // 다음 달리기 영상 조회
-  const nextVideo = () => {
+  const getNextVideo = () => {
     axios
       .get(preURL.preURL + "/run/reservations/next")
       .then((res) => {
@@ -64,7 +58,7 @@ const ReservationListWrapper = (props) => {
   };
 
   // 시간 계산
-  function NextVideo() {
+  function Time() {
     let now = new Date();
 
     let hour = parseInt(nextData.startTime.substring(0, 2));
@@ -90,7 +84,7 @@ const ReservationListWrapper = (props) => {
       setHourLeft(false);
     }
     return (
-      <NextVideoContainer>
+      <NextVideo>
         {!hourLeft ? (
           // 예약 시간까지 한 시간도 안 남았을 경우
           <WhiteText>
@@ -111,98 +105,43 @@ const ReservationListWrapper = (props) => {
           }}
         />
         <WhiteText style={{ color: "red" }}>{nextData.Long}</WhiteText>
-      </NextVideoContainer>
+      </NextVideo>
     );
   }
 
   return (
     <Wrapper>
-      <StyledBtn onClick={() => props.setGuidePop(true)}>
-        <img
-          src={Guide}
-          alt="guide"
+      {/* <StyledBtn onClick={() => props.setGuidePop(true)} /> */}
+      <StyledDivRow
+        style={{ padding: "10% 10% 0 5%", justifyContent: "space-between" }}
+      >
+        <StyledDivColumn
           style={{
-            height: 85,
-            width: 98,
-            position: "absolute",
-            left: 297,
-            top: 214,
+            heigh: "100%",
+            width: 479,
+            alignItems: "center",
+            paddingBottom: "12%",
           }}
-        />
-      </StyledBtn>
-      <img
-        src={Line1}
-        alt="line1"
-        style={{ width: 13, position: "absolute", left: 395, top: 259 }}
-      />
-      <Link to="/running">
-        <img
-          src={Enter}
-          alt="enter"
-          style={{
-            height: 56,
-            width: 190,
-            position: "absolute",
-            left: 408,
-            top: 228,
-          }}
-        />
-      </Link>
-      <img
-        src={Line2}
-        alt="line2"
-        style={{ width: 172, position: "absolute", left: 598, top: 259 }}
-      />
-      {next ? (
-        // NextVideo()
-        <></>
-      ) : (
-        <NothingContainer>
-          <p style={{ fontSize: 14, fontWeight: "bold", color: "white" }}>
-            영상을 예약해보세요
-          </p>
-        </NothingContainer>
-      )}
-      <img
-        src={Line3}
-        alt="line3"
-        style={{ position: "absolute", left: 732, top: 369 }}
-      />
-      <img
-        src={Line3}
-        alt="line3"
-        style={{ position: "absolute", left: 732, top: 563 }}
-      />
-      <img
-        src={Best_Video}
-        alt="line4"
-        style={{
-          height: 450,
-          width: 445,
-          position: "absolute",
-          left: 767,
-          top: 163,
-        }}
-      />
-      <img
-        src={Line4}
-        alt="line4"
-        style={{
-          height: 120,
-          width: 19,
-          position: "absolute",
-          left: 1010,
-          top: 604,
-        }}
-      />
-      {/* <FontAwesomeIcon
-        icon={faCheck}
-        style={{
-          fontSize: 14,
-          color: "#532A6B",
-        }}
-      /> */}
-      <TodayPopVids />
+        >
+          <GuideBtn />
+          <NextVidTimeBox>00분 00초 후 달릴 영상</NextVidTimeBox>
+          <ReservBtn>
+            예약
+            <FontAwesomeIcon
+              icon={faCarrot}
+              style={{ fontSize: "150%", marginLeft: 10, marginRight: 5 }}
+            />
+            5
+          </ReservBtn>
+        </StyledDivColumn>
+        <StyledDivColumn>
+          <NextVideo src={Temp} />
+          <NextVidTitleBox>
+            <span>제목</span>
+            <span>시간</span>
+          </NextVidTitleBox>
+        </StyledDivColumn>
+      </StyledDivRow>
     </Wrapper>
   );
 };

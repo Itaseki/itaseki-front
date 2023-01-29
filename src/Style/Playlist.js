@@ -14,23 +14,6 @@ export const TopBtns = styled.div`
   }
 `
 
-export const MainLogo = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-`
-
-export const FourListWrapper = styled.div`
-  width: 100%;
-`
-
-export const FourList = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin: 2% 0;
-`
-
 ////////////////////// SubscribedPly ////////////////////////
 export const ListWrapper = styled.div`
   width: 100%;
@@ -56,23 +39,11 @@ export const AccountName = styled.div`
   font-weight: bold;
 `
 
-export const OneAccountPlysWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2%;
-`
-
-export const FourPlysWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`
-
 /////////////////////////// Playlistdetail //////////////////////////
 export const PlaylistWrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin: 20px 0;
-  padding: 20px;
   width: 60%;
   & > #line {
     border-left: 4px dashed black;
@@ -87,40 +58,62 @@ export const VideosWrapper = styled.div`
 export const OneVideoInPly = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 10px;
+  margin: 2%;
   cursor: pointer;
 `
 
 export const VideoNum = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 0 10px 0 5px;
   align-items: center;
+  
+  margin-right: 2%;
+  
+  font-family: 'EF_Diary';
+  font-size: 23px;
+  line-height: 27px;
+  text-align: center;
+  letter-spacing: -0.02em;
   font-weight: bold;
 `
 
 // 영상 썸네일
 export const VideoContainer = styled.div`
-  width: 336px;
-  height: 189px;
+  width: 320px;
+  height: 180px;
   background: gray;
   cursor: pointer;
   & > img{
-    width: 336px;
-    height: 189px;
+    width: 320px;
+    height: 180px;
+    object-fit: cover;
   }
 `
 
 export const PlyVideoInfo = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 10px;
-  & > span{
-    font-size: small;
-  }
+  margin: 0 2%;
+  
   & #title{
-    font-size: large;
-    font-weight: bold;
-    margin-right: 5px;
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.02em;
+
+    margin: 0 2% 2% 0;
+  }
+
+  & > span{
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.02em;
+    
+    margin: 3px 0;
   }
 `

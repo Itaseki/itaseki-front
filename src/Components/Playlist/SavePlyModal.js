@@ -1,29 +1,31 @@
-import React, {useEffect, useState} from "react";
-import {AutoFrame, OneSelectItemWrapper, ToggleScrollWrapper} from "../../Style/Video";
-import {XButton} from "./AddVideoToPlaylistModal";
-import styled from "styled-components";
-import StyledBtn from "../../Style/StyledBtn";
+import React, {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
-import {SwitchBtnLabel} from "./NewPlaylistModal";
+import {UserContext} from "../../_contextAPI/UserContext";
 import Token from "../Token";
-
-
-const token = Token();
+// Style
+import styled from "styled-components";
+import StyledBtn from "../../Style/StyledBtn";
+import {AutoFrame, OneSelectItemWrapper, ToggleScrollWrapper} from "../../Style/Video";
+import {XButton} from "./AddVideoToPlaylistModal";
+import {SwitchBtnLabel} from "./NewPlaylistModal";
 
 const SavePlyModal = ({plyId, show, setShow}) => {
+  const token = Token();
+
+  const [user, setUser] = useContext(UserContext);
   const [myPlayListResponse, setMyPlayListResponse] = useState([]); // 내 플레이리스트 목록
   const [storedResponse, setStoredResponse] = useState([]); // 저장한 플레이리스트 목록
 
 
-  // 사용자 플레이리스트 조회(코드 중복)
+  // 사용자 플레이리스트 조회(TODO 코드 중복)
   useEffect(() => {
     axios
-        .get(preURL.preURL + `/boards/playlist/user/${1}`, {
+        .get(preURL.preURL + `/boards/playlist/user/${user.id}`, {
           headers: {
-            'itasekki': token
+            'ITTASEKKI': token
           }
-        })  /*사용자 id*/
+        })
         .then((res) => {
           setMyPlayListResponse(res.data);
           console.log("👍내 플레이리스트 조회 성공", res.data);
@@ -38,7 +40,7 @@ const SavePlyModal = ({plyId, show, setShow}) => {
     axios
         .get(preURL.preURL + '/boards/playlist/saved', {
           headers: {
-            'itasekki': token
+            'ITTASEKKI': token
           }
         })
         .then((res) => {
@@ -52,22 +54,26 @@ const SavePlyModal = ({plyId, show, setShow}) => {
 
   // 플레이리스트 저장하기
   const onClickSavePly = () => {
+    if(!token) {
+      alert('로그인 후 이용해주세요.');
+      return;
+    }
     axios
         .post(preURL.preURL + '/boards/playlist/saved', {
           playlistId: plyId
         },{
           headers: {
-            'itasekki': token
+            'ITTASEKKI': token
           }
         })
         .then((res) => {
           console.log("👍플레이리스트 저장 성공", res);
-          if(res.status === 201)
-            alert("플레이리스트를 저장하였습니다.");
-          else alert("이미 저장한 플레이리스트입니다.");
+          alert("플레이리스트를 저장하였습니다.");
+          window.location.reload();
         })
         .catch((err) => {
           console.log("🧨플레이리스트 저장 실패", err);
+          if(err.status === 409) alert("이미 저장한 플레이리스트입니다.");
         })
   }
 
@@ -78,26 +84,28 @@ const SavePlyModal = ({plyId, show, setShow}) => {
       setShow(prev => !prev)
   };
 
-  // 플레이리스트 공개/비공개(코드 중복)
+  // 플레이리스트 공개/비공개(TODO 코드 중복)
   const onClickPublic = (prop) => {
     const Target = prop.target;
     const id = Target.id;
     axios
-        .patch(preURL.preURL + `/boards/playlist/${id}`)
+        .patch(preURL.preURL + `/boards/playlist/${id}`,{},{
+          headers: {
+            'ITTASEKKI': token
+          }
+        })
         .then((res) => {
           console.log("👍플레이리스트 공개/비공개 수정 성공");
-          if(res.status === 200) {
-            prop.target.parentNode.classList.toggle('active');
-            Target.classList.toggle('active');
-            // console.log(prop.target.parentNode.classList)
-            // console.log(Target);
-            if(Target.innerText === "비공개") Target.innerText = "공개";
-            else Target.innerText = "비공개";
-          }
-          else if(res.status === 403) alert("수정 권한이 없습니다.");
+          prop.target.parentNode.classList.toggle('active');
+          Target.classList.toggle('active');
+          // console.log(prop.target.parentNode.classList)
+          // console.log(Target);
+          if(Target.innerText === "비공개") Target.innerText = "공개";
+          else Target.innerText = "비공개";
         })
         .catch((err) => {
           console.log("🧨플레이리스트 공개/비공개 수정 실패", err);
+          if(err.status === 403) alert("수정 권한이 없습니다.");
         })
   }
 

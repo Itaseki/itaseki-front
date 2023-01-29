@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 // Components
 import AddVideoToPlaylistModal from "../Playlist/AddVideoToPlaylistModal";
+import Token from "../Token";
 // Style
 import styled from "styled-components";
 import StyledBtn from "../../Style/StyledBtn";
@@ -11,17 +12,20 @@ import {light} from "../../Style/Color";
 // Assets
 import PlayListIcon from "../../Assets/Playlist_mini.png";
 
-
 const OneVideo = ({video}) => {
-
   const videoId = video.id;
   const navigate = useNavigate();
+  const token = Token();
 
   const [playListToggleDisplay, setPlayListToggleDisplay] = useState(false);  // 플레이리스트 모달창 보이기
   const [clickedPlyId, setClickedPlyId] = useState(-1); // 클릭한 플레이리스트 아이콘 id
 
-// 플레이리스트에 추가하기 아이콘 클릭
+  // 플레이리스트에 추가하기 아이콘 클릭
   const onClickAddToPlaylist = (e) => {
+    if(!token) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     console.log("플레이리스트에 추가", e);
     const clicked = parseInt(e.target.id);
     setClickedPlyId(clicked);
@@ -30,12 +34,12 @@ const OneVideo = ({video}) => {
 
   return (
       <OneVideoWrapper>
-        <VideoContainer onClick={()=>navigate(`/videolist/${videoId}`)}>
+        <VideoContainer onClick={()=>navigate(`/video/${videoId}`)}>
           <img src={video.thumbnailUrl} alt="썸네일" />
         </VideoContainer>
         <div>
           <VideoInfo>
-              <span id="title" onClick={()=>navigate(`/videolist/${videoId}`)}>
+              <span id="title" onClick={()=>navigate(`/video/${videoId}`)}>
                 {video.title}
               </span>
             <div id="info-right">
@@ -63,7 +67,7 @@ const OneVideo = ({video}) => {
               }
             </div>
           </VideoInfo>
-          <span style={{fontSize: "small", color: light.colors.lightGray}}>
+          <span style={{fontSize: "small", color: "gray"}}>
             {video.writerNickname}
           </span>
         </div>
@@ -75,7 +79,7 @@ export default OneVideo;
 
 
 const OneVideoWrapper = styled.div`
-  width: 25%;
+  padding: 0 5px 5px;
 `
 
 // 영상 썸네일

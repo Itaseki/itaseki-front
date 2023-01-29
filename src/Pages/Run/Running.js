@@ -32,8 +32,6 @@ import SendingBtn from "../../Assets/Chat_Seding_btn.png";
 import Profile_Img from "../../Assets/Basic_profile.png";
 import ChatContainer from "../../Components/Chat/ChatContainer";
 
-
-
 const Running = () => {
   const navigate = useNavigate();
   const token = Token();
@@ -48,7 +46,7 @@ const Running = () => {
     axios
         .get(preURL.preURL + '/running', {
           headers: {
-            'itasekki': token,
+            'ITTASEKKI': token,
           }
         })
         .then((res) => {

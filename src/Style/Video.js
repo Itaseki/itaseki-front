@@ -186,29 +186,75 @@ export const AddVideoBtn = styled(StyledBtn)`
   }
 `
 
-//================================AllVideo====================================
+//================================AllVideo(AllPly)====================================
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 2% auto;
-  width: 70%;
+  margin: 100px auto;
+  width: 95%;
+`
+
+export const TopWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 184px;
 `
 
 export const VideoListWrapper = styled.div`
   width: 100%;
-  & > img{
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-  }
+`
+
+export const MainLogo = styled.img`
+  width: 400px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+`
+
+export const NewPost = styled(StyledBtn)`
+  box-sizing: border-box;
+
+  position: absolute;
+  right: 2%;
+  bottom: 20%;
+  width: 230px;
+  height: 50px;
+  
+  background: #E8CDCD;
+  border: 2px solid #000000;
+  box-shadow: 5px -5px 0px #000000;
+
+  font-family: 'EF_Diary';
+  font-size: 18px;
+  line-height: 23px;
+  letter-spacing: -0.02em;
+`
+
+export const MainBox = styled.div`
+  width: 90%;
+  padding: 3%;
+  
+  background: #F4F3EE;
+  border: 2px solid #000000;
+  box-shadow: 15px -15px 0px #000000;
+`
+
+export const HOT = styled.span`
+  font-family: 'EF_Diary';
+  font-size: 39px;
+  line-height: 46px;
+  letter-spacing: -0.02em;
+  -webkit-text-stroke: 3px #000000;
 `
 
 export const VideoList = styled.div`
   display: flex;
   flex-direction: row;
+  
+  flex-wrap: wrap;
   margin: 2% 0;
+  width: 100%;
 `
 
 export const Line = styled.div`
@@ -221,14 +267,21 @@ export const SortBox = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
+
+  & > #sort-btn {
+    font-family: 'EF_Diary';
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    color: rgba(0, 0, 0, 0.5);
+  }
   & p{
-    margin-right: 4px;
+    margin: 0 10px;
     font-size: 11px;
   }
 `
 
 
-//================================VideoDetail====================================
+//================================VideoDetail(PlyDetail)====================================
 export const VideoWrapper = styled.div`
   display: flex;
   flex-direction: column;
