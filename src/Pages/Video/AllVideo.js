@@ -8,7 +8,7 @@ import Pagination from "../../Components/Pagination";
 import OneVideo from "../../Components/Video/OneVideo";
 // Style
 import {
-  BestTitleLogo,
+  MainLogo,
   Line,
   SortBox,
   VideoList,
@@ -109,7 +109,7 @@ const AllVideo = () => {
         <Wrapper>
           {(page===0) &&
               <VideoListWrapper>
-                <BestTitleLogo src={TV} alt="Best Videos" />
+                <MainLogo src={TV} alt="Best Videos" />
                 <VideoList style={{marginTop: "5%"}}>
                   {bestVideos.map((bestVideo) => {
                     return <OneVideo video={bestVideo}/>

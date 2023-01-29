@@ -1,62 +1,47 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
-import {Link} from "react-router-dom";
 // Components
 import Header from "../../Components/Header";
 import Pagination from "../../Components/Pagination";
 import OnePly from "../../Components/Playlist/Oneply";
 import NewPlaylistModal from "../../Components/Playlist/NewPlaylistModal";
 // Style
-import {BestTitleLogo, Line, SortBox, VideoList, VideoListWrapper, Wrapper} from "../../Style/Video";
+import {
+  BestTitleLogo, HOT,
+  Line,
+  MainBox,
+  MainLogo,
+  NewPost,
+  SortBox, TopWrapper,
+  VideoList,
+  VideoListWrapper,
+  Wrapper
+} from "../../Style/Video";
 import {TopBtns, TopBtnsWrapper} from "../../Style/Playlist";
 import StyledBtn from "../../Style/StyledBtn";
 // Assets
-import BestPly from "../../Assets/Best_Ply.png";
-import Add_New_Ply from "../../Assets/Add_New_Ply.png";
-import Stored_Ply from "../../Assets/Stored_Ply.png";
+import Ply_main from "../../Assets/Ply_main.png";
 
-
-// 플리게시판 상단 버튼 두개
-export const PlaylistHeader = () => {
-    const [showModal, setShowModal] = useState(false);
-
-    return (
-        <TopBtnsWrapper>
-            <TopBtns>
-                <Link to="/playlist/subscribe">
-                    <img src={Stored_Ply} alt="구독 플레이리스트 보기" />
-                </Link>
-                <img
-                    src={Add_New_Ply}
-                    alt="새 플레이리스트 만들기"
-                    onClick={() => setShowModal(prev => !prev)}
-                    style={{cursor: "pointer"}}
-                />
-            </TopBtns>
-            <NewPlaylistModal show={showModal}/>
-        </TopBtnsWrapper>
-    )
-}
 
 const AllPlaylist = () => {
 
+  const [showAddNewPlyModal, setShowAddNewPlyModal] = useState(false);
+
   const [bestPlaylist, setBestPlaylist] = useState([
-    {id: 1, title: "베스트 플리1", titleImageUrl: "https://i.ytimg.com/vi/mKkYQ2OwYYg/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLB-2wmECn5003TmXqION-Nqcgahzw", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 7},
-    {id: 2, title: "베스트 플리2", titleImageUrl: "https://i.ytimg.com/vi/MRaAcIQOIIw/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLDMAXcYHT37gxseIf6CA94ICpnTuQ", writerNickname: "작성자", likeCount: 25, saveCount: 3, videoCount: 7},
-    {id: 3, title: "베스트 플리3", titleImageUrl: "https://i.ytimg.com/vi/Q2ehBSEkAzw/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLDgtPhu8WY4xOABtcCjVo5x-hgswA", writerNickname: "작성자", likeCount: 22, saveCount: 3, videoCount: 7},
-    {id: 4, title: "베스트 플리4", titleImageUrl: "https://i.ytimg.com/vi/iiIcTPoIoZk/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLAjn_R-euhMSNKaCFjJzO89A93tAA", writerNickname: "작성자", likeCount: 19, saveCount: 3, videoCount: 7}
+    // {id: 1, title: "베스트 플리1", titleImageUrl: "https://i.ytimg.com/vi/9y6pIpg3KyQ/mqdefault.jpg", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 7},
+    // {id: 2, title: "베스트 플리2", titleImageUrl: "https://i.ytimg.com/vi/9y6pIpg3KyQ/mqdefault.jpg", writerNickname: "작성자", likeCount: 25, saveCount: 3, videoCount: 7},
+    // {id: 3, title: "베스트 플리3", titleImageUrl: "https://i.ytimg.com/vi/9y6pIpg3KyQ/mqdefault.jpg", writerNickname: "작성자", likeCount: 22, saveCount: 3, videoCount: 7},
+    // {id: 4, title: "베스트 플리4", titleImageUrl: "https://i.ytimg.com/vi/9y6pIpg3KyQ/mqdefault.jpg", writerNickname: "작성자", likeCount: 19, saveCount: 3, videoCount: 7}
   ]);
 
   const [playlist, setPlaylist] = useState([
-    {id: 1, title: "플리1", titleImageUrl: "https://i.ytimg.com/vi/xhyWDLWanHE/hqdefault.jpg?s…AFwAcABBg==&rs=AOn4CLDNC541Gll7yxMs9Vcc8MWtC9gzLg", writerNickname: "작성자", likeCount: 3, saveCount: 3, videoCount: 7},
-    {id: 2, title: "플리2", titleImageUrl: "https://i.ytimg.com/vi/MRaAcIQOIIw/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLDMAXcYHT37gxseIf6CA94ICpnTuQ", writerNickname: "작성자", likeCount: 25, saveCount: 3, videoCount: 7},
-    {id: 3, title: "플리3", titleImageUrl: "https://i.ytimg.com/vi/1ktnYFMm4S0/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLBRJHJTM-_VzaapK9oCWlD8t-K8WQ", writerNickname: "작성자", likeCount: 3, saveCount: 3, videoCount: 7},
-    {id: 4, title: "플리4", titleImageUrl: "https://i.ytimg.com/vi/Q2ehBSEkAzw/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLDgtPhu8WY4xOABtcCjVo5x-hgswA", writerNickname: "작성자", likeCount: 22, saveCount: 3, videoCount: 7},
-    {id: 5, title: "플리5", titleImageUrl: "https://i.ytimg.com/vi/mKkYQ2OwYYg/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLB-2wmECn5003TmXqION-Nqcgahzw", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 7},
-    {id: 6, title: "플리6", titleImageUrl: "https://i.ytimg.com/vi/iiIcTPoIoZk/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLAjn_R-euhMSNKaCFjJzO89A93tAA", writerNickname: "작성자", likeCount: 19, saveCount: 3, videoCount: 7},
-    {id: 7, title: "플리7", titleImageUrl: "https://i.ytimg.com/vi/UfBxMDp7VTo/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLCJF-TybRxbbgYlWXiz2ARY6e-aHw", writerNickname: "작성자", likeCount: 3, saveCount: 3, videoCount: 7},
-    {id: 8, title: "플리8", titleImageUrl: "https://i.ytimg.com/vi/MzVRL5W4b1I/hqdefault.jpg?s…AFwAcABBg==&rs=AOn4CLDJ-2oHWJdsOn-YBOi9t52n0qepNw", writerNickname: "작성자", likeCount: 3, saveCount: 3, videoCount: 7}
+    // {id: 1, title: "베스트 플리1", titleImageUrl: "https://i.ytimg.com/vi/9y6pIpg3KyQ/mqdefault.jpg", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 7},
+    // {id: 2, title: "베스트 플리2", titleImageUrl: "https://i.ytimg.com/vi/9y6pIpg3KyQ/mqdefault.jpg", writerNickname: "작성자", likeCount: 25, saveCount: 3, videoCount: 7},
+    // {id: 3, title: "베스트 플리3", titleImageUrl: "https://i.ytimg.com/vi/9y6pIpg3KyQ/mqdefault.jpg", writerNickname: "작성자", likeCount: 22, saveCount: 3, videoCount: 7},
+    // {id: 4, title: "베스트 플리4", titleImageUrl: "https://i.ytimg.com/vi/9y6pIpg3KyQ/mqdefault.jpg", writerNickname: "작성자", likeCount: 19, saveCount: 3, videoCount: 7},
+    // {id: 1, title: "베스트 플리1", titleImageUrl: "https://i.ytimg.com/vi/9y6pIpg3KyQ/mqdefault.jpg", writerNickname: "작성자", likeCount: 30, saveCount: 3, videoCount: 7},
+    // {id: 4, title: "베스트 플리4", titleImageUrl: "https://i.ytimg.com/vi/9y6pIpg3KyQ/mqdefault.jpg", writerNickname: "작성자", likeCount: 19, saveCount: 3, videoCount: 7}
   ]);
   const [totalPageCount, setTotalPageCount] = useState(0);  // 총 페이지 수
   const [pages, setPages] = useState([1,2,3,4,5]);
@@ -115,44 +100,48 @@ const AllPlaylist = () => {
   return (
       <div>
         <Header />
-          <PlaylistHeader />
         <Wrapper>
-          {(page===0) &&
-              <VideoListWrapper>
-                <BestTitleLogo src={BestPly} alt="Best Playlist" />
-                <VideoList style={{marginTop: "64px"}}>
-                  {bestPlaylist.map((bestPly) => {
-                    return <OnePly ply={bestPly} />;
-                  })}
-                </VideoList>
-                <Line />
-              </VideoListWrapper>
-          }
-          <VideoListWrapper>
+          <TopWrapper>
+            <MainLogo src={Ply_main} alt="플레이리스트 게시판"/>
+            <NewPost onClick={() => setShowAddNewPlyModal(prev => !prev)}>새 플레이리스트 만들기</NewPost>
+            {showAddNewPlyModal &&
+              <NewPlaylistModal show={showAddNewPlyModal} setShow={setShowAddNewPlyModal}/>
+            }
+          </TopWrapper>
+          <MainBox>
+            {(page===0) &&
+                <>
+                  <HOT>HOT</HOT>
+                  <VideoList >
+                    {bestPlaylist.map((bestPly, idx) => {
+                      return <OnePly ply={bestPly} best={idx+1}/>;
+                    })}
+                  </VideoList>
+                  <Line />
+                </>
+            }
             <VideoList>
               {playlist.map((ply) => {
-                return <OnePly ply={ply} />
+                return <OnePly ply={ply} best={false}/>
               })}
             </VideoList>
-          </VideoListWrapper>
-          <SortBox>
-            <StyledBtn
-                id="sort-btn"
-                style={{ fontSize: "10px", marginRight: 4, left: "876px"}}
-                onClick={onClickSortNewest}
-            >
-              최신순
-            </StyledBtn>
-            <p>|</p>
-            <StyledBtn
-                id="sort-btn"
-                style={{ fontSize: "10px", marginRight: 4, left: "941px"}}
-                onClick={onClickSortLike}
-            >
-              좋아요순
-            </StyledBtn>
-          </SortBox>
-          <Pagination pages={pages} setPages={setPages} setPage={setPage} totalPageCount={totalPageCount} />
+            <SortBox>
+              <StyledBtn
+                  id="sort-btn"
+                  onClick={onClickSortNewest}
+              >
+                최신순
+              </StyledBtn>
+              <p>|</p>
+              <StyledBtn
+                  id="sort-btn"
+                  onClick={onClickSortLike}
+              >
+                좋아요순
+              </StyledBtn>
+            </SortBox>
+            <Pagination pages={pages} setPages={setPages} page={page} setPage={setPage} totalPageCount={totalPageCount} />
+          </MainBox>
         </Wrapper>
       </div>
   )

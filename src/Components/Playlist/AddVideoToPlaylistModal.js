@@ -17,7 +17,7 @@ const AddVideoToPlaylistModal = ({videoId, show, setShow}) => {
   /* TODO 등록 처리 필요 */
   const [playList, setPlayList] = useState([]);
   const [selectedPlayListId, setSelectedPlayListId] = useState([]);
-  const [addNewPly, setAddNewPly] = useState(false);
+  const [showAddNewPly, setShowAddNewPly] = useState(false);
 
 
   // 사용자 플레이리스트 조회(TODO 코드 중복)
@@ -151,11 +151,11 @@ const AddVideoToPlaylistModal = ({videoId, show, setShow}) => {
           {PlayList}
         </ToggleScrollWrapper>
         <div style={{alignSelf: "center"}}>
-          {addNewPly
+          {showAddNewPly
               ?
-              <NewPlaylistModal show={addNewPly} setAddNewPly={setAddNewPly}/>
+              <NewPlaylistModal show={showAddNewPly} setShow={setShowAddNewPly}/>
               :
-              <AddNewPlyBtn onClick={() => setAddNewPly(prev => !prev)}>
+              <AddNewPlyBtn onClick={() => setShowAddNewPly(prev => !prev)}>
                 새 플레이리스트 만들기
               </AddNewPlyBtn>
           }

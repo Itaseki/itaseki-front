@@ -6,6 +6,8 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 100px auto;
+  width: 95%;
 `
 
 /*Best 잡담 게시글 목록*/
@@ -155,16 +157,22 @@ export const TitleWrapper = styled.div`
   flex-direction: column;
   margin-top: 80px;
   margin-bottom: 15px;
-  width: 800px;
+  width: 55%;
 `
 
 export const DetailTitle = styled.div`
   margin: 0;
-  font-weight: 600;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 700;
   font-size: 32px;
-  display: flex;
+  line-height: 38px;
   letter-spacing: -0.02em;
+
+  display: flex;
+  align-items: center;
   justify-content: space-between;
+  
   & > #del{
     padding: 2%;
     //color: #505050;
@@ -173,10 +181,15 @@ export const DetailTitle = styled.div`
 
 export const DetailInfo = styled.div`
   display: flex;
-  margin-top: 10px;
   align-items: center;
+  margin-top: 10px;
+  
   & p{
-    font-size: 16px;
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
     margin: 4px;
   }
 `
@@ -285,15 +298,27 @@ export const EnterBtn = styled.input`
 
 export const AdditionalBtns = styled.div`
   display: flex;
-  margin: 20px;
+  margin: 20px 0;
 `
 
 export const AButton = styled(StyledBtn)`
   width: 120px;
   height: 45px;
-  background: white;
-  border: 3px dashed black;
-  border-radius: 29px;
+  
   margin: 0 60px;
-  font-weight: bold;
+  //border: 1px solid black;
+  border-radius: 29px;
+  background: white;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+
+  font-family: 'EF_Diary';
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: -0.02em;
+  
+  :hover {
+    background-color: ${light.colors.lightOrange};
+  }
+  :active {
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;  }
 `

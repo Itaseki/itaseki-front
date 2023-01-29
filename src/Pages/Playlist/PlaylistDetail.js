@@ -6,7 +6,6 @@ import preURL from "../../preURL/preURL";
 import Token from "../../Components/Token";
 import Header from "../../Components/Header";
 import CommentList from "../../Components/Comment/CommentList";
-import {PlaylistHeader} from "./AllPlaylist";
 import AddVideoToPlaylistModal from "../../Components/Playlist/AddVideoToPlaylistModal";
 import SavePlyModal from "../../Components/Playlist/SavePlyModal";
 import {timeStamp} from "../../Components/TimeStamp";
@@ -26,6 +25,7 @@ import {
 } from "../../Style/Playlist";
 // Assets
 import Dot3_btn from "../../Assets/Dot3_btn.png";
+import {StyledDivRow} from "../../Style/StyledDiv";
 
 const PlaylistDetail = () => {
   const plyId = useParams().id;
@@ -180,10 +180,10 @@ const PlaylistDetail = () => {
             <img src={video.thumbnailUrl} alt="썸네일"/>
           </VideoContainer>
           <PlyVideoInfo>
-            <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-                          <span id="title" onClick={()=>navigate(`/videolist/${video.id}`)}>
-                            {video.title}
-                          </span>
+            <StyledDivRow>
+              <span id="title" onClick={()=>navigate(`/videolist/${video.id}`)}>
+                {video.title}
+              </span>
               <img
                   src={Dot3_btn}
                   alt="플레이리스트에 담기 버튼"
@@ -196,7 +196,7 @@ const PlaylistDetail = () => {
                       setShow={setPlayListToggleDisplay}
                   />
               }
-            </div>
+            </StyledDivRow>
             <span>{video.videoUploader}</span>
             <span>{video.runtime}</span>
           </PlyVideoInfo>
@@ -206,9 +206,8 @@ const PlaylistDetail = () => {
 
 
   return (
-      <div>
+      <>
         <Header />
-        <PlaylistHeader />
         <Wrapper>
           <TitleWrapper>
             <DetailTitle>
@@ -237,15 +236,15 @@ const PlaylistDetail = () => {
               {Videos}
             </VideosWrapper>
           </PlaylistWrapper>
-          <AdditionalBtns style={{alignItems: "flex-end"}}>
+          <AdditionalBtns>
             <SavePlyModal plyId={plyId} show={savePlyModalDisplay} setShow={setSavePlyModalDisplay} />
             <AButton onClick={onClickSave}>저장하기</AButton>
-            <AButton style={{borderWidth: "4px"}} onClick={onClickLike}>좋아요</AButton>
+            <AButton onClick={onClickLike}>좋아요</AButton>
             <AButton onClick={onClickReport}>신고하기</AButton>
           </AdditionalBtns>
           <CommentList commentCount={playlist.commentCount} commentList={playlist.comments} board="playlist" boardId={plyId} />
         </Wrapper>
-      </div>
+      </>
   )
 
 }

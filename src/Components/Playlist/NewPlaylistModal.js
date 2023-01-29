@@ -7,7 +7,7 @@ import Token from "../Token";
 import styled from "styled-components";
 import StyledBtn from "../../Style/StyledBtn";
 
-const NewPlaylistModal = ({show, setAddNewPly}) => {
+const NewPlaylistModal = ({show, setShow}) => {
   const token = Token();
 
   // 새로운 플레이리스트 생성
@@ -34,7 +34,7 @@ const NewPlaylistModal = ({show, setAddNewPly}) => {
               console.log("👍새 플레이리스트 생성 성공", res.data);
               setNewPlyName("");
               setNewPlyPublic(false);
-              setAddNewPly && setAddNewPly(false);
+              setShow && setShow(false);
               alert(`${newPlyName}을 생성하였습니다.`);
           })
           .catch((err) => {
@@ -67,19 +67,22 @@ const NewPlaylistModal = ({show, setAddNewPly}) => {
 
 export default NewPlaylistModal;
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  width: 220px;
+const Wrapper = styled.div` // TODO
+  //display: flex;
+  //flex-direction: column;
+  //position: fixed;
+
   box-sizing: border-box;
+  //margin-right: 140px;
+  //margin-top: 35px;
+  padding: 20px;
   border: 3px dashed black;
   border-radius: 29px;
-  margin-right: 140px;
-  padding: 20px;
+  width: 220px;
+  
   background-color: white;
   z-index: 3;
-  margin-top: 35px;
+  
 `
 
 const NewPlyInput = styled.input`
