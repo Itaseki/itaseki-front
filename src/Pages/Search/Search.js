@@ -5,19 +5,38 @@ import preURL from "../../preURL/preURL";
 import OneVideo from "../../Components/Video/OneVideo";
 import { StyledDivColumn, StyledDivRow } from "../../Style/StyledDiv";
 import OnePly from "../../Components/Playlist/Oneply";
-import { SearchBox, WriteInput } from "../../Style/Search";
-import { Wrapper } from "../../Style/Video";
+import {
+  ResultBox,
+  RunningBtn,
+  SearchBox,
+  WriteInput,
+} from "../../Style/Search";
+import { SortBox, Wrapper } from "../../Style/Video";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleXmark,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 
+import Rabbits from "../../Assets/Three_Rabbits.png";
+import StyledBtn from "../../Style/StyledBtn";
+import Pagination from "../../Components/Pagination";
+
 const Search = () => {
   const [keyword, setKeyword] = useState("");
   const [video, setVideo] = useState([]);
   // { id: 0, thumbnailUrl: "", tags: [] }
   const [ply, setPly] = useState([]);
+  const [tag, setTag] = useState("");
+  const [sort, setSort] = useState("id");
+
+  const [vPage, setVPage] = useState(0);
+  const [vTotalPage, setVTotalPage] = useState(6);
+  const [vPages, setVPages] = useState([1, 2, 3, 4, 5]);
+
+  const [pPage, setPPage] = useState(0);
+  const [pTotalPage, setPTotalPage] = useState(6);
+  const [pPages, setPPages] = useState([1, 2, 3, 4, 5]);
 
   const handleChanges = (e) => {
     setKeyword(e.target.value);
@@ -25,72 +44,142 @@ const Search = () => {
     searchPlaylist();
   };
 
+  // 초기화 버튼
+  const handleReset = () => {
+    setKeyword("");
+  };
+
+  // 검색 버튼
+  const handleSearch = () => {
+    searchVideo();
+    searchPlaylist();
+  };
+
+  // 최신순 정렬
+  const onClickSortNewest = () => {
+    console.log("최신순 정렬");
+    setSort("id");
+  };
+
+  // 좋아요순 정렬
+  const onClickSortLike = () => {
+    console.log("좋아요순 정렬");
+    setSort("likeCount");
+  };
+
   // 영상 검색 조회
   const searchVideo = () => {
     let url =
       preURL.preURL +
-      `/search/video?sort=likeCount,DESC&sort=id,DESC&q=${keyword}`;
+      `/search/video?sort=${sort}&tag=${tag}&q=${keyword}&page=${vPage}`;
     console.log("url: ", url);
     axios
       .get(url)
       .then((res) => {
         console.log("❕영상 검색 조회❕ ", res.data);
-        setVideo(res.data);
+        let data = res.data;
+        const totalPage = data["totalPageCount"];
+        const posts = data["data"];
+        setVideo(posts);
+        setVTotalPage(totalPage);
+        let list = [];
+        if (totalPage >= 5) list = [1, 2, 3, 4, 5];
+        else {
+          for (let i = 1; i <= totalPage; i++) list.push(i);
+        }
+        setVPages(list);
       })
       .catch((err) => {
         console.error("⚠️ 영상 검색 조회 ⚠️ ", err);
       });
   };
 
-  const showVids = () => {};
-
   // 플레이리스트 검색 조회
   const searchPlaylist = () => {
-    let url = preURL.preURL + `/search/playlist?sort=id,DESC&q=${keyword}`;
+    let url =
+      preURL.preURL +
+      `/search/playlist?sort=${sort}&tag=${tag}&q=${keyword}&page=${pPage}`;
     console.log("url: ", url);
     axios
       .get(url)
       .then((res) => {
         console.log("플레이리스트 검색 조회❕ ", res.data);
-        setPly(res.data);
+        let data = res.data;
+        const totalPage = data["totalPageCount"];
+        const posts = data["data"];
+        setPly(posts);
+        setPTotalPage(totalPage);
+        let list = [];
+        if (totalPage >= 5) list = [1, 2, 3, 4, 5];
+        else {
+          for (let i = 1; i <= totalPage; i++) list.push(i);
+        }
+        setPPages(list);
       })
       .catch((err) => {
         console.error("⚠️ 플레이리스트 검색 조회 ⚠️ ", err);
       });
   };
 
-  const showPlys = () => {};
-
   return (
     <Wrapper>
       <Header />
       <SearchBox>
-        <WriteInput onChange={handleChanges} />
+        <WriteInput value={keyword} onChange={handleChanges} />
         <FontAwesomeIcon
           icon={faCircleXmark}
-          style={{ fontSize: "130%", marginRight: "1.5%" }}
+          style={{ fontSize: "130%" }}
+          onClick={() => handleReset()}
         />
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
-          style={{ fontSize: "130%", marginRight: "1.5%" }}
+          style={{ fontSize: "130%" }}
+          onClick={() => handleSearch()}
         />
       </SearchBox>
-      <StyledDivColumn>
-        <p
-          style={{
-            fontWeight: "bold",
-          }}
-        >
-          "{keyword}"의 검색결과에요!
-        </p>
+      <RunningBtn>
+        <p>지금 달리고 있는 인기 클립은? 바로 달리러 가기!</p>
+        <img src={Rabbits} style={{ width: "15%" }} />
+      </RunningBtn>
+      <StyledDivColumn style={{ width: "80%" }}>
+        <ResultBox>
+          <StyledDivRow style={{ width: "80%" }}>
+            <span style={{ color: "#D9767C" }}>'{keyword}'</span>
+            <span>의 검색결과에요!</span>
+          </StyledDivRow>
+          <SortBox>
+            <StyledBtn onClick={onClickSortNewest}>최신순</StyledBtn>
+            <p>|</p>
+            <StyledBtn onClick={onClickSortLike}>좋아요순</StyledBtn>
+          </SortBox>
+        </ResultBox>
         <div>
           <StyledDivColumn>
-            {video.length === 0 ? <></> : showVids()}
+            {video.length >= 1 &&
+              video.map((v) => {
+                console.log(v);
+                return <OneVideo ply={v} />;
+              })}
+            <Pagination
+              pages={vPages}
+              setPages={setVPages}
+              setPage={setVPage}
+              totalPageCount={vTotalPage}
+            />
           </StyledDivColumn>
         </div>
         <div>
           <StyledDivColumn>
-            {ply.length === 0 ? <></> : showPlys()}
+            {ply.length >= 1 &&
+              ply.map((p) => {
+                return <OnePly ply={p} />;
+              })}
+            <Pagination
+              pages={pPages}
+              setPages={setPPages}
+              setPage={setPPage}
+              totalPageCount={pTotalPage}
+            />
           </StyledDivColumn>
         </div>
       </StyledDivColumn>
