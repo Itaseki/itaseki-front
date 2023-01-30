@@ -41,8 +41,8 @@ const MyPage = () => {
   const [profileName, setProfileName] = useState("닉넴");
   const [profileEmail, setProfileEmail] = useState("이메일");
   const [videos, setVideos] = useState([
-    // {id: 1, title: "영상 1", likeCount: 5, thumbnailUrl: "", isPublic: null},
-    // {id: 2, title: "영상 2", likeCount: 5, thumbnailUrl: "", isPublic: null},
+    // {id: 1, title: "영상 1", likeCount: 5, thumbnailUrl: "https://i.ytimg.com/vi/xhyWDLWanHE/hqdefault.jpg?s…AFwAcABBg==&rs=AOn4CLDNC541Gll7yxMs9Vcc8MWtC9gzLg", isPublic: null},
+    // {id: 2, title: "영상 2", likeCount: 5, thumbnailUrl: "https://i.ytimg.com/vi/xhyWDLWanHE/hqdefault.jpg?s…AFwAcABBg==&rs=AOn4CLDNC541Gll7yxMs9Vcc8MWtC9gzLg", isPublic: null},
     // {id: 3, title: "영상 3", likeCount: 5, thumbnailUrl: "", isPublic: null},
     // {id: 4, title: "영상 4", likeCount: 5, thumbnailUrl: "", isPublic: null},
     // {id: 1, title: "영상 1", likeCount: 5, thumbnailUrl: "", isPublic: null},
