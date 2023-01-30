@@ -17,6 +17,7 @@ import {
   PopPly,
   PopPlyTitle,
   PopThumbnail,
+  PopVid,
   PopVidsContainer,
   RunningBtn,
   Second,
@@ -40,6 +41,8 @@ const Main = () => {
   const [popGIFs, setPopGIFs] = useState(PopGifTest);
   const [popVideos, setPopVideos] = useState([]);
   const [popPlaylists, setPopPlaylists] = useState([]);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     console.log(
@@ -86,11 +89,22 @@ const Main = () => {
       .then((res) => {
         console.log("❕인기 영상 조회❕ ", res.data);
         setPopVideos(res.data);
-        console.log(popVideos);
       })
       .catch((err) => {
         console.error("⚠️ 인기 영상 조회 ⚠️ ", err);
       });
+  };
+
+  // 슬라이더
+  const [scrollState, setScrollState] = useState(0);
+
+  const nextSlide = () => {
+    let count = popVideos.length - 1 ? 0 : count + 1;
+    setScrollState(`-${count * 453}px`);
+  };
+  const prevSlide = () => {
+    let count = count == 0 ? popVideos.length - 1 : count - 1;
+    setScrollState(`-${count * 453}px`);
   };
 
   // 인기 플레이리스트 조회
@@ -100,7 +114,6 @@ const Main = () => {
       .then((res) => {
         console.log("❕인기 플레이리스트 조회❕ ", res.data);
         setPopPlaylists(res.data);
-        console.log(popPlaylists);
       })
       .catch((err) => {
         console.error("⚠️ 인기 플레이리스트 조회 ⚠️ ", err);
@@ -117,11 +130,16 @@ const Main = () => {
         </Link>
       </First>
       <Second>
-        <PopVidsContainer></PopVidsContainer>
+        <PopVidsContainer>
+          {popVideos &&
+            popVideos.map((v) => {
+              return <PopVid src={v.thumbnail} style={{ top: scrollState }} />;
+            })}
+        </PopVidsContainer>
         <ElevatorContainer>
           <Num>0위</Num>
-          <UpBtn />
-          <DownBtn />
+          <UpBtn onClick={() => prevSlide()} />
+          <DownBtn onClick={() => nextSlide()} />
         </ElevatorContainer>
       </Second>
       <Third style={{ paddingTop: "12%", paddingBottom: "12%" }}>
