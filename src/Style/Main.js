@@ -32,16 +32,29 @@ export const RunningBtn = styled(StyledBtn)`
 
   font-family: EF_Diary;
   font-size: 23px;
+
+  :hover {
+    background-color: #8c5e61;
+  }
 `;
 
 export const Second = styled(StyledDivRow)`
   height: 100%;
   min-width: 100%;
+  padding: 15% 30% 15% 30%;
+  justify-content: center;
 `;
 
 export const PopVidsContainer = styled.div`
   width: 808px;
   height: 528px;
+  overflow: hidden;
+  flex: none;
+`;
+
+export const PopVid = styled.img`
+  width: 808px;
+  height: 453px;
 `;
 
 export const ElevatorContainer = styled(StyledDivColumn)`
