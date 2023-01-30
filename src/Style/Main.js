@@ -32,6 +32,10 @@ export const RunningBtn = styled(StyledBtn)`
 
   font-family: EF_Diary;
   font-size: 23px;
+
+  :hover {
+    background-color: #8c5e61;
+  }
 `;
 
 export const Second = styled(StyledDivRow)`
