@@ -9,12 +9,14 @@ import {
   NextVidTimeBox,
   NextVidTitleBox,
   ReservBtn,
+  RunBtn,
   WhiteText,
   Wrapper,
 } from "../../Style/ReservationList";
 
 // assets
 import Temp from "../../Assets/Temp_gif.png";
+import Run from "../../Assets/Run_Btn_Round.png";
 
 import { Link } from "react-router-dom";
 import { NextVidTest, PopVidsTest } from "../../TestData/ReservTest";
@@ -136,10 +138,17 @@ const ReservationListWrapper = (props) => {
         </StyledDivColumn>
         <StyledDivColumn>
           <NextVideo src={Temp} />
-          <NextVidTitleBox>
-            <span>제목</span>
-            <span>시간</span>
-          </NextVidTitleBox>
+          <StyledDivRow style={{ height: "100%", alignItems: "center" }}>
+            <NextVidTitleBox>
+              <span>제목</span>
+              <span>시간</span>
+            </NextVidTitleBox>
+            <Link to="/running">
+              <RunBtn>
+                <img src={Run} style={{ width: "80%" }} />
+              </RunBtn>
+            </Link>
+          </StyledDivRow>
         </StyledDivColumn>
       </StyledDivRow>
     </Wrapper>

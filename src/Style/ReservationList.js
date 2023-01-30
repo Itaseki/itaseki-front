@@ -62,6 +62,7 @@ export const NextVidTitleBox = styled(StyledDiv)`
   box-shadow: 5px -5px 0px #000000;
   border-radius: 10px;
   margin-top: 27px;
+  margin-right: 3%;
   padding: 20px;
   justify-content: space-between;
 
@@ -86,4 +87,14 @@ export const WhiteText = styled.p`
   color: white;
   font-size: 14px;
   font-weight: bold;
+`;
+
+export const RunBtn = styled(StyledDiv)`
+  width: 74px;
+  height: 74px;
+  background: #e8cdcd;
+  border: 5px solid #000000;
+  box-shadow: 4px -4px 0px #000000;
+  border-radius: 56px;
+  margin-top: 27px;
 `;
