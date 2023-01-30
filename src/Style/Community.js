@@ -206,7 +206,9 @@ export const ContentImg = styled.img`
 `
 
 export const CommentsWrapper = styled(Wrapper)`
-
+  font-family: 'Pretendard';
+  font-style: normal;
+  letter-spacing: -0.02em;
 `
 
 export const CommentsListWrapper = styled.div`
@@ -215,8 +217,11 @@ export const CommentsListWrapper = styled.div`
 `
 
 export const CommentHeader = styled.div`
-  font-weight: bold;
-  font-size: x-large;
+  margin: 10px 0;
+  
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 35px;
   & > #count {
     color: ${light.colors.mainColor};
   }
@@ -225,6 +230,11 @@ export const CommentHeader = styled.div`
 export const Comment = styled.div`
   display: flex;
   flex-direction: column;
+
+  font-family: 'Pretendard';
+  font-style: normal;
+  letter-spacing: -0.02em;
+  
   & > #comment-content {
     margin: 10px 4px;
   }
@@ -244,6 +254,10 @@ export const ReplyBtn = styled(StyledBtn)`
   background: black;
   border-radius: 29px;
   color: white;
+  
+  :hover {
+    background-color: gray;
+  }
 `
 
 export const NewCommentWrapper = styled.div`
@@ -258,13 +272,13 @@ export const NewCommentWrapper = styled.div`
 
 export const NewCommentBox = styled.form`
   display: flex;
-  flex-direction: row;
-  position: relative;
+  flex-direction: column;
+  align-items: flex-end;
 `
 
 export const NewCommentInput = styled.textarea`
-  padding: 10px 70px 10px 10px;
-  width: 720px;
+  padding: 10px;
+  width: 780px;
   height: 80px;
   border-radius: 17px;
   border: 2px solid;
@@ -276,24 +290,23 @@ export const NewCommentInput = styled.textarea`
   }
 `
 
-export const ExitReplybtn = styled.img`
-  width: 35px;
-  margin: 10px;
-  position: absolute;
-  align-self: center;
-  right: 0;
-  top: 0;
-  cursor: pointer;
-`
+export const EnterBtn = styled.button`
+  box-sizing: border-box;
+  
+  width: 63px;
+  height: 34px;
 
-export const EnterBtn = styled.input`
-  width: 45px;
-  margin: 10px;
-  position: absolute;
-  align-self: center;
-  right: 0;
-  bottom: 0;
+  margin-top: 10px;
+  border: 2px solid #000000;
+  box-shadow: 3px 3px 0px #000000;
+  border-radius: 12px;
+
+  background: #F0CBCD;
   cursor: pointer;
+  
+  :hover {
+    background-color: #E4AFAF;
+  }
 `
 
 export const AdditionalBtns = styled.div`

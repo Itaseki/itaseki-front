@@ -53,12 +53,12 @@ const OneVideoWrapper = styled.div`
 
 // 영상 썸네일
 const VideoContainer = styled.div`
-  width: 240px;
-  height: 135px;
+  width: 288px;
+  height: 162px;
   cursor: pointer;
   & > img{
-    width: 240px;
-    height: 135px;
+    width: 288px;
+    height: 162px;
     border-radius: 10px;
     object-fit: cover;
   }
@@ -66,7 +66,7 @@ const VideoContainer = styled.div`
 
 // 영상 썸네일 하단 정보
 const VideoInfo = styled.div`
-  width: 240px;
+  width: 100%;
   margin: 3px 0;
   display: flex;
   justify-content: space-between;

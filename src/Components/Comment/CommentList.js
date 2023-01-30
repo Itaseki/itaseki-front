@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState} from "react";
+import React, {useContext} from "react";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
 import useInput from "../../Hooks/useInput";
@@ -13,10 +13,9 @@ import {
   CommentsWrapper, EnterBtn,
   Line,
   NewCommentBox, NewCommentInput,
-  NewCommentWrapper, PlaceholderImg
+  NewCommentWrapper
 } from "../../Style/Community";
 // Assets
-import Enter from "../../Assets/Enter_Comment.png";
 
 const CommentList = ({commentCount, commentList, board, boardId}) => {
   const token = Token();
@@ -25,7 +24,7 @@ const CommentList = ({commentCount, commentList, board, boardId}) => {
   const [newComment, onChangeNewComment, setNewComment] = useInput("");
 
   // 댓글 등록
-  const onSubmitComment = useCallback(() => {
+  const onSubmitComment = () => {
     // console.log("새로운 댓글: " + newComment);
     if(!token) {
       alert('로그인 후 이용해 주세요.');
@@ -47,7 +46,7 @@ const CommentList = ({commentCount, commentList, board, boardId}) => {
         .catch((err) => {
           console.log("🧨댓글 등록 에러", err);
         })
-  }, [newComment]);
+  };
 
   return (
       <CommentsWrapper>
@@ -70,7 +69,7 @@ const CommentList = ({commentCount, commentList, board, boardId}) => {
                 value={newComment}
                 onChange={onChangeNewComment}
                 placeholder="| 댓글 남기기"/>
-            <EnterBtn type="image" src={Enter} alt="댓글 제출"/>
+            <EnterBtn type="submit" alt="댓글 제출">등록</EnterBtn>
           </NewCommentBox>
         </NewCommentWrapper>
       </CommentsWrapper>

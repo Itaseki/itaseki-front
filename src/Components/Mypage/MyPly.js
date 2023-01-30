@@ -54,13 +54,13 @@ const OnePlyWrapper = styled.div`
 `
 
 const PlyContainer = styled.div`
-  width: 240px;
-  height: 135px;
+  width: 288px;
+  height: 162px;
   position: relative;
   cursor: pointer;
   & > #thumbnail {
-    width: 240px;
-    height: 135px;
+    width: 288px;
+    height: 162px;
     position: absolute;
     border-radius: 10px;
     object-fit: cover;
@@ -76,7 +76,7 @@ const PlyContainer = styled.div`
 
 // 플레이리스트 하단 정보
 const PlyInfo = styled.div`
-  width: 240px;
+  width: 100%;
   margin: 3px 0;
   display: flex;
   justify-content: space-between;

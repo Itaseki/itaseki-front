@@ -195,7 +195,7 @@ const ProfileUl = styled.ul`
   padding: 12.5px 25px;
   z-index: 10;
 
-  background: ${light.backgroundColor};
+  background: ${light.colors.backgroundColor};
   border: 1px solid #000000;
   box-shadow: 5px -5px 0px #000000;
   border-radius: 30px;
@@ -231,8 +231,7 @@ const ProfileList = styled(StyledBtn)`
   :hover {
     box-sizing: border-box;
     
-    // TODO 수정 필요할수도
-    background: rgba(232, 232, 232, 0.5);
+    background: rgba(160, 160, 160, 0.5);
     border: 1px solid #000000;
     box-shadow: 3px 3px 0px #94928E;
 

@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState} from "react";
+import React, {useContext, useState} from "react";
 import useInput from "../../Hooks/useInput";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
@@ -8,16 +8,14 @@ import {timeStamp} from "../TimeStamp";
 // STyle
 import {
   Comment, CommentReplyImg,
-  DetailInfo, EnterBtn, ExitReplybtn,
+  DetailInfo, EnterBtn,
   Line,
-  NewCommentBox, NewCommentInput, NewCommentWrapper, PlaceholderImg,
+  NewCommentBox, NewCommentInput, NewCommentWrapper,
   ReplyBtn
 } from "../../Style/Community";
 import StyledBtn from "../../Style/StyledBtn";
 // Assets
 import Comment_reply from "../../Assets/Comment_reply.png";
-import Enter from "../../Assets/Enter_Comment.png";
-import Exit_reply from "../../Assets/Exit_reply.png";
 
 const SingleComment = ({comment, board, boardId}) => {
   const token = Token();
@@ -73,21 +71,9 @@ const SingleComment = ({comment, board, boardId}) => {
         })
   };
 
-  // 대댓글 등록 모달 창 띄우기
-  const onCreateReplyModal = () => {
-    setShowReplyModal(true);
-    console.log("대댓글 모달 창 띄우기: " + showReplyModal);
-  };
-
-  // 대댓글 등록 모달 창 close
-  const onCloseReplyModal = () => {
-    setShowReplyModal(false);
-    console.log("대댓글 모달 창 닫기: " + showReplyModal);
-  };
-
   // TODO 코드 중복 => 어떻게 해결?
   // 대댓글 등록
-  const onSubmitReply = useCallback((e) => {
+  const onSubmitReply = () => {
     if(!token) {
       alert('로그인 후 이용해 주세요.');
       return;
@@ -108,14 +94,14 @@ const SingleComment = ({comment, board, boardId}) => {
         .catch((err) => {
           console.log("🧨대댓글 등록 에러", err);
         })
-  }, [newReply]);
+  };
 
   return (
       <div>
         <Comment>
           <Line/>
           <DetailInfo>
-            <p style={{fontWeight: "bold"}}>{comment.writerNickname}</p>
+            <p>{comment.writerNickname}</p>
             <p>|</p>
             <p>{timeStamp(comment.createdTime)}</p>
             <p>|</p>
@@ -126,7 +112,7 @@ const SingleComment = ({comment, board, boardId}) => {
           <div id="comment-content">{comment.content}</div>
           <ReplyBtn
               id={comment.id}
-              onClick={onCreateReplyModal}
+              onClick={() => setShowReplyModal(prev => !prev)}
           >
             답글
           </ReplyBtn>
@@ -145,13 +131,12 @@ const SingleComment = ({comment, board, boardId}) => {
                     <NewCommentInput
                         value={newReply}
                         onChange={onChangeNewReply}
-                        style={{width: "650px"}}
+                        style={{width: "710px"}}
                         placeholder="| 댓글 남기기"
                    />
-                    <ExitReplybtn src={Exit_reply} alt="대댓글 창 닫기" onClick={onCloseReplyModal}/>
-                    <EnterBtn type="image" src={Enter} alt="댓글 제출"/>
+                    <EnterBtn type="submit">등록</EnterBtn>
                   </NewCommentBox>
-                </div>
+               </div>
               </NewCommentWrapper>
             </div>
         }
@@ -165,14 +150,16 @@ const SingleComment = ({comment, board, boardId}) => {
                   <DetailInfo style={{marginTop: 0}}>
                     <p style={{fontWeight: "bold"}}>{nestedComment.writerNickname}</p>
                     <p>|</p>
-                    <p>{nestedComment.createdTime}</p>
+                    <p>{timeStamp(nestedComment.createdTime)}</p>
                     <p>|</p>
-                    {nestedComment.isThisBoardWriterCommentWriter
+                    {nestedComment.isThisUserWriter
                         ? <StyledBtn id={nestedComment.id} onClick={onClickDeleteComment}>삭제</StyledBtn>
                         : <StyledBtn id={nestedComment.id} onClick={onClickCommentReport}>신고</StyledBtn>}
                   </DetailInfo>
                   </div>
-                  <div id="comment-content" style={{marginLeft: "40px"}}>{nestedComment.content}</div>
+                  <div id="comment-content" style={{marginLeft: "40px"}}>
+                    {nestedComment.content}
+                  </div>
                 </Comment>
             )
           })}
