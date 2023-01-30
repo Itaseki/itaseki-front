@@ -99,7 +99,7 @@ const Main = () => {
       .get(preURL.preURL + "/main/playlist")
       .then((res) => {
         console.log("❕인기 플레이리스트 조회❕ ", res.data);
-        // setPopPlaylists(res.data);
+        setPopPlaylists(res.data);
         console.log(popPlaylists);
       })
       .catch((err) => {
@@ -127,13 +127,15 @@ const Main = () => {
       <Third style={{ paddingTop: "12%", paddingBottom: "12%" }}>
         <StyledDivColumn style={{ alignItems: "flex-end", width: "45%" }}>
           <PopPly src={PopPlaylist} />
-          <PopThumbnail src={Temp} />
+          <PopThumbnail src={popPlaylists.titleImageUrl} />
         </StyledDivColumn>
         <StyledDivColumn style={{ alignItems: "flex-start", width: "45%" }}>
           <PopPlyTitle>알쓸인잡 달리기</PopPlyTitle>
           <PlyBox>
-            <PlyList>안녕</PlyList>
-            <PlyList>안녕</PlyList>
+            {popPlaylists.videos &&
+              popPlaylists.videos.map((v) => {
+                return <PlyList>{v}</PlyList>;
+              })}
           </PlyBox>
         </StyledDivColumn>
       </Third>
