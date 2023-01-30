@@ -1,20 +1,28 @@
 import styled from "styled-components";
+import { StyledDivColumn, StyledDivRow } from "./StyledDiv";
 
-export const Wrapper = styled.div`
-  width: 983px;
+export const Wrapper = styled(StyledDivColumn)`
+  width: 100vw;
+  min-width: 100%;
+  min-height: 3700px;
+  align-items: center;
+  margin-top: 9%;
+`;
+
+export const SearchBox = styled(StyledDivRow)`
+  width: 60%;
+  height: 60px;
+  border-bottom: 13px solid black;
 `;
 
 export const WriteInput = styled.input`
-  height: 25.64px;
+  width: 90%;
+  height: 40px;
   border: none;
-  cursor: pointer;
-  position: absolute;
-  top: 6.3%;
-  right: 12%;
-  background-color: black;
-  padding: 5px;
-  padding-left: 40px;
-  padding-right: 40px;
-  border-radius: 71px;
-  color: white;
+  background-color: transparent;
+  margin-top: 5%;
+  margin-bottom: 20px;
+
+  font-family: Pretendard700;
+  font-size: 33px;
 `;
