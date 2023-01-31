@@ -56,3 +56,12 @@ export const ResultBox = styled(StyledDivRow)`
     font-size: 24px;
   }
 `;
+
+export const Category = styled.span`
+  align-self: left;
+  margin-top: 3%;
+
+  font-family: EF_Diary;
+  font-size: 24px;
+  font-weight: bold;
+`;
