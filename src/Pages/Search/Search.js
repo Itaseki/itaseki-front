@@ -6,12 +6,13 @@ import OneVideo from "../../Components/Video/OneVideo";
 import { StyledDivColumn, StyledDivRow } from "../../Style/StyledDiv";
 import OnePly from "../../Components/Playlist/Oneply";
 import {
+  Category,
   ResultBox,
   RunningBtn,
   SearchBox,
   WriteInput,
 } from "../../Style/Search";
-import { SortBox, Wrapper } from "../../Style/Video";
+import { SortBox, VideoList, Wrapper } from "../../Style/Video";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleXmark,
@@ -153,13 +154,15 @@ const Search = () => {
             <StyledBtn onClick={onClickSortLike}>좋아요순</StyledBtn>
           </SortBox>
         </ResultBox>
-        <div>
+        {video.length >= 1 && (
           <StyledDivColumn>
-            {video.length >= 1 &&
-              video.map((v) => {
+            <Category>동영상</Category>
+            <VideoList>
+              {video.map((v) => {
                 console.log(v);
-                return <OneVideo ply={v} />;
+                return <OneVideo video={v} />;
               })}
+            </VideoList>
             <Pagination
               pages={vPages}
               setPages={setVPages}
@@ -167,13 +170,15 @@ const Search = () => {
               totalPageCount={vTotalPage}
             />
           </StyledDivColumn>
-        </div>
-        <div>
+        )}
+        {ply.length >= 1 && (
           <StyledDivColumn>
-            {ply.length >= 1 &&
-              ply.map((p) => {
+            <Category>플레이리스트</Category>
+            <VideoList>
+              {ply.map((p) => {
                 return <OnePly ply={p} />;
               })}
+            </VideoList>
             <Pagination
               pages={pPages}
               setPages={setPPages}
@@ -181,7 +186,7 @@ const Search = () => {
               totalPageCount={pTotalPage}
             />
           </StyledDivColumn>
-        </div>
+        )}
       </StyledDivColumn>
     </Wrapper>
   );
