@@ -61,13 +61,14 @@ const TodayPopVids = () => {
       <PopVidContainer>
         <PopVidImg />
         <PopVidInfoContainer>
-          <PopVidInfo></PopVidInfo>
-          <PopVidTime></PopVidTime>
+          <PopVidInfo>{popReserv[0].title}</PopVidInfo>
+          <PopVidTime>{popReserv[0].runTime}</PopVidTime>
         </PopVidInfoContainer>
         <ReservBtnContainer>
           <ReservBtn>
             예약
-            <IconCarrot icon={faCarrot} />5
+            <IconCarrot icon={faCarrot} />
+            {popReserv[0].count}
           </ReservBtn>
         </ReservBtnContainer>
       </PopVidContainer>
@@ -75,13 +76,14 @@ const TodayPopVids = () => {
       <PopVidContainer>
         <PopVidImg />
         <PopVidInfoContainer>
-          <PopVidInfo></PopVidInfo>
-          <PopVidTime></PopVidTime>
+          <PopVidInfo>{popReserv[1].title}</PopVidInfo>
+          <PopVidTime>{popReserv[2].runTime}</PopVidTime>
         </PopVidInfoContainer>
         <ReservBtnContainer>
           <ReservBtn>
             예약
-            <IconCarrot icon={faCarrot} />5
+            <IconCarrot icon={faCarrot} />
+            {popReserv[1].count}
           </ReservBtn>
         </ReservBtnContainer>
       </PopVidContainer>
@@ -89,13 +91,14 @@ const TodayPopVids = () => {
       <PopVidContainer>
         <PopVidImg />
         <PopVidInfoContainer>
-          <PopVidInfo></PopVidInfo>
-          <PopVidTime></PopVidTime>
+          <PopVidInfo>{popReserv[2].title}</PopVidInfo>
+          <PopVidTime>{popReserv[2].runTime}</PopVidTime>
         </PopVidInfoContainer>
         <ReservBtnContainer>
           <ReservBtn>
             예약
-            <IconCarrot icon={faCarrot} />5
+            <IconCarrot icon={faCarrot} />
+            {popReserv[2].count}
           </ReservBtn>
         </ReservBtnContainer>
       </PopVidContainer>
