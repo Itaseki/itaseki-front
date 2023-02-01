@@ -27,17 +27,28 @@ const ReservationListWrapper = (props) => {
   const [nextData, setNextData] = useState(NextVidTest);
   const [popVids, setPopVids] = useState(PopVidsTest);
 
-  const [hourLeft, setHourLeft] = useState(false);
-  const [doInterval, setDoInterval] = useState(false);
+  let hour = "";
+  let min = "";
 
-  // if (doInterval === true) {
-  //   setInterval(() => NextVideo(), 1000);
-  // }
+  let timeLeftMin = 0;
+  let timeLeftSec = 0;
+
+  const [clock, setClock] = useState("");
 
   useEffect(() => {
     getNextVideo();
-    // NextVideo();
+    Time();
     console.log("================[ReservationList]================");
+    console.log(hour, min, timeLeftMin, timeLeftSec);
+  }, []);
+
+  // 1초마다 시간 갱신
+  useEffect(() => {
+    let timer = setInterval(() => {
+      Time();
+    }, 1000);
+
+    return () => clearInterval(timer);
   }, []);
 
   // 다음 달리기 영상 조회
@@ -51,7 +62,7 @@ const ReservationListWrapper = (props) => {
           setNext(false);
         } else {
           setNext(true);
-          setNextData(res.data);
+          // setNextData(res.data);
         }
       })
       .catch((err) => {
@@ -63,52 +74,25 @@ const ReservationListWrapper = (props) => {
   function Time() {
     let now = new Date();
 
-    let hour = parseInt(nextData.startTime.substring(0, 2));
-    let min = parseInt(nextData.startTime.substring(3, 5));
-
-    let runTime = nextData.runTime.substring(3);
+    hour = parseInt(nextData.startTime.substring(0, 2));
+    min = parseInt(nextData.startTime.substring(3, 5));
 
     let startTime = min * 60;
     let nowTime = now.getMinutes() * 60 + now.getSeconds();
-    let timeLeftHour = hour - now.getHours;
+    let timeLeftHour = hour - now.getHours();
     let timeLeft = startTime - nowTime;
 
-    let timeLeftMin = Math.floor(timeLeft / 60);
-    let timeLeftSec = Math.floor(timeLeft % 60);
-
+    timeLeftMin = Math.floor(timeLeft / 60);
+    timeLeftSec = Math.floor(timeLeft % 60);
+    let isTimeLeft = timeLeftHour * 60 + timeLeftMin;
+    console.log(isTimeLeft);
     // 예약 시간까지 한 시간도 안 남았을 경우
-    if (timeLeftHour < 1) {
-      setHourLeft(true);
-      console.log(`남은 시간 : ${timeLeftMin}분 ${timeLeftSec}초`);
-      setDoInterval(true);
+    if (isTimeLeft < 60) {
+      setClock(`${timeLeftMin}분 ${timeLeftSec}초 후 달릴 영상`);
     } else {
-      // 예약 시간까지 한 시간 이상 남았을 경우
-      setHourLeft(false);
+      // 예약 시간까지 한 시간 이상 남았을 경우'
+      setClock(`${hour}시 ${min}분에 달릴 영상`);
     }
-    return (
-      <NextVideo>
-        {!hourLeft ? (
-          // 예약 시간까지 한 시간도 안 남았을 경우
-          <WhiteText>
-            {timeLeftMin}분 {timeLeftSec}초 후 달릴 영상
-          </WhiteText>
-        ) : (
-          // 예약 시간까지 한 시간 이상 남았을 경우
-          <WhiteText>
-            {hour}시 {min}분에 달릴 영상
-          </WhiteText>
-        )}
-        <WhiteText>{nextData.title}</WhiteText>
-        <WhiteText>{runTime}</WhiteText>
-        <FontAwesomeIcon
-          icon={faCheck}
-          style={{
-            color: "red",
-          }}
-        />
-        <WhiteText style={{ color: "red" }}>{nextData.Long}</WhiteText>
-      </NextVideo>
-    );
   }
 
   return (
@@ -126,22 +110,22 @@ const ReservationListWrapper = (props) => {
           }}
         >
           <GuideBtn />
-          <NextVidTimeBox>00분 00초 후 달릴 영상</NextVidTimeBox>
+          <NextVidTimeBox>{clock}</NextVidTimeBox>
           <ReservBtn>
             예약
             <FontAwesomeIcon
               icon={faCarrot}
               style={{ fontSize: "150%", marginLeft: 10, marginRight: 5 }}
             />
-            5
+            {nextData.Long}
           </ReservBtn>
         </StyledDivColumn>
         <StyledDivColumn>
           <NextVideo src={Temp} />
           <StyledDivRow style={{ height: "100%", alignItems: "center" }}>
             <NextVidTitleBox>
-              <span>제목</span>
-              <span>시간</span>
+              <span>{nextData.title}</span>
+              <span>{nextData.runTime}</span>
             </NextVidTitleBox>
             <Link to="/running">
               <RunBtn>

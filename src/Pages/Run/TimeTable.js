@@ -105,13 +105,17 @@ const TimeTable = (props) => {
 
   // 오늘의 예약 확정 목록 조회
   const todayReserv = () => {
+    let m = "";
+    let d = "";
     if (parseInt(month) < 10) {
-      setMonth(`0${month}`);
+      let m = `0${month}`;
+      return m;
     }
     if (date < 10) {
-      setDate(`0${date}`);
+      let d = `0${date}`;
+      return d;
     }
-    let url = `/run/reservations/confirm?date=${year}-${month}-${date}`;
+    let url = `/run/reservations/confirm?date=${year}-${m}-${d}`;
     axios
       .get(preURL.preURL + url)
       .then((res) => {

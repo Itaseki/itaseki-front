@@ -7,8 +7,8 @@ export const NextVidTest = {
   runTime: "00:13:04",
   videoUrl: "",
   Long: 3,
-  reservationDate: "2022-05-24",
-  startTime: "20:45",
+  reservationDate: "2023-02-02",
+  startTime: "11:45",
 };
 
 export const PopVidsTest = [
