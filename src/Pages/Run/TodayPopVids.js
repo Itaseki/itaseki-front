@@ -15,12 +15,12 @@ import {
 } from "../../Style/TodayPopVids";
 import { TodayPopVidsTest } from "../../TestData/ReservTest";
 import { faCarrot } from "@fortawesome/free-solid-svg-icons";
+import Token from "../../Components/Token";
 
 const TodayPopVids = () => {
   const [popReserv, setPopReserv] = useState(TodayPopVidsTest);
-  const [like1, setLike1] = useState(popReserv[0].count);
-  const [like2, setLike2] = useState(popReserv[1].count);
-  const [like3, setLike3] = useState(popReserv[2].count);
+
+  const token = Token();
 
   useEffect(() => {
     console.log(
@@ -44,15 +44,29 @@ const TodayPopVids = () => {
       });
   };
 
-  const reservPop = (n) => {
-    if (n === 0) {
-      setLike1((prev) => prev + 1);
-    } else if (n === 1) {
-      setLike2((prev) => prev + 1);
-    } else if (n === 2) {
-      setLike3((prev) => prev + 1);
-    }
-    alert(`${popReserv[n].title} 예약 추가되었습니다.`);
+  const onLike = (p) => {
+    axios
+      .post(
+        preURL.preURL + "/run/reservations",
+        {
+          id: p.id,
+          reservationDate: p.reservationDate,
+          startTime: p.startTime,
+          endTime: p.endTime,
+        },
+        {
+          headers: {
+            ITTASEKKI: token,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("❕영상 달리기 예약 등록❕ ", res.data);
+      })
+      .catch((err) => {
+        console.error("⚠️ 영상 달리기 예약 등록  ⚠️ ", err);
+      });
+    popReservs();
   };
 
   return (
@@ -64,7 +78,7 @@ const TodayPopVids = () => {
           <PopVidInfo>{popReserv[0].title}</PopVidInfo>
           <PopVidTime>{popReserv[0].runTime}</PopVidTime>
         </PopVidInfoContainer>
-        <ReservBtnContainer>
+        <ReservBtnContainer onClick={() => onLike(popReserv[0])}>
           <ReservBtn>
             예약
             <IconCarrot icon={faCarrot} />
@@ -79,7 +93,7 @@ const TodayPopVids = () => {
           <PopVidInfo>{popReserv[1].title}</PopVidInfo>
           <PopVidTime>{popReserv[2].runTime}</PopVidTime>
         </PopVidInfoContainer>
-        <ReservBtnContainer>
+        <ReservBtnContainer onClick={() => onLike(popReserv[1])}>
           <ReservBtn>
             예약
             <IconCarrot icon={faCarrot} />
@@ -94,7 +108,7 @@ const TodayPopVids = () => {
           <PopVidInfo>{popReserv[2].title}</PopVidInfo>
           <PopVidTime>{popReserv[2].runTime}</PopVidTime>
         </PopVidInfoContainer>
-        <ReservBtnContainer>
+        <ReservBtnContainer onClick={() => onLike(popReserv[2])}>
           <ReservBtn>
             예약
             <IconCarrot icon={faCarrot} />

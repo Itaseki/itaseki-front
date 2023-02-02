@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import preURL from "../../preURL/preURL";
 import axios from "axios";
-import { faCarrot, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCarrot } from "@fortawesome/free-solid-svg-icons";
 import {
   GuideBtn,
   NextVideo,
@@ -10,7 +10,6 @@ import {
   NextVidTitleBox,
   ReservBtn,
   RunBtn,
-  WhiteText,
   Wrapper,
 } from "../../Style/ReservationList";
 
@@ -21,6 +20,7 @@ import Run from "../../Assets/Run_Btn_Round.png";
 import { Link } from "react-router-dom";
 import { NextVidTest, PopVidsTest } from "../../TestData/ReservTest";
 import { StyledDivColumn, StyledDivRow } from "../../Style/StyledDiv";
+import Token from "../../Components/Token";
 
 const ReservationListWrapper = (props) => {
   const [next, setNext] = useState(true);
@@ -34,6 +34,8 @@ const ReservationListWrapper = (props) => {
   let timeLeftSec = 0;
 
   const [clock, setClock] = useState("");
+
+  const token = Token();
 
   useEffect(() => {
     getNextVideo();
@@ -95,6 +97,31 @@ const ReservationListWrapper = (props) => {
     }
   }
 
+  const onLike = (p) => {
+    axios
+      .post(
+        preURL.preURL + "/run/reservations",
+        {
+          id: p.id,
+          reservationDate: p.reservationDate,
+          startTime: p.startTime,
+          endTime: p.endTime,
+        },
+        {
+          headers: {
+            ITTASEKKI: token,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("❕영상 달리기 예약 등록❕ ", res.data);
+      })
+      .catch((err) => {
+        console.error("⚠️ 영상 달리기 예약 등록  ⚠️ ", err);
+      });
+    getNextVideo();
+  };
+
   return (
     <Wrapper>
       {/* <StyledBtn onClick={() => props.setGuidePop(true)} /> */}
@@ -111,7 +138,7 @@ const ReservationListWrapper = (props) => {
         >
           <GuideBtn />
           <NextVidTimeBox>{clock}</NextVidTimeBox>
-          <ReservBtn>
+          <ReservBtn onClick={() => onLike(nextData)}>
             예약
             <FontAwesomeIcon
               icon={faCarrot}
