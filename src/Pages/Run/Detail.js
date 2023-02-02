@@ -1,4 +1,4 @@
-import { faCheck, faClose } from "@fortawesome/free-solid-svg-icons";
+import { faCarrot, faCheck, faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -64,7 +64,7 @@ const Detail = (props) => {
         <FontAwesomeIcon
           icon={faClose}
           style={{
-            fontSize: "150%",
+            fontSize: "170%",
           }}
         />
       </CloseBtn>
@@ -74,9 +74,11 @@ const Detail = (props) => {
           <IMG src={confirmedData.thumbnailUrl} />
           <FirstRow>
             <p style={{ margin: 3 }}>{confirmedData.description}</p>
-            <StyledDivRow>
+            <StyledDivRow
+              style={{ width: "7%", justifyContent: "space-between" }}
+            >
               <FontAwesomeIcon
-                icon={faCheck}
+                icon={faCarrot}
                 style={{
                   color: `${light.colors.mainColor}`,
                 }}
@@ -106,9 +108,11 @@ const Detail = (props) => {
           <IMG src={preReservData.thumbnailUrl} />
           <FirstRow>
             <P>{preReservData.description}</P>
-            <StyledDivRow>
+            <StyledDivRow
+              style={{ width: "7%", justifyContent: "space-between" }}
+            >
               <FontAwesomeIcon
-                icon={faCheck}
+                icon={faCarrot}
                 style={{
                   color: `${light.colors.mainColor}`,
                 }}

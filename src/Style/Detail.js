@@ -5,12 +5,12 @@ import { StyledDivRow } from "./StyledDiv";
 export const Modal = styled.div`
   position: fixed;
   width: 621px;
-  height: 458px;
-  left: 410px;
-  top: 147px;
+  height: 430px;
+  left: 400px;
+  top: 150px;
   z-index: 2;
   display: flex;
-  padding-top: 2%;
+  padding: 2%;
   flex-direction: column;
   align-items: center;
   background: #f4f3ee;
@@ -27,10 +27,14 @@ export const CloseBtn = styled(StyledBtn)`
 export const IMG = styled.img`
   width: 423px;
   height: 224px;
+  border-radius: 7%;
+  margin-bottom: 5%;
 `;
 
 export const P = styled.p`
-  margin: 3;
+  margin: 0;
+  padding: 0;
+  font-family: Pretendard;
 `;
 
 export const FirstRow = styled(StyledDivRow)`

@@ -8,7 +8,6 @@ import {
   faCaretLeft,
   faCaretRight,
   faCarrot,
-  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   BoldTitle,
@@ -28,9 +27,8 @@ import {
 } from "../../Style/TimeTable";
 import { TodayReservTest } from "../../TestData/ReservTest";
 import { light } from "../../Style/Color";
-
-// Assets
-import Main_logo from "../../Assets/Main_logo.png";
+import Carrot_Line from "../../Assets/Carrot_Line.png";
+import Rabbit_Side from "../../Assets/Rabbit_Side.png";
 
 const TimeTable = (props) => {
   let d = new Date();
@@ -105,13 +103,17 @@ const TimeTable = (props) => {
 
   // 오늘의 예약 확정 목록 조회
   const todayReserv = () => {
+    let m = "";
+    let d = "";
     if (parseInt(month) < 10) {
-      setMonth(`0${month}`);
+      let m = `0${month}`;
+      return m;
     }
     if (date < 10) {
-      setDate(`0${date}`);
+      let d = `0${date}`;
+      return d;
     }
-    let url = `/run/reservations/confirm?date=${year}-${month}-${date}`;
+    let url = `/run/reservations/confirm?date=${year}-${m}-${d}`;
     axios
       .get(preURL.preURL + url)
       .then((res) => {
@@ -273,6 +275,7 @@ const TimeTable = (props) => {
 
   return (
     <TimeTableWrapper>
+      <img src={Rabbit_Side} style={{ width: "10%", marginTop: "30%" }} />
       <Wrapper>
         <FirstContainer>
           <StyledDivRow
@@ -282,13 +285,6 @@ const TimeTable = (props) => {
               justifyContent: "space-between",
             }}
           >
-            {/* <ReservedBtn
-              style={{ color: light.colors.mainColor }}
-              onClick={() => props.setPop(true)}
-            >
-              달리기 예약하기
-            </ReservedBtn>
-             */}
             <Dot />
             <Dot />
             <Dot />
@@ -421,6 +417,13 @@ const TimeTable = (props) => {
           </ThirdContainer>
         </StyledDivRow>
       </Wrapper>
+      <img
+        src={Carrot_Line}
+        style={{ width: "20%", transform: "45deg" }}
+        onClick={() => {
+          props.setPop(true);
+        }}
+      />
     </TimeTableWrapper>
   );
 };
