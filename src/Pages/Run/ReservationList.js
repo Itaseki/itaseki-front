@@ -62,7 +62,7 @@ const ReservationListWrapper = (props) => {
           setNext(false);
         } else {
           setNext(true);
-          // setNextData(res.data);
+          setNextData(res.data);
         }
       })
       .catch((err) => {

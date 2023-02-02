@@ -4,11 +4,12 @@ import styled from "styled-components";
 import StyledBtn from "./StyledBtn";
 import { StyledDiv, StyledDivColumn, StyledDivRow } from "./StyledDiv";
 
-export const TimeTableWrapper = styled(StyledDiv)`
+export const TimeTableWrapper = styled(StyledDivRow)`
   width: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
   margin-top: 225px;
+  justify-content: center;
 `;
 
 export const Wrapper = styled(StyledDivColumn)`
