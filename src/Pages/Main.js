@@ -5,6 +5,7 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
 import {
+  Btn,
   DownBtn,
   ElevatorContainer,
   First,
@@ -31,56 +32,24 @@ import { StyledDivColumn } from "../Style/StyledDiv";
 // Assets
 import MainPage_Logo from "../Assets/MainPage_Logo.png";
 import PopPlaylist from "../Assets/PopPlaylist.png";
-import Temp from "../Assets/Temp_gif.png";
 import Guideline_Btn from "../Assets/Guideline_Btn.png";
 import Video_Btn from "../Assets/Video_Btn.png";
 import Run_Btn from "../Assets/Run_Btn.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretSquareUp } from "@fortawesome/free-regular-svg-icons";
+import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 
 const Main = () => {
-  const [popCommus, setpopCommus] = useState([]);
-  const [popGIFs, setPopGIFs] = useState(PopGifTest);
   const [popVideos, setPopVideos] = useState([]);
   const [popPlaylists, setPopPlaylists] = useState([]);
-
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentVid, setCurrentVid] = useState("");
 
   useEffect(() => {
-    console.log(
-      "=============================[Main.js]============================="
-    );
-    popCommu();
-    popGIF();
+    console.log("========================[Main.js]========================");
     popVideo();
     popPlaylist();
   }, []);
-
-  // 인기 잡담글 조회
-  const popCommu = () => {
-    axios
-      .get(preURL.preURL + "/main/community")
-      .then((res) => {
-        console.log("❕인기 잡담글 조회❕ ", res.data);
-        setpopCommus(res.data);
-      })
-      .catch((err) => {
-        console.error("⚠️ 인기 잡담글 조회 ⚠️ ", err);
-      });
-  };
-
-  // 인기 짤 조회
-  const popGIF = () => {
-    axios
-      .get(preURL.preURL + "/main/image")
-      .then((res) => {
-        console.log("❕인기 짤 조회❕ ", res.data);
-        if (res.data.length > 1) {
-          setPopGIFs(res.data);
-        }
-      })
-      .catch((err) => {
-        console.error("⚠️ 인기 짤 조회 ⚠️ ", err);
-      });
-  };
 
   // 인기 영상 조회
   const popVideo = () => {
@@ -89,22 +58,33 @@ const Main = () => {
       .then((res) => {
         console.log("❕인기 영상 조회❕ ", res.data);
         setPopVideos(res.data);
+        setCurrentVid(res.data[currentIndex].thumbnailUrl);
       })
       .catch((err) => {
         console.error("⚠️ 인기 영상 조회 ⚠️ ", err);
       });
   };
 
-  // 슬라이더
-  const [scrollState, setScrollState] = useState(0);
-
-  const nextSlide = () => {
-    let count = popVideos.length - 1 ? 0 : count + 1;
-    setScrollState(`-${count * 453}px`);
+  // 이전 영상
+  const prevVid = () => {
+    if (currentIndex == 0) {
+      setCurrentIndex(popVideos.length - 1);
+    } else {
+      setCurrentIndex((prev) => prev - 1);
+    }
+    setCurrentVid(popVideos[currentIndex].thumbnailUrl);
+    console.log(currentIndex, currentVid);
   };
-  const prevSlide = () => {
-    let count = count == 0 ? popVideos.length - 1 : count - 1;
-    setScrollState(`-${count * 453}px`);
+
+  // 다음 영상
+  const nextVid = () => {
+    if (currentIndex == popVideos.length - 1) {
+      setCurrentIndex(0);
+    } else {
+      setCurrentIndex((prev) => prev + 1);
+    }
+    setCurrentVid(popVideos[currentIndex].thumbnailUrl);
+    console.log(currentIndex, currentVid);
   };
 
   // 인기 플레이리스트 조회
@@ -131,15 +111,16 @@ const Main = () => {
       </First>
       <Second>
         <PopVidsContainer>
-          {popVideos &&
-            popVideos.map((v) => {
-              return <PopVid src={v.thumbnail} style={{ top: scrollState }} />;
-            })}
+          <PopVid src={currentVid} />
         </PopVidsContainer>
         <ElevatorContainer>
-          <Num>0위</Num>
-          <UpBtn onClick={() => prevSlide()} />
-          <DownBtn onClick={() => nextSlide()} />
+          <Num>{currentIndex + 1}위</Num>
+          <Btn onClick={prevVid}>
+            <FontAwesomeIcon icon={faCaretUp} />
+          </Btn>
+          <Btn onClick={nextVid}>
+            <FontAwesomeIcon icon={faCaretDown} />
+          </Btn>
         </ElevatorContainer>
       </Second>
       <Third style={{ paddingTop: "12%", paddingBottom: "12%" }}>
@@ -161,7 +142,7 @@ const Main = () => {
         <Link to="/guide">
           <ImgBtn src={Guideline_Btn} />
         </Link>
-        <Link to="/videolist">
+        <Link to="/video">
           <ImgBtn src={Video_Btn} />
         </Link>
         <Link to="/running">

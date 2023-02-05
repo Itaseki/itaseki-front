@@ -41,7 +41,7 @@ export const RunningBtn = styled(StyledBtn)`
 export const Second = styled(StyledDivRow)`
   height: 100%;
   min-width: 100%;
-  padding: 15% 30% 15% 30%;
+  padding: 15% 0% 15% 0%;
   justify-content: center;
 `;
 
@@ -55,11 +55,15 @@ export const PopVidsContainer = styled.div`
 export const PopVid = styled.img`
   width: 808px;
   height: 453px;
+  border-radius: 60px;
 `;
 
 export const ElevatorContainer = styled(StyledDivColumn)`
   width: 83.17px;
-  height: 260px;
+  height: 300px;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 8%;
 `;
 
 export const Num = styled(StyledDiv)`
@@ -73,23 +77,14 @@ export const Num = styled(StyledDiv)`
   border-radius: 10px;
 `;
 
-export const UpBtn = styled(StyledBtn)`
-  width: 83.17px;
-  height: 83.17px;
-  background: #e3eded;
-  border: 8px solid #000000;
-  box-shadow: 5px 3px 0px #000000;
-  border-radius: 12px;
-`;
-
-export const DownBtn = styled(StyledBtn)`
-  width: 83.17px;
-  height: 83.17px;
-  background: #e3eded;
-  border: 8px solid #000000;
-  box-shadow: 5px 3px 0px #000000;
-  border-radius: 12px;
-  transform: rotate(-180deg);
+export const Btn = styled(StyledBtn)`
+  width: 74.66px;
+  height: 74.66px;
+  font-size: 35px;
+  filter: drop-shadow(4px -4px 0px #000000);
+  background-color: #e3eded;
+  border: 6px solid #000000;
+  border-radius: 10px;
 `;
 
 export const Third = styled(StyledDivRow)`
@@ -145,7 +140,7 @@ export const Fourth = styled(StyledDivRow)`
   width: 80%;
   background-color: #d7e0e4;
   justify-content: space-around;
-  padding: 20% 10% 20% 10%;
+  padding: 10%;
 `;
 
 export const ImgBtn = styled.img`
