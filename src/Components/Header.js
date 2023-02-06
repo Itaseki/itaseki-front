@@ -73,16 +73,16 @@ const Header = ({ darkMode }) => {
         {/* 카테고리 링크 */}
         <StyledDivRow style={{ width: 540, justifyContent: "space-between" }}>
           <StyledLink to="/video">
-            <Category>영상</Category>
+            <Category color="#D2C195">영상</Category>
           </StyledLink>
           <StyledLink to="/playlist">
-            <Category>플레이리스트</Category>
+            <Category color="#9F8BAC">플레이리스트</Category>
           </StyledLink>
           <StyledLink to="/reservation">
-            <Category>달리기</Category>
+            <Category color="#D8969A">달리기</Category>
           </StyledLink>
           <StyledLink to="/center">
-            <Category>고객센터</Category>
+            <Category color="#8086BF">고객센터</Category>
           </StyledLink>
         </StyledDivRow>
         <Link to="/search">
@@ -167,6 +167,9 @@ const RightWrapper = styled.div`
 const Category = styled.span`
   font-family: EF_Diary;
   font-size: 25px;
+  :hover {
+    color: ${(props) => props.color};
+  }
 `;
 
 const Profile = styled.div`
