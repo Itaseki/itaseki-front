@@ -16,7 +16,6 @@ import {
   FirstContainer,
   Line,
   ReservedBox,
-  ReservedBtn,
   SecondContainer,
   ThirdContainer,
   TimeBlock,
@@ -28,14 +27,15 @@ import {
 import { TodayReservTest } from "../../TestData/ReservTest";
 import { light } from "../../Style/Color";
 import Carrot_Line from "../../Assets/Carrot_Line.png";
+import Carrot_Color from "../../Assets/Carrot_Color.png";
 import Rabbit_Side from "../../Assets/Rabbit_Side.png";
 
 const TimeTable = (props) => {
   let d = new Date();
 
   const [year, setYear] = useState(d.getFullYear());
-  const [month, setMonth] = useState(d.getMonth() + 1);
-  const [date, setDate] = useState(d.getDate());
+  const [month, setMonth] = useState(`0${d.getMonth() + 1}`);
+  const [date, setDate] = useState(`0${d.getDate()}`);
   const [dateDiff, setDateDiff] = useState(1);
   const [todayData, setTodayData] = useState(TodayReservTest);
 
@@ -43,6 +43,7 @@ const TimeTable = (props) => {
   const [timeBlocks, setTimeBlocks] = useState([]);
 
   const [searchTimezone, setSearchTimezone] = useState([]);
+  const [selectedId, setSelectedId] = useState([]);
 
   const [timeData, setTimeData] = useState([]);
   const [isTimeData, setisTimeData] = useState(false);
@@ -76,8 +77,8 @@ const TimeTable = (props) => {
 
   const today = new Date();
 
-  const addDays = () => {
-    setDateDiff((prev) => prev + 1);
+  const addDays = (num) => {
+    setDateDiff((prev) => prev + num);
     let addedDate = calDays(today, dateDiff);
     addedDate.getDate() < 10
       ? setDate(`0${addedDate.getDate()}`)
@@ -155,22 +156,24 @@ const TimeTable = (props) => {
     if (
       window.getComputedStyle(element).backgroundColor == "rgb(245, 245, 245)"
     ) {
-      ColorToOrange(timevar, id);
+      AddToTimeZone(timevar, id);
     } else {
       element.style.backgroundColor = "#F5F5F5";
       console.log("취소-searchTimezone: ", searchTimezone);
       let newTimeZone = searchTimezone.filter((s) => s !== timevar);
       console.log("취소-newTimeZone: ", newTimeZone);
       setSearchTimezone(newTimeZone);
+      let newIDs = selectedId.filter((s) => s !== id);
+      setSelectedId(newIDs);
     }
   };
 
-  const ColorToOrange = (timevar, id) => {
+  const AddToTimeZone = (timevar, id) => {
     console.log("선택 전-searchTimezone: ", searchTimezone);
     console.log("선택된 시간:", timevar);
-    let arr = [...searchTimezone, timevar];
+    let arr = [];
+    !searchTimezone.includes(timevar) && (arr = [...searchTimezone, timevar]);
     setSearchTimezone(arr);
-    // setSearchTimezone(() => [...searchTimezone, timevar]);
     console.log("선택-newTimeZone: ", arr);
 
     let newArr = arr.sort((a, b) => {
@@ -183,8 +186,22 @@ const TimeTable = (props) => {
       }
     });
     console.log("선택-sortedTimeZone: ", newArr);
-    document.getElementById(id).style.backgroundColor = "#E8A284";
     searchTimetable(newArr);
+    ChangeToOrange(id);
+  };
+
+  // 느리게 색이 반영됨 🚨
+  const ChangeToOrange = (id) => {
+    timeBlocks.map((t) => {
+      document.getElementById(t).style.backgroundColor = "#F5F5F5";
+    });
+    let IDs = [];
+    id && (IDs = [...selectedId, id]);
+    setSelectedId(IDs);
+
+    selectedId.map((t) => {
+      document.getElementById(t).style.backgroundColor = "#E8A284";
+    });
   };
 
   // 시간별 예약 내역 조회
@@ -250,6 +267,9 @@ const TimeTable = (props) => {
         });
     }
     console.log("newTimeZone: ", timeZone);
+    setSearchTimezone([]);
+    setSelectedId([]);
+    ChangeToOrange();
   };
 
   // 시간대 늦추기
@@ -271,6 +291,9 @@ const TimeTable = (props) => {
         });
     }
     console.log("newTimeZone: ", timeZone);
+    setSearchTimezone([]);
+    setSelectedId([]);
+    ChangeToOrange();
   };
 
   return (
@@ -326,6 +349,9 @@ const TimeTable = (props) => {
                   fontSize: 15,
                   color: "white",
                 }}
+                onClick={() => {
+                  addDays(-1);
+                }}
               />
               <Day>
                 {year} / {month} / {date}
@@ -337,7 +363,7 @@ const TimeTable = (props) => {
                   color: "white",
                 }}
                 onClick={() => {
-                  addDays();
+                  addDays(1);
                 }}
               />
             </StyledDivRow>
@@ -417,13 +443,23 @@ const TimeTable = (props) => {
           </ThirdContainer>
         </StyledDivRow>
       </Wrapper>
-      <img
-        src={Carrot_Line}
-        style={{ width: "20%", transform: "45deg" }}
-        onClick={() => {
-          props.setPop(true);
-        }}
-      />
+      {props.pop ? (
+        <img
+          src={Carrot_Color}
+          style={{ width: "10%", transform: "45deg", marginBottom: "10%" }}
+          onClick={() => {
+            props.setPop(false);
+          }}
+        />
+      ) : (
+        <img
+          src={Carrot_Line}
+          style={{ width: "10%", transform: "45deg", marginBottom: "10%" }}
+          onClick={() => {
+            props.setPop(true);
+          }}
+        />
+      )}
     </TimeTableWrapper>
   );
 };
