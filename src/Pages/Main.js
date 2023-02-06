@@ -139,7 +139,7 @@ const Main = () => {
         </StyledDivColumn>
       </Third>
       <Fourth>
-        <Link to="/guide">
+        <Link to="/center">
           <ImgBtn src={Guideline_Btn} />
         </Link>
         <Link to="/video">
