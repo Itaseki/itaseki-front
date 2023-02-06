@@ -31,6 +31,7 @@ const Reservation = () => {
       <ReservationListWrapper guidePop={guidePop} setGuidePop={setGuidePop} />
       <TodayPopVids />
       <TimeTable
+        pop={pop}
         setPop={setPop}
         setDetailPop={setDetailPop}
         setReservId={setReservId}

@@ -3,7 +3,7 @@ import styled from "styled-components";
 // Assets
 import Add_Reserv from "../Assets/Add_Reserv.png";
 import StyledBtn from "./StyledBtn";
-import { StyledDiv } from "./StyledDiv";
+import { StyledDiv, StyledDivColumn, StyledDivRow } from "./StyledDiv";
 
 export const Modal = styled.div`
   background-image: url(${Add_Reserv});
@@ -11,7 +11,7 @@ export const Modal = styled.div`
   top: 15%;
   bottom: 0;
   height: auto;
-  width: 75%;
+  width: 1060px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -49,11 +49,10 @@ export const WhiteBoxBtn = styled(StyledBtn)`
   }
 `;
 
-export const AddCatWrapper = styled.div`
-  flex-direction: row;
-  position: relative;
-  top: 0px;
-  left: -320px;
+export const AddCatWrapper = styled(StyledDivRow)`
+  width: 100%;
+  justify-content: flex-start;
+  margin-left: 10%;
 `;
 
 export const AddCat = styled(StyledBtn)`

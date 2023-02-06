@@ -62,6 +62,7 @@ const TodayPopVids = () => {
       )
       .then((res) => {
         console.log("❕영상 달리기 예약 등록❕ ", res.data);
+        alert("예약이 등록되었습니다!");
       })
       .catch((err) => {
         console.error("⚠️ 영상 달리기 예약 등록  ⚠️ ", err);

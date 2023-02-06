@@ -5,6 +5,7 @@ import axios from "axios";
 import { faCarrot } from "@fortawesome/free-solid-svg-icons";
 import {
   GuideBtn,
+  GuideBtnOpen,
   NextVideo,
   NextVidTimeBox,
   NextVidTitleBox,
@@ -26,6 +27,7 @@ const ReservationListWrapper = (props) => {
   const [next, setNext] = useState(true);
   const [nextData, setNextData] = useState(NextVidTest);
   const [popVids, setPopVids] = useState(PopVidsTest);
+  const [guideOpen, setGuideOpen] = useState(false);
 
   let hour = "";
   let min = "";
@@ -115,6 +117,7 @@ const ReservationListWrapper = (props) => {
       )
       .then((res) => {
         console.log("❕영상 달리기 예약 등록❕ ", res.data);
+        alert("예약이 등록되었습니다!");
       })
       .catch((err) => {
         console.error("⚠️ 영상 달리기 예약 등록  ⚠️ ", err);
@@ -136,7 +139,13 @@ const ReservationListWrapper = (props) => {
             paddingBottom: "12%",
           }}
         >
-          <GuideBtn />
+          {guideOpen ? (
+            <Link to="/guide">
+              <GuideBtnOpen />
+            </Link>
+          ) : (
+            <GuideBtn onClick={() => setGuideOpen(true)} />
+          )}
           <NextVidTimeBox>{clock}</NextVidTimeBox>
           <ReservBtn onClick={() => onLike(nextData)}>
             예약
