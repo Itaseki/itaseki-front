@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {light} from "./Color";
+import { light } from "./Color";
 
 export const Wrapper = styled.div`
   margin: 20px;
@@ -13,10 +13,14 @@ export const HeadBtns = styled.div`
 
 export const Switch = styled.img`
   cursor: pointer;
+  width: 53px;
+  height: 53px;
 `;
 
 export const ExitBtn = styled.img`
   cursor: pointer;
+  width: 30px;
+  height: 30px;
 `;
 
 export const Body = styled.div`
@@ -41,7 +45,7 @@ export const Chatting = styled.div`
 `;
 
 export const TopBar = styled.div`
-  background-color: ${light.colors.lightOrange};
+  background-color: #f0cbcd;
   height: 22px;
 `;
 
@@ -54,16 +58,20 @@ export const InformHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  background: #f6e8d6;
+  height: 30px;
   padding: 3px;
+  font-family: EF_Diary;
+  font-size: 15px;
 `;
 
 export const Information = styled.div`
   position: absolute;
   background-color: ${light.colors.lightGray};
-  
+
   // TODO
-  visibility: ${props => props.show? "visible" : "hidden"};
-  // display: ${props => props.show? "contents" : "none"};  // 원래 의도
+  visibility: ${(props) => (props.show ? "visible" : "hidden")};
+  // display: ${(props) => (props.show ? "contents" : "none")};  // 원래 의도
   & > p {
     padding: 0 10px;
     font-weight: bold;
@@ -72,7 +80,6 @@ export const Information = styled.div`
 export const Chat = styled.div`
   height: 100%;
   padding: 5px;
-  border: 1px solid;
 `;
 
 export const ChatBottom = styled.div`
@@ -105,7 +112,7 @@ export const ImgBtn = styled.img`
 `;
 
 export const ChatInput = styled.input`
-  background-color: ${light.colors.lightOrange};
+  background-color: #f0cbcd;
   border: none;
   border-radius: 71px;
   width: 70%;
