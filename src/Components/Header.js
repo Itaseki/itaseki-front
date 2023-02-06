@@ -73,23 +73,46 @@ const Header = ({ darkMode }) => {
         {/* 카테고리 링크 */}
         <StyledDivRow style={{ width: 540, justifyContent: "space-between" }}>
           <StyledLink to="/video">
-            <Category color="#D2C195">영상</Category>
+            {darkMode ? (
+              <DarkCat color="#D2C195">영상</DarkCat>
+            ) : (
+              <Category color="#D2C195">영상</Category>
+            )}
           </StyledLink>
           <StyledLink to="/playlist">
-            <Category color="#9F8BAC">플레이리스트</Category>
+            {darkMode ? (
+              <DarkCat color="#9F8BAC">플레이리스트</DarkCat>
+            ) : (
+              <Category color="#9F8BAC">플레이리스트</Category>
+            )}
           </StyledLink>
           <StyledLink to="/reservation">
-            <Category color="#D8969A">달리기</Category>
+            {darkMode ? (
+              <DarkCat color="#D8969A">달리기</DarkCat>
+            ) : (
+              <Category color="#D8969A">달리기</Category>
+            )}
           </StyledLink>
           <StyledLink to="/center">
-            <Category color="#8086BF">고객센터</Category>
+            {darkMode ? (
+              <DarkCat color="#8086BF">고객센터</DarkCat>
+            ) : (
+              <Category color="#8086BF">고객센터</Category>
+            )}
           </StyledLink>
         </StyledDivRow>
         <Link to="/search">
-          <FontAwesomeIcon
-            icon={faMagnifyingGlass}
-            style={{ fontSize: "150%", color: "black", marginLeft: 50 }}
-          />
+          {darkMode ? (
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              style={{ fontSize: "150%", color: "white", marginLeft: 50 }}
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              style={{ fontSize: "150%", color: "black", marginLeft: 50 }}
+            />
+          )}
         </Link>
         <Profile>
           {token ? (
@@ -98,11 +121,19 @@ const Header = ({ darkMode }) => {
                 src={user.profileUrl ? user.profileUrl : User_default_img}
               />
               <StyledBtn>
-                <FontAwesomeIcon
-                  icon={faCaretDown}
-                  style={{ fontSize: "150%", color: "9C9C9C" }}
-                  onClick={() => setCaretOpen(!caretOpen)}
-                />
+                {darkMode ? (
+                  <FontAwesomeIcon
+                    icon={faCaretDown}
+                    style={{ fontSize: "150%", color: "white" }}
+                    onClick={() => setCaretOpen(!caretOpen)}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faCaretDown}
+                    style={{ fontSize: "150%", color: "9C9C9C" }}
+                    onClick={() => setCaretOpen(!caretOpen)}
+                  />
+                )}
               </StyledBtn>
             </>
           ) : (
@@ -170,6 +201,10 @@ const Category = styled.span`
   :hover {
     color: ${(props) => props.color};
   }
+`;
+
+const DarkCat = styled(Category)`
+  color: white;
 `;
 
 const Profile = styled.div`
