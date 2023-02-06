@@ -229,186 +229,184 @@ const AddReserv = (props) => {
   };
 
   return (
-    <>
-      <StyledDiv>
-        <Modal>
-          <AddCatWrapper>
-            <Link to="/addvideo">
-              <AddCat>영상 등록하기</AddCat>
-            </Link>
-            <AddCat default>영상 가져오기</AddCat>
-          </AddCatWrapper>
-          <StyledBtn onClick={() => props.setPop(false)}>
-            <FontAwesomeIcon
-              icon={faClose}
-              style={{
-                fontSize: "150%",
-                position: "relative",
-                right: -287,
-                top: 15,
-              }}
-            />
-          </StyledBtn>
-          <StyledDiv
+    <StyledDiv>
+      <Modal>
+        <AddCatWrapper>
+          <Link to="/addvideo">
+            <AddCat>영상 등록하기</AddCat>
+          </Link>
+          <AddCat default>영상 가져오기</AddCat>
+        </AddCatWrapper>
+        <StyledBtn onClick={() => props.setPop(false)}>
+          <FontAwesomeIcon
+            icon={faClose}
             style={{
-              flexDirection: "column",
-              position: "absolute",
-              top: 100,
-              left: 60,
-              justifyContent: "flex-start",
+              fontSize: "150%",
+              position: "relative",
+              right: -280,
+              top: 17,
             }}
-          >
-            <StyledDiv>
-              <div style={{ position: "relative" }}>
-                <p>영상 제목</p>
-                <input
-                  type="text"
-                  name="title"
-                  onChange={onChange}
-                  value={rItem.title}
-                  style={WhiteBoxStyle}
-                />
-                {sResult && <VideoList>{ArrayData}</VideoList>}
-                <p>영상 URL</p>
-                <p style={WhiteBoxStyle}>{rItem.url}</p>
-                <div>
-                  <p>영상 예약 날짜</p>
-                  <StyledDiv
-                    style={{ width: 403, justifyContent: "space-between" }}
-                  >
-                    <WhiteBoxBtn
-                      onClick={() => {
-                        handleClick(0, "today");
-                      }}
-                      className={`${select == "today" ? "select" : ""}`}
-                    >
-                      오늘 ({todayMonth}/{todayDate})
-                    </WhiteBoxBtn>
-                    {/* 다음달로 넘어가는 경우 처리 필요 */}
-                    <WhiteBoxBtn
-                      onClick={() => {
-                        handleClick(1, "tomorrow");
-                      }}
-                      className={`${select == "tomorrow" ? "select" : ""}`}
-                    >
-                      내일 ({todayMonth}/{todayDate + 1})
-                    </WhiteBoxBtn>
-                    <WhiteBoxBtn
-                      onClick={() => {
-                        handleClick(2, "ttomorrow");
-                      }}
-                      className={`${select == "ttomorrow" ? "select" : ""}`}
-                    >
-                      모레 ({todayMonth}/{todayDate + 2})
-                    </WhiteBoxBtn>
-                    {/* 처리 필요 */}
-                  </StyledDiv>
-                  <p>영상 예약 시간(10분 단위로 입력 가능)</p>
-                  <StyledDivRow
-                    className="reservTime"
-                    style={{ width: 403, justifyContent: "space-between" }}
-                  >
-                    <TimeInput
-                      type="number"
-                      name="hour1"
-                      onChange={onChangeTime}
-                      value={hour1}
-                      min="0"
-                      max="2"
-                    ></TimeInput>
-                    {hour1 === 0 || 1 ? (
-                      <TimeInput
-                        type="number"
-                        name="hour2"
-                        onChange={onChangeTime}
-                        value={hour2}
-                        min="0"
-                        max="9"
-                      ></TimeInput>
-                    ) : (
-                      <TimeInput
-                        type="number"
-                        name="hour2"
-                        onChange={onChangeTime}
-                        value={hour2}
-                        min="0"
-                        max="3"
-                      ></TimeInput>
-                    )}
-
-                    <Sign>:</Sign>
-                    {/* 🚨 한  클릭씩 늦게 분의 값이 바뀜 (수정 예정) */}
-                    <TimeInput
-                      type="number"
-                      name="min1"
-                      value={min1}
-                      onChange={onChangeTime}
-                      min="0"
-                      max="5"
-                    ></TimeInput>
-                    <TimeWBox>0</TimeWBox>
-                    <Sign>-</Sign>
-                    <TimeWBox>{rHour1}</TimeWBox>
-                    <TimeWBox>{rHour2}</TimeWBox>
-                    <Sign>:</Sign>
-                    <TimeWBox>{rMin1}</TimeWBox>
-                    <TimeWBox>{rMin2}</TimeWBox>
-                  </StyledDivRow>
-                </div>
-              </div>
-              <StyledDiv
-                style={{
-                  flexDirection: "column",
-                  justifyContent: "flex-start",
-                  alignItems: "flex-start",
-                  marginLeft: 77,
-                }}
-              >
-                <img src={thumbnail} style={{ width: 174, height: 98 }} />
-                <div>
-                  <p>총 재생 시간</p>
-                  <StyledDivRow
-                    style={{ width: 163, justifyContent: "space-between" }}
-                  >
-                    <TimeWBox style={{ width: 62 }}>
-                      {rItem.runtimeHour < 10
-                        ? `0${rItem.runtimeHour}`
-                        : rItem.runtimeHour}
-                    </TimeWBox>
-                    <Sign>:</Sign>
-                    <TimeWBox style={{ width: 62 }}>
-                      {rItem.runtimeMin < 10
-                        ? `0${rItem.runtimeMin}`
-                        : rItem.runtimeMin}
-                    </TimeWBox>
-                  </StyledDivRow>
-                  <StyledBtn
-                    style={{
-                      color: "white",
-                      backgroundColor: "#E37958",
-                      borderRadius: 8,
-                      width: 201,
-                      height: 50,
-                      fontSize: 16,
-                      marginTop: 50,
+          />
+        </StyledBtn>
+        <StyledDiv
+          style={{
+            flexDirection: "column",
+            position: "absolute",
+            top: 100,
+            left: 60,
+            justifyContent: "flex-start",
+          }}
+        >
+          <StyledDiv>
+            <div style={{ position: "relative" }}>
+              <p>영상 제목</p>
+              <input
+                type="text"
+                name="title"
+                onChange={onChange}
+                value={rItem.title}
+                style={WhiteBoxStyle}
+              />
+              {sResult && <VideoList>{ArrayData}</VideoList>}
+              <p>영상 URL</p>
+              <p style={WhiteBoxStyle}>{rItem.url}</p>
+              <div>
+                <p>영상 예약 날짜</p>
+                <StyledDiv
+                  style={{ width: 403, justifyContent: "space-between" }}
+                >
+                  <WhiteBoxBtn
+                    onClick={() => {
+                      handleClick(0, "today");
                     }}
-                    onClick={() => reservations()}
+                    className={`${select == "today" ? "select" : ""}`}
                   >
-                    영상 등록 완료(수정 불가)
-                  </StyledBtn>
-                </div>
-              </StyledDiv>
-            </StyledDiv>
+                    오늘 ({todayMonth}/{todayDate})
+                  </WhiteBoxBtn>
+                  {/* 다음달로 넘어가는 경우 처리 필요 */}
+                  <WhiteBoxBtn
+                    onClick={() => {
+                      handleClick(1, "tomorrow");
+                    }}
+                    className={`${select == "tomorrow" ? "select" : ""}`}
+                  >
+                    내일 ({todayMonth}/{todayDate + 1})
+                  </WhiteBoxBtn>
+                  <WhiteBoxBtn
+                    onClick={() => {
+                      handleClick(2, "ttomorrow");
+                    }}
+                    className={`${select == "ttomorrow" ? "select" : ""}`}
+                  >
+                    모레 ({todayMonth}/{todayDate + 2})
+                  </WhiteBoxBtn>
+                  {/* 처리 필요 */}
+                </StyledDiv>
+                <p>영상 예약 시간(10분 단위로 입력 가능)</p>
+                <StyledDivRow
+                  className="reservTime"
+                  style={{ width: 403, justifyContent: "space-between" }}
+                >
+                  <TimeInput
+                    type="number"
+                    name="hour1"
+                    onChange={onChangeTime}
+                    value={hour1}
+                    min="0"
+                    max="2"
+                  ></TimeInput>
+                  {hour1 === 0 || 1 ? (
+                    <TimeInput
+                      type="number"
+                      name="hour2"
+                      onChange={onChangeTime}
+                      value={hour2}
+                      min="0"
+                      max="9"
+                    ></TimeInput>
+                  ) : (
+                    <TimeInput
+                      type="number"
+                      name="hour2"
+                      onChange={onChangeTime}
+                      value={hour2}
+                      min="0"
+                      max="3"
+                    ></TimeInput>
+                  )}
+
+                  <Sign>:</Sign>
+                  {/* 🚨 한  클릭씩 늦게 분의 값이 바뀜 (수정 예정) */}
+                  <TimeInput
+                    type="number"
+                    name="min1"
+                    value={min1}
+                    onChange={onChangeTime}
+                    min="0"
+                    max="5"
+                  ></TimeInput>
+                  <TimeWBox>0</TimeWBox>
+                  <Sign>-</Sign>
+                  <TimeWBox>{rHour1}</TimeWBox>
+                  <TimeWBox>{rHour2}</TimeWBox>
+                  <Sign>:</Sign>
+                  <TimeWBox>{rMin1}</TimeWBox>
+                  <TimeWBox>{rMin2}</TimeWBox>
+                </StyledDivRow>
+              </div>
+            </div>
             <StyledDiv
-              style={{ flexDirection: "column", alignItems: "flex-start" }}
+              style={{
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                alignItems: "flex-start",
+                marginLeft: 77,
+              }}
             >
-              <p style={{ marginBottom: 0 }}>영상을 간단하게 소개해주세요!</p>
-              <VideoDescription>{rItem.description}</VideoDescription>
+              <img src={thumbnail} style={{ width: 174, height: 98 }} />
+              <div>
+                <p>총 재생 시간</p>
+                <StyledDivRow
+                  style={{ width: 163, justifyContent: "space-between" }}
+                >
+                  <TimeWBox style={{ width: 62 }}>
+                    {rItem.runtimeHour < 10
+                      ? `0${rItem.runtimeHour}`
+                      : rItem.runtimeHour}
+                  </TimeWBox>
+                  <Sign>:</Sign>
+                  <TimeWBox style={{ width: 62 }}>
+                    {rItem.runtimeMin < 10
+                      ? `0${rItem.runtimeMin}`
+                      : rItem.runtimeMin}
+                  </TimeWBox>
+                </StyledDivRow>
+                <StyledBtn
+                  style={{
+                    color: "white",
+                    backgroundColor: "#E37958",
+                    borderRadius: 8,
+                    width: 201,
+                    height: 50,
+                    fontSize: 16,
+                    marginTop: 50,
+                  }}
+                  onClick={() => reservations()}
+                >
+                  영상 등록 완료(수정 불가)
+                </StyledBtn>
+              </div>
             </StyledDiv>
           </StyledDiv>
-        </Modal>
-      </StyledDiv>
-    </>
+          <StyledDiv
+            style={{ flexDirection: "column", alignItems: "flex-start" }}
+          >
+            <p style={{ marginBottom: 0 }}>영상을 간단하게 소개해주세요!</p>
+            <VideoDescription>{rItem.description}</VideoDescription>
+          </StyledDiv>
+        </StyledDiv>
+      </Modal>
+    </StyledDiv>
   );
 };
 
