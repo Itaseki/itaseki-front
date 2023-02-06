@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {preURL} from "../preURL/preURL";
+import { preURL } from "../preURL/preURL";
 import { UserContext } from "../_contextAPI/UserContext";
 // Component
 import Token from "./Token";
@@ -21,7 +21,6 @@ import { light } from "../Style/Color";
 import Main_logo from "../Assets/Main_logo.png";
 import Main_logo_dark from "../Assets/Main_logo_dark.png";
 import User_default_img from "../Assets/User_default_img.png";
-
 
 // 카카오 소셜 로그인
 const client_id = process.env.REACT_APP_KAKAO_REST_API_KEY;
@@ -45,24 +44,23 @@ const Header = ({ darkMode }) => {
     let logout = window.confirm("로그아웃 하시겠습니까?");
     if (logout) {
       axios
-          .patch(preURL + `/user/${user.id}/edit`,[],{
-            headers: {
-              ITTASEKKI: token
-            }
-          })
-          .then((res) => {
-            console.log("👍로그아웃 성공", res);
-            sessionStorage.removeItem("access-token");
-            window.location.replace("/");
-            alert("로그아웃 되었습니다.");
-          })
-          .catch((err) => {
-            console.log("🧨로그아웃 실패", err);
-            alert('로그아웃 실패');
-          })
+        .patch(preURL + `/user/${user.id}/edit`, [], {
+          headers: {
+            ITTASEKKI: token,
+          },
+        })
+        .then((res) => {
+          console.log("👍로그아웃 성공", res);
+          sessionStorage.removeItem("access-token");
+          window.location.replace("/");
+          alert("로그아웃 되었습니다.");
+        })
+        .catch((err) => {
+          console.log("🧨로그아웃 실패", err);
+          alert("로그아웃 실패");
+        });
     }
   };
-
 
   return (
     <Wrapper>
@@ -83,7 +81,7 @@ const Header = ({ darkMode }) => {
           <StyledLink to="/reservation">
             <Category>달리기</Category>
           </StyledLink>
-          <StyledLink to="/">
+          <StyledLink to="/center">
             <Category>고객센터</Category>
           </StyledLink>
         </StyledDivRow>
@@ -115,8 +113,12 @@ const Header = ({ darkMode }) => {
         </Profile>
         {caretOpen ? (
           <ProfileUl>
-            <ProfileList onClick={() => navigate("/mypage")}>마이페이지</ProfileList>
-            <ProfileList onClick={() => navigate("/mypage/savedPly")}>저장 플레이리스트</ProfileList>
+            <ProfileList onClick={() => navigate("/mypage")}>
+              마이페이지
+            </ProfileList>
+            <ProfileList onClick={() => navigate("/mypage/savedPly")}>
+              저장 플레이리스트
+            </ProfileList>
             <ProfileList onClick={onLogout}>로그아웃</ProfileList>
           </ProfileUl>
         ) : (
@@ -184,7 +186,7 @@ const ProfileImg = styled.img`
 
 const ProfileUl = styled.ul`
   box-sizing: border-box;
-  
+
   position: fixed;
   top: 100px; // TODO 대강
   right: 40px;
@@ -212,12 +214,12 @@ const LoginBtn = styled.button`
 const ProfileList = styled(StyledBtn)`
   width: 140px;
   height: 30px;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  font-family: 'EF_Diary';
+
+  font-family: "EF_Diary";
   font-size: 16px;
   line-height: 19px;
   letter-spacing: -0.02em;
@@ -225,16 +227,16 @@ const ProfileList = styled(StyledBtn)`
   margin: 12.5px 0;
   padding: 0.5px;
   border: none;
-  
+
   cursor: pointer;
-  
+
   :hover {
     box-sizing: border-box;
-    
+
     background: rgba(160, 160, 160, 0.5);
     border: 1px solid #000000;
-    box-shadow: 3px 3px 0px #94928E;
+    box-shadow: 3px 3px 0px #94928e;
 
-    color: #FFFFFF;
+    color: #ffffff;
   }
 `;

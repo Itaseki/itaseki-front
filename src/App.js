@@ -27,7 +27,6 @@ import NewBoard from "./Pages/Board/NewBoard";
 import Search from "./Pages/Search/Search";
 
 import Center from "./Pages/Member/Center";
-import Guide from "./Pages/Member/Guide";
 
 const App = () => {
   return (
@@ -43,7 +42,6 @@ const App = () => {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/mypage/savedPly" element={<MySavedPly />} />
         <Route path="/center" element={<Center />} />
-        <Route path="/guide" element={<Guide />} />
         {/* Search */}
         <Route path="/search" element={<Search />} />
         {/* Video */}

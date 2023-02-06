@@ -140,7 +140,7 @@ const ReservationListWrapper = (props) => {
           }}
         >
           {guideOpen ? (
-            <Link to="/guide">
+            <Link to="/center">
               <GuideBtnOpen />
             </Link>
           ) : (
