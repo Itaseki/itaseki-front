@@ -5,6 +5,7 @@ import StyledBtn from "./StyledBtn";
 // Assets
 import Nothing from "../Assets/Nothing.png";
 import Guide_Btn from "../Assets/Guide_Btn.png";
+import Guide_Btns from "../Assets/Guide_Btns.png";
 
 export const Wrapper = styled(StyledDivColumn)`
   width: 100vw;
@@ -14,6 +15,15 @@ export const GuideBtn = styled(StyledBtn)`
   width: 349.88px;
   height: 223.85px;
   background-image: url(${Guide_Btn});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+`;
+
+export const GuideBtnOpen = styled(StyledBtn)`
+  width: 363.52px;
+  height: 324px;
+  background-image: url(${Guide_Btns});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
