@@ -2,7 +2,7 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://roaring-kataifi-26f993.netlify.app",
+  "homepage": "https://itaseki-front-a6s6.vercel.app/",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
