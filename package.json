@@ -2,6 +2,7 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://Itaseki.github.io/itaseki-front",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -36,7 +37,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": {
     "production": [
@@ -51,7 +54,9 @@
     ]
   },
   "engines": {
-    "node": "16"
+    "node": "18.6.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^5.0.0"
   }
-  
 }

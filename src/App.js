@@ -31,7 +31,7 @@ import Center from "./Pages/Member/Center";
 const App = () => {
   return (
     <Store>
-      <Routes>
+      <Routes basename={process.env.PUBLIC_URL}>
         <Route path="/" element={<Main />} />
         {/* Start */}
         <Route path="/oauth/kakao" element={<LoginRedirect />} />
