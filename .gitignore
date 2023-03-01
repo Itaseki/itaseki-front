@@ -2,7 +2,7 @@
 
 # src/preURL/
 # .preURL
-# /src/preURL
+/src/preURL/
 .env
 /.idea/
 
