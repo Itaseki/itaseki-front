@@ -14,12 +14,13 @@ import SendingBtn from "../../Assets/Chat_Seding_btn.png";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
 
-const sock = new SockJs(preURL.preURL + '/stomp/chat');
-const client = StompJs.over(sock);
-// client.debug = () => {};
 
 const ChatContainer = ({userProfileUrl}) => {
   const token = Token();
+
+  const sock = new SockJs(preURL.preURL + '/stomp/chat');
+  const client = StompJs.over(sock);
+// client.debug = () => {};
 
   const [contents, setContents] = useState([]);
   const [writer, setWriter] = useState("");   // TODO 로그인된 사용자 닉네임으로
