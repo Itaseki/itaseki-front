@@ -37,7 +37,7 @@ const TimeTable = (props) => {
   const [month, setMonth] = useState(`0${d.getMonth() + 1}`);
   const [date, setDate] = useState(`0${d.getDate()}`);
   const [dateDiff, setDateDiff] = useState(1);
-  const [todayData, setTodayData] = useState(TodayReservTest);
+  const [todayData, setTodayData] = useState();
 
   const [timeZone, setTimeZone] = useState([0, 1, 2]);
   const [timeBlocks, setTimeBlocks] = useState([]);
@@ -317,22 +317,23 @@ const TimeTable = (props) => {
           <SecondContainer>
             <BoldTitle>예약 확정 목록</BoldTitle>
             <Line style={{ width: 182, marginBottom: 5 }} />
-            {todayData.map((reserv) => {
-              return (
-                <ReservedBox
-                  onClick={() => {
-                    props.setConfirmed(true);
-                    props.setReservId(reserv.reservationId);
-                    props.setDetailPop(true);
-                  }}
-                >
-                  <p style={{ fontFamily: "Pretendard300" }}>
-                    {reserv.startTime}~{reserv.endTime}
-                  </p>
-                  <p>{reserv.title}</p>
-                </ReservedBox>
-              );
-            })}
+            {todayData &&
+              todayData.map((reserv) => {
+                return (
+                  <ReservedBox
+                    onClick={() => {
+                      props.setConfirmed(true);
+                      props.setReservId(reserv.reservationId);
+                      props.setDetailPop(true);
+                    }}
+                  >
+                    <p style={{ fontFamily: "Pretendard300" }}>
+                      {reserv.startTime}~{reserv.endTime}
+                    </p>
+                    <p>{reserv.title}</p>
+                  </ReservedBox>
+                );
+              })}
           </SecondContainer>
           <ThirdContainer>
             <StyledDivRow
