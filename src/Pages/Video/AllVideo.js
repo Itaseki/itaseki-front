@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
+import Token from "../../Components/Token";
 // Components
 import Header from "../../Components/Header";
 import Pagination from "../../Components/Pagination";
@@ -20,7 +21,7 @@ import StyledBtn from "../../Style/StyledBtn";
 import Video_main from "../../Assets/Video_main.png"
 
 const AllVideo = () => {
-
+  const token = Token();
   const navigate = useNavigate();
 
   const [bestVideos, setBestVideos] = useState([
@@ -95,6 +96,15 @@ const AllVideo = () => {
     setSort("likeCount,DESC");
   };
 
+  // 새 영상 올리기 버튼 클릭
+  const addNewPost = () => {
+    if(!token) {
+      alert('로그인 후 이용해주세요.');
+      return;
+    }
+    navigate("/addvideo");
+  };
+
 
   return (
       <div>
@@ -102,7 +112,7 @@ const AllVideo = () => {
         <Wrapper>
           <TopWrapper>
             <MainLogo src={Video_main} alt="영상 게시판" />
-            <NewPost onClick={() => navigate("/addvideo")} board="video">
+            <NewPost onClick={addNewPost} board="video">
               새 영상 올리기
             </NewPost>
           </TopWrapper>
