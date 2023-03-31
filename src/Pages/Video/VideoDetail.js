@@ -172,7 +172,7 @@ const VideoDetail = () => {
           <VideoWrapper>
             <TitleUploader>
               <div id="title" title={video.videoTitle}>
-                {(video.videoTitle.length < 15) ? video.videoTitle : video.videoTitle.substring(0, 15)+" .."}
+                {(video.videoTitle.length < 35) ? video.videoTitle : video.videoTitle.substring(0, 35)+" .."}
               </div>
               <div id="uploader">
                 {video.videoUploader}
