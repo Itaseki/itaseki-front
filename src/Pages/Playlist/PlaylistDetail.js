@@ -176,12 +176,12 @@ const PlaylistDetail = () => {
     return (
         <OneVideoInPly>
           <VideoNum>{++cnt}</VideoNum>
-          <VideoContainer onClick={()=>navigate(`/videolist/${video.id}`)}>
+          <VideoContainer onClick={()=>navigate(`/video/${video.id}`)}>
             <img src={video.thumbnailUrl} alt="썸네일"/>
           </VideoContainer>
           <PlyVideoInfo>
             <StyledDivRow>
-              <span id="title" onClick={()=>navigate(`/videolist/${video.id}`)}>
+              <span id="title" onClick={()=>navigate(`/video/${video.id}`)}>
                 {video.title}
               </span>
               <img

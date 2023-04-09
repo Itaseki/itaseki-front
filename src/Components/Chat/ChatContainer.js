@@ -60,7 +60,7 @@ const ChatContainer = ({userProfileUrl}) => {
       client.subscribe('/sub/chat/room/' + roomId, (chat) => {
         console.log("Get message", chat.body);
         const newMessage = JSON.parse(chat.body);
-        addMessage(newMessage);
+        // addMessage(newMessage);
       });
 
       client.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: writer}))
