@@ -22,6 +22,7 @@ import {
 import Rabbits from "../../Assets/Three_Rabbits.png";
 import StyledBtn from "../../Style/StyledBtn";
 import Pagination from "../../Components/Pagination";
+import { Link } from "react-router-dom";
 
 const Search = () => {
   const [keyword, setKeyword] = useState("");
@@ -138,10 +139,15 @@ const Search = () => {
           onClick={() => handleSearch()}
         />
       </SearchBox>
-      <RunningBtn>
-        <p>지금 달리고 있는 인기 클립은? 바로 달리러 가기!</p>
-        <img src={Rabbits} style={{ width: "15%" }} />
-      </RunningBtn>
+      <Link
+        to="/reservation"
+        style={{ textDecoration: "none", color: "inherit" }}
+      >
+        <RunningBtn>
+          <p>지금 달리고 있는 인기 클립은? 바로 달리러 가기!</p>
+          <img src={Rabbits} style={{ width: "15%" }} />
+        </RunningBtn>
+      </Link>
       <StyledDivColumn style={{ width: "80%" }}>
         <ResultBox>
           <StyledDivRow style={{ width: "80%" }}>
