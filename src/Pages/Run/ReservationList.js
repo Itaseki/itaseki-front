@@ -25,8 +25,8 @@ import Token from "../../Components/Token";
 
 const ReservationListWrapper = (props) => {
   const [next, setNext] = useState(true);
-  const [nextData, setNextData] = useState(NextVidTest);
-  const [popVids, setPopVids] = useState(PopVidsTest);
+  const [nextData, setNextData] = useState();
+  const [popVids, setPopVids] = useState();
   const [guideOpen, setGuideOpen] = useState(false);
 
   let hour = "";
@@ -41,7 +41,7 @@ const ReservationListWrapper = (props) => {
 
   useEffect(() => {
     getNextVideo();
-    Time();
+    nextData > 0 && Time();
     console.log("================[ReservationList]================");
     console.log(hour, min, timeLeftMin, timeLeftSec);
   }, []);
@@ -49,7 +49,7 @@ const ReservationListWrapper = (props) => {
   // 1초마다 시간 갱신
   useEffect(() => {
     let timer = setInterval(() => {
-      Time();
+      nextData > 0 && Time();
     }, 1000);
 
     return () => clearInterval(timer);
@@ -77,7 +77,6 @@ const ReservationListWrapper = (props) => {
   // 시간 계산
   function Time() {
     let now = new Date();
-
     hour = parseInt(nextData.startTime.substring(0, 2));
     min = parseInt(nextData.startTime.substring(3, 5));
 
@@ -146,23 +145,45 @@ const ReservationListWrapper = (props) => {
           ) : (
             <GuideBtn onClick={() => setGuideOpen(true)} />
           )}
-          <NextVidTimeBox>{clock}</NextVidTimeBox>
-          <ReservBtn onClick={() => onLike(nextData)}>
-            예약
-            <FontAwesomeIcon
-              icon={faCarrot}
-              style={{ fontSize: "150%", marginLeft: 10, marginRight: 5 }}
-            />
-            {nextData.Long}
-          </ReservBtn>
+          {nextData ? (
+            <NextVidTimeBox>{clock}</NextVidTimeBox>
+          ) : (
+            <NextVidTimeBox>00분 00초 후 달릴 영상</NextVidTimeBox>
+          )}
+          {nextData ? (
+            <ReservBtn onClick={() => onLike(nextData)}>
+              예약
+              <FontAwesomeIcon
+                icon={faCarrot}
+                style={{ fontSize: "150%", marginLeft: 10, marginRight: 5 }}
+              />
+              {nextData.Long}
+            </ReservBtn>
+          ) : (
+            <ReservBtn>
+              예약
+              <FontAwesomeIcon
+                icon={faCarrot}
+                style={{ fontSize: "150%", marginLeft: 10, marginRight: 5 }}
+              />
+            </ReservBtn>
+          )}
         </StyledDivColumn>
         <StyledDivColumn>
           <NextVideo src={Temp} />
           <StyledDivRow style={{ height: "100%", alignItems: "center" }}>
-            <NextVidTitleBox>
-              <span>{nextData.title}</span>
-              <span>{nextData.runTime}</span>
-            </NextVidTitleBox>
+            {nextData ? (
+              <NextVidTitleBox>
+                <span>{nextData.title}</span>
+                <span>{nextData.runTime}</span>
+              </NextVidTitleBox>
+            ) : (
+              <NextVidTitleBox>
+                <span></span>
+                <span></span>
+              </NextVidTitleBox>
+            )}
+
             <Link to="/running">
               <RunBtn>
                 <img src={Run} style={{ width: "80%" }} />

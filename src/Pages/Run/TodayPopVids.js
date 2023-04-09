@@ -18,7 +18,7 @@ import { faCarrot } from "@fortawesome/free-solid-svg-icons";
 import Token from "../../Components/Token";
 
 const TodayPopVids = () => {
-  const [popReserv, setPopReserv] = useState(TodayPopVidsTest);
+  const [popReserv, setPopReserv] = useState();
 
   const token = Token();
 
@@ -73,50 +73,101 @@ const TodayPopVids = () => {
   return (
     <MainContainer>
       <Num>1</Num>
-      <PopVidContainer>
-        <PopVidImg />
-        <PopVidInfoContainer>
-          <PopVidInfo>{popReserv[0].title}</PopVidInfo>
-          <PopVidTime>{popReserv[0].runTime}</PopVidTime>
-        </PopVidInfoContainer>
-        <ReservBtnContainer onClick={() => onLike(popReserv[0])}>
-          <ReservBtn>
-            예약
-            <IconCarrot icon={faCarrot} />
-            {popReserv[0].count}
-          </ReservBtn>
-        </ReservBtnContainer>
-      </PopVidContainer>
+      {popReserv ? (
+        <PopVidContainer>
+          <PopVidImg src={popReserv[0].thumbnailUrl} />
+          <PopVidInfoContainer>
+            <PopVidInfo>{popReserv[0].title}</PopVidInfo>
+            <PopVidTime>{popReserv[0].runTime}</PopVidTime>
+          </PopVidInfoContainer>
+          <ReservBtnContainer onClick={() => onLike(popReserv[0])}>
+            <ReservBtn>
+              예약
+              <IconCarrot icon={faCarrot} />
+              {popReserv[0].count}
+            </ReservBtn>
+          </ReservBtnContainer>
+        </PopVidContainer>
+      ) : (
+        // 데이터 없을 때
+        <PopVidContainer>
+          <PopVidImg />
+          <PopVidInfoContainer>
+            <PopVidInfo></PopVidInfo>
+            <PopVidTime></PopVidTime>
+          </PopVidInfoContainer>
+          <ReservBtnContainer>
+            <ReservBtn>
+              예약
+              <IconCarrot icon={faCarrot} />
+            </ReservBtn>
+          </ReservBtnContainer>
+        </PopVidContainer>
+      )}
       <Num>2</Num>
-      <PopVidContainer>
-        <PopVidImg />
-        <PopVidInfoContainer>
-          <PopVidInfo>{popReserv[1].title}</PopVidInfo>
-          <PopVidTime>{popReserv[2].runTime}</PopVidTime>
-        </PopVidInfoContainer>
-        <ReservBtnContainer onClick={() => onLike(popReserv[1])}>
-          <ReservBtn>
-            예약
-            <IconCarrot icon={faCarrot} />
-            {popReserv[1].count}
-          </ReservBtn>
-        </ReservBtnContainer>
-      </PopVidContainer>
+      {popReserv ? (
+        <PopVidContainer>
+          <PopVidImg src={popReserv[1].thumbnailUrl} />
+          <PopVidInfoContainer>
+            <PopVidInfo>{popReserv[1].title}</PopVidInfo>
+            <PopVidTime>{popReserv[1].runTime}</PopVidTime>
+          </PopVidInfoContainer>
+          <ReservBtnContainer onClick={() => onLike(popReserv[1])}>
+            <ReservBtn>
+              예약
+              <IconCarrot icon={faCarrot} />
+              {popReserv[1].count}
+            </ReservBtn>
+          </ReservBtnContainer>
+        </PopVidContainer>
+      ) : (
+        // 데이터 없을 때
+        <PopVidContainer>
+          <PopVidImg />
+          <PopVidInfoContainer>
+            <PopVidInfo></PopVidInfo>
+            <PopVidTime></PopVidTime>
+          </PopVidInfoContainer>
+          <ReservBtnContainer>
+            <ReservBtn>
+              예약
+              <IconCarrot icon={faCarrot} />
+            </ReservBtn>
+          </ReservBtnContainer>
+        </PopVidContainer>
+      )}
       <Num>3</Num>
-      <PopVidContainer>
-        <PopVidImg />
-        <PopVidInfoContainer>
-          <PopVidInfo>{popReserv[2].title}</PopVidInfo>
-          <PopVidTime>{popReserv[2].runTime}</PopVidTime>
-        </PopVidInfoContainer>
-        <ReservBtnContainer onClick={() => onLike(popReserv[2])}>
-          <ReservBtn>
-            예약
-            <IconCarrot icon={faCarrot} />
-            {popReserv[2].count}
-          </ReservBtn>
-        </ReservBtnContainer>
-      </PopVidContainer>
+      {popReserv ? (
+        <PopVidContainer>
+          <PopVidImg src={popReserv[2].thumbnailUrl} />
+          <PopVidInfoContainer>
+            <PopVidInfo>{popReserv[2].title}</PopVidInfo>
+            <PopVidTime>{popReserv[2].runTime}</PopVidTime>
+          </PopVidInfoContainer>
+          <ReservBtnContainer onClick={() => onLike(popReserv[2])}>
+            <ReservBtn>
+              예약
+              <IconCarrot icon={faCarrot} />
+              {popReserv[2].count}
+            </ReservBtn>
+          </ReservBtnContainer>
+        </PopVidContainer>
+      ) : (
+        // 데이터 없을 때
+        <PopVidContainer>
+          <PopVidImg />
+          <PopVidInfoContainer>
+            <PopVidInfo></PopVidInfo>
+            <PopVidTime></PopVidTime>
+          </PopVidInfoContainer>
+          <ReservBtnContainer>
+            <ReservBtn>
+              예약
+              <IconCarrot icon={faCarrot} />
+            </ReservBtn>
+          </ReservBtnContainer>
+        </PopVidContainer>
+      )}
     </MainContainer>
   );
 };
