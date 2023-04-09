@@ -25,7 +25,7 @@ import Guide_Black from "../../Assets/Guide_Black.png";
 import Mypage_eye2 from "../../Assets/Mypage_eye2.png";
 
 const Center = () => {
-  const [isAbout, setIsAbout] = useState(false);
+  const [isAbout, setIsAbout] = useState(true);
   const [isContact, setIsContact] = useState(false);
 
   return (
