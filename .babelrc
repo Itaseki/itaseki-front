@@ -3,7 +3,9 @@
     
       "production": {
         
-          "plugins": ["transform-remove-console", "@babel/plugin-proposal-optional-chaining"]
+          "plugins": ["transform-remove-console", "@babel/plugin-proposal-optional-chaining"],
+          "presets": ["@babel/preset-env", "@babel/preset-react"]
       }
+      
   }
 }
