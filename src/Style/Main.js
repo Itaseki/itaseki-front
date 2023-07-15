@@ -7,7 +7,7 @@ import StyledBtn from "./StyledBtn";
 export const Wrapper = styled(StyledDivColumn)`
   width: 100vw;
   min-width: 100%;
-  min-height: 180rem;
+  min-height: 185rem;
   align-items: center;
   margin-top: 9%;
 `;
@@ -164,7 +164,7 @@ export const ImgBtnBox = styled(StyledDivRow)`
 `;
 
 export const ImgBtn = styled.img`
-  width: 16rem;
+  width: 17rem;
   flex-shrink: 0;
 `;
 
