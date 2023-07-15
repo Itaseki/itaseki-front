@@ -6,6 +6,20 @@ html.dark #root{
   background-color: black;
 }
 
+/* font-size로 rem 기본 반응형 */
+html {
+  font-size: 16px;
+
+  @media (max-width: 800px) {
+    font-size: 70%;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 50%;
+  }
+}
+
+
 body {
     background-color: #F4F3EE;
   margin: 0;
