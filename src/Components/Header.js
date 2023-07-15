@@ -34,11 +34,6 @@ const Header = ({ darkMode }) => {
   const [user, setUser] = useContext(UserContext);
   const [caretOpen, setCaretOpen] = useState(false);
 
-  // 유저 정보 확인
-  // useEffect(() => {
-  //   console.log("user: ", user);
-  // },[user]);
-
   // 로그아웃
   const onLogout = () => {
     let logout = window.confirm("로그아웃 하시겠습니까?");
@@ -71,7 +66,9 @@ const Header = ({ darkMode }) => {
       </LeftWrapper>
       <RightWrapper>
         {/* 카테고리 링크 */}
-        <StyledDivRow style={{ width: 540, justifyContent: "space-between" }}>
+        <StyledDivRow
+          style={{ width: "33.75rem", justifyContent: "space-around" }}
+        >
           <StyledLink to="/video">
             {darkMode ? (
               <DarkCat color="#D2C195">영상</DarkCat>
@@ -142,7 +139,7 @@ const Header = ({ darkMode }) => {
             </a>
           )}
         </Profile>
-        {caretOpen ? (
+        {caretOpen && (
           <ProfileUl>
             <ProfileList onClick={() => navigate("/mypage")}>
               마이페이지
@@ -152,8 +149,6 @@ const Header = ({ darkMode }) => {
             </ProfileList>
             <ProfileList onClick={onLogout}>로그아웃</ProfileList>
           </ProfileUl>
-        ) : (
-          <></>
         )}
       </RightWrapper>
     </Wrapper>
@@ -167,37 +162,39 @@ const Wrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 2% 3% 2% 3%;
+  padding: 1rem 2rem 2rem 2rem;
   margin: 0;
   height: 6%;
-  width: 94%;
+  width: 100%;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 10;
+  background-color: #f4f3ee;
 `;
 
 const LeftWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: center;
+  justify-content: center;
 `;
 
 const Logo = styled.img`
-  width: 241px;
-  height: 56px;
+  width: 12rem;
 `;
 
 const RightWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 1%;
+  height: 100%;
+  width: 100%;
+  padding: 0rem 0rem 0rem 4rem;
 `;
 
 const Category = styled.span`
   font-family: EF_Diary;
-  font-size: 25px;
+  font-size: 1.25rem;
   :hover {
     color: ${(props) => props.color};
   }
@@ -212,13 +209,13 @@ const Profile = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-left: 21px;
+  margin-left: 1.3rem;
 `;
 
 const ProfileImg = styled.img`
-  width: 41px;
-  height: 41px;
-  margin-right: 6px;
+  width: 2.56rem;
+  height: 2.56rem;
+  margin-right: 0.35rem;
   border-radius: 50%;
 `;
 
@@ -226,44 +223,44 @@ const ProfileUl = styled.ul`
   box-sizing: border-box;
 
   position: fixed;
-  top: 100px; // TODO 대강
-  right: 40px;
+  top: 6.25rem;
+  right: 2.5rem;
 
   display: flex;
   flex-direction: column;
   margin: 0;
-  padding: 12.5px 25px;
+  padding: 0.78rem 1.56rem;
   z-index: 10;
 
   background: ${light.colors.backgroundColor};
-  border: 1px solid #000000;
-  box-shadow: 5px -5px 0px #000000;
-  border-radius: 30px;
+  border: 0.05rem solid #000000;
+  box-shadow: 0.3rem -0.3rem 0px #000000;
+  border-radius: 1.75rem;
 `;
 
 const LoginBtn = styled.button`
   background-color: rgba(0, 0, 0, 0);
   border: none;
   font-family: EF_Diary;
-  font-size: 25px;
+  font-size: 1.25rem;
   cursor: pointer;
 `;
 
 const ProfileList = styled(StyledBtn)`
-  width: 140px;
-  height: 30px;
+  width: 8.75rem;
+  height: 1.75rem;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   font-family: "EF_Diary";
-  font-size: 16px;
-  line-height: 19px;
+  font-size: 1rem;
+  line-height: 1.2rem;
   letter-spacing: -0.02em;
 
-  margin: 12.5px 0;
-  padding: 0.5px;
+  margin: 0.75rem 0;
+  padding: 0.03rem;
   border: none;
 
   cursor: pointer;
@@ -272,8 +269,8 @@ const ProfileList = styled(StyledBtn)`
     box-sizing: border-box;
 
     background: rgba(160, 160, 160, 0.5);
-    border: 1px solid #000000;
-    box-shadow: 3px 3px 0px #94928e;
+    border: 0.05rem solid #000000;
+    box-shadow: 0.2rem 0.2rem 0px #94928e;
 
     color: #ffffff;
   }
