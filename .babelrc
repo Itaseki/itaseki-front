@@ -1,7 +1,9 @@
 {
-    "env": {
+  "env": {
+    
       "production": {
-        "plugins": ["transform-remove-console"]
+        
+          "plugins": ["transform-remove-console", "@babel/plugin-proposal-optional-chaining"]
       }
-    }
   }
+}
