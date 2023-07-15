@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useTransition, animated } from "react-spring";
 
 import axios from "axios";
 import preURL from "../preURL/preURL";
