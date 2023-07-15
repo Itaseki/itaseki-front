@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
 import Header from "../../Components/Header";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import Pagination from "../../Components/Pagination";
-
-// style
+// Style
 import StyledBtn from "../../Style/StyledBtn";
 import WriteBtn from "../../Style/WriteBtn";
 import WriteWord from "../../Style/WriteWord";
 import { light } from "../../Style/Color";
-
-// assets
+// Assets
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import Best_GIF from "../../Assets/Best_GIF.png";
 
-import { Link } from "react-router-dom";
 import { StyledDivColumn } from "../../Style/StyledDiv";
 import {
   BestGIF,

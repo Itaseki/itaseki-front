@@ -1,22 +1,20 @@
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // Style
 import styled from "styled-components";
 import StyledBtn from "../../Style/StyledBtn";
-import {StyledDivRow} from "../../Style/StyledDiv";
+import { StyledDivRow } from "../../Style/StyledDiv";
 import { light } from "../../Style/Color";
+// Assets
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-// Assets
 import Line_info from "../../Assets/Line_info.png";
 import Ply_Count_Icon from "../../Assets/Ply_Count_Icon.png";
 import Ply_preview from "../../Assets/Ply_preview.png";
 
-
 // 플레이리스트 한개
-const OnePly = ({ply, best}) => {
+const OnePly = ({ ply, best }) => {
   const navigate = useNavigate();
-
 
   return (
     <OnePlyWrapper>
@@ -25,9 +23,7 @@ const OnePly = ({ply, best}) => {
         <img id="cover" src={Ply_preview} alt="썸네일 커버" />
       </PlyContainer>
       <StyledDivRow>
-        {best &&
-          <Rank>{best}</Rank>
-        }
+        {best && <Rank>{best}</Rank>}
         <PlyInfo>
           <TopInfo>
             <span id="title" onClick={() => navigate(`/playlist/${ply.id}`)}>
@@ -57,10 +53,8 @@ const OnePly = ({ply, best}) => {
           </TopInfo>
           <BottomInfo>
             <span>{ply.writerNickname}</span>
-            <img id="line" src={Line_info} alt="line"/>
-            <span id="video-cnt">
-              총 {ply.videoCount}개 영상
-            </span>
+            <img id="line" src={Line_info} alt="line" />
+            <span id="video-cnt">총 {ply.videoCount}개 영상</span>
           </BottomInfo>
         </PlyInfo>
       </StyledDivRow>
@@ -70,11 +64,10 @@ const OnePly = ({ply, best}) => {
 
 export default OnePly;
 
-
 const OnePlyWrapper = styled.div`
   margin: 0.5%; // TODO or auto
   //margin: auto;
-`
+`;
 
 const PlyContainer = styled.div`
   background-color: gray;
@@ -98,27 +91,27 @@ const PlyContainer = styled.div`
     z-index: 2;
     right: 0;
   }
-`
+`;
 
 const Rank = styled.p`
-  font-family: 'Walter Turncoat';
+  font-family: "Walter Turncoat";
   font-weight: 400;
   font-size: 31px;
   line-height: 43px;
   letter-spacing: 0.05em;
-  
+
   margin: 0 5px;
 
   color: ${light.colors.mainColor};
-`
+`;
 
 const PlyInfo = styled.div`
   width: 100%;
-`
+`;
 
 // 플레이리스트 하단 정보
 const TopInfo = styled.div`
-  font-family: 'EF_Diary';
+  font-family: "EF_Diary";
   width: 100%;
   margin: 3px 0;
   display: flex;
@@ -130,11 +123,11 @@ const TopInfo = styled.div`
     display: flex;
     align-items: center;
   }
-`
+`;
 
 const BottomInfo = styled.div`
   font-size: small;
-  font-family: 'EF_Diary';
+  font-family: "EF_Diary";
   color: #858585;
   & > #line {
     margin: 0 10px;
@@ -142,4 +135,4 @@ const BottomInfo = styled.div`
   & > #video-cnt {
     color: ${light.colors.reservColor};
   }
-`
+`;

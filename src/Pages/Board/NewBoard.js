@@ -1,13 +1,10 @@
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { WithContext as ReactTags } from "react-tag-input";
 import styled from "styled-components";
 import Header from "../../Components/Header";
 import preURL from "../../preURL/preURL";
 import StyledBtn from "../../Style/StyledBtn";
-import { Redirect } from "react-router-dom";
 
 import {
   StyledDiv,

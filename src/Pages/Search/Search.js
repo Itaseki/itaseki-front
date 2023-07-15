@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import Header from "../../Components/Header";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import preURL from "../../preURL/preURL";
+// Components
+import Header from "../../Components/Header";
 import OneVideo from "../../Components/Video/OneVideo";
+import Pagination from "../../Components/Pagination";
 import { StyledDivColumn, StyledDivRow } from "../../Style/StyledDiv";
 import OnePly from "../../Components/Playlist/Oneply";
 import {
@@ -13,16 +16,14 @@ import {
   WriteInput,
 } from "../../Style/Search";
 import { SortBox, VideoList, Wrapper } from "../../Style/Video";
+// Assets
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleXmark,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
-
 import Rabbits from "../../Assets/Three_Rabbits.png";
 import StyledBtn from "../../Style/StyledBtn";
-import Pagination from "../../Components/Pagination";
-import { Link } from "react-router-dom";
 
 const Search = () => {
   const [keyword, setKeyword] = useState("");

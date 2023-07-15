@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import preURL from "../../preURL/preURL";
-import axios from "axios";
 // Components
 import ChatPresenter from "./ChatPresenter";
 import Token from "../Token";
@@ -15,8 +14,7 @@ import {
 import styled from "styled-components";
 // Assets
 import SendingBtn from "../../Assets/Chat_Seding_btn.png";
-
-// chat
+// Chat
 import SockJs from "sockjs-client";
 import { Client as StompJs } from "@stomp/stompjs";
 
