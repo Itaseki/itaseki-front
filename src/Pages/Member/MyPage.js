@@ -26,7 +26,9 @@ import {
 import { StyledDivRow } from "../../Style/StyledDiv";
 import StyledBtn from "../../Style/StyledBtn";
 import { VideoList } from "../../Style/Video";
-// import {BiPencil, IoCameraReverse} from "react-icons/all";
+import { BiPencil } from "react-icons/bi";
+import { BsFillCameraFill } from "react-icons/bs";
+
 // Assets
 import GotoPly from "../../Assets/Mypage_GotoSavedply.png";
 import Eye from "../../Assets/Mypage_eye1.png";
@@ -230,7 +232,7 @@ const MyPage = () => {
           <StyledDivRow>
             <ImgWrapper>
               <img src={profileImg} alt="사용자 프로필 이미지" />
-              <IoCameraReverse id="camera" size="1.8em" />
+              <BsFillCameraFill id="camera" size="1.8em" />
               <label htmlFor="img-edit" title="프로필 이미지 변경" />
               <input
                 id="img-edit"

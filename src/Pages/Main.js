@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+
 import axios from "axios";
 import preURL from "../preURL/preURL";
+
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
@@ -11,6 +13,7 @@ import {
   First,
   Fourth,
   ImgBtn,
+  ImgBtnBox,
   MainImg,
   Num,
   PlyBox,
@@ -20,13 +23,14 @@ import {
   PopThumbnail,
   PopVid,
   PopVidsContainer,
+  Rank,
   RunningBtn,
   Second,
   Third,
   UpBtn,
   Wrapper,
 } from "../Style/Main";
-import { PopGifTest } from "../TestData/MainTest";
+// import { PopGifTest } from "../TestData/MainTest";
 import { StyledDivColumn } from "../Style/StyledDiv";
 
 // Assets
@@ -36,13 +40,15 @@ import Guideline_Btn from "../Assets/Guideline_Btn.png";
 import Video_Btn from "../Assets/Video_Btn.png";
 import Run_Btn from "../Assets/Run_Btn.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretSquareUp } from "@fortawesome/free-regular-svg-icons";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 
 const Main = () => {
   const [popVideos, setPopVideos] = useState([]);
   const [popPlaylists, setPopPlaylists] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const [prevVid, setPrevVid] = useState("");
+  const [nextVid, setNextVid] = useState("");
   const [currentVid, setCurrentVid] = useState("");
 
   useEffect(() => {
@@ -51,14 +57,18 @@ const Main = () => {
     popPlaylist();
   }, []);
 
-  // 인기 영상 조회
   const popVideo = () => {
     axios
       .get(preURL.preURL + "/main/video")
       .then((res) => {
         console.log("❕인기 영상 조회❕ ", res.data);
         setPopVideos(res.data);
-        setCurrentVid(res.data[currentIndex].thumbnailUrl);
+        setCurrentVid(res.data[0].thumbnailUrl);
+        let newIndex = 0;
+        let nextIndex = newIndex === res.data.length - 1 ? 0 : newIndex + 1;
+        let prevIndex = newIndex === 0 ? res.data.length - 1 : newIndex - 1;
+        setNextVid(res.data[nextIndex].thumbnailUrl);
+        setPrevVid(res.data[prevIndex].thumbnailUrl);
       })
       .catch((err) => {
         console.error("⚠️ 인기 영상 조회 ⚠️ ", err);
@@ -66,25 +76,23 @@ const Main = () => {
   };
 
   // 이전 영상
-  const prevVid = () => {
-    if (currentIndex == 0) {
-      setCurrentIndex(popVideos.length - 1);
-    } else {
-      setCurrentIndex((prev) => prev - 1);
-    }
-    setCurrentVid(popVideos[currentIndex].thumbnailUrl);
-    console.log(currentIndex, currentVid);
+  const getPrevVid = () => {
+    let newIndex = currentIndex === 0 ? popVideos.length - 1 : currentIndex - 1;
+    let nextIndex = newIndex === 0 ? popVideos.length - 1 : newIndex - 1;
+    setCurrentIndex(newIndex);
+    setCurrentVid(popVideos[newIndex].thumbnailUrl);
+    setNextVid(popVideos[currentIndex].thumbnailUrl);
+    setPrevVid(popVideos[nextIndex].thumbnailUrl);
   };
 
   // 다음 영상
-  const nextVid = () => {
-    if (currentIndex == popVideos.length - 1) {
-      setCurrentIndex(0);
-    } else {
-      setCurrentIndex((prev) => prev + 1);
-    }
-    setCurrentVid(popVideos[currentIndex].thumbnailUrl);
-    console.log(currentIndex, currentVid);
+  const getNextVid = () => {
+    let newIndex = currentIndex === popVideos.length - 1 ? 0 : currentIndex + 1;
+    let prevIndex = newIndex === popVideos.length - 1 ? 0 : newIndex + 1;
+    setCurrentIndex(newIndex);
+    setCurrentVid(popVideos[newIndex].thumbnailUrl);
+    setPrevVid(popVideos[currentIndex].thumbnailUrl);
+    setNextVid(popVideos[prevIndex].thumbnailUrl);
   };
 
   // 인기 플레이리스트 조회
@@ -111,20 +119,23 @@ const Main = () => {
       </First>
       <Second>
         <PopVidsContainer>
-          <PopVid src={currentVid} />
+          <PopVid position="prev" src={prevVid} />
+          <PopVid position="current" src={currentVid} />
         </PopVidsContainer>
         <ElevatorContainer>
-          <Num>{currentIndex + 1}위</Num>
-          <Btn onClick={prevVid}>
+          <Num>
+            <Rank>{currentIndex + 1}위</Rank>
+          </Num>
+          <Btn onClick={getPrevVid}>
             <FontAwesomeIcon icon={faCaretUp} />
           </Btn>
-          <Btn onClick={nextVid}>
+          <Btn onClick={getNextVid}>
             <FontAwesomeIcon icon={faCaretDown} />
           </Btn>
         </ElevatorContainer>
       </Second>
       <Third style={{ paddingTop: "12%", paddingBottom: "12%" }}>
-        <StyledDivColumn style={{ alignItems: "flex-end", width: "45%" }}>
+        <StyledDivColumn style={{ alignItems: "center", width: "45%" }}>
           <PopPly src={PopPlaylist} />
           <PopThumbnail src={popPlaylists.titleImageUrl} />
         </StyledDivColumn>
@@ -139,15 +150,17 @@ const Main = () => {
         </StyledDivColumn>
       </Third>
       <Fourth>
-        <Link to="/center">
-          <ImgBtn src={Guideline_Btn} />
-        </Link>
-        <Link to="/video">
-          <ImgBtn src={Video_Btn} />
-        </Link>
-        <Link to="/running">
-          <ImgBtn src={Run_Btn} />
-        </Link>
+        <ImgBtnBox>
+          <Link to="/center">
+            <ImgBtn src={Guideline_Btn} />
+          </Link>
+          <Link to="/video">
+            <ImgBtn src={Video_Btn} />
+          </Link>
+          <Link to="/running">
+            <ImgBtn src={Run_Btn} />
+          </Link>
+        </ImgBtnBox>
       </Fourth>
       <Footer />
     </Wrapper>
