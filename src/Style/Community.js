@@ -1,153 +1,151 @@
 import styled from "styled-components";
 import StyledBtn from "./StyledBtn";
-import {light} from "./Color";
+import { light } from "./Color";
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 100px auto;
+  margin: 6.25rem auto;
   width: 95%;
-`
+`;
 
 /*Best 잡담 게시글 목록*/
 export const BestPostsWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding-bottom: 27px;
-`
+  padding-bottom: 1.69rem;
+`;
 
 export const BestRankNum = styled.p`
   margin: 0;
   color: ${light.colors.mainColor};
-  font-size: 13px;
-  padding: 5px 10px;
-`
+  font-size: 0.81rem;
+  padding: 0.31rem 0.63rem;
+`;
 
 /*잡담 게시글 목록*/
 export const PostsWrapper = styled.div`
   display: flex;
-  padding-top: 25px;
-`
+  padding-top: 1.56rem;
+`;
 
 export const Contents = styled.div`
   display: flex;
   flex-direction: row;
-  height: 30px;
+  height: 1.88rem;
   align-items: center;
-`
+`;
 
 export const Title = styled.div`
-  padding: 5px 10px;
+  padding: 0.31rem 0.63rem;
   margin: 0;
   border: none;
-  font-size: 13px;
+  font-size: 0.81rem;
   color: black;
   & > #comment-cnt {
     font-weight: bold;
     color: ${light.colors.mainColor};
   }
-`
+`;
 
 export const Info = styled.div`
   display: flex;
   flex-direction: row;
   margin-left: auto;
-  & p{
-    font-size: 12px;
+  & p {
+    font-size: 0.75rem;
     text-align: center;
-    margin: 0 5px;
+    margin: 0 0.31rem;
   }
-`
+`;
 
 export const Line = styled.div`
-  border-bottom: 2px solid black;
-`
+  border-bottom: 0.13rem solid black;
+`;
 
 /*게시글 리스트*/
 export const PostLists = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 /*정렬 버튼*/
 export const SortBox = styled.div`
-  width: 805px;
+  width: 50.31rem;
   display: flex;
   justify-content: flex-end;
-  & p{
-    margin-right: 4px;
-    //color: #9E8FA8;
-    font-size: 11px;
+  & p {
+    margin-right: 0.25rem;
+    font-size: 0.6875rem;
   }
-`
-
+`;
 
 ////////////////////////////////////////////////////////
 // 새 게시물 작성 모달
 
 export const InputTitle = styled.input`
-  width: 792px;
-  height: 60px;
-  margin: 10px auto;
-  padding: 0 10px;
+  width: 49.5rem;
+  height: 3.75rem;
+  margin: 0.625rem auto;
+  padding: 0 0.625rem;
   background: rgba(255, 255, 255, 0.65);
-  border: 4px solid;
-  border-radius: 22px;
+  border: 0.25rem solid;
+  border-radius: 1.375rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: 25px;
+  font-size: 1.5625rem;
   font-weight: bold;
-`
+`;
 
 export const ImgInput = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-  height: 60px;
-  padding: 0 20px;
+  height: 3.75rem;
+  padding: 0 1.25rem;
   & > label {
-    width: 146px;
+    width: 9.125rem;
     height: 90%;
     background: rgba(255, 255, 255, 0.65);
-    border: 3px dashed;
-    border-radius: 29px;
+    border: 0.1875rem dashed;
+    border-radius: 1.8125rem;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
   }
   & > input {
-    margin: 0 10px;
+    margin: 0 0.625rem;
   }
-`
+`;
 
 export const TextArea = styled.textarea`
-  width: 792px;
-  height: 270px;
-  margin: 10px 0;
-  padding: 10px;
-  border: 4px dashed;
-  border-radius: 29px;
+  width: 49.5rem;
+  height: 13.125rem;
+  margin: 0.625rem 0;
+  padding: 0.625rem;
+  border: 0.25rem dashed;
+  border-radius: 1.8125rem;
   resize: none;
   ::placeholder {
     font-weight: 600;
-    font-size: 20px;
-    line-height: 19px;
+    font-size: 1.25rem;
+    line-height: 1.1875rem;
     align-items: center;
     text-align: center;
   }
-`
+`;
 
 export const SubmitBtn = styled.input`
-  width: 750px;
-  height: 70px;
-  margin: 10px 0;
+  width: 46.875rem;
+  height: 8.75rem;
+  margin: 0.625rem 0;
   cursor: pointer;
-`
+`;
 
 ///////////////////////////////////////////////////////////////
 // CommunityDetail
@@ -155,183 +153,186 @@ export const SubmitBtn = styled.input`
 export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 80px;
-  margin-bottom: 15px;
-  width: 55%;
-`
+  margin-top: 5rem;
+  margin-bottom: 0.9375rem;
+  width: 34.375rem;
+`;
 
 export const DetailTitle = styled.div`
   margin: 0;
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   font-style: normal;
   font-weight: 700;
-  font-size: 32px;
-  line-height: 38px;
+  font-size: 2rem;
+  line-height: 2.375rem;
   letter-spacing: -0.02em;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
-  & > #del{
+
+  & > #del {
     padding: 2%;
-    //color: #505050;
   }
-`
+`;
 
 export const DetailInfo = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 10px;
-  
-  & p{
-    font-family: 'Pretendard';
+  margin-top: 0.625rem;
+
+  & p {
+    font-family: "Pretendard";
     font-style: normal;
     font-weight: 600;
-    font-size: 14px;
-    line-height: 17px;
-    margin: 4px;
+    font-size: 0.875rem;
+    line-height: 1.0625rem;
+    margin: 0.25rem;
   }
-`
+`;
 
 export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 800px;
-  margin: 15px 0;
-`
+  width: 50rem;
+  margin: 0.9375rem 0;
+`;
 
 export const ContentImg = styled.img`
-  max-width: 600px;
-`
+  max-width: 37.5rem;
+`;
 
 export const CommentsWrapper = styled(Wrapper)`
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   font-style: normal;
   letter-spacing: -0.02em;
-`
+`;
 
 export const CommentsListWrapper = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 export const CommentHeader = styled.div`
-  margin: 10px 0;
-  
+  margin: 0.625rem 0;
+
   font-weight: 600;
-  font-size: 30px;
-  line-height: 35px;
+  font-size: 1.875rem;
+  line-height: 2.1875rem;
   & > #count {
     color: ${light.colors.mainColor};
   }
-`
+`;
 
 export const Comment = styled.div`
   display: flex;
   flex-direction: column;
 
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   font-style: normal;
   letter-spacing: -0.02em;
-  
+
   & > #comment-content {
-    margin: 10px 4px;
+    margin: 0.625rem 0.25rem;
   }
-`
+`;
 
 export const CommentReplyImg = styled.img`
-  width: 15px;
-  height: 19px;
-  padding: 10px;
+  width: 0.9375rem;
+  height: 1.1875rem;
+  padding: 0.625rem;
   vertical-align: middle;
-`
+`;
 
 export const ReplyBtn = styled(StyledBtn)`
-  width: 47px;
-  height: 19px;
-  margin: 6px 4px;
+  width: 3.125rem;
+  height: 1.1875rem;
+  margin: 0.375rem 0.25rem;
   background: black;
-  border-radius: 29px;
+  border-radius: 1.8125rem;
   color: white;
-  
+
   :hover {
     background-color: gray;
   }
-`
+`;
 
 export const NewCommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 70px 0;
+  margin: 4.375rem 0;
   & #nickname {
     color: ${light.colors.mainColor};
     font-weight: bold;
   }
-`
+`;
 
 export const NewCommentBox = styled.form`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-`
+`;
 
 export const NewCommentInput = styled.textarea`
-  padding: 10px;
-  width: 780px;
-  height: 80px;
-  border-radius: 17px;
-  border: 2px solid;
+  padding: 0.625rem;
+  width: 48.75rem;
+  height: 6.25rem;
+  border-radius: 1.0625rem;
+  border: 0.125rem solid;
   resize: none;
   font-size: large;
   font-weight: bold;
-  ::placeholder{
+  ::placeholder {
     font-size: xx-large;
   }
-`
+`;
 
 export const EnterBtn = styled.button`
   box-sizing: border-box;
-  
-  width: 63px;
-  height: 34px;
 
-  margin-top: 10px;
-  border: 2px solid #000000;
-  box-shadow: 3px 3px 0px #000000;
-  border-radius: 12px;
+  width: 3.9375rem;
+  height: 2.125rem;
 
-  background: #F0CBCD;
+  margin-top: 0.625rem;
+  border: 0.125rem solid #000000;
+  box-shadow: 0.9375rem 0.9375rem 0px #000000;
+  border-radius: 0.75rem;
+
+  background: #f0cbcd;
   cursor: pointer;
-  
+
   :hover {
-    background-color: #E4AFAF;
+    background-color: #e4afaf;
   }
-`
+`;
 
 export const AdditionalBtns = styled.div`
   display: flex;
-  margin: 20px 0;
-`
+  margin: 1.25rem 0;
+`;
 
 export const AButton = styled(StyledBtn)`
-  width: 120px;
-  height: 45px;
-  
-  margin: 0 60px;
-  //border: 1px solid black;
-  border-radius: 29px;
-  background: white;
-  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  width: 7.5rem;
+  height: 2.8125rem;
 
-  font-family: 'EF_Diary';
-  font-size: 14px;
-  line-height: 17px;
+  margin: 0 3.75rem;
+  //border: 1px solid black;
+  border-radius: 1.8125rem;
+  background: white;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 0.125rem,
+    rgba(6, 24, 44, 0.65) 0px 0.25rem 0.375rem -0.0625rem,
+    rgba(255, 255, 255, 0.08) 0px 0.0625rem 0px inset;
+
+  font-family: "EF_Diary";
+  font-size: 0.875rem;
+  line-height: 1.0625rem;
   letter-spacing: -0.02em;
-  
+
   :hover {
     background-color: ${light.colors.lightOrange};
   }
   :active {
-    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;  }
-`
+    box-shadow: rgb(204, 219, 232) 0.1875rem 0.1875rem 0.375rem 0px inset,
+      rgba(255, 255, 255, 0.5) -0.1875rem -0.1875rem 0.375rem 0.0625rem inset;
+  }
+`;

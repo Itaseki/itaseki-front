@@ -9,41 +9,41 @@ export const Wrapper = styled(StyledDivColumn)`
 
 export const Btn = styled(StyledDivRow)`
   width: 80%;
-  height: 231px;
+  height: 14.44rem;
   background: #000000;
-  border: 1px solid #000000;
-  box-shadow: 15px 15px 0px #ffffff, 15px 15px 0px 3px #000000;
-  border-radius: 115.5px;
+  border: 0.05rem solid #000000;
+  box-shadow: 0.95rem 0.95rem 0px #ffffff, 0.95rem 0.95rem 0px 0.15rem #000000;
+  border-radius: 7.2rem;
   justify-content: space-around;
   margin-bottom: 10%;
 `;
 
 export const Btns = styled(StyledDiv)`
-  width: 280px;
-  height: 103px;
+  width: 17.5rem;
+  height: 6.5rem;
 `;
 
 export const AboutBtnClicked = styled(Btns)`
   background: #f4f3ee;
-  box-shadow: -10px -10px 0px #e0c0c0;
-  border-radius: 51.5px;
+  box-shadow: -0.6rem -0.65rem 0px #e0c0c0;
+  border-radius: 3.25rem;
 `;
 
 export const ContactBtnCliked = styled(Btns)`
   background: #f4f3ee;
-  box-shadow: -10px -10px 0px #b2c3cb;
-  border-radius: 51.5px;
+  box-shadow: -0.6rem -0.6rem 0px #b2c3cb;
+  border-radius: 3.25rem;
 `;
 
 export const BtnImg = styled.img`
-  height: 60px;
+  height: 3.75rem;
 `;
 
 export const Span = styled.span`
   font-family: EF_Diary;
-  font-size: 18px;
+  font-size: 1.15rem;
   white-space: pre-wrap;
-  margin: 10px;
+  margin: 0.6rem;
 `;
 
 export const Red = styled(Span)`

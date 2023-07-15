@@ -1,77 +1,78 @@
-/* Example Styles for React Tags*/
 .app {
-    padding: 40px;
-    text-align: center;
-  }
-  
-  /* Example Styles for React Tags*/
-  
-  .container {
-    margin: auto;
-    width: 50%;
-  }
-  .ReactTags__tags {
-    position: relative;
-  }
-  
-  /* Styles for the input */
-  .ReactTags__tagInput {
-    width: 146px;
-    display: inline-block;
-  }
-  .ReactTags__tagInput input.ReactTags__tagInputField,
-  .ReactTags__tagInput input.ReactTags__tagInputField:focus {
-    height: 58px;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 15px;
-    width: 100%;
-    border: 4px dashed #000000;
-    border-radius: 35px;
-  }
-  
-  /* Styles for selected tags */
-  .ReactTags__selected {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  padding: 2.5rem;
+  text-align: center;
+}
 
-  .ReactTags__selected {
-    display: flex;
-    align-items: center;
-  }
-  .ReactTags__selected span.ReactTags__tag {
-    display: inline-block;
-    padding: 5px;
-    justify-content: center;
-    align-items: center;
-    width: 126px;
-    height: 48px;
-    opacity: 0.65;
-    border: 4px dashed #000000;
-    background-color: white;
-    border-radius: 35px;
-    font-size: 15px;
-    text-align: center;
-    margin: 10px;
-  }
-  .ReactTags__selected a.ReactTags__remove {
-    color: black;
-    margin-left: 5px;
-    cursor: pointer;
-  }
-  
-  .ReactTags__remove {
-    border: none;
-    cursor: pointer;
-    background: none;
-    color: black;
-    margin-top: auto;
-  }
-  .tag-wrapper ReactTags__tag
-    {
-        margin-top: auto;
-    }
+.container {
+  margin: auto;
+  width: 50%;
+}
+
+.ReactTags__tags {
+  position: relative;
+}
+
+/* Styles for the input */
+.ReactTags__tagInput {
+  width: 9.125rem;
+  display: inline-block;
+}
+
+.ReactTags__tagInput input.ReactTags__tagInputField,
+.ReactTags__tagInput input.ReactTags__tagInputField:focus {
+  height: 3.625rem;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9375rem;
+  width: 100%;
+  border: 0.25rem dashed #000000;
+  border-radius: 2.1875rem;
+}
+
+/* Styles for selected tags */
+.ReactTags__selected {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ReactTags__selected {
+  display: flex;
+  align-items: center;
+}
+
+.ReactTags__selected span.ReactTags__tag {
+  display: inline-block;
+  padding: 0.3125rem;
+  justify-content: center;
+  align-items: center;
+  width: 7.875rem;
+  height: 3rem;
+  opacity: 0.65;
+  border: 0.25rem dashed #000000;
+  background-color: white;
+  border-radius: 2.1875rem;
+  font-size: 0.9375rem;
+  text-align: center;
+  margin: 0.625rem;
+}
+
+.ReactTags__selected a.ReactTags__remove {
+  color: black;
+  margin-left: 0.3125rem;
+  cursor: pointer;
+}
+
+.ReactTags__remove {
+  border: none;
+  cursor: pointer;
+  background: none;
+  color: black;
+  margin-top: auto;
+}
+
+.tag-wrapper ReactTags__tag {
+  margin-top: auto;
+}

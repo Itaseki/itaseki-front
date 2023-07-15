@@ -4,31 +4,31 @@ import { StyledDivRow } from "./StyledDiv";
 
 export const Modal = styled.div`
   position: fixed;
-  width: 621px;
-  height: 430px;
-  left: 400px;
-  top: 150px;
+  width: 38.81rem;
+  height: 26.88rem;
+  left: 25rem;
+  top: 9.38rem;
   z-index: 2;
   display: flex;
-  padding: 2%;
+  padding: 0.5rem;
   flex-direction: column;
   align-items: center;
   background: #f4f3ee;
-  border: 6px dashed #000000;
-  border-radius: 30px;
+  border: 0.375rem dashed #000000;
+  border-radius: 1.875rem;
 `;
 
 export const CloseBtn = styled(StyledBtn)`
   align-self: flex-end;
-  margin-right: 30;
-  margin-bottom: 25;
+  margin-right: 1.875rem;
+  margin-bottom: 1.56rem;
 `;
 
 export const IMG = styled.img`
-  width: 423px;
-  height: 224px;
+  width: 26.44rem;
+  height: 14rem;
   border-radius: 7%;
-  margin-bottom: 5%;
+  margin-bottom: 1.25rem;
 `;
 
 export const P = styled.p`
@@ -42,11 +42,11 @@ export const FirstRow = styled(StyledDivRow)`
 `;
 
 export const ReservBtn = styled(StyledBtn)`
-  width: 182.39px;
-  height: 33px;
-  border-radius: 71px;
+  width: 9.12rem;
+  height: 2rem;
+  border-radius: 3.55rem;
   font-weight: bold;
-  font-size: 16px;
-  margin-top: 14px;
+  font-size: 0.875rem;
+  margin-top: 0.88rem;
   background-color: ${(props) => props.bgColor};
 `;

@@ -11,7 +11,7 @@ export const Modal = styled.div`
   top: 15%;
   bottom: 0;
   height: auto;
-  width: 1060px;
+  width: 66.25rem;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -25,9 +25,9 @@ export const Modal = styled.div`
 `;
 
 export const VideoList = styled.ul`
-  width: 393px;
+  width: 24.56rem;
   text-align: start;
-  padding-left: 10px;
+  padding-left: 0.63rem;
   z-index: 2;
   background-color: white;
   margin: 0;
@@ -35,9 +35,9 @@ export const VideoList = styled.ul`
 `;
 
 export const WhiteBoxBtn = styled(StyledBtn)`
-  width: 125px;
-  height: 33px;
-  border-radius: 8px;
+  width: 7.81rem;
+  height: 2.06rem;
+  border-radius: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,9 +56,9 @@ export const AddCatWrapper = styled(StyledDivRow)`
 `;
 
 export const AddCat = styled(StyledBtn)`
-  font-size: 25px;
-  padding: 10px 20px 10px 20px;
-  border-radius: 10px;
+  font-size: 1.56rem;
+  padding: 0.63rem 1.25rem;
+  border-radius: 0.63rem;
   font-weight: bold;
   background-color: ${(props) => (props.default ? "#EFE8CC" : "#E37958")};
 `;
@@ -67,9 +67,9 @@ export const TimeInput = styled.input`
   justify-content: center;
   align-items: center;
   background-color: white;
-  height: 33px;
-  width: 31px;
-  border-radius: 8px;
+  height: 2.06rem;
+  width: 1.94rem;
+  border-radius: 0.5rem;
   font-weight: bold;
   outline: none;
   border: 0 solid black;
@@ -79,25 +79,25 @@ export const TimeWBox = styled(StyledDiv)`
   justify-content: center;
   align-items: center;
   background-color: white;
-  height: 33px;
-  width: 31px;
+  height: 2.06rem;
+  width: 1.94rem;
   border-style: none;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   font-weight: bold;
 `;
 
 export const Sign = styled.span`
-  font-size: 35px;
+  font-size: 2.19rem;
   font-weight: bold;
 `;
 
 export const VideoDescription = styled.p`
   border-style: none;
   background-color: white;
-  width: 674px;
-  height: 33px;
-  border-radius: 8px;
+  width: 42.13rem;
+  height: 2.06rem;
+  border-radius: 0.5rem;
   display: flex;
   align-items: center;
-  padding-left: 10px;
+  padding-left: 0.63rem;
 `;

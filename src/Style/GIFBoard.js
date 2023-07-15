@@ -7,22 +7,22 @@ export const Wrapper = styled.div`
 `;
 
 export const BestGIFWrapper = styled.div`
-  width: 846px;
-  height: 114px;
+  width: 52.875rem;
+  height: 7.125rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  padding-top: 44px;
-  padding-bottom: 27px;
-  border-bottom: 3px dashed #000000;
+  padding-top: 2.75rem;
+  padding-bottom: 1.6875rem;
+  border-bottom: 0.1875rem dashed #000000;
 `;
 
 export const BestGIF = styled.img`
-  width: 242.2px;
-  height: 239.4px;
+  width: 15.1375rem;
+  height: 14.9625rem;
   position: relative;
-  top: -27px;
+  top: -1.6875rem;
 `;
 
 export const ListWrapper = styled.div`
@@ -39,17 +39,17 @@ export const MapList = styled.div`
 `;
 
 export const GIFBox = styled.div`
-  margin: 31px 40px 12px 40px;
+  margin: 1.9375rem 2.5rem 0.75rem 2.5rem;
 `;
 
 export const Line = styled.div`
-  width: 843px;
-  border-bottom: 3px dashed #000000;
+  width: 52.6875rem;
+  border-bottom: 0.1875rem dashed #000000;
 `;
 
 export const Sort2Box = styled.div`
-  width: 843.5px;
+  width: 52.71875rem;
   display: flex;
   justify-content: flex-end;
-  margin-top: 10px;
+  margin-top: 0.625rem;
 `;

@@ -1,10 +1,9 @@
-import React from "react";
 import styled from "styled-components";
 
 const WriteWord = styled.p`
   color: white;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 1rem;
   margin: 0;
 `;
 

@@ -65,10 +65,10 @@ const Center = () => {
       {isAbout && (
         <>
           <StyledDivRow style={{ whiteSpace: "pre-wrap" }}>
-            <img src={About_Bear} style={{ width: 300 }} />
+            <img src={About_Bear} style={{ width: "18.75rem" }} />
             <StyledDivColumn>
               <StyledDivRow>
-                <img src={About_Black} style={{ height: 60 }} />
+                <img src={About_Black} style={{ height: "3.75rem" }} />
                 <Red>텔레이나</Red>
               </StyledDivRow>
               <Span>
@@ -101,7 +101,7 @@ const Center = () => {
           <StyledDivRow style={{ marginTop: "5%" }}>
             <StyledDivColumn>
               <StyledDivRow>
-                <img src={Guide_Black} style={{ height: 60 }} />
+                <img src={Guide_Black} style={{ height: "3.75rem" }} />
                 <Red>텔레이나를 더욱 재미있게 즐기는 방법</Red>
               </StyledDivRow>
               <Span>달리기에 참여하는 방법을 알려드릴게요!</Span>
@@ -150,7 +150,7 @@ const Center = () => {
             </StyledDivColumn>
             <img
               src={Guide_Rabbit}
-              style={{ width: 330, marginBottom: "15%" }}
+              style={{ width: "20.625rem", marginBottom: "15%" }}
             />
           </StyledDivRow>
         </>

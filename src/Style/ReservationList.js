@@ -12,8 +12,8 @@ export const Wrapper = styled(StyledDivColumn)`
 `;
 
 export const GuideBtn = styled(StyledBtn)`
-  width: 349.88px;
-  height: 223.85px;
+  width: 21.865rem;
+  height: 14.93rem;
   background-image: url(${Guide_Btn});
   background-size: contain;
   background-repeat: no-repeat;
@@ -21,8 +21,8 @@ export const GuideBtn = styled(StyledBtn)`
 `;
 
 export const GuideBtnOpen = styled(StyledBtn)`
-  width: 363.52px;
-  height: 324px;
+  width: 22.816rem;
+  height: 20.672rem;
   background-image: url(${Guide_Btns});
   background-size: contain;
   background-repeat: no-repeat;
@@ -30,54 +30,56 @@ export const GuideBtnOpen = styled(StyledBtn)`
 `;
 
 export const NextVidTimeBox = styled(StyledDiv)`
-  width: 234.84px;
-  height: 70px;
-  box-shadow: 6px -6px 0px #d7e0e4, 6px -6px 0px 2px #000000;
-  border: 2px solid #000000;
+  width: 13.115rem;
+  height: 4.375rem;
+  box-shadow: 0.333rem -0.333rem 0px #d7e0e4,
+    0.333rem -0.333rem 0px 0.067rem #000000;
+  border: 0.067rem solid #000000;
   background-color: #d7e0e4;
-  margin-top: 11%;
-  margin-right: 50%;
+  margin-top: 2.75rem;
+  margin-right: 31.25%;
 
   font-family: EF_Diary;
-  font-size: 18px;
+  font-size: 1.125rem;
 `;
 
 export const ReservBtn = styled(StyledDiv)`
-  width: 136px;
-  height: 70px;
-  box-shadow: 6px -6px 0px #e2d7ca, 6px -6px 0px 2px #000000;
-  border: 2px solid #000000;
+  width: 7.556rem;
+  height: 4.375rem;
+  box-shadow: 0.333rem -0.333rem 0px #e2d7ca,
+    0.333rem -0.333rem 0px 0.067rem #000000;
+  border: 0.067rem solid #000000;
   background-color: #e2d7ca;
-  margin-top: 2%;
-  margin-left: 50%;
+  margin-top: 0.5rem;
+  margin-left: 31.25%;
 
   font-family: EF_Diary;
-  font-size: 20px;
+  font-size: 1.25rem;
 `;
 
 export const NextVideo = styled.img`
-  width: 711px;
-  height: 399px;
+  width: 44.437rem;
+  height: 24.937rem;
   box-sizing: border-box;
-  border: 10px solid #000000;
-  filter: drop-shadow(20px -20px 0px #000000);
-  border-radius: 20px;
+  border: 0.625rem solid #000000;
+  filter: drop-shadow(1.25rem -1.25rem 0px #000000);
+  border-radius: 1.25rem;
 `;
 
 export const NextVidTitleBox = styled(StyledDiv)`
-  width: 583px;
-  height: 27px;
+  width: 36.437rem;
+  height: 2.8125rem;
   background: #e8cdcd;
-  border: 6px solid #000000;
-  box-shadow: 5px -5px 0px #000000;
-  border-radius: 10px;
-  margin-top: 27px;
+  border: 0.375rem solid #000000;
+  box-shadow: 0.3125rem -0.3125rem 0px #000000;
+  border-radius: 0.625rem;
+  margin-top: 4.21875rem;
   margin-right: 3%;
-  padding: 20px;
+  padding: 1.25rem;
   justify-content: space-between;
 
   font-family: Pretendard800;
-  font-size: 31px;
+  font-size: 1.9375rem;
 `;
 
 export const NothingContainer = styled(StyledDiv)`
@@ -85,26 +87,26 @@ export const NothingContainer = styled(StyledDiv)`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 435px;
-  height: 288px;
+  width: 27.1875rem;
+  height: 18.875rem;
   position: absolute;
-  left: 297px;
-  top: 316px;
-  border-radius: 10px;
+  left: 19.8125rem;
+  top: 19.75rem;
+  border-radius: 0.625rem;
 `;
 
 export const WhiteText = styled.p`
   color: white;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: bold;
 `;
 
 export const RunBtn = styled(StyledDiv)`
-  width: 74px;
-  height: 74px;
+  width: 4.125rem;
+  height: 4.125rem;
   background: #e8cdcd;
-  border: 5px solid #000000;
-  box-shadow: 4px -4px 0px #000000;
-  border-radius: 56px;
-  margin-top: 27px;
+  border: 0.3125rem solid #000000;
+  box-shadow: 0.25rem -0.25rem 0px #000000;
+  border-radius: 3.5rem;
+  margin-top: 4.21875rem;
 `;

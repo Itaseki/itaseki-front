@@ -1,13 +1,13 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import StyledBtn from "./StyledBtn";
-import {light} from "./Color"
+import { light } from "./Color";
 
 //================================AddNewVideo====================================
 export const PreInform = styled.div`
   width: 65%;
-  margin: 100px auto 0;
-  border: 4px dashed #000000;
-  border-radius: 30px;
+  margin: 6.25rem auto 0;
+  border: 0.25rem dashed #000000;
+  border-radius: 1.875rem;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -16,7 +16,7 @@ export const PreInform = styled.div`
     text-align: center;
     margin-top: 2%;
   }
-`
+`;
 
 export const PreInformContent = styled.div`
   display: flex;
@@ -28,189 +28,189 @@ export const PreInformContent = styled.div`
       transform: scale(1.5);
     }
   }
-`
+`;
 
 export const AddVideoForm = styled.form`
   width: 65%;
   margin: 0 auto 10% auto;
   display: flex;
   flex-direction: column;
-`
+`;
 
 export const NewUrlForm = styled.div`
   width: 100%;
   & > input {
     background: rgba(255, 255, 255, 0.65);
-    border: 3px dashed #000000;
-    border-radius: 29px;
-    padding: 5px 5px 5px 10px;
+    border: 0.1875rem dashed #000000;
+    border-radius: 1.8125rem;
+    padding: 0.3125rem 0.3125rem 0.3125rem 0.625rem;
     box-sizing: border-box;
     width: 93%;
-    height: 50px;
+    height: 3.125rem;
   }
   & > #verify-btn {
-    width: 60px;
-    height: 35px;
-    border-radius: 17px;
-    padding: 3px;
-    margin-left: 5px;
+    width: 3.75rem;
+    height: 2.1875rem;
+    border-radius: 0.8125rem;
+    padding: 0.1875rem;
+    margin-left: 0.3125rem;
     text-align: center;
     background: black;
     color: ${light.colors.mainColor};
   }
-`
+`;
 
 export const OneRowWrapper = styled.div`
   display: flex;
   width: 100%;
-  margin: 5px 0;
-`
+  margin: 0.3125rem 0;
+`;
 
 export const Series = styled.div`
   width: 40%;
   & > input {
     width: 90%;
-    height: 25px;
+    height: 1.5625rem;
     background: rgba(255, 255, 255, 0.65);
-    border: 3px dashed black;
-    border-radius: 29px;
-    padding: 5px 5px 5px 10px;
+    border: 0.1875rem dashed black;
+    border-radius: 1.8125rem;
+    padding: 0.3125rem 0.3125rem 0.3125rem 0.625rem;
   }
-`
+`;
 
 export const AutoFrame = styled.div`
-  display: ${props => props.display? "flex" : "none"};
+  display: ${(props) => (props.display ? "flex" : "none")};
   flex-direction: column;
   //align-items: flex-start;
   box-sizing: border-box;
-  width: 220px;
-  height: 280px;
+  width: 13.75rem;
+  height: 17.5rem;
   background: white;
-  border: 5px dashed black;
-  border-radius: 29px;
-  padding: 5px;
+  border: 0.3125rem dashed black;
+  border-radius: 1.8125rem;
+  padding: 0.3125rem;
   position: absolute;
   z-index: 2;
-  :hover{
-    display: flex
+  :hover {
+    display: flex;
   }
-  & > span{
+  & > span {
     align-self: center;
     font-weight: bold;
-    margin-top: 5px;
+    margin-top: 0.3125rem;
   }
-  & > hr{
-    width: 150px;
-    border-top: 3px dashed;
+  & > hr {
+    width: 9.375rem;
+    border-top: 0.1875rem dashed;
   }
-`
+`;
 
 export const OneSelectItemWrapper = styled.div`
-  margin: 5px 0;
+  margin: 0.3125rem 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  & > label{
-    width: 100px;
+  & > label {
+    width: 6.25rem;
   }
-`
+`;
 
 export const ToggleScrollWrapper = styled.div`
   overflow-y: scroll;
   width: 100%;
-  margin: 5px 0 10px 0;
-`
+  margin: 0.3125rem 0 0.625rem 0;
+`;
 
 export const OneSeries = styled(StyledBtn)`
   background-color: transparent;
-  margin: 5px;
+  margin: 0.3125rem;
   display: block;
   text-align: left;
-`
+`;
 
 export const Introduce = styled.div`
   width: 100%;
   & > input {
     width: 97%;
-    height: 25px;
+    height: 1.5625rem;
     background: white;
-    border: 3px dashed black;
-    border-radius: 29px;
-    padding: 5px 5px 5px 10px;
+    border: 0.1875rem dashed black;
+    border-radius: 1.8125rem;
+    padding: 0.3125rem 0.3125rem 0.3125rem 0.625rem;
   }
-`
+`;
 
 export const Round = styled.div`
   width: 28%;
   & > input {
     width: 90%;
-    height: 25px;
+    height: 1.5625rem;
     background: white;
-    border: 4px dashed black;
-    border-radius: 29px;
-    padding: 5px 5px 5px 10px;
+    border: 0.25rem dashed black;
+    border-radius: 1.8125rem;
+    padding: 0.3125rem 0.3125rem 0.3125rem 0.625rem;
   }
-`
+`;
 
 export const HashTag = styled.div`
   width: 36%;
-  margin-left: 8px;
+  margin-left: 0.5rem;
   & > input {
     width: 95%;
-    height: 25px;
+    height: 1.5625rem;
     background: rgba(255, 255, 255, 0.65);
-    border: 3px dashed black;
-    border-radius: 29px;
-    padding: 5px 5px 5px 10px;
-    margin-bottom: 2px;
+    border: 0.1875rem dashed black;
+    border-radius: 1.8125rem;
+    padding: 0.3125rem 0.3125rem 0.3125rem 0.625rem;
+    margin-bottom: 0.125rem;
   }
-`
+`;
 
 export const AddToPlayList = styled.div`
   width: 28%;
   & > input {
     width: 90%;
-    height: 25px;
+    height: 1.5625rem;
     background: white;
-    border: 4px dashed black;
-    border-radius: 29px;
-    padding: 5px 5px 5px 10px;
+    border: 0.25rem dashed black;
+    border-radius: 1.8125rem;
+    padding: 0.3125rem 0.3125rem 0.3125rem 0.625rem;
   }
-`
+`;
 
 export const AddVideoBtn = styled(StyledBtn)`
   margin-left: auto;
   align-self: flex-end;
-  & > img{
-    width: 400px;
+  & > img {
+    width: 25rem;
   }
-`
+`;
 
 //================================AllVideo(AllPly)====================================
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 100px auto;
+  margin: 6.25rem auto;
   width: 95%;
-`
+`;
 
 export const TopWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 184px;
-`
+  height: 11.5rem;
+`;
 
 export const VideoListWrapper = styled.div`
   width: 100%;
-`
+`;
 
 export const MainLogo = styled.img`
-  width: 400px;
+  width: 25rem;
   position: absolute;
   left: 50%;
   transform: translate(-50%);
-`
+`;
 
 export const NewPost = styled(StyledBtn)`
   box-sizing: border-box;
@@ -218,53 +218,54 @@ export const NewPost = styled(StyledBtn)`
   position: absolute;
   right: 2%;
   bottom: 20%;
-  width: 230px;
-  height: 50px;
-  
-  background: ${props => props.board === "video" ? "#D7E0E4" : "#E8CDCD"};
-  border: 2px solid #000000;
-  box-shadow: 5px -5px 0px #000000;
+  width: 14.375rem;
+  height: 3.125rem;
 
-  font-family: 'EF_Diary';
-  font-size: 18px;
-  line-height: 23px;
+  background: ${(props) => (props.board === "video" ? "#D7E0E4" : "#E8CDCD")};
+  border: 0.125rem solid #000000;
+  box-shadow: 0.3125rem -0.3125rem 0px #000000;
+
+  font-family: "EF_Diary";
+  font-size: 1.125rem;
+  line-height: 1.4375rem;
   letter-spacing: -0.02em;
-  
-  :active, :hover {
-    background: ${props => props.board === "video" ? "#82AFC8" : "#E4AFAF"};
+
+  :active,
+  :hover {
+    background: ${(props) => (props.board === "video" ? "#82AFC8" : "#E4AFAF")};
   }
-`
+`;
 
 export const MainBox = styled.div`
   width: 90%;
   padding: 3%;
-  
-  background: #F4F3EE;
-  border: 2px solid #000000;
-  box-shadow: 15px -15px 0px #000000;
-`
+
+  background: #f4f3ee;
+  border: 0.125rem solid #000000;
+  box-shadow: 0.9375rem -0.9375rem 0px #000000;
+`;
 
 export const HOT = styled.span`
-  font-family: 'EF_Diary';
-  font-size: 39px;
-  line-height: 46px;
+  font-family: "EF_Diary";
+  font-size: 2.4375rem;
+  line-height: 2.875rem;
   letter-spacing: -0.02em;
-  -webkit-text-stroke: 3px #000000;
-`
+  -webkit-text-stroke: 0.1875rem #000000;
+`;
 
 export const VideoList = styled.div`
   display: flex;
   flex-direction: row;
-  
+
   flex-wrap: wrap;
-  margin: 2% 0;
+  margin: 0.625rem 0;
   width: 100%;
-`
+`;
 
 export const Line = styled.div`
   width: 100%;
-  border-bottom: 3px dashed black;
-`
+  border-bottom: 0.1875rem dashed black;
+`;
 
 /*정렬 버튼*/
 export const SortBox = styled.div`
@@ -273,25 +274,24 @@ export const SortBox = styled.div`
   justify-content: flex-end;
 
   & > #sort-btn {
-    font-family: 'EF_Diary';
-    font-size: 10px;
+    font-family: "EF_Diary";
+    font-size: 0.625rem;
     letter-spacing: 0.05em;
     color: rgba(0, 0, 0, 0.5);
   }
-  & p{
-    margin: 0 10px;
-    font-size: 11px;
+  & p {
+    margin: 0 0.625rem;
+    font-size: 0.6875rem;
   }
-`
-
+`;
 
 //================================VideoDetail(PlyDetail)====================================
 export const VideoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px 0;
-`
+  margin: 1.25rem 0;
+`;
 
 export const TitleUploader = styled.div`
   width: 100%;
@@ -299,89 +299,89 @@ export const TitleUploader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 2px 0;
-  
-  & > #title{
-    font-family: 'Pretendard';
+  margin: 0.125rem 0;
+
+  & > #title {
+    font-family: "Pretendard";
     font-style: normal;
     font-weight: 700;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
     letter-spacing: -0.02em;
-    
-    :hover{
+
+    :hover {
       cursor: default;
     }
   }
-  & > #uploader{
-    font-family: 'Pretendard';
+  & > #uploader {
+    font-family: "Pretendard";
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
+    font-size: 0.875rem;
+    line-height: 1.0625rem;
     letter-spacing: -0.02em;
     color: #505050;
   }
-`
+`;
 
 export const IFrame = styled.div`
-  width: 720px;
-  height: 405px;
+  width: 45rem;
+  height: 25.3125rem;
   background-color: gray;
-`
+`;
 
 export const VideoDetailInfo = styled.div`
-  width: 720px;
+  width: 45rem;
   margin: 2% 0;
-  
-  font-family: 'EF_Diary';
+
+  font-family: "EF_Diary";
   letter-spacing: -0.02em;
 
-  & #head{
-    font-size: 32px;
-    line-height: 38px;
+  & #head {
+    font-size: 2rem;
+    line-height: 2.375rem;
   }
-`
+`;
 
 export const InfoContent = styled.div`
   display: flex;
   flex-direction: row;
-  height: 140px;
-  
+  height: 8.75rem;
+
   & > #left-line {
-    border-left: thick dashed black;
+    border-left: 0.375rem dashed black;
     height: 100%;
   }
-`
+`;
 
 export const Infos = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin-left: 10px;
-  
+  margin-left: 0.625rem;
+
   & > #line {
     border: solid black;
     border-width: medium 0 0 0;
   }
-`
+`;
 
 export const AInfo = styled.div`
   display: flex;
-  & > #key{
-    width: 75px;
-    margin-right: 100px;
-    font-size: 18px;
+  & > #key {
+    width: 4.6875rem;
+    margin-right: 6.25rem;
+    font-size: 1.125rem;
     color: ${light.colors.mainColor};
   }
-  & > #value{
-    margin-right: 100px;
+  & > #value {
+    margin-right: 6.25rem;
   }
-  & > #tag{
+  & > #tag {
     background: black;
-    border-radius: 29px;
-    padding: 7px 20px;
-    margin-right: 10px;
+    border-radius: 1.8125rem;
+    padding: 0.4375rem 1.25rem;
+    margin-right: 0.3125rem;
     color: white;
   }
-`
+`;
